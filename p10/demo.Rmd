@@ -1,0 +1,27 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+Maecenas luctus convallis efficitur. Vestibulum pharetra laoreet nibh non congue. Etiam ornare, neque sit amet condimentum aliquet, odio ipsum porttitor elit, eu malesuada turpis augue sit amet arcu. Integer nec quam et massa congue tincidunt. Donec sit amet diam placerat, pharetra quam nec, ornare nisl. Quisque erat turpis, imperdiet eget tellus non, interdum ultricies nisi. Fusce a erat est. Nunc sollicitudin ante non eros vulputate, sed eleifend nulla hendrerit. Nam ac quam nulla. Praesent a ligula a justo auctor tristique ac vel neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque tempor felis sed lorem efficitur volutpat. Aliquam lectus diam, lacinia vitae velit eget, pulvinar porta massa. Curabitur nec egestas mi.
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+Morbi tincidunt mollis odio sit amet feugiat. Ut vel risus eu ante dictum consequat. Integer et luctus mauris. Donec nec faucibus urna, sed commodo risus. Nam elementum pulvinar erat, eget convallis est blandit vel. Etiam gravida sapien eu massa hendrerit maximus. Proin dolor quam, porta vitae libero non, venenatis porta tellus. Vivamus et elit a est aliquet consequat. Proin tempus, purus quis suscipit placerat, dui nunc euismod dui, sit amet luctus leo lectus in risus. Phasellus consectetur eleifend arcu. Nullam venenatis blandit nulla ut ullamcorper. Vestibulum eu arcu quis massa scelerisque sodales in ac augue. Quisque dapibus fringilla turpis, ut cursus tortor cursus sed. Sed facilisis quam eget neque viverra venenatis. Suspendisse ut lorem nec erat elementum bibendum. Curabitur lobortis purus in cursus blandit.

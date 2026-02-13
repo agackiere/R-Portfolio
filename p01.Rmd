@@ -1,0 +1,52 @@
+---
+title: "Portfolio 1"
+---
+
+> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+
+```{r load-packages, warning = FALSE, message=FALSE}
+library(tidyverse) 
+library(tidyr)
+data(fish_encounters)
+```
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget nibh vel est aliquet iaculis at placerat sem. Aenean faucibus iaculis ultricies. Nullam consequat odio in ultricies ullamcorper. Etiam venenatis in est vitae ullamcorper. Nam vitae urna ut dolor rhoncus aliquet at vel neque. Quisque tristique leo finibus nisi interdum, sit amet tempor risus viverra. Donec mollis vulputate sodales. Nunc ornare, leo quis euismod eleifend, eros mi maximus felis, vel varius lacus dui eget nibh. Duis vitae nunc nisl. Donec accumsan aliquam elit, eu fringilla quam pulvinar eget.
+
+Mauris in ligula mauris. Curabitur facilisis pharetra metus eget lobortis. In egestas nibh sit amet faucibus eleifend. Suspendisse imperdiet viverra blandit. Phasellus consectetur tincidunt eros eu facilisis. Quisque maximus, orci eget sodales aliquam, velit lorem semper dolor, nec convallis erat ipsum mattis velit. Pellentesque porttitor, mauris vitae aliquam mattis, metus nisl viverra turpis, vel convallis metus sapien et ex. Nunc consequat ipsum id dolor eleifend, sit amet semper eros sodales. Pellentesque consectetur, dui quis venenatis malesuada, nunc lorem lacinia libero, vitae malesuada dui arcu in augue. Aliquam id sagittis libero. Vestibulum aliquet sagittis libero, non posuere odio molestie ut. Curabitur lacus enim, viverra vel odio non, pretium efficitur elit. Mauris posuere efficitur interdum. Nunc sed bibendum turpis, quis fringilla velit. Phasellus eu lorem lobortis eros molestie laoreet.
+
+
+
+```{r}
+# Create a barplot of the number of fish encounters by species
+ggplot(data = fish_encounters, aes(x = station, y = seen)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Species", y = "Number of Fish Encounters")
+  
+```
+
+
+Sed mollis purus faucibus leo finibus, ut pharetra nibh elementum. Nulla id orci lorem. Mauris sollicitudin mi eget tellus vehicula, ut convallis lorem mollis. In blandit nulla diam, a malesuada sem volutpat interdum. Ut elementum elit at velit maximus, ac tempor odio porttitor. Suspendisse lobortis sollicitudin tortor, ut pharetra libero luctus a. Sed hendrerit faucibus metus. Sed rutrum purus vel pellentesque euismod.
+
+
+```{r}
+# Create a barplot of the number of fish encounters by species
+ggplot(data = fish_encounters, aes(x = station, y = seen)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Species", y = "Number of Fish Encounters") +
+  theme_minimal()
+  
+```
+
+Mauris placerat in velit a pharetra. Nulla viverra bibendum lectus, ut lobortis nibh. Aenean malesuada, orci vitae dictum placerat, enim justo aliquet leo, ac tincidunt augue ipsum et mi. Nullam in pharetra metus, nec molestie felis. Duis varius rhoncus pulvinar. Integer semper urna sed tellus rhoncus, vel suscipit odio iaculis. Mauris iaculis neque pellentesque ex convallis venenatis. Sed ultrices euismod fermentum. Ut feugiat risus at turpis tincidunt viverra.
+
+
+```{r}
+# Create a barplot of the number of fish encounters by species
+ggplot(data = fish_encounters, aes(x = station, y = seen)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Species", y = "Number of Fish Encounters") +
+  theme_classic()
+  
+```
+
+Donec sagittis suscipit orci in ultrices. Vivamus iaculis eleifend est et dictum. Fusce non urna at lacus dapibus tincidunt ac sed nibh. Donec luctus lectus elit, ac ultrices tortor mollis sit amet. Nulla finibus lacinia arcu. Proin sollicitudin non odio et pulvinar. Maecenas finibus faucibus finibus. Ut elementum metus velit, a sodales sapien commodo et. Vivamus pulvinar, sapien et porta cursus, elit est luctus nisi, eget fringilla odio diam et enim. Sed sodales suscipit bibendum. Morbi ut metus semper, laoreet felis sodales, consequat dolor.
