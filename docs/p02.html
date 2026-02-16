@@ -9,6 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Anaelle Gackiere" />
 
 
 <title>Portfolio 2</title>
@@ -291,17 +292,511 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Portfolio 2</h1>
+<h4 class="author">Anaelle Gackiere</h4>
+<h4 class="date">02-13-2026</h4>
 
 </div>
 
 
-<blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
-</blockquote>
+<div id="project-description" class="section level3">
+<h3>Project Description</h3>
+<p>The Substance Abuse and Mental Health Services Administration
+(SAMHSA) pulbishes a yearly National Survey on Drug Use and Health
+(NSDUH). It is an nationally representative, open-access, public-use
+dataset that is designed to help researchers and clinicians gain a
+better understanding of the state of mental health (MH) and substance
+used disorders (SUDs) in America. Essentially, the NSDUH “is a
+nationwide survey that samples the general population, 12 and older, on
+the use of tobacco, alcohol, and drugs, mental health, and other health
+related issues in the United States.”</p>
+<p>Although it is used primarily to monitor trends in MH and SUDs and
+inform policies and resource allocation strategies. It also happens to
+be a great data set to practice data cleaning, wrangling, visualization,
+and analysis due to its large sample size, breadth of items, and strange
+coding of variables.</p>
+<p>A few notes before we dive in and explore this dataset: 1. Future
+analyses will address sampling weights. 2. There are excluded personnel
+in this dataset (prisoners, active-duty military members, etc…) 3.
+Although I would love to have explored more variables and tested
+specific hypotheses, this was not possible given the time frame. Future
+work will explore specific theories. 4. You’ll notice that I’m creating
+many graphs, and looking at seemingly random variables and testing what
+seems interesting. This is not good practice if the goal is inferential
+testing. I am not worried at type 1 errors in this specific piece, given
+it is mostly to explore a dataset I found to be interesting for
+practice.</p>
+<p>For more information on the variables used below, please see the
+codebook attached in the p02 folder.</p>
+</div>
+<div id="setting-up" class="section level3">
+<h3>Setting Up</h3>
+<p>First, I load all the libraries I think I might use (even if they go
+unused, I prefer this over having to load the libraries on and on as I
+go)</p>
+<pre class="r"><code>library(dplyr)      </code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(ggplot2)    
+library(survey)     </code></pre>
+<pre><code>## Loading required package: grid</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## Loading required package: survival</code></pre>
+<pre><code>## 
+## Attaching package: &#39;survey&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:graphics&#39;:
+## 
+##     dotchart</code></pre>
+<pre class="r"><code>library(tidyverse)   </code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ lubridate 1.9.4     ✔ tibble    3.3.1
+## ✔ purrr     1.2.1     ✔ tidyr     1.3.2
+## ✔ readr     2.1.6</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ tidyr::expand() masks Matrix::expand()
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ✖ tidyr::pack()   masks Matrix::pack()
+## ✖ tidyr::unpack() masks Matrix::unpack()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>library(rstatix)  </code></pre>
+<pre><code>## 
+## Attaching package: &#39;rstatix&#39;
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     filter</code></pre>
+<pre class="r"><code>library(lm.beta)
+library(haven)
+library(ggplot2)
+library(ggridges)
+
+# then we load the data
+load(&quot;p02/NSDUH_2024.Rdata&quot;)</code></pre>
+</div>
+<div id="data-cleaning" class="section level3">
+<h3>Data Cleaning</h3>
+<p>If you have ever looked through this dataset, you’ll notice a
+wide-range of quirks that require some cleaning. Here, I’m interested in
+the overall mental health score, and removing the responses that are
+skips and such.</p>
+<pre class="r"><code># Clean mental health score
+df &lt;- NSDUH_2024 %&gt;%
+  mutate(
+    MH_score = as.numeric(KSSLR6MONED),
+    MH_score = ifelse(MH_score %in% c(94, 97, 98, 99), NA, MH_score)
+  ) %&gt;%
+  # Remove rows with missing MH_score or AGE3
+  filter(!is.na(MH_score), !is.na(AGE3))</code></pre>
+<p>Next, I want to look at young adults. The original entries are
+formatted strangely (to me) and, although not best practice, I decide to
+lump them into three big groups.</p>
+<pre class="r"><code># Recode AGE3 into 3 broad adult age groups
+df &lt;- df %&gt;%
+  mutate(
+    AGE_GROUP = case_when(
+      AGE3 %in% 4:6  ~ &quot;Young adult&quot;,   # 18–29
+      AGE3 %in% 7:9  ~ &quot;Middle age&quot;,    # 30–64
+      AGE3 == 10 | AGE3 == 11 ~ &quot;Older adult&quot;
+    ),
+    AGE_GROUP = factor(AGE_GROUP, levels = c(&quot;Young adult&quot;, &quot;Middle age&quot;, &quot;Older adult&quot;))
+  )
+
+# Check counts
+table(df$AGE_GROUP)</code></pre>
+<pre><code>## 
+## Young adult  Middle age Older adult 
+##       13683       21753       10385</code></pre>
+</div>
+<div id="question-1-is-age-group-related-to-mental-health-scores"
+class="section level3">
+<h3>Question 1: Is age group related to mental health scores?</h3>
+<pre class="r"><code># let&#39;s plot it!
+ggplot(df, aes(x = MH_score, fill = AGE_GROUP)) +
+  geom_density(alpha = 0.4) +
+  labs(
+    x = &quot;Mental Health Score&quot;,
+    y = &quot;Density&quot;,
+    fill = &quot;Age Group&quot;,
+    title = &quot;Mental Health Scores by Age Group&quot;
+  ) +
+  theme_minimal()</code></pre>
+<p><img src="p02_files/figure-html/sig-differences-1.png" alt="" width="672" /></p>
+<pre class="r"><code># I love inferential testing!! 
+
+# Kruskal-Wallis test --&gt; using this since our data is very skewed
+kruskal.test(MH_score ~ AGE_GROUP, data = df)</code></pre>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  MH_score by AGE_GROUP
+## Kruskal-Wallis chi-squared = 3412.5, df = 2, p-value &lt; 2.2e-16</code></pre>
+<pre class="r"><code># Effect size
+kruskal_effsize(df, MH_score ~ AGE_GROUP)</code></pre>
+<pre><code>## # A tibble: 1 × 5
+##   .y.          n effsize method  magnitude
+## * &lt;chr&gt;    &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
+## 1 MH_score 45821  0.0744 eta2[H] moderate</code></pre>
+<pre class="r"><code># Pairwise Wilcoxon comparisons
+pairwise.wilcox.test(df$MH_score, df$AGE_GROUP, p.adjust.method = &quot;bonferroni&quot;)</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
+## 
+## data:  df$MH_score and df$AGE_GROUP 
+## 
+##             Young adult Middle age
+## Middle age  &lt;2e-16      -         
+## Older adult &lt;2e-16      &lt;2e-16    
+## 
+## P value adjustment method: bonferroni</code></pre>
+<p>Conclusion: There is a relationship between age group and mental
+health scores. Young adults have the higher mental health scores than
+middle aged and older adults. However, the distribution is highly skewed
+for all three groups (which is why I used a Kruskal-Wallist test).</p>
+</div>
+<div id="data-cleaning-and-discovery-continued" class="section level3">
+<h3>Data Cleaning and Discovery Continued</h3>
+<p>The young adult data stood out to me in the graph above. I wanted to
+explore how these young adults are doing in more depth.</p>
+<p>As I was going through the codebook, a few variables stood out to me.
+Here, I’m cleaning them just like I did for the mental health scores,
+and I’m renaming them for clarity. I’m also creating a new df with just
+the young adult age group. You’ll notice I did not use every variable,
+but I wanted to clean them nonetheless in case I might use them.</p>
+<pre class="r"><code># lots of cleaning to do
+young_adults &lt;- df %&gt;%
+  filter(AGE_GROUP == &quot;Young adult&quot;)
+
+young_adults &lt;- young_adults %&gt;%
+  mutate(
+    POVERTY3   = ifelse(POVERTY3 %in% c(94, 97, 98, 99), NA, POVERTY3),
+    HRTCONDEV2 = ifelse(HRTCONDEV2 %in% c(94, 97, 98, 99), NA, HRTCONDEV2),
+    BMI2       = ifelse(BMI2 %in% c(94, 97, 98, 99), NA, BMI2),
+    CASURCVR   = ifelse(CASURCVR %in% c(94, 97, 98, 99), NA, CASURCVR),
+    CAMHPROB   = ifelse(CAMHPROB %in% c(94, 97, 98, 99), NA, CAMHPROB),
+    HEALTH2    = ifelse(HEALTH2 %in% c(94, 97, 98, 99), NA, HEALTH2),
+    IRSEX      = ifelse(IRSEX %in% c(94, 97, 98, 99), NA, IRSEX),
+    HLCNOTYR   = ifelse(HLCNOTYR %in% c(94, 97, 98, 99), NA, HLCNOTYR),
+    GOVTPROG   = ifelse(GOVTPROG %in% c(94, 97, 98, 99), NA, GOVTPROG)
+  ) %&gt;%
+  rename(
+    poverty_level = POVERTY3,
+    heart_condition = HRTCONDEV2,
+    bmi = BMI2,
+    drug_problem = CASURCVR,
+    mental_health_problem = CAMHPROB,
+    overall_health = HEALTH2,
+    gender = IRSEX,
+    no_health_insurance = HLCNOTYR,
+    gov_program = GOVTPROG
+  ) %&gt;%
+   # Convert categorical predictors to factors
+  mutate(
+    heart_condition = factor(heart_condition),
+    drug_problem = factor(drug_problem),
+    mental_health_problem = factor(mental_health_problem),
+    gender = factor(gender),
+    no_health_insurance = factor(no_health_insurance),
+    gov_program = factor(gov_program)
+  ) %&gt;%
+  # Remove any rows with missing values in DV or predictors
+  drop_na(MH_score, poverty_level, heart_condition, bmi, drug_problem,
+          mental_health_problem, overall_health, gender, no_health_insurance, gov_program)
+
+# now we save this
+young_adults &lt;- young_adults %&gt;%
+  select(MH_score, poverty_level, heart_condition, bmi, drug_problem,
+         mental_health_problem, overall_health, gender, no_health_insurance, gov_program)</code></pre>
+<p>Now that we’re focusing on the young adults, I want to see what the
+distribution, in the form of a histogram, looks like for mental health
+scores in that group.</p>
+<pre class="r"><code># let&#39;s take a peak
+head(young_adults)</code></pre>
+<pre><code>## # A tibble: 6 × 10
+##   MH_score poverty_level heart_condition   bmi drug_problem
+##      &lt;dbl&gt;         &lt;dbl&gt; &lt;fct&gt;           &lt;dbl&gt; &lt;fct&gt;       
+## 1       15             3 2                28.9 1           
+## 2        4             1 2                29.0 2           
+## 3        9             3 1                19.7 1           
+## 4       16             3 1                20.1 2           
+## 5       11             3 2                32.5 2           
+## 6       20             3 2                18.9 2           
+## # ℹ 5 more variables: mental_health_problem &lt;fct&gt;, overall_health &lt;dbl&gt;,
+## #   gender &lt;fct&gt;, no_health_insurance &lt;fct&gt;, gov_program &lt;fct&gt;</code></pre>
+<pre class="r"><code>summary(young_adults)</code></pre>
+<pre><code>##     MH_score    poverty_level   heart_condition      bmi        drug_problem
+##  Min.   : 0.0   Min.   :1.000   1 : 42          Min.   :14.04   1:631       
+##  1st Qu.: 7.0   1st Qu.:1.000   2 :908          1st Qu.:21.95   2:319       
+##  Median :11.0   Median :3.000   85:  0          Median :25.09               
+##  Mean   :11.2   Mean   :2.277                   Mean   :26.65               
+##  3rd Qu.:15.0   3rd Qu.:3.000                   3rd Qu.:29.51               
+##  Max.   :24.0   Max.   :3.000                   Max.   :52.25               
+##  mental_health_problem overall_health  gender  no_health_insurance gov_program
+##  1:842                 Min.   :1.000   1:430   1 :132              1:228      
+##  2:108                 1st Qu.:2.000   2:520   2 :817              2:722      
+##                        Median :3.000           85:  1                         
+##                        Mean   :2.627                                          
+##                        3rd Qu.:3.000                                          
+##                        Max.   :4.000</code></pre>
+<pre class="r"><code># this loks pretty normally distributed among young people
+ggplot(young_adults, aes(MH_score)) +
+  geom_histogram(bins = 30, color = &quot;plum4&quot;, fill = &quot;plum&quot;)</code></pre>
+<p><img src="p02_files/figure-html/health-1.png" alt="" width="672" /></p>
+</div>
+<div
+id="question-2-to-what-degree-is-overall-heatlh-related-to-mental-health-in-young-adults"
+class="section level3">
+<h3>Question 2: To what degree is overall heatlh related to mental
+health in young adults?</h3>
+<p>I want to look at overall health and mental health. I’m reverse
+scoring overall health so that 4 means great health and 1 means poor
+health. Then, I visualize that relationship between mental health and
+overall health with a jitter plot.</p>
+<pre class="r"><code># mutate so it makes more sense
+young_adults &lt;- young_adults %&gt;%
+  mutate(overall_health_rev = recode(overall_health,
+                                     `1` = 4,
+                                     `2` = 3,
+                                     `3` = 2,
+                                     `4` = 1
+  ))
+
+# relationship btwn overall and MH 
+ggplot(young_adults, aes(factor(overall_health_rev), MH_score)) +
+  geom_jitter(aes(colour = overall_health_rev), width = .15, alpha = .3) +
+  labs(title = &quot;Overall Health vs Mental Health&quot;,
+       subtitle = &quot;young adults: age 18-29&quot;,
+       )</code></pre>
+<p><img src="p02_files/figure-html/health2-1.png" alt="" width="672" /></p>
+<p>Our visualization demonstrates that there is in fact a relationship
+between overall health and mental health in young adults (which should
+not come as a surprise)</p>
+</div>
+<div id="data-cleaning-continued" class="section level3">
+<h3>Data Cleaning Continued</h3>
+<p>Before we visualize and analyze more variables, I need to understand
+what class each variable is in, as that will help me when creating
+certain plots. I’m tidying up the data now and making it longer (which
+decreases the amount of columns).</p>
+<pre class="r"><code># which type of var
+sapply(young_adults, class)</code></pre>
+<pre><code>##              MH_score         poverty_level       heart_condition 
+##             &quot;numeric&quot;             &quot;numeric&quot;              &quot;factor&quot; 
+##                   bmi          drug_problem mental_health_problem 
+##             &quot;numeric&quot;              &quot;factor&quot;              &quot;factor&quot; 
+##        overall_health                gender   no_health_insurance 
+##             &quot;numeric&quot;              &quot;factor&quot;              &quot;factor&quot; 
+##           gov_program    overall_health_rev 
+##              &quot;factor&quot;             &quot;numeric&quot;</code></pre>
+<pre class="r"><code>newDF &lt;- young_adults %&gt;%
+  filter(bmi &lt; 45) %&gt;%
+  select(MH_score, no_health_insurance, gov_program, gender, overall_health_rev) %&gt;%
+  mutate(overall_health_rev = factor(overall_health_rev, levels = 1:4,
+                                     labels = c(&quot;Poor&quot;, &quot;Fair&quot;, &quot;Good&quot;, &quot;Excellent&quot;))) %&gt;%
+  pivot_longer(-MH_score, names_to = &quot;predictor&quot;, values_to = &quot;group&quot;)</code></pre>
+</div>
+<div id="data-visualization" class="section level3">
+<h3>Data Visualization</h3>
+<p>Now, you’ll see density ridges for various variables. This helps me
+determine if anything stands out and might be interesting to analyze
+more closely.</p>
+<pre class="r"><code>ggplot(newDF, aes(x = MH_score, y = group)) +
+  geom_density_ridges2() +
+  facet_wrap(~ predictor, scales = &quot;free_y&quot;) +
+  labs(y = &quot;Group&quot;, x = &quot;Mental Health Score&quot;)</code></pre>
+<pre><code>## Picking joint bandwidth of 1.5</code></pre>
+<pre><code>## Picking joint bandwidth of 1.58</code></pre>
+<pre><code>## Picking joint bandwidth of 1.66</code></pre>
+<pre><code>## Picking joint bandwidth of 1.71</code></pre>
+<p><img src="p02_files/figure-html/overall-health-1.png" alt="" width="672" /></p>
+</div>
+<div
+id="question-3-whats-the-relationship-between-mental-health-scores-and-bmi-in-young-adults"
+class="section level3">
+<h3>Question 3: What’s the relationship between Mental Health Scores and
+BMI in young adults?</h3>
+<p>The BMI distribution really stood out to me. First, I’m getting rid
+of BMI over 45, given that anything over that point may be a typo (if
+this were a real data analysis project, I would investigate this more
+carefully before ommitting these cases).</p>
+<pre class="r"><code># the bmi one also really stood out to me
+
+young_adults_bmi &lt;- young_adults %&gt;% filter(bmi &lt; 45)
+
+ggplot(young_adults_bmi, aes(x = bmi, y = MH_score)) +
+  geom_point(alpha = .25) +
+  geom_smooth(method = &quot;loess&quot;) +
+  labs(x = &quot;BMI&quot;, y = &quot;Mental Health Score&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="p02_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
+<pre class="r"><code># 
+young_adults_bmi %&gt;%
+  mutate(bmi_cat = cut(bmi, breaks = 4)) %&gt;%
+  ggplot(aes(x = bmi_cat, y = MH_score)) +
+  stat_summary(fun = mean, geom = &quot;point&quot;, size = 3) +
+  stat_summary(fun.data = mean_cl_boot, geom = &quot;errorbar&quot;, width = .2) +
+  labs(x = &quot;BMI category&quot;, y = &quot;Mental Health Score&quot;)</code></pre>
+<p><img src="p02_files/figure-html/unnamed-chunk-2-2.png" alt="" width="672" /></p>
+<pre class="r"><code># is there really a u shaped curve? - yes
+lm(MH_score ~ bmi + I(bmi^2), data = young_adults_bmi)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MH_score ~ bmi + I(bmi^2), data = young_adults_bmi)
+## 
+## Coefficients:
+## (Intercept)          bmi     I(bmi^2)  
+##    18.98204     -0.61063      0.01129</code></pre>
+<pre class="r"><code>ggplot(young_adults_bmi, aes(x = bmi, y = MH_score)) +
+  geom_point(alpha = .2) +
+  geom_smooth(method = &quot;gam&quot;, formula = y ~ s(x), size = 1.2) +
+  theme_minimal() +
+  labs(
+    title = &quot;Curvilinear Association Between BMI and Mental Health&quot;,
+    x = &quot;Body Mass Index (BMI)&quot;,
+    y = &quot;Mental Health Score&quot;
+  )</code></pre>
+<pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<p><img src="p02_files/figure-html/unnamed-chunk-2-3.png" alt="" width="672" /></p>
+<p>At first, I found a curvilinear association. I wanted to verify
+whether that was really the case. I conducted a regression and plotted
+it again. It is in fact curvilinear! My suspicions are that individuals
+with higher BMIs likely face discrimination based on their weight, which
+can impact their mental health. Since obesity and weight gain is
+multifactorial, it is likely that factors like poverty, low social
+support, food deserts, and such contribute to this association as well.
+For individuals with lower BMI, this association may be due to body
+dysmorphia, eating disorders with severe weightloss involved, or other
+health issues that lead to weight loss.</p>
+</div>
+<div
+id="question-4-is-there-a-difference-in-bmi-vs-mh-depending-on-gender"
+class="section level3">
+<h3>Question 4: Is there a difference in BMI vs MH depending on
+gender?</h3>
+<pre class="r"><code># Question 4
+ggplot(young_adults_bmi,
+       aes(x = bmi, y = MH_score, color = factor(overall_health_rev))) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = &quot;gam&quot;, formula = y ~ s(x), se = FALSE) +
+  labs(
+    x = &quot;BMI&quot;,
+    y = &quot;Mental Health Score&quot;,
+    color = &quot;Overall Health&quot;,
+    title = &quot;BMI vs MH, colored by Overall Health&quot;
+  ) +
+  theme_minimal()</code></pre>
+<p><img src="p02_files/figure-html/cool%20stuff-1.png" alt="" width="672" /></p>
+<pre class="r"><code># Plot BMI vs Mental Health by gender
+ggplot(young_adults_bmi, aes(x = bmi, y = MH_score, color = gender)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = &quot;gam&quot;, formula = y ~ s(x), se = FALSE) +
+  theme_minimal() +
+  labs(
+    title = &quot;BMI vs Mental Health by Gender&quot;,
+    x = &quot;Body Mass Index (BMI)&quot;,
+    y = &quot;Mental Health Score&quot;,
+    color = &quot;Gender&quot;
+  )</code></pre>
+<p><img src="p02_files/figure-html/cool%20stuff-2.png" alt="" width="672" /></p>
+<p>Here’s what I’ve found so far: Among young adults, mental health is
+not linearly related to BMI; instead, both very low and very high BMI
+are associated with worse mental health, and this relationship varies by
+overall health and gender.</p>
+</div>
+<div id="modeling-gender" class="section level3">
+<h3>Modeling Gender</h3>
+<pre class="r"><code># Gender seemed interesting so lets model that. 
+
+model &lt;- lm(
+  MH_score ~ bmi + I(bmi^2) + gender + overall_health_rev +
+             poverty_level + no_health_insurance,
+  data = young_adults_bmi
+)
+
+summary(model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MH_score ~ bmi + I(bmi^2) + gender + overall_health_rev + 
+##     poverty_level + no_health_insurance, data = young_adults_bmi)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -12.5640  -3.7815  -0.1723   3.5646  17.0671 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)           22.651619   3.348256   6.765 2.37e-11 ***
+## bmi                   -0.370292   0.232545  -1.592  0.11165    
+## I(bmi^2)               0.006382   0.004006   1.593  0.11150    
+## gender2                0.359027   0.358466   1.002  0.31682    
+## overall_health_rev    -2.022966   0.204119  -9.911  &lt; 2e-16 ***
+## poverty_level         -0.644479   0.212466  -3.033  0.00249 ** 
+## no_health_insurance2  -0.365996   0.514165  -0.712  0.47675    
+## no_health_insurance85 -8.098747   5.426067  -1.493  0.13589    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.339 on 920 degrees of freedom
+## Multiple R-squared:  0.1305, Adjusted R-squared:  0.1239 
+## F-statistic: 19.73 on 7 and 920 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre class="r"><code>lm.beta(model)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MH_score ~ bmi + I(bmi^2) + gender + overall_health_rev + 
+##     poverty_level + no_health_insurance, data = young_adults_bmi)
+## 
+## Standardized Coefficients::
+##           (Intercept)                   bmi              I(bmi^2) 
+##                    NA           -0.38616136            0.38771833 
+##               gender2    overall_health_rev         poverty_level 
+##            0.03139791           -0.31550444           -0.09506478 
+##  no_health_insurance2 no_health_insurance85 
+##           -0.02213711           -0.04660714</code></pre>
+<p>BMI and overall health have a meaningful effects (curvilenar). Lack
+of health insurance was not significant in this model, but this may be
+due to the fact that the young adults in our sample have access to
+health insurance, and may not be representative of the population.</p>
+<p>But let’s look at gender moderation:</p>
+<pre class="r"><code>lm(
+  MH_score ~ bmi + I(bmi^2)*gender + overall_health_rev +
+             poverty_level,
+  data = young_adults_bmi
+)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = MH_score ~ bmi + I(bmi^2) * gender + overall_health_rev + 
+##     poverty_level, data = young_adults_bmi)
+## 
+## Coefficients:
+##        (Intercept)                 bmi            I(bmi^2)             gender2  
+##          22.241691           -0.291881            0.003687           -1.133993  
+## overall_health_rev       poverty_level    I(bmi^2):gender2  
+##          -2.064001           -0.624217            0.002100</code></pre>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>overall health MAJOR predictor.Is the BMI–mental health relationship
+different for men and women? Yes. The main effect seems weak but there
+is definitely moderation.</p>
+<p>so: Although gender was not a strong predictor of average mental
+health, it significantly moderated the curvilinear association between
+BMI and mental health, indicating that body-related mental health risks
+operate differently across genders.</p>
+<p><strong>References</strong>: Center for Behavioral Health Statistics
+and Quality. (2025). 2024 National Survey on Drug Use and Health Public
+Use File Codebook, Substance Abuse and Mental Health Services
+Administration, Rockville, MD</p>
+</div>
 
 
 

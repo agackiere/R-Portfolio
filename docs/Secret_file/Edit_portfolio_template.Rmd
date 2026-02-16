@@ -5,9 +5,10 @@ date: "2025-04-28"
 output: html_document
 ---
 
-```{r setup, warning = FALSE}
-library(tidyverse) 
+```{r setup, warning = FALSE, message=FALSE}
+library(tidyverse)
 ```
+
 There are several different ways you can upgrade your portfolio template. Follow along for a walkthrough of the template and extra features you can add to improve upon the template!
 
 ## General orientation to the template

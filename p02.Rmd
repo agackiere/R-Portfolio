@@ -56,7 +56,7 @@ library(ggplot2)
 library(ggridges)
 
 # then we load the data
-load("NSDUH_2024.Rdata")
+load("p02/NSDUH_2024.Rdata")
 
 ```
 
@@ -86,7 +86,6 @@ into three big groups.
 ```{r age}
 # Recode AGE3 into 3 broad adult age groups
 df <- df %>%
-  filter(!is.na(MH_score), !is.na(AGE3)) %>%
   mutate(
     AGE_GROUP = case_when(
       AGE3 %in% 4:6  ~ "Young adult",   # 18–29
@@ -247,26 +246,12 @@ decreases the amount of columns).
 # which type of var
 sapply(young_adults, class)
 
-# change them to factors 
-cat_df <- young_adults %>%
-  mutate(
-    poverty_level = factor(poverty_level),
-    bmi = cut(bmi, breaks = 4)
-  ) %>%
-  pivot_longer(
-    cols = c(bmi, mental_health_problem,
-             no_health_insurance, gov_program),
-    names_to = "predictor",
-    values_to = "value"
-  )
-
-num_df <- young_adults %>%
-  pivot_longer(
-    cols = c(overall_health_rev),
-    names_to = "predictor",
-    values_to = "value"
-  )
-
+newDF <- young_adults %>%
+  filter(bmi < 45) %>%
+  select(MH_score, no_health_insurance, gov_program, gender, overall_health_rev) %>%
+  mutate(overall_health_rev = factor(overall_health_rev, levels = 1:4,
+                                     labels = c("Poor", "Fair", "Good", "Excellent"))) %>%
+  pivot_longer(-MH_score, names_to = "predictor", values_to = "group")
 ```
 
 ### Data Visualization
@@ -276,33 +261,10 @@ determine if anything stands out and might be interesting to analyze
 more closely.
 
 ```{r overall-health}
-ggplot(cat_df, aes(x = MH_score, y = value)) +
+ggplot(newDF, aes(x = MH_score, y = group)) +
   geom_density_ridges2() +
   facet_wrap(~ predictor, scales = "free_y") +
   labs(y = "Group", x = "Mental Health Score")
-
-cor(num_df$value, num_df$MH_score, use = "complete.obs")
-
-
-#### other option:
-scan_df <- young_adults %>%
-  select(
-    MH_score,
-    no_health_insurance,
-    gov_program,
-    gender,
-    overall_health_rev
-  ) %>%
-  pivot_longer(-MH_score, names_to = "predictor", values_to = "group")
-
-ggplot(scan_df, aes(MH_score, group)) +
-  geom_violin(fill = "lightgray") +
-  geom_jitter(width = .1, alpha = .2) +
-  facet_wrap(~ predictor, scales = "free_y") +
-  theme_minimal()
-
-
-
 
 ```
 
@@ -316,16 +278,15 @@ carefully before ommitting these cases).
 ```{r}
 # the bmi one also really stood out to me
 
-# kick out unrealistic scores
-young_adults_filtered <- young_adults %>% filter(bmi < 45)
+young_adults_bmi <- young_adults %>% filter(bmi < 45)
 
-ggplot(young_adults_filtered, aes(x = bmi, y = MH_score)) +
+ggplot(young_adults_bmi, aes(x = bmi, y = MH_score)) +
   geom_point(alpha = .25) +
   geom_smooth(method = "loess") +
   labs(x = "BMI", y = "Mental Health Score")
 
 # 
-young_adults_filtered %>%
+young_adults_bmi %>%
   mutate(bmi_cat = cut(bmi, breaks = 4)) %>%
   ggplot(aes(x = bmi_cat, y = MH_score)) +
   stat_summary(fun = mean, geom = "point", size = 3) +
@@ -334,9 +295,9 @@ young_adults_filtered %>%
 
 
 # is there really a u shaped curve? - yes
-lm(MH_score ~ bmi + I(bmi^2), data = young_adults_filtered)
+lm(MH_score ~ bmi + I(bmi^2), data = young_adults_bmi)
 
-ggplot(young_adults_filtered, aes(x = bmi, y = MH_score)) +
+ggplot(young_adults_bmi, aes(x = bmi, y = MH_score)) +
   geom_point(alpha = .2) +
   geom_smooth(method = "gam", formula = y ~ s(x), size = 1.2) +
   theme_minimal() +
@@ -361,14 +322,8 @@ health issues that lead to weight loss.
 ### Question 4: Is there a difference in BMI vs MH depending on gender?
 
 ```{r cool stuff}
-# making sure these vars are factors
-young_adults_filtered <- young_adults_filtered %>%
-  mutate(
-    overall_health_cat = factor(overall_health_rev)
- ) 
-
 # Question 4
-ggplot(young_adults_filtered, 
+ggplot(young_adults_bmi,
        aes(x = bmi, y = MH_score, color = factor(overall_health_rev))) +
   geom_point(alpha = 0.3) +
   geom_smooth(method = "gam", formula = y ~ s(x), se = FALSE) +
@@ -382,7 +337,7 @@ ggplot(young_adults_filtered,
 
 
 # Plot BMI vs Mental Health by gender
-ggplot(young_adults_filtered, aes(x = bmi, y = MH_score, color = gender)) +
+ggplot(young_adults_bmi, aes(x = bmi, y = MH_score, color = gender)) +
   geom_point(alpha = 0.3) +
   geom_smooth(method = "gam", formula = y ~ s(x), se = FALSE) +
   theme_minimal() +
@@ -410,7 +365,7 @@ overall health and gender.
 model <- lm(
   MH_score ~ bmi + I(bmi^2) + gender + overall_health_rev +
              poverty_level + no_health_insurance,
-  data = young_adults_filtered
+  data = young_adults_bmi
 )
 
 summary(model)
@@ -429,7 +384,7 @@ But let's look at gender moderation:
 lm(
   MH_score ~ bmi + I(bmi^2)*gender + overall_health_rev +
              poverty_level,
-  data = young_adults_filtered
+  data = young_adults_bmi
 )
 
 ```
