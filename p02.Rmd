@@ -381,24 +381,23 @@ insurance, and may not be representative of the population.
 But let's look at gender moderation:
 
 ```{r gender}
-lm(
+model_gender <- lm(
   MH_score ~ bmi + I(bmi^2)*gender + overall_health_rev +
              poverty_level,
   data = young_adults_bmi
 )
 
+summary(model_gender)
+
+
+ggplot(young_adults_bmi, aes(x = bmi, y = MH_score, color = gender)) +
+  geom_point(alpha = 0.2) +
+  geom_smooth(method = "lm", formula = y ~ x + I(x^2))
 ```
 
 ## Conclusion
 
-overall health MAJOR predictor.Is the BMI–mental health relationship
-different for men and women? Yes. The main effect seems weak but there
-is definitely moderation.
-
-so: Although gender was not a strong predictor of average mental health,
-it significantly moderated the curvilinear association between BMI and
-mental health, indicating that body-related mental health risks operate
-differently across genders.
+The curvilinear relationship between mental health scores and BMI differs significantly by gender, and this u-shaped curved is more pronounced for women than men; however, there is not a main effect of gender.
 
 **References**: Center for Behavioral Health Statistics and Quality.
 (2025). 2024 National Survey on Drug Use and Health Public Use File
