@@ -1,5 +1,5 @@
 ---
-title: "Time Calculations"
+title: "Portfolio 1"
 output:
   html_document: 
     theme: yeti
@@ -38,7 +38,7 @@ However, the process will be described below in the form of photos.
 
 # The Process
 
-![Click on a File](Images/instruction_image1.png)
+![Click on a File](p01/Images/instruction_image1.png)
 
 ```{r file_grab}
 # click on ANY CSV FILE in the DATA FOLDER within the SOCIAL RL FOLDER
@@ -85,7 +85,7 @@ Now, it's time for the pipeline demonstration. You'll see that if the right data
 participant_id <- "test1"
 
 # Read CSV
-data <- read.csv(paste0("data/", participant_id, ".csv"))
+data <- read.csv(paste0("p01/data/", participant_id, ".csv"))
 ```
 
 ```{r name5}

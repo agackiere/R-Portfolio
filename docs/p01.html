@@ -10,13 +10,14 @@
 
 
 
+<meta name="date" content="2026-01-27" />
 
-<title>Portfolio 1</title>
+<title>Time Calculations</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,8 +31,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,18 +41,110 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -290,81 +381,150 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Portfolio 1</h1>
+<h1 class="title toc-ignore">Time Calculations</h1>
+<h4 class="date">2026-01-27</h4>
 
 </div>
 
 
-<blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
-</blockquote>
-<pre class="r"><code>library(tidyverse) 
-library(tidyr)
-data(fish_encounters)</code></pre>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-eget nibh vel est aliquet iaculis at placerat sem. Aenean faucibus
-iaculis ultricies. Nullam consequat odio in ultricies ullamcorper. Etiam
-venenatis in est vitae ullamcorper. Nam vitae urna ut dolor rhoncus
-aliquet at vel neque. Quisque tristique leo finibus nisi interdum, sit
-amet tempor risus viverra. Donec mollis vulputate sodales. Nunc ornare,
-leo quis euismod eleifend, eros mi maximus felis, vel varius lacus dui
-eget nibh. Duis vitae nunc nisl. Donec accumsan aliquam elit, eu
-fringilla quam pulvinar eget.</p>
-<p>Mauris in ligula mauris. Curabitur facilisis pharetra metus eget
-lobortis. In egestas nibh sit amet faucibus eleifend. Suspendisse
-imperdiet viverra blandit. Phasellus consectetur tincidunt eros eu
-facilisis. Quisque maximus, orci eget sodales aliquam, velit lorem
-semper dolor, nec convallis erat ipsum mattis velit. Pellentesque
-porttitor, mauris vitae aliquam mattis, metus nisl viverra turpis, vel
-convallis metus sapien et ex. Nunc consequat ipsum id dolor eleifend,
-sit amet semper eros sodales. Pellentesque consectetur, dui quis
-venenatis malesuada, nunc lorem lacinia libero, vitae malesuada dui arcu
-in augue. Aliquam id sagittis libero. Vestibulum aliquet sagittis
-libero, non posuere odio molestie ut. Curabitur lacus enim, viverra vel
-odio non, pretium efficitur elit. Mauris posuere efficitur interdum.
-Nunc sed bibendum turpis, quis fringilla velit. Phasellus eu lorem
-lobortis eros molestie laoreet.</p>
-<pre class="r"><code># Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  labs(x = &quot;Species&quot;, y = &quot;Number of Fish Encounters&quot;)</code></pre>
-<p><img src="p01_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" /></p>
-<p>Sed mollis purus faucibus leo finibus, ut pharetra nibh elementum.
-Nulla id orci lorem. Mauris sollicitudin mi eget tellus vehicula, ut
-convallis lorem mollis. In blandit nulla diam, a malesuada sem volutpat
-interdum. Ut elementum elit at velit maximus, ac tempor odio porttitor.
-Suspendisse lobortis sollicitudin tortor, ut pharetra libero luctus a.
-Sed hendrerit faucibus metus. Sed rutrum purus vel pellentesque
-euismod.</p>
-<pre class="r"><code># Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  labs(x = &quot;Species&quot;, y = &quot;Number of Fish Encounters&quot;)</code></pre>
-<p><img src="p01_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
-<p>Mauris placerat in velit a pharetra. Nulla viverra bibendum lectus,
-ut lobortis nibh. Aenean malesuada, orci vitae dictum placerat, enim
-justo aliquet leo, ac tincidunt augue ipsum et mi. Nullam in pharetra
-metus, nec molestie felis. Duis varius rhoncus pulvinar. Integer semper
-urna sed tellus rhoncus, vel suscipit odio iaculis. Mauris iaculis neque
-pellentesque ex convallis venenatis. Sed ultrices euismod fermentum. Ut
-feugiat risus at turpis tincidunt viverra.</p>
-<pre class="r"><code># Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = &quot;identity&quot;) +
-  labs(x = &quot;Species&quot;, y = &quot;Number of Fish Encounters&quot;)</code></pre>
-<p><img src="p01_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
-<p>Donec sagittis suscipit orci in ultrices. Vivamus iaculis eleifend
-est et dictum. Fusce non urna at lacus dapibus tincidunt ac sed nibh.
-Donec luctus lectus elit, ac ultrices tortor mollis sit amet. Nulla
-finibus lacinia arcu. Proin sollicitudin non odio et pulvinar. Maecenas
-finibus faucibus finibus. Ut elementum metus velit, a sodales sapien
-commodo et. Vivamus pulvinar, sapien et porta cursus, elit est luctus
-nisi, eget fringilla odio diam et enim. Sed sodales suscipit bibendum.
-Morbi ut metus semper, laoreet felis sodales, consequat dolor.</p>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In some experiments, what participants do later depends on how they
+respond earlier. For instance, activities might be assigned based on
+depression scores, or, like in my research, on implicit motivation for
+social engagement. One compelling way to measure this motivation is with
+a reinforcement learning task that captures how rewarding people find
+social cues. In this project, <strong>I used participants’ choices in
+that task to decide whether they would spend time alone or with someone
+else, and for how long</strong>. This approach allowed me to test
+whether people were happier when their activities aligned with their
+underlying preferences.</p>
+<p><strong>How does this work in practice?</strong></p>
+<p>Reinforcement learning programs like PsychoPy automatically output a
+CSV file as soon as the task is completed. This script reads that file
+directly: <em>the researcher selects the any file in the data folder,
+enters the participant ID, and the script immediately extracts the
+necessary results.</em> This allows experiment components to be adjusted
+quickly and with minimal effort.</p>
+<p><strong>The same script can be adapted for a wide range of
+measures</strong> (eg. Implicit Association Test). For instance, it
+could be used with tasks examining implicit bias or racism to assign
+participants to different scenarios based on their task performance
+rather than at random. In this way, experimental conditions can be
+tailored efficiently and transparently using participants’ own data.</p>
+<p>Additionally, nothing fancy is needed to run this on R. This was
+designed to be as user friendly as possible.</p>
+<p><em>These first few chunks (depicted as comments) cannot be run due
+to the “file choose” nature of the script.</em></p>
+<p>However, the process will be described below in the form of
+photos.</p>
+</div>
+<div id="instructions" class="section level1">
+<h1>Instructions</h1>
+<ol style="list-style-type: decimal">
+<li><p><strong>Click Timing_Calculation.R. It will open on R studio.
+Follow the comments on the R script and run the code one line at a
+time.</strong></p></li>
+<li><p><strong>When you run the first line, R will direct you to
+folders. <em>Directions for the RAs in my lab</em>:</strong> select the
+Social RL Folder → DATA Folder → Click on <strong>any</strong> CSV
+file.</p></li>
+<li><p><strong>When you run the line that says # Enter Participant ID,
+it will ask you to add the PID IN THE CONSOLE.</strong> Run that line.
+If it works, run the rest of the code. <strong>You should see the timing
+calculations then</strong>! :-)</p></li>
+</ol>
+</div>
+<div id="the-process" class="section level1">
+<h1>The Process</h1>
+<div class="float">
+<img src="p01/Images/instruction_image1.png" alt="Click on a File" />
+<div class="figcaption">Click on a File</div>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># click on ANY CSV FILE in the DATA FOLDER within the SOCIAL RL FOLDER</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co"># any_file &lt;- file.choose() </span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co">#data_dir &lt;- dirname(any_file)</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#cat(&quot;Data folder selected:&quot;, data_dir, &quot;\n&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="do">#### ONCE YOU RUN THIS, TYPE THE PID IN THE CONSOLE DIRECTLY!!!</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#participant_id &lt;- trimws(readline(&quot;Enter participant ID: &quot;))</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># find only CSVs that match this participant</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#csv_files &lt;- list.files(data_dir, pattern = &quot;\\.csv$&quot;, full.names = TRUE)</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#participant_file &lt;- csv_files[grepl(participant_id, csv_files)]</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># safety checks</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#if (length(participant_file) == 0) stop(&quot;No CSV found for this participant ID.&quot;)</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#if (length(participant_file) &gt; 1) stop(&quot;Multiple CSVs found for this participant ID. Check filenames.&quot;)</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># read CSV and analyze the target column</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#data &lt;- read.csv(participant_file)</span></span></code></pre></div>
+<p>The rest of the code can be found below in the demonstration
+section.</p>
+</div>
+<div id="demonstration" class="section level1">
+<h1>Demonstration</h1>
+<p>Now, it’s time for the pipeline demonstration. You’ll see that if the
+right data was collected, we’ll get a nice table that tells us what we
+need to know for the following activity.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Participant ID</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>participant_id <span class="ot">&lt;-</span> <span class="st">&quot;test1&quot;</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co"># Read CSV</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">paste0</span>(<span class="st">&quot;p01/data/&quot;</span>, participant_id, <span class="st">&quot;.csv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># required columns for our calculations</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>required_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;OneOrTwo&quot;</span>, <span class="st">&quot;PictureValence&quot;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>missing_cols <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(required_cols, <span class="fu">names</span>(data))</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co"># another safety check!</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing_cols) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="fu">paste</span>(<span class="st">&quot;Missing required columns:&quot;</span>, <span class="fu">paste</span>(missing_cols, <span class="at">collapse =</span> <span class="st">&quot;, &quot;</span>)))</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>}</span></code></pre></div>
+<p>In this scenario, we only want the counts of the photos with positive
+valence. These are the social rewards in our study that will determine
+the following activity.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># count rows where:OneOrTwo == 2 AND PictureValence == 1</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>num_positive_valence <span class="ot">&lt;-</span> <span class="fu">sum</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  data<span class="sc">$</span>OneOrTwo <span class="sc">==</span> <span class="dv">2</span> <span class="sc">&amp;</span> data<span class="sc">$</span>PictureValence <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Now we convert the number of positive photos they selected in the
+task to seconds.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># converting to seconds</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>total_seconds <span class="ot">&lt;-</span> num_positive_valence <span class="sc">*</span> <span class="dv">15</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Participant ID:&quot;</span>, participant_id))</span></code></pre></div>
+<pre><code>## [1] &quot;Participant ID: test1&quot;</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Positive valence trials:&quot;</span>, num_positive_valence))</span></code></pre></div>
+<pre><code>## [1] &quot;Positive valence trials: 10&quot;</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Total valence time:&quot;</span>, total_seconds, <span class="st">&quot;seconds&quot;</span>))</span></code></pre></div>
+<pre><code>## [1] &quot;Total valence time: 150 seconds&quot;</code></pre>
+<p>And done! In <strong>three steps total</strong> (running the first
+two lines and choosing a file; running the third line and typing in the
+participant ID in the console; and running the rest of the lines), the
+research assistants get all the information they need to move on to the
+next step of the experiment. All in all, this takes about 2 minutes!</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1><strong>Conclusion</strong></h1>
+<p>RStudio may seem user friendly to people with many years of coding
+experience. But for students who have never interacted with it, it may
+seem daunting. My RAs even get nervous opening Windows Files (who can
+blame them!). To truly understand something, you must be able to teach
+it too. Not only does this process teach them what RStudio looks like,
+it also teaches me how to teach others!</p>
+<p><strong>Notes</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>You’ll notice that there are multiple safety checks in the script
+(in the Time_Calc .R file). This is important especially in these types
+of scenarios, but I have now incorporated many safety checks in most of
+my work, even if they may feel redundant.</p></li>
+<li><p>This script may seem small and simple to you. However, I am used
+to writing scripts in a way that makes sense to me. Writing it in a way
+that makes sense to <em>everyone</em> on my team proved more challenging
+than I thought.</p></li>
+<li><p><em>I have provided a test1.csv that you may choose to run the
+Timing_CalcP01.R to see how this feels in practice. If the instructions
+feel to complicated for you, feedback is always appreciated to make this
+more user friendly.</em></p></li>
+</ol>
+</div>
 
 
 

@@ -1,8 +1,11 @@
 ---
 title: "Portfolio 2"
-author: "Anaelle Gackiere"
-date: "02-13-2026"
-output: html_document
+output:
+  html_document: 
+    theme: yeti
+    highlight: zenburn
+  word_document: default
+date: "2026-01-27"
 ---
 
 ### Project Description
@@ -373,10 +376,10 @@ lm.beta(model)
 
 ```
 
-BMI and overall health have a meaningful effects (curvilenar). Lack of
+BMI and overall health have a meaningful effects (curvilinear). Lack of
 health insurance was not significant in this model, but this may be due
 to the fact that the young adults in our sample have access to health
-insurance, and may not be representative of the population.
+insurance and poverty leve, and may not be representative of the population. There's also the issue of multicollinearity, or that we don't have the "right" predictors in the model. 
 
 But let's look at gender moderation:
 
@@ -397,7 +400,7 @@ ggplot(young_adults_bmi, aes(x = bmi, y = MH_score, color = gender)) +
 
 ## Conclusion
 
-The curvilinear relationship between mental health scores and BMI differs significantly by gender, and this u-shaped curved is more pronounced for women than men; however, there is not a main effect of gender.
+The curvilinear relationship between mental health scores and BMI differs significantly by gender, and this u-shaped curved is more pronounced for women than men; however, there is not a main effect of gender. Moreover, the second model only explains for around 13% of variance (understandable).Interestingly, poverty level does have an effect here.
 
 **References**: Center for Behavioral Health Statistics and Quality.
 (2025). 2024 National Survey on Drug Use and Health Public Use File

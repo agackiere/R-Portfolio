@@ -9,15 +9,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Anaelle Gackiere" />
 
+<meta name="date" content="2026-01-27" />
 
 <title>Portfolio 2</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -31,8 +31,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -43,18 +41,110 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -292,8 +382,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Portfolio 2</h1>
-<h4 class="author">Anaelle Gackiere</h4>
-<h4 class="date">02-13-2026</h4>
+<h4 class="date">2026-01-27</h4>
 
 </div>
 
@@ -333,7 +422,7 @@ codebook attached in the p02 folder.</p>
 <p>First, I load all the libraries I think I might use (even if they go
 unused, I prefer this over having to load the libraries on and on as I
 go)</p>
-<pre class="r"><code>library(dplyr)      </code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)      </span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -342,8 +431,8 @@ go)</p>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(ggplot2)    
-library(survey)     </code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)    </span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(survey)     </span></code></pre></div>
 <pre><code>## Loading required package: grid</code></pre>
 <pre><code>## Loading required package: Matrix</code></pre>
 <pre><code>## Loading required package: survival</code></pre>
@@ -352,7 +441,7 @@ library(survey)     </code></pre>
 <pre><code>## The following object is masked from &#39;package:graphics&#39;:
 ## 
 ##     dotchart</code></pre>
-<pre class="r"><code>library(tidyverse)   </code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)   </span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ forcats   1.0.1     ✔ stringr   1.6.0
 ## ✔ lubridate 1.9.4     ✔ tibble    3.3.1
@@ -365,20 +454,20 @@ library(survey)     </code></pre>
 ## ✖ tidyr::pack()   masks Matrix::pack()
 ## ✖ tidyr::unpack() masks Matrix::unpack()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<pre class="r"><code>library(rstatix)  </code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">library</span>(rstatix)  </span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;rstatix&#39;
 ## 
 ## The following object is masked from &#39;package:stats&#39;:
 ## 
 ##     filter</code></pre>
-<pre class="r"><code>library(lm.beta)
-library(haven)
-library(ggplot2)
-library(ggridges)
-
-# then we load the data
-load(&quot;p02/NSDUH_2024.Rdata&quot;)</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">library</span>(lm.beta)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="co"># then we load the data</span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;p02/NSDUH_2024.Rdata&quot;</span>)</span></code></pre></div>
 </div>
 <div id="data-cleaning" class="section level3">
 <h3>Data Cleaning</h3>
@@ -386,30 +475,30 @@ load(&quot;p02/NSDUH_2024.Rdata&quot;)</code></pre>
 wide-range of quirks that require some cleaning. Here, I’m interested in
 the overall mental health score, and removing the responses that are
 skips and such.</p>
-<pre class="r"><code># Clean mental health score
-df &lt;- NSDUH_2024 %&gt;%
-  mutate(
-    MH_score = as.numeric(KSSLR6MONED),
-    MH_score = ifelse(MH_score %in% c(94, 97, 98, 99), NA, MH_score)
-  ) %&gt;%
-  # Remove rows with missing MH_score or AGE3
-  filter(!is.na(MH_score), !is.na(AGE3))</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Clean mental health score</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> NSDUH_2024 <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>    <span class="at">MH_score =</span> <span class="fu">as.numeric</span>(KSSLR6MONED),</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>    <span class="at">MH_score =</span> <span class="fu">ifelse</span>(MH_score <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">94</span>, <span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, MH_score)</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>  <span class="co"># Remove rows with missing MH_score or AGE3</span></span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MH_score), <span class="sc">!</span><span class="fu">is.na</span>(AGE3))</span></code></pre></div>
 <p>Next, I want to look at young adults. The original entries are
 formatted strangely (to me) and, although not best practice, I decide to
 lump them into three big groups.</p>
-<pre class="r"><code># Recode AGE3 into 3 broad adult age groups
-df &lt;- df %&gt;%
-  mutate(
-    AGE_GROUP = case_when(
-      AGE3 %in% 4:6  ~ &quot;Young adult&quot;,   # 18–29
-      AGE3 %in% 7:9  ~ &quot;Middle age&quot;,    # 30–64
-      AGE3 == 10 | AGE3 == 11 ~ &quot;Older adult&quot;
-    ),
-    AGE_GROUP = factor(AGE_GROUP, levels = c(&quot;Young adult&quot;, &quot;Middle age&quot;, &quot;Older adult&quot;))
-  )
-
-# Check counts
-table(df$AGE_GROUP)</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Recode AGE3 into 3 broad adult age groups</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>    <span class="at">AGE_GROUP =</span> <span class="fu">case_when</span>(</span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>      AGE3 <span class="sc">%in%</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">6</span>  <span class="sc">~</span> <span class="st">&quot;Young adult&quot;</span>,   <span class="co"># 18–29</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>      AGE3 <span class="sc">%in%</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">9</span>  <span class="sc">~</span> <span class="st">&quot;Middle age&quot;</span>,    <span class="co"># 30–64</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>      AGE3 <span class="sc">==</span> <span class="dv">10</span> <span class="sc">|</span> AGE3 <span class="sc">==</span> <span class="dv">11</span> <span class="sc">~</span> <span class="st">&quot;Older adult&quot;</span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a>    ),</span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>    <span class="at">AGE_GROUP =</span> <span class="fu">factor</span>(AGE_GROUP, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Young adult&quot;</span>, <span class="st">&quot;Middle age&quot;</span>, <span class="st">&quot;Older adult&quot;</span>))</span>
+<span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>  )</span>
+<span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a><span class="co"># Check counts</span></span>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>AGE_GROUP)</span></code></pre></div>
 <pre><code>## 
 ## Young adult  Middle age Older adult 
 ##       13683       21753       10385</code></pre>
@@ -417,34 +506,34 @@ table(df$AGE_GROUP)</code></pre>
 <div id="question-1-is-age-group-related-to-mental-health-scores"
 class="section level3">
 <h3>Question 1: Is age group related to mental health scores?</h3>
-<pre class="r"><code># let&#39;s plot it!
-ggplot(df, aes(x = MH_score, fill = AGE_GROUP)) +
-  geom_density(alpha = 0.4) +
-  labs(
-    x = &quot;Mental Health Score&quot;,
-    y = &quot;Density&quot;,
-    fill = &quot;Age Group&quot;,
-    title = &quot;Mental Health Scores by Age Group&quot;
-  ) +
-  theme_minimal()</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># let&#39;s plot it!</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> MH_score, <span class="at">fill =</span> AGE_GROUP)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Mental Health Score&quot;</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Density&quot;</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Age Group&quot;</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Mental Health Scores by Age Group&quot;</span></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="p02_files/figure-html/sig-differences-1.png" alt="" width="672" /></p>
-<pre class="r"><code># I love inferential testing!! 
-
-# Kruskal-Wallis test --&gt; using this since our data is very skewed
-kruskal.test(MH_score ~ AGE_GROUP, data = df)</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># I love inferential testing!! </span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co"># Kruskal-Wallis test --&gt; using this since our data is very skewed</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="fu">kruskal.test</span>(MH_score <span class="sc">~</span> AGE_GROUP, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
 ## data:  MH_score by AGE_GROUP
 ## Kruskal-Wallis chi-squared = 3412.5, df = 2, p-value &lt; 2.2e-16</code></pre>
-<pre class="r"><code># Effect size
-kruskal_effsize(df, MH_score ~ AGE_GROUP)</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># Effect size</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">kruskal_effsize</span>(df, MH_score <span class="sc">~</span> AGE_GROUP)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   .y.          n effsize method  magnitude
 ## * &lt;chr&gt;    &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
 ## 1 MH_score 45821  0.0744 eta2[H] moderate</code></pre>
-<pre class="r"><code># Pairwise Wilcoxon comparisons
-pairwise.wilcox.test(df$MH_score, df$AGE_GROUP, p.adjust.method = &quot;bonferroni&quot;)</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># Pairwise Wilcoxon comparisons</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(df<span class="sc">$</span>MH_score, df<span class="sc">$</span>AGE_GROUP, <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
 ## 
@@ -469,55 +558,55 @@ Here, I’m cleaning them just like I did for the mental health scores,
 and I’m renaming them for clarity. I’m also creating a new df with just
 the young adult age group. You’ll notice I did not use every variable,
 but I wanted to clean them nonetheless in case I might use them.</p>
-<pre class="r"><code># lots of cleaning to do
-young_adults &lt;- df %&gt;%
-  filter(AGE_GROUP == &quot;Young adult&quot;)
-
-young_adults &lt;- young_adults %&gt;%
-  mutate(
-    POVERTY3   = ifelse(POVERTY3 %in% c(94, 97, 98, 99), NA, POVERTY3),
-    HRTCONDEV2 = ifelse(HRTCONDEV2 %in% c(94, 97, 98, 99), NA, HRTCONDEV2),
-    BMI2       = ifelse(BMI2 %in% c(94, 97, 98, 99), NA, BMI2),
-    CASURCVR   = ifelse(CASURCVR %in% c(94, 97, 98, 99), NA, CASURCVR),
-    CAMHPROB   = ifelse(CAMHPROB %in% c(94, 97, 98, 99), NA, CAMHPROB),
-    HEALTH2    = ifelse(HEALTH2 %in% c(94, 97, 98, 99), NA, HEALTH2),
-    IRSEX      = ifelse(IRSEX %in% c(94, 97, 98, 99), NA, IRSEX),
-    HLCNOTYR   = ifelse(HLCNOTYR %in% c(94, 97, 98, 99), NA, HLCNOTYR),
-    GOVTPROG   = ifelse(GOVTPROG %in% c(94, 97, 98, 99), NA, GOVTPROG)
-  ) %&gt;%
-  rename(
-    poverty_level = POVERTY3,
-    heart_condition = HRTCONDEV2,
-    bmi = BMI2,
-    drug_problem = CASURCVR,
-    mental_health_problem = CAMHPROB,
-    overall_health = HEALTH2,
-    gender = IRSEX,
-    no_health_insurance = HLCNOTYR,
-    gov_program = GOVTPROG
-  ) %&gt;%
-   # Convert categorical predictors to factors
-  mutate(
-    heart_condition = factor(heart_condition),
-    drug_problem = factor(drug_problem),
-    mental_health_problem = factor(mental_health_problem),
-    gender = factor(gender),
-    no_health_insurance = factor(no_health_insurance),
-    gov_program = factor(gov_program)
-  ) %&gt;%
-  # Remove any rows with missing values in DV or predictors
-  drop_na(MH_score, poverty_level, heart_condition, bmi, drug_problem,
-          mental_health_problem, overall_health, gender, no_health_insurance, gov_program)
-
-# now we save this
-young_adults &lt;- young_adults %&gt;%
-  select(MH_score, poverty_level, heart_condition, bmi, drug_problem,
-         mental_health_problem, overall_health, gender, no_health_insurance, gov_program)</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co"># lots of cleaning to do</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>young_adults <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>  <span class="fu">filter</span>(AGE_GROUP <span class="sc">==</span> <span class="st">&quot;Young adult&quot;</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>young_adults <span class="ot">&lt;-</span> young_adults <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>    <span class="at">POVERTY3   =</span> <span class="fu">ifelse</span>(POVERTY3 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">94</span>, <span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, POVERTY3),</span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a>    <span class="at">HRTCONDEV2 =</span> <span class="fu">ifelse</span>(HRTCONDEV2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">94</span>, <span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, HRTCONDEV2),</span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a>    <span class="at">BMI2       =</span> <span class="fu">ifelse</span>(BMI2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">94</span>, <span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, BMI2),</span>
+<span id="cb27-10"><a href="#cb27-10" tabindex="-1"></a>    <span class="at">CASURCVR   =</span> <span class="fu">ifelse</span>(CASURCVR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">94</span>, <span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, CASURCVR),</span>
+<span id="cb27-11"><a href="#cb27-11" tabindex="-1"></a>    <span class="at">CAMHPROB   =</span> <span class="fu">ifelse</span>(CAMHPROB <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">94</span>, <span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, CAMHPROB),</span>
+<span id="cb27-12"><a href="#cb27-12" tabindex="-1"></a>    <span class="at">HEALTH2    =</span> <span class="fu">ifelse</span>(HEALTH2 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">94</span>, <span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, HEALTH2),</span>
+<span id="cb27-13"><a href="#cb27-13" tabindex="-1"></a>    <span class="at">IRSEX      =</span> <span class="fu">ifelse</span>(IRSEX <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">94</span>, <span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, IRSEX),</span>
+<span id="cb27-14"><a href="#cb27-14" tabindex="-1"></a>    <span class="at">HLCNOTYR   =</span> <span class="fu">ifelse</span>(HLCNOTYR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">94</span>, <span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, HLCNOTYR),</span>
+<span id="cb27-15"><a href="#cb27-15" tabindex="-1"></a>    <span class="at">GOVTPROG   =</span> <span class="fu">ifelse</span>(GOVTPROG <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">94</span>, <span class="dv">97</span>, <span class="dv">98</span>, <span class="dv">99</span>), <span class="cn">NA</span>, GOVTPROG)</span>
+<span id="cb27-16"><a href="#cb27-16" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb27-17"><a href="#cb27-17" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb27-18"><a href="#cb27-18" tabindex="-1"></a>    <span class="at">poverty_level =</span> POVERTY3,</span>
+<span id="cb27-19"><a href="#cb27-19" tabindex="-1"></a>    <span class="at">heart_condition =</span> HRTCONDEV2,</span>
+<span id="cb27-20"><a href="#cb27-20" tabindex="-1"></a>    <span class="at">bmi =</span> BMI2,</span>
+<span id="cb27-21"><a href="#cb27-21" tabindex="-1"></a>    <span class="at">drug_problem =</span> CASURCVR,</span>
+<span id="cb27-22"><a href="#cb27-22" tabindex="-1"></a>    <span class="at">mental_health_problem =</span> CAMHPROB,</span>
+<span id="cb27-23"><a href="#cb27-23" tabindex="-1"></a>    <span class="at">overall_health =</span> HEALTH2,</span>
+<span id="cb27-24"><a href="#cb27-24" tabindex="-1"></a>    <span class="at">gender =</span> IRSEX,</span>
+<span id="cb27-25"><a href="#cb27-25" tabindex="-1"></a>    <span class="at">no_health_insurance =</span> HLCNOTYR,</span>
+<span id="cb27-26"><a href="#cb27-26" tabindex="-1"></a>    <span class="at">gov_program =</span> GOVTPROG</span>
+<span id="cb27-27"><a href="#cb27-27" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb27-28"><a href="#cb27-28" tabindex="-1"></a>   <span class="co"># Convert categorical predictors to factors</span></span>
+<span id="cb27-29"><a href="#cb27-29" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-30"><a href="#cb27-30" tabindex="-1"></a>    <span class="at">heart_condition =</span> <span class="fu">factor</span>(heart_condition),</span>
+<span id="cb27-31"><a href="#cb27-31" tabindex="-1"></a>    <span class="at">drug_problem =</span> <span class="fu">factor</span>(drug_problem),</span>
+<span id="cb27-32"><a href="#cb27-32" tabindex="-1"></a>    <span class="at">mental_health_problem =</span> <span class="fu">factor</span>(mental_health_problem),</span>
+<span id="cb27-33"><a href="#cb27-33" tabindex="-1"></a>    <span class="at">gender =</span> <span class="fu">factor</span>(gender),</span>
+<span id="cb27-34"><a href="#cb27-34" tabindex="-1"></a>    <span class="at">no_health_insurance =</span> <span class="fu">factor</span>(no_health_insurance),</span>
+<span id="cb27-35"><a href="#cb27-35" tabindex="-1"></a>    <span class="at">gov_program =</span> <span class="fu">factor</span>(gov_program)</span>
+<span id="cb27-36"><a href="#cb27-36" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb27-37"><a href="#cb27-37" tabindex="-1"></a>  <span class="co"># Remove any rows with missing values in DV or predictors</span></span>
+<span id="cb27-38"><a href="#cb27-38" tabindex="-1"></a>  <span class="fu">drop_na</span>(MH_score, poverty_level, heart_condition, bmi, drug_problem,</span>
+<span id="cb27-39"><a href="#cb27-39" tabindex="-1"></a>          mental_health_problem, overall_health, gender, no_health_insurance, gov_program)</span>
+<span id="cb27-40"><a href="#cb27-40" tabindex="-1"></a></span>
+<span id="cb27-41"><a href="#cb27-41" tabindex="-1"></a><span class="co"># now we save this</span></span>
+<span id="cb27-42"><a href="#cb27-42" tabindex="-1"></a>young_adults <span class="ot">&lt;-</span> young_adults <span class="sc">%&gt;%</span></span>
+<span id="cb27-43"><a href="#cb27-43" tabindex="-1"></a>  <span class="fu">select</span>(MH_score, poverty_level, heart_condition, bmi, drug_problem,</span>
+<span id="cb27-44"><a href="#cb27-44" tabindex="-1"></a>         mental_health_problem, overall_health, gender, no_health_insurance, gov_program)</span></code></pre></div>
 <p>Now that we’re focusing on the young adults, I want to see what the
 distribution, in the form of a histogram, looks like for mental health
 scores in that group.</p>
-<pre class="r"><code># let&#39;s take a peak
-head(young_adults)</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="co"># let&#39;s take a peak</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="fu">head</span>(young_adults)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 10
 ##   MH_score poverty_level heart_condition   bmi drug_problem
 ##      &lt;dbl&gt;         &lt;dbl&gt; &lt;fct&gt;           &lt;dbl&gt; &lt;fct&gt;       
@@ -529,7 +618,7 @@ head(young_adults)</code></pre>
 ## 6       20             3 2                18.9 2           
 ## # ℹ 5 more variables: mental_health_problem &lt;fct&gt;, overall_health &lt;dbl&gt;,
 ## #   gender &lt;fct&gt;, no_health_insurance &lt;fct&gt;, gov_program &lt;fct&gt;</code></pre>
-<pre class="r"><code>summary(young_adults)</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">summary</span>(young_adults)</span></code></pre></div>
 <pre><code>##     MH_score    poverty_level   heart_condition      bmi        drug_problem
 ##  Min.   : 0.0   Min.   :1.000   1 : 42          Min.   :14.04   1:631       
 ##  1st Qu.: 7.0   1st Qu.:1.000   2 :908          1st Qu.:21.95   2:319       
@@ -544,9 +633,9 @@ head(young_adults)</code></pre>
 ##                        Mean   :2.627                                          
 ##                        3rd Qu.:3.000                                          
 ##                        Max.   :4.000</code></pre>
-<pre class="r"><code># this loks pretty normally distributed among young people
-ggplot(young_adults, aes(MH_score)) +
-  geom_histogram(bins = 30, color = &quot;plum4&quot;, fill = &quot;plum&quot;)</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="co"># this loks pretty normally distributed among young people</span></span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">ggplot</span>(young_adults, <span class="fu">aes</span>(MH_score)) <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">color =</span> <span class="st">&quot;plum4&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;plum&quot;</span>)</span></code></pre></div>
 <p><img src="p02_files/figure-html/health-1.png" alt="" width="672" /></p>
 </div>
 <div
@@ -558,21 +647,21 @@ health in young adults?</h3>
 scoring overall health so that 4 means great health and 1 means poor
 health. Then, I visualize that relationship between mental health and
 overall health with a jitter plot.</p>
-<pre class="r"><code># mutate so it makes more sense
-young_adults &lt;- young_adults %&gt;%
-  mutate(overall_health_rev = recode(overall_health,
-                                     `1` = 4,
-                                     `2` = 3,
-                                     `3` = 2,
-                                     `4` = 1
-  ))
-
-# relationship btwn overall and MH 
-ggplot(young_adults, aes(factor(overall_health_rev), MH_score)) +
-  geom_jitter(aes(colour = overall_health_rev), width = .15, alpha = .3) +
-  labs(title = &quot;Overall Health vs Mental Health&quot;,
-       subtitle = &quot;young adults: age 18-29&quot;,
-       )</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="co"># mutate so it makes more sense</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>young_adults <span class="ot">&lt;-</span> young_adults <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">overall_health_rev =</span> <span class="fu">recode</span>(overall_health,</span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>                                     <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">4</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>                                     <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">3</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>                                     <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">2</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>                                     <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a>  ))</span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a><span class="co"># relationship btwn overall and MH </span></span>
+<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a><span class="fu">ggplot</span>(young_adults, <span class="fu">aes</span>(<span class="fu">factor</span>(overall_health_rev), MH_score)) <span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">colour =</span> overall_health_rev), <span class="at">width =</span> .<span class="dv">15</span>, <span class="at">alpha =</span> .<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb33-13"><a href="#cb33-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Overall Health vs Mental Health&quot;</span>,</span>
+<span id="cb33-14"><a href="#cb33-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;young adults: age 18-29&quot;</span>,</span>
+<span id="cb33-15"><a href="#cb33-15" tabindex="-1"></a>       )</span></code></pre></div>
 <p><img src="p02_files/figure-html/health2-1.png" alt="" width="672" /></p>
 <p>Our visualization demonstrates that there is in fact a relationship
 between overall health and mental health in young adults (which should
@@ -584,8 +673,8 @@ not come as a surprise)</p>
 what class each variable is in, as that will help me when creating
 certain plots. I’m tidying up the data now and making it longer (which
 decreases the amount of columns).</p>
-<pre class="r"><code># which type of var
-sapply(young_adults, class)</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="co"># which type of var</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="fu">sapply</span>(young_adults, class)</span></code></pre></div>
 <pre><code>##              MH_score         poverty_level       heart_condition 
 ##             &quot;numeric&quot;             &quot;numeric&quot;              &quot;factor&quot; 
 ##                   bmi          drug_problem mental_health_problem 
@@ -594,22 +683,22 @@ sapply(young_adults, class)</code></pre>
 ##             &quot;numeric&quot;              &quot;factor&quot;              &quot;factor&quot; 
 ##           gov_program    overall_health_rev 
 ##              &quot;factor&quot;             &quot;numeric&quot;</code></pre>
-<pre class="r"><code>newDF &lt;- young_adults %&gt;%
-  filter(bmi &lt; 45) %&gt;%
-  select(MH_score, no_health_insurance, gov_program, gender, overall_health_rev) %&gt;%
-  mutate(overall_health_rev = factor(overall_health_rev, levels = 1:4,
-                                     labels = c(&quot;Poor&quot;, &quot;Fair&quot;, &quot;Good&quot;, &quot;Excellent&quot;))) %&gt;%
-  pivot_longer(-MH_score, names_to = &quot;predictor&quot;, values_to = &quot;group&quot;)</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>newDF <span class="ot">&lt;-</span> young_adults <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>  <span class="fu">filter</span>(bmi <span class="sc">&lt;</span> <span class="dv">45</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>  <span class="fu">select</span>(MH_score, no_health_insurance, gov_program, gender, overall_health_rev) <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">overall_health_rev =</span> <span class="fu">factor</span>(overall_health_rev, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a>                                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Poor&quot;</span>, <span class="st">&quot;Fair&quot;</span>, <span class="st">&quot;Good&quot;</span>, <span class="st">&quot;Excellent&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>MH_score, <span class="at">names_to =</span> <span class="st">&quot;predictor&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;group&quot;</span>)</span></code></pre></div>
 </div>
 <div id="data-visualization" class="section level3">
 <h3>Data Visualization</h3>
 <p>Now, you’ll see density ridges for various variables. This helps me
 determine if anything stands out and might be interesting to analyze
 more closely.</p>
-<pre class="r"><code>ggplot(newDF, aes(x = MH_score, y = group)) +
-  geom_density_ridges2() +
-  facet_wrap(~ predictor, scales = &quot;free_y&quot;) +
-  labs(y = &quot;Group&quot;, x = &quot;Mental Health Score&quot;)</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="fu">ggplot</span>(newDF, <span class="fu">aes</span>(<span class="at">x =</span> MH_score, <span class="at">y =</span> group)) <span class="sc">+</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>  <span class="fu">geom_density_ridges2</span>() <span class="sc">+</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> predictor, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Group&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Mental Health Score&quot;</span>)</span></code></pre></div>
 <pre><code>## Picking joint bandwidth of 1.5</code></pre>
 <pre><code>## Picking joint bandwidth of 1.58</code></pre>
 <pre><code>## Picking joint bandwidth of 1.66</code></pre>
@@ -625,26 +714,26 @@ BMI in young adults?</h3>
 of BMI over 45, given that anything over that point may be a typo (if
 this were a real data analysis project, I would investigate this more
 carefully before ommitting these cases).</p>
-<pre class="r"><code># the bmi one also really stood out to me
-
-young_adults_bmi &lt;- young_adults %&gt;% filter(bmi &lt; 45)
-
-ggplot(young_adults_bmi, aes(x = bmi, y = MH_score)) +
-  geom_point(alpha = .25) +
-  geom_smooth(method = &quot;loess&quot;) +
-  labs(x = &quot;BMI&quot;, y = &quot;Mental Health Score&quot;)</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="co"># the bmi one also really stood out to me</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>young_adults_bmi <span class="ot">&lt;-</span> young_adults <span class="sc">%&gt;%</span> <span class="fu">filter</span>(bmi <span class="sc">&lt;</span> <span class="dv">45</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a><span class="fu">ggplot</span>(young_adults_bmi, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> MH_score)) <span class="sc">+</span></span>
+<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">25</span>) <span class="sc">+</span></span>
+<span id="cb42-7"><a href="#cb42-7" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-8"><a href="#cb42-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;BMI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mental Health Score&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="p02_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
-<pre class="r"><code># 
-young_adults_bmi %&gt;%
-  mutate(bmi_cat = cut(bmi, breaks = 4)) %&gt;%
-  ggplot(aes(x = bmi_cat, y = MH_score)) +
-  stat_summary(fun = mean, geom = &quot;point&quot;, size = 3) +
-  stat_summary(fun.data = mean_cl_boot, geom = &quot;errorbar&quot;, width = .2) +
-  labs(x = &quot;BMI category&quot;, y = &quot;Mental Health Score&quot;)</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>young_adults_bmi <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bmi_cat =</span> <span class="fu">cut</span>(bmi, <span class="at">breaks =</span> <span class="dv">4</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bmi_cat, <span class="at">y =</span> MH_score)) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun.data =</span> mean_cl_boot, <span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">width =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb44-7"><a href="#cb44-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;BMI category&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Mental Health Score&quot;</span>)</span></code></pre></div>
 <p><img src="p02_files/figure-html/unnamed-chunk-2-2.png" alt="" width="672" /></p>
-<pre class="r"><code># is there really a u shaped curve? - yes
-lm(MH_score ~ bmi + I(bmi^2), data = young_adults_bmi)</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="co"># is there really a u shaped curve? - yes</span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a><span class="fu">lm</span>(MH_score <span class="sc">~</span> bmi <span class="sc">+</span> <span class="fu">I</span>(bmi<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> young_adults_bmi)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = MH_score ~ bmi + I(bmi^2), data = young_adults_bmi)
@@ -652,15 +741,15 @@ lm(MH_score ~ bmi + I(bmi^2), data = young_adults_bmi)</code></pre>
 ## Coefficients:
 ## (Intercept)          bmi     I(bmi^2)  
 ##    18.98204     -0.61063      0.01129</code></pre>
-<pre class="r"><code>ggplot(young_adults_bmi, aes(x = bmi, y = MH_score)) +
-  geom_point(alpha = .2) +
-  geom_smooth(method = &quot;gam&quot;, formula = y ~ s(x), size = 1.2) +
-  theme_minimal() +
-  labs(
-    title = &quot;Curvilinear Association Between BMI and Mental Health&quot;,
-    x = &quot;Body Mass Index (BMI)&quot;,
-    y = &quot;Mental Health Score&quot;
-  )</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">ggplot</span>(young_adults_bmi, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> MH_score)) <span class="sc">+</span></span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;gam&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">s</span>(x), <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="#cb47-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb47-5"><a href="#cb47-5" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb47-6"><a href="#cb47-6" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Curvilinear Association Between BMI and Mental Health&quot;</span>,</span>
+<span id="cb47-7"><a href="#cb47-7" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Body Mass Index (BMI)&quot;</span>,</span>
+<span id="cb47-8"><a href="#cb47-8" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Mental Health Score&quot;</span></span>
+<span id="cb47-9"><a href="#cb47-9" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ## ℹ Please use `linewidth` instead.
 ## This warning is displayed once per session.
@@ -683,30 +772,30 @@ id="question-4-is-there-a-difference-in-bmi-vs-mh-depending-on-gender"
 class="section level3">
 <h3>Question 4: Is there a difference in BMI vs MH depending on
 gender?</h3>
-<pre class="r"><code># Question 4
-ggplot(young_adults_bmi,
-       aes(x = bmi, y = MH_score, color = factor(overall_health_rev))) +
-  geom_point(alpha = 0.3) +
-  geom_smooth(method = &quot;gam&quot;, formula = y ~ s(x), se = FALSE) +
-  labs(
-    x = &quot;BMI&quot;,
-    y = &quot;Mental Health Score&quot;,
-    color = &quot;Overall Health&quot;,
-    title = &quot;BMI vs MH, colored by Overall Health&quot;
-  ) +
-  theme_minimal()</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="co"># Question 4</span></span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a><span class="fu">ggplot</span>(young_adults_bmi,</span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> MH_score, <span class="at">color =</span> <span class="fu">factor</span>(overall_health_rev))) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;gam&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">s</span>(x), <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb49-6"><a href="#cb49-6" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb49-7"><a href="#cb49-7" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;BMI&quot;</span>,</span>
+<span id="cb49-8"><a href="#cb49-8" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Mental Health Score&quot;</span>,</span>
+<span id="cb49-9"><a href="#cb49-9" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Overall Health&quot;</span>,</span>
+<span id="cb49-10"><a href="#cb49-10" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;BMI vs MH, colored by Overall Health&quot;</span></span>
+<span id="cb49-11"><a href="#cb49-11" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb49-12"><a href="#cb49-12" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="p02_files/figure-html/cool%20stuff-1.png" alt="" width="672" /></p>
-<pre class="r"><code># Plot BMI vs Mental Health by gender
-ggplot(young_adults_bmi, aes(x = bmi, y = MH_score, color = gender)) +
-  geom_point(alpha = 0.3) +
-  geom_smooth(method = &quot;gam&quot;, formula = y ~ s(x), se = FALSE) +
-  theme_minimal() +
-  labs(
-    title = &quot;BMI vs Mental Health by Gender&quot;,
-    x = &quot;Body Mass Index (BMI)&quot;,
-    y = &quot;Mental Health Score&quot;,
-    color = &quot;Gender&quot;
-  )</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="co"># Plot BMI vs Mental Health by gender</span></span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a><span class="fu">ggplot</span>(young_adults_bmi, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> MH_score, <span class="at">color =</span> gender)) <span class="sc">+</span></span>
+<span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb50-4"><a href="#cb50-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;gam&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> <span class="fu">s</span>(x), <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb50-5"><a href="#cb50-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb50-6"><a href="#cb50-6" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb50-7"><a href="#cb50-7" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;BMI vs Mental Health by Gender&quot;</span>,</span>
+<span id="cb50-8"><a href="#cb50-8" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Body Mass Index (BMI)&quot;</span>,</span>
+<span id="cb50-9"><a href="#cb50-9" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Mental Health Score&quot;</span>,</span>
+<span id="cb50-10"><a href="#cb50-10" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Gender&quot;</span></span>
+<span id="cb50-11"><a href="#cb50-11" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="p02_files/figure-html/cool%20stuff-2.png" alt="" width="672" /></p>
 <p>Here’s what I’ve found so far: Among young adults, mental health is
 not linearly related to BMI; instead, both very low and very high BMI
@@ -715,15 +804,15 @@ overall health and gender.</p>
 </div>
 <div id="modeling-gender" class="section level3">
 <h3>Modeling Gender</h3>
-<pre class="r"><code># Gender seemed interesting so lets model that. 
-
-model &lt;- lm(
-  MH_score ~ bmi + I(bmi^2) + gender + overall_health_rev +
-             poverty_level + no_health_insurance,
-  data = young_adults_bmi
-)
-
-summary(model)</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="co"># Gender seemed interesting so lets model that. </span></span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb51-4"><a href="#cb51-4" tabindex="-1"></a>  MH_score <span class="sc">~</span> bmi <span class="sc">+</span> <span class="fu">I</span>(bmi<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> gender <span class="sc">+</span> overall_health_rev <span class="sc">+</span></span>
+<span id="cb51-5"><a href="#cb51-5" tabindex="-1"></a>             poverty_level <span class="sc">+</span> no_health_insurance,</span>
+<span id="cb51-6"><a href="#cb51-6" tabindex="-1"></a>  <span class="at">data =</span> young_adults_bmi</span>
+<span id="cb51-7"><a href="#cb51-7" tabindex="-1"></a>)</span>
+<span id="cb51-8"><a href="#cb51-8" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="#cb51-9" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = MH_score ~ bmi + I(bmi^2) + gender + overall_health_rev + 
@@ -749,7 +838,7 @@ summary(model)</code></pre>
 ## Residual standard error: 5.339 on 920 degrees of freedom
 ## Multiple R-squared:  0.1305, Adjusted R-squared:  0.1239 
 ## F-statistic: 19.73 on 7 and 920 DF,  p-value: &lt; 2.2e-16</code></pre>
-<pre class="r"><code>lm.beta(model)</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">lm.beta</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = MH_score ~ bmi + I(bmi^2) + gender + overall_health_rev + 
@@ -762,36 +851,57 @@ summary(model)</code></pre>
 ##            0.03139791           -0.31550444           -0.09506478 
 ##  no_health_insurance2 no_health_insurance85 
 ##           -0.02213711           -0.04660714</code></pre>
-<p>BMI and overall health have a meaningful effects (curvilenar). Lack
+<p>BMI and overall health have a meaningful effects (curvilinear). Lack
 of health insurance was not significant in this model, but this may be
 due to the fact that the young adults in our sample have access to
-health insurance, and may not be representative of the population.</p>
+health insurance and poverty leve, and may not be representative of the
+population. There’s also the issue of multicollinearity, or that we
+don’t have the “right” predictors in the model.</p>
 <p>But let’s look at gender moderation:</p>
-<pre class="r"><code>lm(
-  MH_score ~ bmi + I(bmi^2)*gender + overall_health_rev +
-             poverty_level,
-  data = young_adults_bmi
-)</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a>model_gender <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a>  MH_score <span class="sc">~</span> bmi <span class="sc">+</span> <span class="fu">I</span>(bmi<span class="sc">^</span><span class="dv">2</span>)<span class="sc">*</span>gender <span class="sc">+</span> overall_health_rev <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" tabindex="-1"></a>             poverty_level,</span>
+<span id="cb55-4"><a href="#cb55-4" tabindex="-1"></a>  <span class="at">data =</span> young_adults_bmi</span>
+<span id="cb55-5"><a href="#cb55-5" tabindex="-1"></a>)</span>
+<span id="cb55-6"><a href="#cb55-6" tabindex="-1"></a></span>
+<span id="cb55-7"><a href="#cb55-7" tabindex="-1"></a><span class="fu">summary</span>(model_gender)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = MH_score ~ bmi + I(bmi^2) * gender + overall_health_rev + 
 ##     poverty_level, data = young_adults_bmi)
 ## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13.0715  -3.7219  -0.2036   3.5103  17.0215 
+## 
 ## Coefficients:
-##        (Intercept)                 bmi            I(bmi^2)             gender2  
-##          22.241691           -0.291881            0.003687           -1.133993  
-## overall_health_rev       poverty_level    I(bmi^2):gender2  
-##          -2.064001           -0.624217            0.002100</code></pre>
+##                     Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)        22.241691   3.288666   6.763  2.4e-11 ***
+## bmi                -0.291881   0.231776  -1.259  0.20823    
+## I(bmi^2)            0.003687   0.004094   0.900  0.36811    
+## gender2            -1.133993   0.826820  -1.372  0.17055    
+## overall_health_rev -2.064001   0.203725 -10.131  &lt; 2e-16 ***
+## poverty_level      -0.624217   0.211652  -2.949  0.00327 ** 
+## I(bmi^2):gender2    0.002100   0.001046   2.008  0.04495 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.332 on 921 degrees of freedom
+## Multiple R-squared:  0.1318, Adjusted R-squared:  0.1262 
+## F-statistic: 23.31 on 6 and 921 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="fu">ggplot</span>(young_adults_bmi, <span class="fu">aes</span>(<span class="at">x =</span> bmi, <span class="at">y =</span> MH_score, <span class="at">color =</span> gender)) <span class="sc">+</span></span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">formula =</span> y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<p><img src="p02_files/figure-html/gender-1.png" alt="" width="672" /></p>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>overall health MAJOR predictor.Is the BMI–mental health relationship
-different for men and women? Yes. The main effect seems weak but there
-is definitely moderation.</p>
-<p>so: Although gender was not a strong predictor of average mental
-health, it significantly moderated the curvilinear association between
-BMI and mental health, indicating that body-related mental health risks
-operate differently across genders.</p>
+<p>The curvilinear relationship between mental health scores and BMI
+differs significantly by gender, and this u-shaped curved is more
+pronounced for women than men; however, there is not a main effect of
+gender. Moreover, the second model only explains for around 13% of
+variance (understandable).Interestingly, poverty level does have an
+effect here.</p>
 <p><strong>References</strong>: Center for Behavioral Health Statistics
 and Quality. (2025). 2024 National Survey on Drug Use and Health Public
 Use File Codebook, Substance Abuse and Mental Health Services
