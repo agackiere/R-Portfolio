@@ -1,52 +1,138 @@
 ---
-title: "Portfolio 1"
+title: "Time Calculations"
+output:
+  html_document: 
+    theme: yeti
+    highlight: zenburn
+  word_document: default
+date: "2026-01-27"
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
-
-```{r load-packages, warning = FALSE, message=FALSE}
-library(tidyverse) 
-library(tidyr)
-data(fish_encounters)
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget nibh vel est aliquet iaculis at placerat sem. Aenean faucibus iaculis ultricies. Nullam consequat odio in ultricies ullamcorper. Etiam venenatis in est vitae ullamcorper. Nam vitae urna ut dolor rhoncus aliquet at vel neque. Quisque tristique leo finibus nisi interdum, sit amet tempor risus viverra. Donec mollis vulputate sodales. Nunc ornare, leo quis euismod eleifend, eros mi maximus felis, vel varius lacus dui eget nibh. Duis vitae nunc nisl. Donec accumsan aliquam elit, eu fringilla quam pulvinar eget.
+# Introduction
 
-Mauris in ligula mauris. Curabitur facilisis pharetra metus eget lobortis. In egestas nibh sit amet faucibus eleifend. Suspendisse imperdiet viverra blandit. Phasellus consectetur tincidunt eros eu facilisis. Quisque maximus, orci eget sodales aliquam, velit lorem semper dolor, nec convallis erat ipsum mattis velit. Pellentesque porttitor, mauris vitae aliquam mattis, metus nisl viverra turpis, vel convallis metus sapien et ex. Nunc consequat ipsum id dolor eleifend, sit amet semper eros sodales. Pellentesque consectetur, dui quis venenatis malesuada, nunc lorem lacinia libero, vitae malesuada dui arcu in augue. Aliquam id sagittis libero. Vestibulum aliquet sagittis libero, non posuere odio molestie ut. Curabitur lacus enim, viverra vel odio non, pretium efficitur elit. Mauris posuere efficitur interdum. Nunc sed bibendum turpis, quis fringilla velit. Phasellus eu lorem lobortis eros molestie laoreet.
+In some experiments, what participants do later depends on how they respond earlier. For instance, activities might be assigned based on depression scores, or, like in my research, on implicit motivation for social engagement. One compelling way to measure this motivation is with a reinforcement learning task that captures how rewarding people find social cues. In this project, **I used participants’ choices in that task to decide whether they would spend time alone or with someone else, and for how long**. This approach allowed me to test whether people were happier when their activities aligned with their underlying preferences.
 
+**How does this work in practice?**
 
+Reinforcement learning programs like PsychoPy automatically output a CSV file as soon as the task is completed. This script reads that file directly: *the researcher selects the any file in the data folder, enters the participant ID, and the script immediately extracts the necessary results.* This allows experiment components to be adjusted quickly and with minimal effort.
 
-```{r}
-# Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = "identity") +
-  labs(x = "Species", y = "Number of Fish Encounters")
-  
+**The same script can be adapted for a wide range of measures** (eg. Implicit Association Test). For instance, it could be used with tasks examining implicit bias or racism to assign participants to different scenarios based on their task performance rather than at random. In this way, experimental conditions can be tailored efficiently and transparently using participants’ own data.
+
+Additionally, nothing fancy is needed to run this on R. This was designed to be as user friendly as possible.
+
+*These first few chunks (depicted as comments) cannot be run due to the "file choose" nature of the script.*
+
+However, the process will be described below in the form of photos.
+
+# Instructions
+
+1.  **Click Timing_Calculation.R. It will open on R studio. Follow the comments on the R script and run the code one line at a time.**
+
+2.  **When you run the first line, R will direct you to folders. *Directions for the RAs in my lab*:** select the Social RL Folder → DATA Folder → Click on **any** CSV file.
+
+3.  **When you run the line that says \# Enter Participant ID, it will ask you to add the PID IN THE CONSOLE.** Run that line. If it works, run the rest of the code. **You should see the timing calculations then**! :-)
+
+# The Process
+
+![Click on a File](Images/instruction_image1.png)
+
+```{r file_grab}
+# click on ANY CSV FILE in the DATA FOLDER within the SOCIAL RL FOLDER
+# any_file <- file.choose() 
 ```
 
-
-Sed mollis purus faucibus leo finibus, ut pharetra nibh elementum. Nulla id orci lorem. Mauris sollicitudin mi eget tellus vehicula, ut convallis lorem mollis. In blandit nulla diam, a malesuada sem volutpat interdum. Ut elementum elit at velit maximus, ac tempor odio porttitor. Suspendisse lobortis sollicitudin tortor, ut pharetra libero luctus a. Sed hendrerit faucibus metus. Sed rutrum purus vel pellentesque euismod.
-
-
-```{r}
-# Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = "identity") +
-  labs(x = "Species", y = "Number of Fish Encounters") +
-  theme_minimal()
-  
+```{r get_file}
+#data_dir <- dirname(any_file)
+#cat("Data folder selected:", data_dir, "\n")
 ```
 
-Mauris placerat in velit a pharetra. Nulla viverra bibendum lectus, ut lobortis nibh. Aenean malesuada, orci vitae dictum placerat, enim justo aliquet leo, ac tincidunt augue ipsum et mi. Nullam in pharetra metus, nec molestie felis. Duis varius rhoncus pulvinar. Integer semper urna sed tellus rhoncus, vel suscipit odio iaculis. Mauris iaculis neque pellentesque ex convallis venenatis. Sed ultrices euismod fermentum. Ut feugiat risus at turpis tincidunt viverra.
-
-
-```{r}
-# Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = "identity") +
-  labs(x = "Species", y = "Number of Fish Encounters") +
-  theme_classic()
-  
+```{r type_id}
+#### ONCE YOU RUN THIS, TYPE THE PID IN THE CONSOLE DIRECTLY!!!
+#participant_id <- trimws(readline("Enter participant ID: "))
 ```
 
-Donec sagittis suscipit orci in ultrices. Vivamus iaculis eleifend est et dictum. Fusce non urna at lacus dapibus tincidunt ac sed nibh. Donec luctus lectus elit, ac ultrices tortor mollis sit amet. Nulla finibus lacinia arcu. Proin sollicitudin non odio et pulvinar. Maecenas finibus faucibus finibus. Ut elementum metus velit, a sodales sapien commodo et. Vivamus pulvinar, sapien et porta cursus, elit est luctus nisi, eget fringilla odio diam et enim. Sed sodales suscipit bibendum. Morbi ut metus semper, laoreet felis sodales, consequat dolor.
+```{r find-csv}
+# find only CSVs that match this participant
+#csv_files <- list.files(data_dir, pattern = "\\.csv$", full.names = TRUE)
+#participant_file <- csv_files[grepl(participant_id, csv_files)]
+```
+
+```{r safety-check}
+# safety checks
+#if (length(participant_file) == 0) stop("No CSV found for this participant ID.")
+#if (length(participant_file) > 1) stop("Multiple CSVs found for this participant ID. Check filenames.")
+
+
+```
+
+```{r final-read}
+# read CSV and analyze the target column
+#data <- read.csv(participant_file)
+```
+
+The rest of the code can be found below in the demonstration section.
+
+# Demonstration
+
+Now, it's time for the pipeline demonstration. You'll see that if the right data was collected, we'll get a nice table that tells us what we need to know for the following activity.
+
+```{r read-csv-demo, echo=TRUE}
+# Participant ID
+participant_id <- "test1"
+
+# Read CSV
+data <- read.csv(paste0("data/", participant_id, ".csv"))
+```
+
+```{r name5}
+# required columns for our calculations
+required_cols <- c("OneOrTwo", "PictureValence")
+missing_cols <- setdiff(required_cols, names(data))
+
+# another safety check!
+if (length(missing_cols) > 0) {
+  stop(paste("Missing required columns:", paste(missing_cols, collapse = ", ")))
+}
+
+```
+
+In this scenario, we only want the counts of the photos with positive valence. These are the social rewards in our study that will determine the following activity.
+
+```{r name6}
+# count rows where:OneOrTwo == 2 AND PictureValence == 1
+num_positive_valence <- sum(
+  data$OneOrTwo == 2 & data$PictureValence == 1,
+  na.rm = TRUE
+)
+```
+
+Now we convert the number of positive photos they selected in the task to seconds.
+
+```{r name7}
+# converting to seconds
+total_seconds <- num_positive_valence * 15
+
+print(paste("Participant ID:", participant_id))
+print(paste("Positive valence trials:", num_positive_valence))
+print(paste("Total valence time:", total_seconds, "seconds"))
+
+```
+
+And done! In **three steps total** (running the first two lines and choosing a file; running the third line and typing in the participant ID in the console; and running the rest of the lines), the research assistants get all the information they need to move on to the next step of the experiment. All in all, this takes about 2 minutes!
+
+# **Conclusion**
+
+RStudio may seem user friendly to people with many years of coding experience. But for students who have never interacted with it, it may seem daunting. My RAs even get nervous opening Windows Files (who can blame them!). To truly understand something, you must be able to teach it too. Not only does this process teach them what RStudio looks like, it also teaches me how to teach others!
+
+**Notes**
+
+1.  You'll notice that there are multiple safety checks in the script (in the Time_Calc .R file). This is important especially in these types of scenarios, but I have now incorporated many safety checks in most of my work, even if they may feel redundant.
+
+2.  This script may seem small and simple to you. However, I am used to writing scripts in a way that makes sense to me. Writing it in a way that makes sense to *everyone* on my team proved more challenging than I thought.
+
+3.  *I have provided a test1.csv that you may choose to run the Timing_CalcP01.R to see how this feels in practice. If the instructions feel to complicated for you, feedback is always appreciated to make this more user friendly.*
+
