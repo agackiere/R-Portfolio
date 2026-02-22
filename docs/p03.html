@@ -10,13 +10,14 @@
 
 
 
+<meta name="date" content="2026-01-27" />
 
 <title>Portfolio 3</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,8 +31,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,18 +41,110 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -291,17 +382,1267 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Portfolio 3</h1>
+<h4 class="date">2026-01-27</h4>
 
 </div>
 
 
-<blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
-</blockquote>
+<div id="happy-teeth-happy-heart" class="section level1">
+<h1>Happy Teeth, Happy Heart!</h1>
+<p>According to the American Heart Association, oral health, especially
+periodontal (gum) disease is independently associated with markers of
+cardiovascular disease. Here, I sought to use data from the National
+Health and Nutrition Examination Survey to replicate these findings.</p>
+<div class="figure">
+<img src="Images/Cardiographicwide2.jpg" alt="Source: Altima Dental. (2020, July 6). Does a healthy mouth mean a healthy heart? [Infographic]. &lt;https://www.altimadental.com/does-a-healthy-mouth-mean-a-healthy-hearrt" width="50%" />
+<p class="caption">
+Source: Altima Dental. (2020, July 6). Does a healthy mouth mean a
+healthy heart? [Infographic]. <a
+href="https://www.altimadental.com/does-a-healthy-mouth-mean-a-healthy-hearrt%3C/p"
+class="uri">https://www.altimadental.com/does-a-healthy-mouth-mean-a-healthy-hearrt&lt;/p</a>
+</div>
+<div id="data" class="section level1">
+<h1>2017 - 2018 Data</h1>
+<p>Data from 2019-2020 is limited access, and 2020-2023 encountered
+issues due to the Covid-19 Pandemic. Thus, I began by exploring the most
+recent dataset that included information about oral health.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(nhanesA)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.1     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;DEMO_J&#39;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>bpx  <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;BPXO_J&#39;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>hdl  <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;HDL_J&#39;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>trig <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;TRIGLY_J&#39;</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>bpq  <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;BPQ_J&#39;</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>smq  <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;SMQ_J&#39;</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>bmx  <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;BMX_J&#39;</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>ohxden <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;OHXDEN_J&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>merged <span class="ot">&lt;-</span> demo <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">left_join</span>(ohxden, <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">left_join</span>(bpx,  <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="fu">left_join</span>(hdl,  <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="fu">left_join</span>(trig, <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="fu">left_join</span>(bpq,  <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="fu">left_join</span>(smq,  <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="fu">left_join</span>(bmx,  <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="fu">nrow</span>(merged)</span></code></pre></div>
+<pre><code>## [1] 9254</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">ncol</span>(merged)</span></code></pre></div>
+<pre><code>## [1] 304</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">head</span>(merged)</span></code></pre></div>
+<pre><code>##    SEQN                        SDDSRVYR                          RIDSTATR
+## 1 93703 NHANES 2017-2018 public release Both interviewed and MEC examined
+## 2 93704 NHANES 2017-2018 public release Both interviewed and MEC examined
+## 3 93705 NHANES 2017-2018 public release Both interviewed and MEC examined
+## 4 93706 NHANES 2017-2018 public release Both interviewed and MEC examined
+## 5 93707 NHANES 2017-2018 public release Both interviewed and MEC examined
+## 6 93708 NHANES 2017-2018 public release Both interviewed and MEC examined
+##   RIAGENDR RIDAGEYR RIDAGEMN                            RIDRETH1
+## 1   Female        2       NA Other Race - Including Multi-Racial
+## 2     Male        2       NA                  Non-Hispanic White
+## 3   Female       66       NA                  Non-Hispanic Black
+## 4     Male       18       NA Other Race - Including Multi-Racial
+## 5     Male       13       NA Other Race - Including Multi-Racial
+## 6   Female       66       NA Other Race - Including Multi-Racial
+##                              RIDRETH3                    RIDEXMON RIDEXAGM
+## 1                  Non-Hispanic Asian    May 1 through October 31       27
+## 2                  Non-Hispanic White November 1 through April 30       33
+## 3                  Non-Hispanic Black    May 1 through October 31       NA
+## 4                  Non-Hispanic Asian    May 1 through October 31      222
+## 5 Other Race - Including Multi-Racial    May 1 through October 31      158
+## 6                  Non-Hispanic Asian    May 1 through October 31       NA
+##   DMQMILIZ DMQADFC                               DMDBORN4
+## 1     &lt;NA&gt;    &lt;NA&gt; Born in 50 US states or Washington, DC
+## 2     &lt;NA&gt;    &lt;NA&gt; Born in 50 US states or Washington, DC
+## 3       No    &lt;NA&gt; Born in 50 US states or Washington, DC
+## 4       No    &lt;NA&gt; Born in 50 US states or Washington, DC
+## 5     &lt;NA&gt;    &lt;NA&gt; Born in 50 US states or Washington, DC
+## 6       No    &lt;NA&gt;                                 Others
+##                             DMDCITZN                                DMDYRSUS
+## 1 Citizen by birth or naturalization                                    &lt;NA&gt;
+## 2 Citizen by birth or naturalization                                    &lt;NA&gt;
+## 3 Citizen by birth or naturalization                                    &lt;NA&gt;
+## 4 Citizen by birth or naturalization                                    &lt;NA&gt;
+## 5 Citizen by birth or naturalization                                    &lt;NA&gt;
+## 6 Citizen by birth or naturalization 30 year or more, but less than 40 years
+##                DMDEDUC3                                           DMDEDUC2
+## 1                  &lt;NA&gt;                                               &lt;NA&gt;
+## 2                  &lt;NA&gt;                                               &lt;NA&gt;
+## 3                  &lt;NA&gt; 9-11th grade (Includes 12th grade with no diploma)
+## 4 More than high school                                               &lt;NA&gt;
+## 5             6th grade                                               &lt;NA&gt;
+## 6                  &lt;NA&gt;                                Less than 9th grade
+##   DMDMARTL RIDEXPRG SIALANG SIAPROXY SIAINTRP FIALANG FIAPROXY FIAINTRP MIALANG
+## 1     &lt;NA&gt;     &lt;NA&gt; English      Yes       No English       No       No    &lt;NA&gt;
+## 2     &lt;NA&gt;     &lt;NA&gt; English      Yes       No English       No       No    &lt;NA&gt;
+## 3 Divorced     &lt;NA&gt; English       No       No English       No       No English
+## 4     &lt;NA&gt;     &lt;NA&gt; English       No       No    &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt; English
+## 5     &lt;NA&gt;     &lt;NA&gt; English      Yes       No English       No       No English
+## 6  Married     &lt;NA&gt; English       No      Yes English       No       No English
+##   MIAPROXY MIAINTRP        AIALANGA                          DMDHHSIZ
+## 1     &lt;NA&gt;     &lt;NA&gt;            &lt;NA&gt;                                 5
+## 2     &lt;NA&gt;     &lt;NA&gt;            &lt;NA&gt;                                 4
+## 3       No       No         English                                 1
+## 4       No       No         English                                 5
+## 5       No       No         English 7 or more people in the Household
+## 6       No      Yes Asian languages                                 2
+##                         DMDFMSIZ  DMDHHSZA  DMDHHSZB DMDHHSZE DMDHRGND
+## 1                              5 3 or more         0        0     Male
+## 2                              4         2         0        0     Male
+## 3                              1         0         0        1   Female
+## 4                              5         0         0        1     Male
+## 5 7 or more people in the Family         0 3 or more        0     Male
+## 6                              2         0         0        2     Male
+##      DMDHRAGZ                                       DMDHREDZ
+## 1 20-39 years                      College graduate or above
+## 2 20-39 years                      College graduate or above
+## 3   60+ years                   Less than high school degree
+## 4   60+ years                      College graduate or above
+## 5 40-59 years High school grad/GED or some college/AA degree
+## 6   60+ years                   Less than high school degree
+##                      DMDHRMAZ                                       DMDHSEDZ
+## 1 Married/Living with partner                      College graduate or above
+## 2 Married/Living with partner High school grad/GED or some college/AA degree
+## 3  Widowed/Divorced/Separated                                           &lt;NA&gt;
+## 4 Married/Living with partner High school grad/GED or some college/AA degree
+## 5 Married/Living with partner                      College graduate or above
+## 6 Married/Living with partner                   Less than high school degree
+##    WTINT2YR  WTMEC2YR SDMVPSU SDMVSTRA           INDHHIN2           INDFMIN2
+## 1  9246.492  8539.731       2      145  $100,000 and Over  $100,000 and Over
+## 2 37338.768 42566.615       1      143  $100,000 and Over  $100,000 and Over
+## 3  8614.571  8338.420       2      145 $10,000 to $14,999 $10,000 to $14,999
+## 4  8548.633  8723.440       2      134               &lt;NA&gt;               &lt;NA&gt;
+## 5  6769.345  7064.610       1      138 $65,000 to $74,999 $65,000 to $74,999
+## 6 13329.451 14372.489       2      138 $25,000 to $34,999 $25,000 to $34,999
+##   INDFMPIR OHDEXSTS OHDDESTS OHXIMP           OHX01TC                 OHX02TC
+## 1     5.00 Complete Complete   &lt;NA&gt; Tooth not present       Tooth not present
+## 2     5.00 Complete Complete   &lt;NA&gt; Tooth not present       Tooth not present
+## 3     0.82 Complete Complete     No Tooth not present Permanent tooth present
+## 4       NA Complete Complete     No Tooth not present Permanent tooth present
+## 5     1.88 Complete Complete     No Tooth not present       Tooth not present
+## 6     1.63 Complete Complete     No Tooth not present Permanent tooth present
+##                   OHX03TC                           OHX04TC
+## 1       Tooth not present Primary tooth (deciduous) present
+## 2       Tooth not present Primary tooth (deciduous) present
+## 3       Tooth not present           Permanent tooth present
+## 4 Permanent tooth present           Permanent tooth present
+## 5 Permanent tooth present Primary tooth (deciduous) present
+## 6 Permanent tooth present           Permanent tooth present
+##                             OHX05TC                           OHX06TC
+## 1 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 2 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 3           Permanent tooth present           Permanent tooth present
+## 4           Permanent tooth present           Permanent tooth present
+## 5 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 6           Permanent tooth present           Permanent tooth present
+##                             OHX07TC                           OHX08TC
+## 1 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 2 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 3           Permanent tooth present           Permanent tooth present
+## 4           Permanent tooth present           Permanent tooth present
+## 5           Permanent tooth present           Permanent tooth present
+## 6           Permanent tooth present           Permanent tooth present
+##                             OHX09TC                           OHX10TC
+## 1 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 2 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 3           Permanent tooth present           Permanent tooth present
+## 4           Permanent tooth present           Permanent tooth present
+## 5           Permanent tooth present           Permanent tooth present
+## 6           Permanent tooth present           Permanent tooth present
+##                             OHX11TC                           OHX12TC
+## 1 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 2 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 3           Permanent tooth present           Permanent tooth present
+## 4           Permanent tooth present           Permanent tooth present
+## 5 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 6           Permanent tooth present           Permanent tooth present
+##                             OHX13TC                 OHX14TC
+## 1 Primary tooth (deciduous) present       Tooth not present
+## 2 Primary tooth (deciduous) present       Tooth not present
+## 3           Permanent tooth present Permanent tooth present
+## 4           Permanent tooth present Permanent tooth present
+## 5 Primary tooth (deciduous) present Permanent tooth present
+## 6           Permanent tooth present Permanent tooth present
+##                   OHX15TC                 OHX16TC                 OHX17TC
+## 1       Tooth not present       Tooth not present       Tooth not present
+## 2       Tooth not present       Tooth not present       Tooth not present
+## 3 Permanent tooth present Permanent tooth present Permanent tooth present
+## 4 Permanent tooth present       Tooth not present       Tooth not present
+## 5       Tooth not present       Tooth not present       Tooth not present
+## 6 Permanent tooth present       Tooth not present       Tooth not present
+##                   OHX18TC                 OHX19TC
+## 1       Tooth not present       Tooth not present
+## 2       Tooth not present       Tooth not present
+## 3 Permanent tooth present       Tooth not present
+## 4 Permanent tooth present Permanent tooth present
+## 5       Tooth not present Permanent tooth present
+## 6 Permanent tooth present Permanent tooth present
+##                             OHX20TC                           OHX21TC
+## 1 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 2 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 3           Permanent tooth present           Permanent tooth present
+## 4           Permanent tooth present           Permanent tooth present
+## 5 Primary tooth (deciduous) present           Permanent tooth present
+## 6           Permanent tooth present           Permanent tooth present
+##                             OHX22TC                           OHX23TC
+## 1 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 2 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 3           Permanent tooth present           Permanent tooth present
+## 4           Permanent tooth present           Permanent tooth present
+## 5           Permanent tooth present           Permanent tooth present
+## 6           Permanent tooth present           Permanent tooth present
+##                             OHX24TC                           OHX25TC
+## 1 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 2 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 3           Permanent tooth present           Permanent tooth present
+## 4           Permanent tooth present           Permanent tooth present
+## 5           Permanent tooth present           Permanent tooth present
+## 6           Permanent tooth present           Permanent tooth present
+##                             OHX26TC                           OHX27TC
+## 1 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 2 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 3           Permanent tooth present           Permanent tooth present
+## 4           Permanent tooth present           Permanent tooth present
+## 5           Permanent tooth present           Permanent tooth present
+## 6           Permanent tooth present           Permanent tooth present
+##                             OHX28TC                           OHX29TC
+## 1 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 2 Primary tooth (deciduous) present Primary tooth (deciduous) present
+## 3           Permanent tooth present           Permanent tooth present
+## 4           Permanent tooth present           Permanent tooth present
+## 5 Primary tooth (deciduous) present           Permanent tooth present
+## 6           Permanent tooth present           Permanent tooth present
+##                   OHX30TC                 OHX31TC           OHX32TC
+## 1       Tooth not present       Tooth not present Tooth not present
+## 2       Tooth not present       Tooth not present Tooth not present
+## 3       Tooth not present Permanent tooth present Tooth not present
+## 4 Permanent tooth present Permanent tooth present Tooth not present
+## 5 Permanent tooth present Permanent tooth present Tooth not present
+## 6 Permanent tooth present Permanent tooth present Tooth not present
+##                                            OHX02CTC
+## 1                                         Unerupted
+## 2                                         Unerupted
+## 3 Permanent tooth with a restored surface condition
+## 4                             Sound permanent tooth
+## 5                                         Unerupted
+## 6                             Sound permanent tooth
+##                                            OHX03CTC
+## 1                                         Unerupted
+## 2                                         Unerupted
+## 3                     Missing due to dental disease
+## 4 Permanent tooth with a restored surface condition
+## 5                             Sound permanent tooth
+## 6                             Sound permanent tooth
+##                                            OHX04CTC
+## 1                               Sound primary tooth
+## 2                               Sound primary tooth
+## 3 Permanent tooth with a restored surface condition
+## 4                             Sound permanent tooth
+## 5                               Sound primary tooth
+## 6                             Sound permanent tooth
+##                                            OHX05CTC              OHX06CTC
+## 1                               Sound primary tooth   Sound primary tooth
+## 2                               Sound primary tooth   Sound primary tooth
+## 3 Permanent tooth with a restored surface condition Sound permanent tooth
+## 4                             Sound permanent tooth Sound permanent tooth
+## 5                               Sound primary tooth   Sound primary tooth
+## 6                             Sound permanent tooth Sound permanent tooth
+##                OHX07CTC              OHX08CTC
+## 1   Sound primary tooth   Sound primary tooth
+## 2   Sound primary tooth   Sound primary tooth
+## 3 Sound permanent tooth Sound permanent tooth
+## 4 Sound permanent tooth Sound permanent tooth
+## 5 Sound permanent tooth Sound permanent tooth
+## 6 Sound permanent tooth Sound permanent tooth
+##                                      OHX09CTC              OHX10CTC
+## 1                         Sound primary tooth   Sound primary tooth
+## 2                         Sound primary tooth   Sound primary tooth
+## 3 Tooth present, condition cannot be assessed Sound permanent tooth
+## 4                       Sound permanent tooth Sound permanent tooth
+## 5                       Sound permanent tooth Sound permanent tooth
+## 6                       Sound permanent tooth Sound permanent tooth
+##                OHX11CTC                                          OHX12CTC
+## 1   Sound primary tooth                               Sound primary tooth
+## 2   Sound primary tooth                               Sound primary tooth
+## 3 Sound permanent tooth Permanent tooth with a restored surface condition
+## 4 Sound permanent tooth                             Sound permanent tooth
+## 5   Sound primary tooth                               Sound primary tooth
+## 6 Sound permanent tooth                             Sound permanent tooth
+##                                            OHX13CTC
+## 1                               Sound primary tooth
+## 2                               Sound primary tooth
+## 3 Permanent tooth with a restored surface condition
+## 4                             Sound permanent tooth
+## 5                               Sound primary tooth
+## 6                             Sound permanent tooth
+##                                            OHX14CTC
+## 1                                         Unerupted
+## 2                                         Unerupted
+## 3 Permanent tooth with a restored surface condition
+## 4                             Sound permanent tooth
+## 5                             Sound permanent tooth
+## 6                             Sound permanent tooth
+##                                            OHX15CTC
+## 1                                         Unerupted
+## 2                                         Unerupted
+## 3 Permanent tooth with a restored surface condition
+## 4                             Sound permanent tooth
+## 5                                         Unerupted
+## 6                             Sound permanent tooth
+##                                            OHX18CTC
+## 1                                         Unerupted
+## 2                                         Unerupted
+## 3 Permanent tooth with a restored surface condition
+## 4                             Sound permanent tooth
+## 5                                         Unerupted
+## 6                             Sound permanent tooth
+##                                                            OHX19CTC
+## 1                                                         Unerupted
+## 2                                                         Unerupted
+## 3 Missing due to dental disease but replaced by a fixed restoration
+## 4                 Permanent tooth with a restored surface condition
+## 5                                             Sound permanent tooth
+## 6                                             Sound permanent tooth
+##                                            OHX20CTC
+## 1                               Sound primary tooth
+## 2                               Sound primary tooth
+## 3 Permanent tooth with a restored surface condition
+## 4                             Sound permanent tooth
+## 5                               Sound primary tooth
+## 6                             Sound permanent tooth
+##                                            OHX21CTC              OHX22CTC
+## 1                               Sound primary tooth   Sound primary tooth
+## 2                               Sound primary tooth   Sound primary tooth
+## 3 Permanent tooth with a restored surface condition Sound permanent tooth
+## 4                             Sound permanent tooth Sound permanent tooth
+## 5                             Sound permanent tooth Sound permanent tooth
+## 6                             Sound permanent tooth Sound permanent tooth
+##                OHX23CTC              OHX24CTC              OHX25CTC
+## 1   Sound primary tooth   Sound primary tooth   Sound primary tooth
+## 2   Sound primary tooth   Sound primary tooth   Sound primary tooth
+## 3 Sound permanent tooth Sound permanent tooth Sound permanent tooth
+## 4 Sound permanent tooth Sound permanent tooth Sound permanent tooth
+## 5 Sound permanent tooth Sound permanent tooth Sound permanent tooth
+## 6 Sound permanent tooth Sound permanent tooth Sound permanent tooth
+##                OHX26CTC              OHX27CTC
+## 1   Sound primary tooth   Sound primary tooth
+## 2   Sound primary tooth   Sound primary tooth
+## 3 Sound permanent tooth Sound permanent tooth
+## 4 Sound permanent tooth Sound permanent tooth
+## 5 Sound permanent tooth Sound permanent tooth
+## 6 Sound permanent tooth Sound permanent tooth
+##                                            OHX28CTC
+## 1                               Sound primary tooth
+## 2                               Sound primary tooth
+## 3 Permanent tooth with a restored surface condition
+## 4                             Sound permanent tooth
+## 5                               Sound primary tooth
+## 6                             Sound permanent tooth
+##                                            OHX29CTC
+## 1                               Sound primary tooth
+## 2                               Sound primary tooth
+## 3 Permanent tooth with a restored surface condition
+## 4                             Sound permanent tooth
+## 5                             Sound permanent tooth
+## 6                             Sound permanent tooth
+##                                                            OHX30CTC
+## 1                                                         Unerupted
+## 2                                                         Unerupted
+## 3 Missing due to dental disease but replaced by a fixed restoration
+## 4                                             Sound permanent tooth
+## 5                                             Sound permanent tooth
+## 6                                             Sound permanent tooth
+##                                            OHX31CTC
+## 1                                         Unerupted
+## 2                                         Unerupted
+## 3 Permanent tooth with a restored surface condition
+## 4                             Sound permanent tooth
+## 5                             Sound permanent tooth
+## 6                             Sound permanent tooth
+##                       OHX02CSC                     OHX03CSC
+## 1                                                          
+## 2                                                          
+## 3 Occlusal AMALGAM restoration                             
+## 4                              Occlusal AMALGAM restoration
+## 5                                                          
+## 6                                                          
+##                       OHX04CSC                     OHX05CSC OHX06CSC OHX07CSC
+## 1                                                                            
+## 2                                                                            
+## 3 Occlusal AMALGAM restoration Occlusal AMALGAM restoration                  
+## 4                                                                            
+## 5                                                                            
+## 6                                                                            
+##   OHX08CSC OHX09CSC OHX10CSC OHX11CSC OHX12CSC
+## 1                                             
+## 2                                             
+## 3                                         0134
+## 4                                             
+## 5                                             
+## 6                                             
+##                                         OHX13CSC OHX14CSC OHX15CSC
+## 1                                                                 
+## 2                                                                 
+## 3 Crown (non-specific full-coverage restoration)       01      234
+## 4                                                                 
+## 5                                                                 
+## 6                                                                 
+##                                         OHX18CSC OHX19CSC
+## 1                                                        
+## 2                                                        
+## 3 Crown (non-specific full-coverage restoration)         
+## 4                                                      12
+## 5                                                        
+## 6                                                        
+##                                         OHX20CSC OHX21CSC OHX22CSC OHX23CSC
+## 1                                                                          
+## 2                                                                          
+## 3 Crown (non-specific full-coverage restoration)      014                  
+## 4                                                                          
+## 5                                                                          
+## 6                                                                          
+##   OHX24CSC OHX25CSC OHX26CSC OHX27CSC
+## 1                                    
+## 2                                    
+## 3                                    
+## 4                                    
+## 5                                    
+## 6                                    
+##                                         OHX28CSC
+## 1                                               
+## 2                                               
+## 3 Crown (non-specific full-coverage restoration)
+## 4                                               
+## 5                                               
+## 6                                               
+##                                         OHX29CSC OHX30CSC
+## 1                                                        
+## 2                                                        
+## 3 Crown (non-specific full-coverage restoration)         
+## 4                                                        
+## 5                                                        
+## 6                                                        
+##                                         OHX31CSC OHX02RTC OHX03RTC OHX04RTC
+## 1                                                                          
+## 2                                                                          
+## 3 Crown (non-specific full-coverage restoration)                           
+## 4                                                                          
+## 5                                                                          
+## 6                                                                          
+##   OHX05RTC OHX06RTC OHX07RTC OHX08RTC OHX09RTC OHX10RTC OHX11RTC OHX12RTC
+## 1                                                                        
+## 2                                                                        
+## 3                                                                        
+## 4                                                                        
+## 5                                                                        
+## 6                                                                        
+##   OHX13RTC OHX14RTC OHX15RTC OHX18RTC OHX19RTC OHX20RTC OHX21RTC OHX22RTC
+## 1                                                                        
+## 2                                                                        
+## 3                                                                        
+## 4                                                                        
+## 5                                                                        
+## 6                                                                        
+##   OHX23RTC OHX24RTC OHX25RTC OHX26RTC OHX27RTC OHX28RTC OHX29RTC OHX30RTC
+## 1                                                                        
+## 2                                                                        
+## 3                                                                        
+## 4                                                                        
+## 5                                                                        
+## 6                                                                        
+##   OHX31RTC OHX02RSC OHX03RSC OHX04RSC OHX05RSC OHX06RSC OHX07RSC OHX08RSC
+## 1                                                                        
+## 2                                                                        
+## 3                                                                        
+## 4                                                                        
+## 5                                                                        
+## 6                                                                        
+##   OHX09RSC OHX10RSC OHX11RSC OHX12RSC OHX13RSC OHX14RSC OHX15RSC OHX18RSC
+## 1                                                                        
+## 2                                                                        
+## 3                                                                        
+## 4                                                                        
+## 5                                                                        
+## 6                                                                        
+##   OHX19RSC OHX20RSC OHX21RSC OHX22RSC OHX23RSC OHX24RSC OHX25RSC OHX26RSC
+## 1                                                                        
+## 2                                                                        
+## 3                                                                        
+## 4                                                                        
+## 5                                                                        
+## 6                                                                        
+##   OHX27RSC OHX28RSC OHX29RSC OHX30RSC OHX31RSC OHXRCAR                 OHXRCARO
+## 1                                                 &lt;NA&gt;                     &lt;NA&gt;
+## 2                                                 &lt;NA&gt;                     &lt;NA&gt;
+## 3                                                   No Root caries not detected
+## 4                                                   No Root caries not detected
+## 5                                                 &lt;NA&gt;                     &lt;NA&gt;
+## 6                                                   No Root caries not detected
+##                         OHXRRES                      OHXRRESO
+## 1                          &lt;NA&gt;                          &lt;NA&gt;
+## 2                          &lt;NA&gt;                          &lt;NA&gt;
+## 3 Root restoration not detected Root restoration not detected
+## 4 Root restoration not detected Root restoration not detected
+## 5                          &lt;NA&gt;                          &lt;NA&gt;
+## 6 Root restoration not detected Root restoration not detected
+##               OHX02SE             OHX03SE             OHX04SE
+## 1                                                            
+## 2                                                            
+## 3                                                            
+## 4 Sealant not present Sealant not present Sealant not present
+## 5  Cannot be assessed Sealant not present Sealant not present
+## 6                                                            
+##               OHX05SE             OHX07SE             OHX10SE
+## 1                                                            
+## 2                                                            
+## 3                                                            
+## 4 Sealant not present Sealant not present Sealant not present
+## 5 Sealant not present Sealant not present Sealant not present
+## 6                                                            
+##               OHX12SE             OHX13SE             OHX14SE
+## 1                                                            
+## 2                                                            
+## 3                                                            
+## 4 Sealant not present Sealant not present Sealant not present
+## 5 Sealant not present Sealant not present Sealant not present
+## 6                                                            
+##               OHX15SE             OHX18SE             OHX19SE
+## 1                                                            
+## 2                                                            
+## 3                                                            
+## 4 Sealant not present Sealant not present Sealant not present
+## 5  Cannot be assessed  Cannot be assessed Sealant not present
+## 6                                                            
+##               OHX20SE             OHX21SE             OHX28SE
+## 1                                                            
+## 2                                                            
+## 3                                                            
+## 4 Sealant not present Sealant not present Sealant not present
+## 5 Sealant not present  Cannot be assessed Sealant not present
+## 6                                                            
+##               OHX29SE             OHX30SE             OHX31SE BPAOARM
+## 1                                                                &lt;NA&gt;
+## 2                                                                &lt;NA&gt;
+## 3                                                               Right
+## 4 Sealant not present Sealant not present Sealant not present   Right
+## 5  Cannot be assessed Sealant not present  Cannot be assessed   Right
+## 6                                                               Right
+##                                     BPAOCSZ BPAOMNTS BPXOSY1 BPXODI1 BPXOSY2
+## 1                                      &lt;NA&gt;       NA      NA      NA      NA
+## 2                                      &lt;NA&gt;       NA      NA      NA      NA
+## 3 32-41.9 (bladder size = 14.98 x 31.19 cm)      -20     164      66     165
+## 4 22-31.9 (bladder size = 12.49 x 23.52 cm)      138     126      74     128
+## 5  17-21.9 (bladder size = 9.20 x 16.68 cm)       12     136      71     133
+## 6 22-31.9 (bladder size = 12.49 x 23.52 cm)       22     146      82     142
+##   BPXODI2 BPXOSY3 BPXODI3 BPXOPLS1 BPXOPLS2 BPXOPLS3 LBDHDD LBDHDDSI WTSAF2YR
+## 1      NA      NA      NA       NA       NA       NA     NA       NA       NA
+## 2      NA      NA      NA       NA       NA       NA     NA       NA       NA
+## 3      66     172      66       52       51       49     60     1.55       NA
+## 4      68     133      71       76       83       73     47     1.22       NA
+## 5      72     139      71      100       89       91     68     1.76       NA
+## 6      76     151      81       67       65       71     88     2.28 25653.68
+##   LBXTR LBDTRSI LBDLDL LBDLDLSI LBDLDLM LBDLDMSI LBDLDLN LBDLDNSI BPQ020 BPQ030
+## 1    NA      NA     NA       NA      NA       NA      NA       NA   &lt;NA&gt;   &lt;NA&gt;
+## 2    NA      NA     NA       NA      NA       NA      NA       NA   &lt;NA&gt;   &lt;NA&gt;
+## 3    NA      NA     NA       NA      NA       NA      NA       NA    Yes    Yes
+## 4    NA      NA     NA       NA      NA       NA      NA       NA     No   &lt;NA&gt;
+## 5    NA      NA     NA       NA      NA       NA      NA       NA   &lt;NA&gt;   &lt;NA&gt;
+## 6    58   0.655    109    2.819     107    2.767     111     2.87    Yes    Yes
+##   BPD035 BPQ040A BPQ050A BPQ080 BPQ060                            BPQ070
+## 1     NA    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;                              &lt;NA&gt;
+## 2     NA    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;                              &lt;NA&gt;
+## 3     50     Yes     Yes     No    Yes 1 year but less than 2 years ago,
+## 4     NA    &lt;NA&gt;    &lt;NA&gt;     No    Yes 1 year but less than 2 years ago,
+## 5     NA    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;                              &lt;NA&gt;
+## 6     50     Yes     Yes    Yes   &lt;NA&gt;             Less than 1 year ago,
+##   BPQ090D BPQ100D SMQ020 SMD030     SMQ040 SMQ050Q SMQ050U SMD057 SMQ078 SMD641
+## 1    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;     NA       &lt;NA&gt;      NA    &lt;NA&gt;     NA   &lt;NA&gt;     NA
+## 2    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;     NA       &lt;NA&gt;      NA    &lt;NA&gt;     NA   &lt;NA&gt;     NA
+## 3      No    &lt;NA&gt;    Yes     16 Not at all      30   Years      5   &lt;NA&gt;     NA
+## 4      No    &lt;NA&gt;     No     NA       &lt;NA&gt;      NA    &lt;NA&gt;     NA   &lt;NA&gt;     NA
+## 5    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;     NA       &lt;NA&gt;      NA    &lt;NA&gt;     NA   &lt;NA&gt;     NA
+## 6     Yes     Yes     No     NA       &lt;NA&gt;      NA    &lt;NA&gt;     NA   &lt;NA&gt;     NA
+##   SMD650 SMD093 SMDUPCA SMD100BR SMD100FL SMD100MN SMD100LN SMD100TR SMD100NI
+## 1     NA   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;       NA       NA
+## 2     NA   &lt;NA&gt;    &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;       NA       NA
+## 3     NA   &lt;NA&gt;                      &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;       NA       NA
+## 4     NA   &lt;NA&gt;                      &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;       NA       NA
+## 5     NA   &lt;NA&gt;                      &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;       NA       NA
+## 6     NA   &lt;NA&gt;                      &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;       NA       NA
+##   SMD100CO                               SMQ621 SMD630 SMQ661 SMQ665A SMQ665B
+## 1       NA                                 &lt;NA&gt;     NA   &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;
+## 2       NA                                 &lt;NA&gt;     NA   &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;
+## 3       NA                                 &lt;NA&gt;     NA   &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;
+## 4       NA                                 &lt;NA&gt;     NA   &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;
+## 5       NA I have never smoked, not even a puff     NA   &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;
+## 6       NA                                 &lt;NA&gt;     NA   &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;
+##   SMQ665C SMQ665D SMQ670 SMQ848 SMQ852Q SMQ852U SMQ890 SMQ895 SMQ900 SMQ905
+## 1    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;     NA      NA    &lt;NA&gt;   &lt;NA&gt;     NA   &lt;NA&gt;     NA
+## 2    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;     NA      NA    &lt;NA&gt;   &lt;NA&gt;     NA   &lt;NA&gt;     NA
+## 3    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;     NA      NA    &lt;NA&gt;     No     NA     No     NA
+## 4    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;     NA      NA    &lt;NA&gt;     No     NA     No     NA
+## 5    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;     NA      NA    &lt;NA&gt;   &lt;NA&gt;     NA   &lt;NA&gt;     NA
+## 6    &lt;NA&gt;    &lt;NA&gt;   &lt;NA&gt;     NA      NA    &lt;NA&gt;     No     NA     No     NA
+##   SMQ910 SMQ915                 SMAQUEX2                    BMDSTATS BMXWT
+## 1   &lt;NA&gt;     NA                     &lt;NA&gt; Complete data for age group  13.7
+## 2   &lt;NA&gt;     NA                     &lt;NA&gt; Complete data for age group  13.9
+## 3     No     NA Home Interview (18+ Yrs) Complete data for age group  79.5
+## 4     No     NA Home Interview (18+ Yrs) Complete data for age group  66.3
+## 5   &lt;NA&gt;     NA      ACASI (12 - 17 Yrs) Complete data for age group  45.4
+## 6     No     NA Home Interview (18+ Yrs) Complete data for age group  53.5
+##      BMIWT BMXRECUM BMIRECUM BMXHEAD BMIHEAD BMXHT BMIHT BMXBMI BMXLEG BMILEG
+## 1 Clothing     89.6     &lt;NA&gt;      NA      NA  88.6  &lt;NA&gt;   17.5     NA   &lt;NA&gt;
+## 2     &lt;NA&gt;     95.0     &lt;NA&gt;      NA      NA  94.2  &lt;NA&gt;   15.7     NA   &lt;NA&gt;
+## 3     &lt;NA&gt;       NA     &lt;NA&gt;      NA      NA 158.3  &lt;NA&gt;   31.7   37.0   &lt;NA&gt;
+## 4     &lt;NA&gt;       NA     &lt;NA&gt;      NA      NA 175.7  &lt;NA&gt;   21.5   46.6   &lt;NA&gt;
+## 5     &lt;NA&gt;       NA     &lt;NA&gt;      NA      NA 158.4  &lt;NA&gt;   18.1   38.1   &lt;NA&gt;
+## 6     &lt;NA&gt;       NA     &lt;NA&gt;      NA      NA 150.2  &lt;NA&gt;   23.7   31.8   &lt;NA&gt;
+##   BMXARML BMIARML BMXARMC BMIARMC BMXWAIST BMIWAIST BMXHIP BMIHIP
+## 1    18.0    &lt;NA&gt;    16.2    &lt;NA&gt;     48.2     &lt;NA&gt;     NA   &lt;NA&gt;
+## 2    18.6    &lt;NA&gt;    15.2    &lt;NA&gt;     50.0     &lt;NA&gt;     NA   &lt;NA&gt;
+## 3    36.0    &lt;NA&gt;    32.0    &lt;NA&gt;    101.8     &lt;NA&gt;  110.0   &lt;NA&gt;
+## 4    38.8    &lt;NA&gt;    27.0    &lt;NA&gt;     79.3     &lt;NA&gt;   94.4   &lt;NA&gt;
+## 5    33.8    &lt;NA&gt;    21.5    &lt;NA&gt;     64.1     &lt;NA&gt;   83.0   &lt;NA&gt;
+## 6    30.6    &lt;NA&gt;    27.4    &lt;NA&gt;     88.2     &lt;NA&gt;   90.1   &lt;NA&gt;</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">names</span>(merged)</span></code></pre></div>
+<pre><code>##   [1] &quot;SEQN&quot;     &quot;SDDSRVYR&quot; &quot;RIDSTATR&quot; &quot;RIAGENDR&quot; &quot;RIDAGEYR&quot; &quot;RIDAGEMN&quot;
+##   [7] &quot;RIDRETH1&quot; &quot;RIDRETH3&quot; &quot;RIDEXMON&quot; &quot;RIDEXAGM&quot; &quot;DMQMILIZ&quot; &quot;DMQADFC&quot; 
+##  [13] &quot;DMDBORN4&quot; &quot;DMDCITZN&quot; &quot;DMDYRSUS&quot; &quot;DMDEDUC3&quot; &quot;DMDEDUC2&quot; &quot;DMDMARTL&quot;
+##  [19] &quot;RIDEXPRG&quot; &quot;SIALANG&quot;  &quot;SIAPROXY&quot; &quot;SIAINTRP&quot; &quot;FIALANG&quot;  &quot;FIAPROXY&quot;
+##  [25] &quot;FIAINTRP&quot; &quot;MIALANG&quot;  &quot;MIAPROXY&quot; &quot;MIAINTRP&quot; &quot;AIALANGA&quot; &quot;DMDHHSIZ&quot;
+##  [31] &quot;DMDFMSIZ&quot; &quot;DMDHHSZA&quot; &quot;DMDHHSZB&quot; &quot;DMDHHSZE&quot; &quot;DMDHRGND&quot; &quot;DMDHRAGZ&quot;
+##  [37] &quot;DMDHREDZ&quot; &quot;DMDHRMAZ&quot; &quot;DMDHSEDZ&quot; &quot;WTINT2YR&quot; &quot;WTMEC2YR&quot; &quot;SDMVPSU&quot; 
+##  [43] &quot;SDMVSTRA&quot; &quot;INDHHIN2&quot; &quot;INDFMIN2&quot; &quot;INDFMPIR&quot; &quot;OHDEXSTS&quot; &quot;OHDDESTS&quot;
+##  [49] &quot;OHXIMP&quot;   &quot;OHX01TC&quot;  &quot;OHX02TC&quot;  &quot;OHX03TC&quot;  &quot;OHX04TC&quot;  &quot;OHX05TC&quot; 
+##  [55] &quot;OHX06TC&quot;  &quot;OHX07TC&quot;  &quot;OHX08TC&quot;  &quot;OHX09TC&quot;  &quot;OHX10TC&quot;  &quot;OHX11TC&quot; 
+##  [61] &quot;OHX12TC&quot;  &quot;OHX13TC&quot;  &quot;OHX14TC&quot;  &quot;OHX15TC&quot;  &quot;OHX16TC&quot;  &quot;OHX17TC&quot; 
+##  [67] &quot;OHX18TC&quot;  &quot;OHX19TC&quot;  &quot;OHX20TC&quot;  &quot;OHX21TC&quot;  &quot;OHX22TC&quot;  &quot;OHX23TC&quot; 
+##  [73] &quot;OHX24TC&quot;  &quot;OHX25TC&quot;  &quot;OHX26TC&quot;  &quot;OHX27TC&quot;  &quot;OHX28TC&quot;  &quot;OHX29TC&quot; 
+##  [79] &quot;OHX30TC&quot;  &quot;OHX31TC&quot;  &quot;OHX32TC&quot;  &quot;OHX02CTC&quot; &quot;OHX03CTC&quot; &quot;OHX04CTC&quot;
+##  [85] &quot;OHX05CTC&quot; &quot;OHX06CTC&quot; &quot;OHX07CTC&quot; &quot;OHX08CTC&quot; &quot;OHX09CTC&quot; &quot;OHX10CTC&quot;
+##  [91] &quot;OHX11CTC&quot; &quot;OHX12CTC&quot; &quot;OHX13CTC&quot; &quot;OHX14CTC&quot; &quot;OHX15CTC&quot; &quot;OHX18CTC&quot;
+##  [97] &quot;OHX19CTC&quot; &quot;OHX20CTC&quot; &quot;OHX21CTC&quot; &quot;OHX22CTC&quot; &quot;OHX23CTC&quot; &quot;OHX24CTC&quot;
+## [103] &quot;OHX25CTC&quot; &quot;OHX26CTC&quot; &quot;OHX27CTC&quot; &quot;OHX28CTC&quot; &quot;OHX29CTC&quot; &quot;OHX30CTC&quot;
+## [109] &quot;OHX31CTC&quot; &quot;OHX02CSC&quot; &quot;OHX03CSC&quot; &quot;OHX04CSC&quot; &quot;OHX05CSC&quot; &quot;OHX06CSC&quot;
+## [115] &quot;OHX07CSC&quot; &quot;OHX08CSC&quot; &quot;OHX09CSC&quot; &quot;OHX10CSC&quot; &quot;OHX11CSC&quot; &quot;OHX12CSC&quot;
+## [121] &quot;OHX13CSC&quot; &quot;OHX14CSC&quot; &quot;OHX15CSC&quot; &quot;OHX18CSC&quot; &quot;OHX19CSC&quot; &quot;OHX20CSC&quot;
+## [127] &quot;OHX21CSC&quot; &quot;OHX22CSC&quot; &quot;OHX23CSC&quot; &quot;OHX24CSC&quot; &quot;OHX25CSC&quot; &quot;OHX26CSC&quot;
+## [133] &quot;OHX27CSC&quot; &quot;OHX28CSC&quot; &quot;OHX29CSC&quot; &quot;OHX30CSC&quot; &quot;OHX31CSC&quot; &quot;OHX02RTC&quot;
+## [139] &quot;OHX03RTC&quot; &quot;OHX04RTC&quot; &quot;OHX05RTC&quot; &quot;OHX06RTC&quot; &quot;OHX07RTC&quot; &quot;OHX08RTC&quot;
+## [145] &quot;OHX09RTC&quot; &quot;OHX10RTC&quot; &quot;OHX11RTC&quot; &quot;OHX12RTC&quot; &quot;OHX13RTC&quot; &quot;OHX14RTC&quot;
+## [151] &quot;OHX15RTC&quot; &quot;OHX18RTC&quot; &quot;OHX19RTC&quot; &quot;OHX20RTC&quot; &quot;OHX21RTC&quot; &quot;OHX22RTC&quot;
+## [157] &quot;OHX23RTC&quot; &quot;OHX24RTC&quot; &quot;OHX25RTC&quot; &quot;OHX26RTC&quot; &quot;OHX27RTC&quot; &quot;OHX28RTC&quot;
+## [163] &quot;OHX29RTC&quot; &quot;OHX30RTC&quot; &quot;OHX31RTC&quot; &quot;OHX02RSC&quot; &quot;OHX03RSC&quot; &quot;OHX04RSC&quot;
+## [169] &quot;OHX05RSC&quot; &quot;OHX06RSC&quot; &quot;OHX07RSC&quot; &quot;OHX08RSC&quot; &quot;OHX09RSC&quot; &quot;OHX10RSC&quot;
+## [175] &quot;OHX11RSC&quot; &quot;OHX12RSC&quot; &quot;OHX13RSC&quot; &quot;OHX14RSC&quot; &quot;OHX15RSC&quot; &quot;OHX18RSC&quot;
+## [181] &quot;OHX19RSC&quot; &quot;OHX20RSC&quot; &quot;OHX21RSC&quot; &quot;OHX22RSC&quot; &quot;OHX23RSC&quot; &quot;OHX24RSC&quot;
+## [187] &quot;OHX25RSC&quot; &quot;OHX26RSC&quot; &quot;OHX27RSC&quot; &quot;OHX28RSC&quot; &quot;OHX29RSC&quot; &quot;OHX30RSC&quot;
+## [193] &quot;OHX31RSC&quot; &quot;OHXRCAR&quot;  &quot;OHXRCARO&quot; &quot;OHXRRES&quot;  &quot;OHXRRESO&quot; &quot;OHX02SE&quot; 
+## [199] &quot;OHX03SE&quot;  &quot;OHX04SE&quot;  &quot;OHX05SE&quot;  &quot;OHX07SE&quot;  &quot;OHX10SE&quot;  &quot;OHX12SE&quot; 
+## [205] &quot;OHX13SE&quot;  &quot;OHX14SE&quot;  &quot;OHX15SE&quot;  &quot;OHX18SE&quot;  &quot;OHX19SE&quot;  &quot;OHX20SE&quot; 
+## [211] &quot;OHX21SE&quot;  &quot;OHX28SE&quot;  &quot;OHX29SE&quot;  &quot;OHX30SE&quot;  &quot;OHX31SE&quot;  &quot;BPAOARM&quot; 
+## [217] &quot;BPAOCSZ&quot;  &quot;BPAOMNTS&quot; &quot;BPXOSY1&quot;  &quot;BPXODI1&quot;  &quot;BPXOSY2&quot;  &quot;BPXODI2&quot; 
+## [223] &quot;BPXOSY3&quot;  &quot;BPXODI3&quot;  &quot;BPXOPLS1&quot; &quot;BPXOPLS2&quot; &quot;BPXOPLS3&quot; &quot;LBDHDD&quot;  
+## [229] &quot;LBDHDDSI&quot; &quot;WTSAF2YR&quot; &quot;LBXTR&quot;    &quot;LBDTRSI&quot;  &quot;LBDLDL&quot;   &quot;LBDLDLSI&quot;
+## [235] &quot;LBDLDLM&quot;  &quot;LBDLDMSI&quot; &quot;LBDLDLN&quot;  &quot;LBDLDNSI&quot; &quot;BPQ020&quot;   &quot;BPQ030&quot;  
+## [241] &quot;BPD035&quot;   &quot;BPQ040A&quot;  &quot;BPQ050A&quot;  &quot;BPQ080&quot;   &quot;BPQ060&quot;   &quot;BPQ070&quot;  
+## [247] &quot;BPQ090D&quot;  &quot;BPQ100D&quot;  &quot;SMQ020&quot;   &quot;SMD030&quot;   &quot;SMQ040&quot;   &quot;SMQ050Q&quot; 
+## [253] &quot;SMQ050U&quot;  &quot;SMD057&quot;   &quot;SMQ078&quot;   &quot;SMD641&quot;   &quot;SMD650&quot;   &quot;SMD093&quot;  
+## [259] &quot;SMDUPCA&quot;  &quot;SMD100BR&quot; &quot;SMD100FL&quot; &quot;SMD100MN&quot; &quot;SMD100LN&quot; &quot;SMD100TR&quot;
+## [265] &quot;SMD100NI&quot; &quot;SMD100CO&quot; &quot;SMQ621&quot;   &quot;SMD630&quot;   &quot;SMQ661&quot;   &quot;SMQ665A&quot; 
+## [271] &quot;SMQ665B&quot;  &quot;SMQ665C&quot;  &quot;SMQ665D&quot;  &quot;SMQ670&quot;   &quot;SMQ848&quot;   &quot;SMQ852Q&quot; 
+## [277] &quot;SMQ852U&quot;  &quot;SMQ890&quot;   &quot;SMQ895&quot;   &quot;SMQ900&quot;   &quot;SMQ905&quot;   &quot;SMQ910&quot;  
+## [283] &quot;SMQ915&quot;   &quot;SMAQUEX2&quot; &quot;BMDSTATS&quot; &quot;BMXWT&quot;    &quot;BMIWT&quot;    &quot;BMXRECUM&quot;
+## [289] &quot;BMIRECUM&quot; &quot;BMXHEAD&quot;  &quot;BMIHEAD&quot;  &quot;BMXHT&quot;    &quot;BMIHT&quot;    &quot;BMXBMI&quot;  
+## [295] &quot;BMXLEG&quot;   &quot;BMILEG&quot;   &quot;BMXARML&quot;  &quot;BMIARML&quot;  &quot;BMXARMC&quot;  &quot;BMIARMC&quot; 
+## [301] &quot;BMXWAIST&quot; &quot;BMIWAIST&quot; &quot;BMXHIP&quot;   &quot;BMIHIP&quot;</code></pre>
+<div id="data-cleaning" class="section level2">
+<h2>Data Cleaning</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># selecting the variables i want</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>analysis <span class="ot">&lt;-</span> merged <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    SEQN,</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>    <span class="co"># Demographics</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>    RIDAGEYR,    <span class="co"># age</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>    RIAGENDR,    <span class="co"># sex</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>    RIDRETH3,    <span class="co"># race/ethnicity</span></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>    INDFMPIR,    <span class="co"># income/poverty ratio</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>    BMXBMI,      <span class="co"># BMI</span></span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>    </span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a>    <span class="co"># Smoking</span></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a>    SMQ020,      <span class="co"># smoked 100 cigarettes</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>    SMQ040,      <span class="co"># current smoker</span></span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>    </span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>    <span class="co"># Oral health tooth condition codes (TC = tooth count status)</span></span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a>    <span class="fu">starts_with</span>(<span class="st">&quot;OHX&quot;</span>) <span class="sc">&amp;</span> <span class="fu">ends_with</span>(<span class="st">&quot;TC&quot;</span>),</span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>    </span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a>    <span class="co"># blood pressure</span></span>
+<span id="cb12-20"><a href="#cb12-20" tabindex="-1"></a>    BPXOSY1, BPXOSY2, BPXOSY3,   <span class="co"># systolic readings</span></span>
+<span id="cb12-21"><a href="#cb12-21" tabindex="-1"></a>    BPXODI1, BPXODI2, BPXODI3,   <span class="co"># diastolic readings</span></span>
+<span id="cb12-22"><a href="#cb12-22" tabindex="-1"></a>    </span>
+<span id="cb12-23"><a href="#cb12-23" tabindex="-1"></a>    <span class="co"># labs that are markers of heart health</span></span>
+<span id="cb12-24"><a href="#cb12-24" tabindex="-1"></a>    LBDHDD,   <span class="co"># HDL</span></span>
+<span id="cb12-25"><a href="#cb12-25" tabindex="-1"></a>    LBXTR,    <span class="co"># triglycerides</span></span>
+<span id="cb12-26"><a href="#cb12-26" tabindex="-1"></a>    LBDLDL,   <span class="co"># LDL</span></span>
+<span id="cb12-27"><a href="#cb12-27" tabindex="-1"></a>    </span>
+<span id="cb12-28"><a href="#cb12-28" tabindex="-1"></a>    <span class="co"># actually including the survey weights this time...</span></span>
+<span id="cb12-29"><a href="#cb12-29" tabindex="-1"></a>    WTMEC2YR, SDMVPSU, SDMVSTRA</span>
+<span id="cb12-30"><a href="#cb12-30" tabindex="-1"></a>  )</span>
+<span id="cb12-31"><a href="#cb12-31" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="#cb12-32" tabindex="-1"></a></span>
+<span id="cb12-33"><a href="#cb12-33" tabindex="-1"></a><span class="co"># check look + sample size </span></span>
+<span id="cb12-34"><a href="#cb12-34" tabindex="-1"></a><span class="fu">nrow</span>(analysis)</span></code></pre></div>
+<pre><code>## [1] 9254</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">ncol</span>(analysis)</span></code></pre></div>
+<pre><code>## [1] 108</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>analysis <span class="ot">&lt;-</span> analysis <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>    <span class="co"># average systolic and diastolic readings</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>    <span class="at">sys_avg =</span> <span class="fu">rowMeans</span>(<span class="fu">cbind</span>(BPXOSY1, BPXOSY2, BPXOSY3), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>    <span class="at">dia_avg =</span> <span class="fu">rowMeans</span>(<span class="fu">cbind</span>(BPXODI1, BPXODI2, BPXODI3), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>    <span class="at">tooth_loss =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="fu">starts_with</span>(<span class="st">&quot;OHX&quot;</span>) <span class="sc">&amp;</span> <span class="fu">ends_with</span>(<span class="st">&quot;TC&quot;</span>), </span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>                                <span class="sc">~</span> <span class="fu">grepl</span>(<span class="st">&quot;Missing due to dental disease&quot;</span>, ., <span class="at">fixed =</span> <span class="cn">FALSE</span>)), </span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>                         <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a>    </span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>    <span class="co"># recoding sex and smoker status</span></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a>    <span class="at">male =</span> <span class="fu">as.integer</span>(RIAGENDR <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a>    <span class="at">current_smoker =</span> <span class="fu">as.integer</span>(SMQ040 <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" tabindex="-1"></a>  )</span>
+<span id="cb16-15"><a href="#cb16-15" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" tabindex="-1"></a><span class="co"># checking it worked!</span></span>
+<span id="cb16-17"><a href="#cb16-17" tabindex="-1"></a><span class="fu">summary</span>(analysis<span class="sc">$</span>tooth_loss)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.000   0.000   0.000   3.131   2.000  28.000</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">summary</span>(analysis<span class="sc">$</span>sys_avg)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   72.33  106.00  117.00  120.31  131.00  218.67    3110</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>analysis <span class="ot">&lt;-</span> analysis <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>  <span class="fu">filter</span>(RIDAGEYR <span class="sc">&gt;=</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sys_avg)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(tooth_loss)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(BMXBMI)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(INDFMPIR))</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a><span class="co"># checking how the filtering affects the data frame</span></span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a><span class="fu">nrow</span>(analysis)</span></code></pre></div>
+<pre><code>## [1] 4216</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">summary</span>(analysis<span class="sc">$</span>tooth_loss)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00    0.00    1.00    5.14    6.00   28.00</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">summary</span>(analysis<span class="sc">$</span>sys_avg)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   79.67  110.33  121.67  124.56  135.38  218.67</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>analysis <span class="ot">&lt;-</span> analysis <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>    <span class="co"># turning tooth loss into categories</span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>    <span class="at">tooth_loss_cat =</span> <span class="fu">cut</span>(tooth_loss, </span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>                         <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">28</span>),</span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>                         <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;None (0)&quot;</span>, <span class="st">&quot;Mild (1-3)&quot;</span>, <span class="st">&quot;Moderate (4-8)&quot;</span>, <span class="st">&quot;Severe (9+)&quot;</span>)),</span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>    </span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a>    <span class="co"># hypertension flag which is systolic &gt;= 130 or diastolic &gt;= 80 according       to the AHA</span></span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a>    <span class="at">hypertension =</span> <span class="fu">as.integer</span>(sys_avg <span class="sc">&gt;=</span> <span class="dv">130</span> <span class="sc">|</span> dia_avg <span class="sc">&gt;=</span> <span class="dv">80</span>),</span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a>  </span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">factor</span>(RIAGENDR),</span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a>    <span class="at">current_smoker =</span> <span class="fu">as.integer</span>(SMQ040 <span class="sc">==</span> <span class="dv">1</span>),</span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a>    </span>
+<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a>    <span class="co"># turning age into categories </span></span>
+<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a>    <span class="at">age_group =</span> <span class="fu">cut</span>(RIDAGEYR, </span>
+<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a>                    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">39</span>, <span class="dv">59</span>, <span class="dv">79</span>, <span class="cn">Inf</span>),</span>
+<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;18-39&quot;</span>, <span class="st">&quot;40-59&quot;</span>, <span class="st">&quot;60-79&quot;</span>, <span class="st">&quot;80+&quot;</span>))</span>
+<span id="cb26-18"><a href="#cb26-18" tabindex="-1"></a>  )</span>
+<span id="cb26-19"><a href="#cb26-19" tabindex="-1"></a></span>
+<span id="cb26-20"><a href="#cb26-20" tabindex="-1"></a><span class="co"># check that it worked </span></span>
+<span id="cb26-21"><a href="#cb26-21" tabindex="-1"></a><span class="fu">table</span>(analysis<span class="sc">$</span>tooth_loss_cat)</span></code></pre></div>
+<pre><code>## 
+##       None (0)     Mild (1-3) Moderate (4-8)    Severe (9+) 
+##           1741           1020            628            827</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">table</span>(analysis<span class="sc">$</span>hypertension)</span></code></pre></div>
+<pre><code>## 
+##    0    1 
+## 2417 1799</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="co"># smoker status</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="fu">table</span>(analysis<span class="sc">$</span>SMQ020)  </span></code></pre></div>
+<pre><code>## 
+##  Yes   No 
+## 1743 2473</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">table</span>(analysis<span class="sc">$</span>SMQ040) </span></code></pre></div>
+<pre><code>## 
+##  Every day  Some days Not at all 
+##        597        153        993</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>analysis <span class="ot">&lt;-</span> analysis <span class="sc">%&gt;%</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>    <span class="at">current_smoker =</span> <span class="fu">case_when</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>      SMQ040 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Every day&quot;</span>, <span class="st">&quot;Some days&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a>      SMQ040 <span class="sc">==</span> <span class="st">&quot;Not at all&quot;</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a>      SMQ020 <span class="sc">==</span> <span class="st">&quot;No&quot;</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
+<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a>    )</span>
+<span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a>  )</span>
+<span id="cb34-10"><a href="#cb34-10" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" tabindex="-1"></a><span class="co"># triple check</span></span>
+<span id="cb34-12"><a href="#cb34-12" tabindex="-1"></a><span class="fu">table</span>(analysis<span class="sc">$</span>current_smoker)</span></code></pre></div>
+<pre><code>## 
+##    0    1 
+## 3466  750</code></pre>
+</div>
+</div>
+<div id="data-visualization" class="section level1">
+<h1>Data Visualization</h1>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="co"># Tooth loss category vs Average Systolic Blood Pressure</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a><span class="fu">ggplot</span>(analysis, <span class="fu">aes</span>(<span class="at">x =</span> tooth_loss_cat, <span class="at">y =</span> sys_avg, <span class="at">fill =</span> tooth_loss_cat)) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Systolic Blood Pressure by Tooth Loss Severity&quot;</span>,</span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Tooth Loss Category&quot;</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average Systolic BP (mmHg)&quot;</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Tooth Loss&quot;</span></span>
+<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="p03_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># Hypertension prevalence by tooth loss category</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>analysis <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>  <span class="fu">group_by</span>(tooth_loss_cat) <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">hyp_rate =</span> <span class="fu">mean</span>(hypertension, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> tooth_loss_cat, <span class="at">y =</span> hyp_rate, <span class="at">fill =</span> tooth_loss_cat)) <span class="sc">+</span></span>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Hypertension Prevalence by Tooth Loss Severity&quot;</span>,</span>
+<span id="cb37-10"><a href="#cb37-10" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Tooth Loss Category&quot;</span>,</span>
+<span id="cb37-11"><a href="#cb37-11" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;% with Hypertension&quot;</span>,</span>
+<span id="cb37-12"><a href="#cb37-12" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Tooth Loss&quot;</span></span>
+<span id="cb37-13"><a href="#cb37-13" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb37-14"><a href="#cb37-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb37-15"><a href="#cb37-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="p03_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="co"># Scatter of tooth loss vs systolic by Age</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a><span class="fu">ggplot</span>(analysis, <span class="fu">aes</span>(<span class="at">x =</span> tooth_loss, <span class="at">y =</span> sys_avg, <span class="at">color =</span> age_group)) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb38-6"><a href="#cb38-6" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Tooth Loss vs Systolic BP by Age Group&quot;</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Number of Teeth Lost (Dental Disease)&quot;</span>,</span>
+<span id="cb38-8"><a href="#cb38-8" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Average Systolic BP (mmHg)&quot;</span>,</span>
+<span id="cb38-9"><a href="#cb38-9" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Age Group&quot;</span></span>
+<span id="cb38-10"><a href="#cb38-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb38-11"><a href="#cb38-11" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="p03_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" /></p>
+</div>
+<div id="data-analysis" class="section level1">
+<h1>Data Analysis</h1>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="co"># Model 1: crude</span></span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>model_crude <span class="ot">&lt;-</span> <span class="fu">lm</span>(sys_avg <span class="sc">~</span> tooth_loss, <span class="at">data =</span> analysis)</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="fu">summary</span>(model_crude)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = sys_avg ~ tooth_loss, data = analysis)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -49.877 -13.189  -2.519  10.179  92.892 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 121.2023     0.3421   354.3   &lt;2e-16 ***
+## tooth_loss    0.6531     0.0355    18.4   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 18.79 on 4214 degrees of freedom
+## Multiple R-squared:  0.07433,    Adjusted R-squared:  0.07411 
+## F-statistic: 338.4 on 1 and 4214 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="co"># Model 2: adjusted for other key factors for heart disease</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>model_adjusted <span class="ot">&lt;-</span> <span class="fu">lm</span>(sys_avg <span class="sc">~</span> tooth_loss <span class="sc">+</span> RIDAGEYR <span class="sc">+</span> sex <span class="sc">+</span> BMXBMI <span class="sc">+</span> </span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>                       current_smoker <span class="sc">+</span> INDFMPIR, <span class="at">data =</span> analysis)</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a><span class="fu">summary</span>(model_adjusted)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = sys_avg ~ tooth_loss + RIDAGEYR + sex + BMXBMI + 
+##     current_smoker + INDFMPIR, data = analysis)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -55.738 -10.801  -1.739   9.117  88.084 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    102.73720    1.41509  72.601  &lt; 2e-16 ***
+## tooth_loss       0.05726    0.03903   1.467    0.142    
+## RIDAGEYR         0.48647    0.01709  28.462  &lt; 2e-16 ***
+## sexFemale       -4.62035    0.52991  -8.719  &lt; 2e-16 ***
+## BMXBMI           0.05020    0.03597   1.396    0.163    
+## current_smoker  -0.06400    0.71174  -0.090    0.928    
+## INDFMPIR        -0.69879    0.17109  -4.084  4.5e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 17.05 on 4209 degrees of freedom
+## Multiple R-squared:  0.2388, Adjusted R-squared:  0.2377 
+## F-statistic: 220.1 on 6 and 4209 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="co"># Model 3: logistic regression for hypertension outcome</span></span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>model_logistic <span class="ot">&lt;-</span> <span class="fu">glm</span>(hypertension <span class="sc">~</span> tooth_loss <span class="sc">+</span> RIDAGEYR <span class="sc">+</span> sex <span class="sc">+</span> BMXBMI <span class="sc">+</span> </span>
+<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>                        current_smoker <span class="sc">+</span> INDFMPIR, </span>
+<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>                      <span class="at">data =</span> analysis, <span class="at">family =</span> binomial)</span>
+<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a><span class="fu">summary</span>(model_logistic)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = hypertension ~ tooth_loss + RIDAGEYR + sex + BMXBMI + 
+##     current_smoker + INDFMPIR, family = binomial, data = analysis)
+## 
+## Coefficients:
+##                 Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)    -3.158218   0.194743 -16.217  &lt; 2e-16 ***
+## tooth_loss      0.000453   0.004802   0.094    0.925    
+## RIDAGEYR        0.040798   0.002288  17.835  &lt; 2e-16 ***
+## sexFemale      -0.361452   0.067496  -5.355 8.55e-08 ***
+## BMXBMI          0.034441   0.004619   7.457 8.83e-14 ***
+## current_smoker  0.098666   0.089827   1.098    0.272    
+## INDFMPIR       -0.030153   0.021831  -1.381    0.167    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 5753.7  on 4215  degrees of freedom
+## Residual deviance: 5172.8  on 4209  degrees of freedom
+## AIC: 5186.8
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>My interpretation:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>model_partial <span class="ot">&lt;-</span> <span class="fu">lm</span>(sys_avg <span class="sc">~</span> tooth_loss <span class="sc">+</span> RIDAGEYR <span class="sc">+</span> sex, <span class="at">data =</span> analysis)</span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a>coef_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a>  <span class="at">model =</span> <span class="fu">c</span>(<span class="st">&quot;Crude&quot;</span>, <span class="st">&quot;Partial</span><span class="sc">\n</span><span class="st">(age + sex)&quot;</span>, <span class="st">&quot;Fully Adjusted&quot;</span>),</span>
+<span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="fu">c</span>(<span class="fu">coef</span>(model_crude)[<span class="st">&quot;tooth_loss&quot;</span>], </span>
+<span id="cb46-6"><a href="#cb46-6" tabindex="-1"></a>               <span class="fu">coef</span>(model_partial)[<span class="st">&quot;tooth_loss&quot;</span>],</span>
+<span id="cb46-7"><a href="#cb46-7" tabindex="-1"></a>               <span class="fu">coef</span>(model_adjusted)[<span class="st">&quot;tooth_loss&quot;</span>]),</span>
+<span id="cb46-8"><a href="#cb46-8" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(<span class="fu">confint</span>(model_crude)[<span class="st">&quot;tooth_loss&quot;</span>, <span class="dv">1</span>],</span>
+<span id="cb46-9"><a href="#cb46-9" tabindex="-1"></a>            <span class="fu">confint</span>(model_partial)[<span class="st">&quot;tooth_loss&quot;</span>, <span class="dv">1</span>],</span>
+<span id="cb46-10"><a href="#cb46-10" tabindex="-1"></a>            <span class="fu">confint</span>(model_adjusted)[<span class="st">&quot;tooth_loss&quot;</span>, <span class="dv">1</span>]),</span>
+<span id="cb46-11"><a href="#cb46-11" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">c</span>(<span class="fu">confint</span>(model_crude)[<span class="st">&quot;tooth_loss&quot;</span>, <span class="dv">2</span>],</span>
+<span id="cb46-12"><a href="#cb46-12" tabindex="-1"></a>            <span class="fu">confint</span>(model_partial)[<span class="st">&quot;tooth_loss&quot;</span>, <span class="dv">2</span>],</span>
+<span id="cb46-13"><a href="#cb46-13" tabindex="-1"></a>            <span class="fu">confint</span>(model_adjusted)[<span class="st">&quot;tooth_loss&quot;</span>, <span class="dv">2</span>])</span>
+<span id="cb46-14"><a href="#cb46-14" tabindex="-1"></a>)</span>
+<span id="cb46-15"><a href="#cb46-15" tabindex="-1"></a></span>
+<span id="cb46-16"><a href="#cb46-16" tabindex="-1"></a><span class="co"># force order on x axis</span></span>
+<span id="cb46-17"><a href="#cb46-17" tabindex="-1"></a>coef_data<span class="sc">$</span>model <span class="ot">&lt;-</span> <span class="fu">factor</span>(coef_data<span class="sc">$</span>model, </span>
+<span id="cb46-18"><a href="#cb46-18" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Crude&quot;</span>, <span class="st">&quot;Partial</span><span class="sc">\n</span><span class="st">(age + sex)&quot;</span>, <span class="st">&quot;Fully Adjusted&quot;</span>))</span>
+<span id="cb46-19"><a href="#cb46-19" tabindex="-1"></a></span>
+<span id="cb46-20"><a href="#cb46-20" tabindex="-1"></a><span class="fu">ggplot</span>(coef_data, <span class="fu">aes</span>(<span class="at">x =</span> model, <span class="at">y =</span> estimate, <span class="at">color =</span> model)) <span class="sc">+</span></span>
+<span id="cb46-21"><a href="#cb46-21" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb46-22"><a href="#cb46-22" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb46-23"><a href="#cb46-23" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb46-24"><a href="#cb46-24" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb46-25"><a href="#cb46-25" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Attenuation of Tooth Loss Effect on Systolic BP&quot;</span>,</span>
+<span id="cb46-26"><a href="#cb46-26" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Progressive adjustment for confounders&quot;</span>,</span>
+<span id="cb46-27"><a href="#cb46-27" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Model&quot;</span>,</span>
+<span id="cb46-28"><a href="#cb46-28" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Coefficient (mmHg per tooth lost)&quot;</span>,</span>
+<span id="cb46-29"><a href="#cb46-29" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Model&quot;</span></span>
+<span id="cb46-30"><a href="#cb46-30" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb46-31"><a href="#cb46-31" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb46-32"><a href="#cb46-32" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="p03_files/figure-html/unnamed-chunk-6-1.png" alt="" width="672" /></p>
+</div>
+<div id="data-1" class="section level1">
+<h1>2011-2012 Data</h1>
+<p>Our issue with the previous one - we didn’t have periodontal health.
+and that’s what’s really informative. Perhaps this will explain the null
+results from before. So, I sought to redo my analysis, but with more
+information.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>demo_g  <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;DEMO_G&#39;</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a>ohxden_g <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;OHXDEN_G&#39;</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a>ohxper_g <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;OHXPER_G&#39;</span>)  </span>
+<span id="cb47-4"><a href="#cb47-4" tabindex="-1"></a>bpx_g   <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;BPX_G&#39;</span>)      </span>
+<span id="cb47-5"><a href="#cb47-5" tabindex="-1"></a>hdl_g   <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;HDL_G&#39;</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" tabindex="-1"></a>trig_g  <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;TRIGLY_G&#39;</span>)</span>
+<span id="cb47-7"><a href="#cb47-7" tabindex="-1"></a>bpq_g   <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;BPQ_G&#39;</span>)</span>
+<span id="cb47-8"><a href="#cb47-8" tabindex="-1"></a>smq_g   <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;SMQ_G&#39;</span>)</span>
+<span id="cb47-9"><a href="#cb47-9" tabindex="-1"></a>bmx_g   <span class="ot">&lt;-</span> <span class="fu">nhanes</span>(<span class="st">&#39;BMX_G&#39;</span>)</span></code></pre></div>
+<div id="data-cleaning-1" class="section level2">
+<h2>Data Cleaning</h2>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a>merged_g <span class="ot">&lt;-</span> demo_g <span class="sc">%&gt;%</span></span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a>  <span class="fu">left_join</span>(ohxden_g, <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a>  <span class="fu">left_join</span>(ohxper_g, <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a>  <span class="fu">left_join</span>(bpx_g,   <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-5"><a href="#cb48-5" tabindex="-1"></a>  <span class="fu">left_join</span>(hdl_g,   <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-6"><a href="#cb48-6" tabindex="-1"></a>  <span class="fu">left_join</span>(trig_g,  <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-7"><a href="#cb48-7" tabindex="-1"></a>  <span class="fu">left_join</span>(bpq_g,   <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-8"><a href="#cb48-8" tabindex="-1"></a>  <span class="fu">left_join</span>(smq_g,   <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb48-9"><a href="#cb48-9" tabindex="-1"></a>  <span class="fu">left_join</span>(bmx_g,   <span class="at">by =</span> <span class="st">&quot;SEQN&quot;</span>)</span>
+<span id="cb48-10"><a href="#cb48-10" tabindex="-1"></a></span>
+<span id="cb48-11"><a href="#cb48-11" tabindex="-1"></a><span class="fu">nrow</span>(merged_g)</span></code></pre></div>
+<pre><code>## [1] 9756</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">ncol</span>(merged_g)</span></code></pre></div>
+<pre><code>## [1] 765</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">names</span>(merged_g)[<span class="fu">grepl</span>(<span class="st">&quot;BPX&quot;</span>, <span class="fu">names</span>(merged_g))]</span></code></pre></div>
+<pre><code>##  [1] &quot;BPXCHR&quot;  &quot;BPXPLS&quot;  &quot;BPXPULS&quot; &quot;BPXPTY&quot;  &quot;BPXML1&quot;  &quot;BPXSY1&quot;  &quot;BPXDI1&quot; 
+##  [8] &quot;BPXSY2&quot;  &quot;BPXDI2&quot;  &quot;BPXSY3&quot;  &quot;BPXDI3&quot;  &quot;BPXSY4&quot;  &quot;BPXDI4&quot;</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>merged_g <span class="ot">&lt;-</span> merged_g <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a>  <span class="fu">filter</span>(RIDAGEYR <span class="sc">&gt;=</span> <span class="dv">18</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb54-4"><a href="#cb54-4" tabindex="-1"></a>    <span class="co"># Average systolic and diastolic across 4 readings</span></span>
+<span id="cb54-5"><a href="#cb54-5" tabindex="-1"></a>    <span class="at">sys_avg =</span> <span class="fu">rowMeans</span>(<span class="fu">cbind</span>(BPXSY1, BPXSY2, BPXSY3, BPXSY4), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb54-6"><a href="#cb54-6" tabindex="-1"></a>    <span class="at">dia_avg =</span> <span class="fu">rowMeans</span>(<span class="fu">cbind</span>(BPXDI1, BPXDI2, BPXDI3, BPXDI4), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb54-7"><a href="#cb54-7" tabindex="-1"></a>    </span>
+<span id="cb54-8"><a href="#cb54-8" tabindex="-1"></a>    <span class="co"># Hypertension flag</span></span>
+<span id="cb54-9"><a href="#cb54-9" tabindex="-1"></a>    <span class="at">hypertension =</span> <span class="fu">as.integer</span>(sys_avg <span class="sc">&gt;=</span> <span class="dv">130</span> <span class="sc">|</span> dia_avg <span class="sc">&gt;=</span> <span class="dv">80</span>),</span>
+<span id="cb54-10"><a href="#cb54-10" tabindex="-1"></a>    </span>
+<span id="cb54-11"><a href="#cb54-11" tabindex="-1"></a>    <span class="co"># Sex, smoking, age group</span></span>
+<span id="cb54-12"><a href="#cb54-12" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">factor</span>(RIAGENDR),</span>
+<span id="cb54-13"><a href="#cb54-13" tabindex="-1"></a>    </span>
+<span id="cb54-14"><a href="#cb54-14" tabindex="-1"></a>    <span class="at">current_smoker =</span> <span class="fu">case_when</span>(</span>
+<span id="cb54-15"><a href="#cb54-15" tabindex="-1"></a>      SMQ040 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Every day&quot;</span>, <span class="st">&quot;Some days&quot;</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb54-16"><a href="#cb54-16" tabindex="-1"></a>      SMQ040 <span class="sc">==</span> <span class="st">&quot;Not at all&quot;</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb54-17"><a href="#cb54-17" tabindex="-1"></a>      SMQ020 <span class="sc">==</span> <span class="st">&quot;No&quot;</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb54-18"><a href="#cb54-18" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_real_</span></span>
+<span id="cb54-19"><a href="#cb54-19" tabindex="-1"></a>    ),</span>
+<span id="cb54-20"><a href="#cb54-20" tabindex="-1"></a>    </span>
+<span id="cb54-21"><a href="#cb54-21" tabindex="-1"></a>    <span class="at">age_group =</span> <span class="fu">cut</span>(RIDAGEYR,</span>
+<span id="cb54-22"><a href="#cb54-22" tabindex="-1"></a>                    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">17</span>, <span class="dv">39</span>, <span class="dv">59</span>, <span class="dv">79</span>, <span class="cn">Inf</span>),</span>
+<span id="cb54-23"><a href="#cb54-23" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;18-39&quot;</span>, <span class="st">&quot;40-59&quot;</span>, <span class="st">&quot;60-79&quot;</span>, <span class="st">&quot;80+&quot;</span>))</span>
+<span id="cb54-24"><a href="#cb54-24" tabindex="-1"></a>  )</span>
+<span id="cb54-25"><a href="#cb54-25" tabindex="-1"></a></span>
+<span id="cb54-26"><a href="#cb54-26" tabindex="-1"></a><span class="fu">summary</span>(merged_g<span class="sc">$</span>sys_avg)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   81.33  110.67  120.00  123.02  132.00  234.67     508</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="co"># weird values check</span></span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a><span class="fu">summary</span>(merged_g<span class="sc">$</span>perio_severity)</span></code></pre></div>
+<pre><code>## Length  Class   Mode 
+##      0   NULL   NULL</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a><span class="co"># remove the NA stuff</span></span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a>merged_g <span class="ot">&lt;-</span> merged_g <span class="sc">%&gt;%</span></span>
+<span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb58-4"><a href="#cb58-4" tabindex="-1"></a>    <span class="at">perio_severity =</span> <span class="fu">rowMeans</span>(</span>
+<span id="cb58-5"><a href="#cb58-5" tabindex="-1"></a>      <span class="fu">select</span>(., <span class="fu">matches</span>(<span class="st">&quot;OHX</span><span class="sc">\\</span><span class="st">d+PCD|OHX</span><span class="sc">\\</span><span class="st">d+PCM|OHX</span><span class="sc">\\</span><span class="st">d+PCS|OHX</span><span class="sc">\\</span><span class="st">d+PCP|OHX</span><span class="sc">\\</span><span class="st">d+PCL|OHX</span><span class="sc">\\</span><span class="st">d+PCA&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb58-6"><a href="#cb58-6" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">ifelse</span>(. <span class="sc">&gt;=</span> <span class="dv">99</span> <span class="sc">|</span> . <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, .))),</span>
+<span id="cb58-7"><a href="#cb58-7" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb58-8"><a href="#cb58-8" tabindex="-1"></a>    ),</span>
+<span id="cb58-9"><a href="#cb58-9" tabindex="-1"></a>    </span>
+<span id="cb58-10"><a href="#cb58-10" tabindex="-1"></a>    <span class="at">perio_cat =</span> <span class="fu">cut</span>(perio_severity,</span>
+<span id="cb58-11"><a href="#cb58-11" tabindex="-1"></a>                    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="cn">Inf</span>),</span>
+<span id="cb58-12"><a href="#cb58-12" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Healthy&quot;</span>, <span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Moderate&quot;</span>, <span class="st">&quot;Severe&quot;</span>))</span>
+<span id="cb58-13"><a href="#cb58-13" tabindex="-1"></a>  )</span>
+<span id="cb58-14"><a href="#cb58-14" tabindex="-1"></a></span>
+<span id="cb58-15"><a href="#cb58-15" tabindex="-1"></a><span class="fu">summary</span>(merged_g<span class="sc">$</span>perio_severity)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   1.269   1.477   1.646   1.857   5.792    2526</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="fu">table</span>(merged_g<span class="sc">$</span>perio_cat)</span></code></pre></div>
+<pre><code>## 
+##  Healthy     Mild Moderate   Severe 
+##     2697      541       85       15</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a><span class="co"># filter like I did in previous year </span></span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a>analysis_g <span class="ot">&lt;-</span> merged_g <span class="sc">%&gt;%</span></span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sys_avg)) <span class="sc">%&gt;%</span></span>
+<span id="cb62-4"><a href="#cb62-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(perio_severity)) <span class="sc">%&gt;%</span></span>
+<span id="cb62-5"><a href="#cb62-5" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(BMXBMI)) <span class="sc">%&gt;%</span></span>
+<span id="cb62-6"><a href="#cb62-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(INDFMPIR)) <span class="sc">%&gt;%</span></span>
+<span id="cb62-7"><a href="#cb62-7" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(current_smoker))</span>
+<span id="cb62-8"><a href="#cb62-8" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="#cb62-9" tabindex="-1"></a><span class="fu">nrow</span>(analysis_g)</span></code></pre></div>
+<pre><code>## [1] 2965</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">summary</span>(analysis_g<span class="sc">$</span>perio_severity)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.000   1.266   1.469   1.635   1.844   5.792</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a><span class="fu">table</span>(analysis_g<span class="sc">$</span>perio_cat)</span></code></pre></div>
+<pre><code>## 
+##  Healthy     Mild Moderate   Severe 
+##     2416      468       69       12</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a><span class="co">#not enough in severe group so merge</span></span>
+<span id="cb68-2"><a href="#cb68-2" tabindex="-1"></a>analysis_g <span class="ot">&lt;-</span> analysis_g <span class="sc">%&gt;%</span></span>
+<span id="cb68-3"><a href="#cb68-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb68-4"><a href="#cb68-4" tabindex="-1"></a>    <span class="at">perio_cat =</span> <span class="fu">cut</span>(perio_severity,</span>
+<span id="cb68-5"><a href="#cb68-5" tabindex="-1"></a>                    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.5</span>, <span class="dv">2</span>, <span class="cn">Inf</span>),</span>
+<span id="cb68-6"><a href="#cb68-6" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Healthy&quot;</span>, <span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Moderate/Severe&quot;</span>))</span>
+<span id="cb68-7"><a href="#cb68-7" tabindex="-1"></a>  )</span>
+<span id="cb68-8"><a href="#cb68-8" tabindex="-1"></a></span>
+<span id="cb68-9"><a href="#cb68-9" tabindex="-1"></a><span class="fu">table</span>(analysis_g<span class="sc">$</span>perio_cat)</span></code></pre></div>
+<pre><code>## 
+##         Healthy            Mild Moderate/Severe 
+##            1578             838             549</code></pre>
+</div>
+<div id="data-analysis-1" class="section level2">
+<h2>Data Analysis</h2>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a><span class="co"># Crude</span></span>
+<span id="cb70-2"><a href="#cb70-2" tabindex="-1"></a>model_crude_g <span class="ot">&lt;-</span> <span class="fu">lm</span>(sys_avg <span class="sc">~</span> perio_severity, <span class="at">data =</span> analysis_g)</span>
+<span id="cb70-3"><a href="#cb70-3" tabindex="-1"></a><span class="fu">summary</span>(model_crude_g)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = sys_avg ~ perio_severity, data = analysis_g)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -44.257 -12.344  -2.117   9.008  97.766 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    117.2595     1.0409 112.655  &lt; 2e-16 ***
+## perio_severity   4.1948     0.6043   6.942 4.74e-12 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 17.81 on 2963 degrees of freedom
+## Multiple R-squared:  0.016,  Adjusted R-squared:  0.01567 
+## F-statistic: 48.19 on 1 and 2963 DF,  p-value: 4.745e-12</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a><span class="co"># Adjusted</span></span>
+<span id="cb72-2"><a href="#cb72-2" tabindex="-1"></a>model_adjusted_g <span class="ot">&lt;-</span> <span class="fu">lm</span>(sys_avg <span class="sc">~</span> perio_severity <span class="sc">+</span> RIDAGEYR <span class="sc">+</span> sex <span class="sc">+</span> BMXBMI <span class="sc">+</span> </span>
+<span id="cb72-3"><a href="#cb72-3" tabindex="-1"></a>                          current_smoker <span class="sc">+</span> INDFMPIR, <span class="at">data =</span> analysis_g)</span>
+<span id="cb72-4"><a href="#cb72-4" tabindex="-1"></a><span class="fu">summary</span>(model_adjusted_g)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = sys_avg ~ perio_severity + RIDAGEYR + sex + BMXBMI + 
+##     current_smoker + INDFMPIR, data = analysis_g)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -52.027  -9.912  -1.795   8.178  88.282 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    89.23959    2.13658  41.767  &lt; 2e-16 ***
+## perio_severity  2.04931    0.59014   3.473 0.000523 ***
+## RIDAGEYR        0.52452    0.02108  24.885  &lt; 2e-16 ***
+## sexFemale      -3.33749    0.61145  -5.458 5.20e-08 ***
+## BMXBMI          0.25982    0.04545   5.717 1.19e-08 ***
+## current_smoker  1.49108    0.80365   1.855 0.063639 .  
+## INDFMPIR       -0.66673    0.18570  -3.590 0.000336 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.06 on 2958 degrees of freedom
+## Multiple R-squared:  0.2008, Adjusted R-squared:  0.1992 
+## F-statistic: 123.9 on 6 and 2958 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a><span class="co"># Logistic</span></span>
+<span id="cb74-2"><a href="#cb74-2" tabindex="-1"></a>model_logistic_g <span class="ot">&lt;-</span> <span class="fu">glm</span>(hypertension <span class="sc">~</span> perio_severity <span class="sc">+</span> RIDAGEYR <span class="sc">+</span> sex <span class="sc">+</span> BMXBMI <span class="sc">+</span> </span>
+<span id="cb74-3"><a href="#cb74-3" tabindex="-1"></a>                           current_smoker <span class="sc">+</span> INDFMPIR, </span>
+<span id="cb74-4"><a href="#cb74-4" tabindex="-1"></a>                         <span class="at">data =</span> analysis_g, <span class="at">family =</span> binomial)</span>
+<span id="cb74-5"><a href="#cb74-5" tabindex="-1"></a><span class="fu">summary</span>(model_logistic_g)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = hypertension ~ perio_severity + RIDAGEYR + sex + 
+##     BMXBMI + current_smoker + INDFMPIR, family = binomial, data = analysis_g)
+## 
+## Coefficients:
+##                 Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)    -3.441794   0.292962 -11.748  &lt; 2e-16 ***
+## perio_severity  0.138819   0.077003   1.803   0.0714 .  
+## RIDAGEYR        0.040997   0.002883  14.223  &lt; 2e-16 ***
+## sexFemale      -0.420195   0.081209  -5.174 2.29e-07 ***
+## BMXBMI          0.036426   0.006057   6.014 1.81e-09 ***
+## current_smoker  0.084239   0.105767   0.796   0.4258    
+## INDFMPIR       -0.040579   0.024589  -1.650   0.0989 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 4041.5  on 2964  degrees of freedom
+## Residual deviance: 3752.3  on 2958  degrees of freedom
+## AIC: 3766.3
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<div id="comparison-of-oral-vs-gum-health-models"
+class="section level1">
+<h1>Comparison of Oral vs Gum Health Models</h1>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a><span class="co"># comparison</span></span>
+<span id="cb76-2"><a href="#cb76-2" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb76-3"><a href="#cb76-3" tabindex="-1"></a>  <span class="at">analysis =</span> <span class="fu">c</span>(<span class="st">&quot;Crude</span><span class="sc">\n</span><span class="st">(Tooth Loss)&quot;</span>, <span class="st">&quot;Adjusted</span><span class="sc">\n</span><span class="st">(Tooth Loss)&quot;</span>, </span>
+<span id="cb76-4"><a href="#cb76-4" tabindex="-1"></a>                <span class="st">&quot;Crude</span><span class="sc">\n</span><span class="st">(Pocket Depth)&quot;</span>, <span class="st">&quot;Adjusted</span><span class="sc">\n</span><span class="st">(Pocket Depth)&quot;</span>),</span>
+<span id="cb76-5"><a href="#cb76-5" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="fu">c</span>(<span class="fu">coef</span>(model_crude)[<span class="st">&quot;tooth_loss&quot;</span>],</span>
+<span id="cb76-6"><a href="#cb76-6" tabindex="-1"></a>               <span class="fu">coef</span>(model_adjusted)[<span class="st">&quot;tooth_loss&quot;</span>],</span>
+<span id="cb76-7"><a href="#cb76-7" tabindex="-1"></a>               <span class="fu">coef</span>(model_crude_g)[<span class="st">&quot;perio_severity&quot;</span>],</span>
+<span id="cb76-8"><a href="#cb76-8" tabindex="-1"></a>               <span class="fu">coef</span>(model_adjusted_g)[<span class="st">&quot;perio_severity&quot;</span>]),</span>
+<span id="cb76-9"><a href="#cb76-9" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(<span class="fu">confint</span>(model_crude)[<span class="st">&quot;tooth_loss&quot;</span>, <span class="dv">1</span>],</span>
+<span id="cb76-10"><a href="#cb76-10" tabindex="-1"></a>            <span class="fu">confint</span>(model_adjusted)[<span class="st">&quot;tooth_loss&quot;</span>, <span class="dv">1</span>],</span>
+<span id="cb76-11"><a href="#cb76-11" tabindex="-1"></a>            <span class="fu">confint</span>(model_crude_g)[<span class="st">&quot;perio_severity&quot;</span>, <span class="dv">1</span>],</span>
+<span id="cb76-12"><a href="#cb76-12" tabindex="-1"></a>            <span class="fu">confint</span>(model_adjusted_g)[<span class="st">&quot;perio_severity&quot;</span>, <span class="dv">1</span>]),</span>
+<span id="cb76-13"><a href="#cb76-13" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">c</span>(<span class="fu">confint</span>(model_crude)[<span class="st">&quot;tooth_loss&quot;</span>, <span class="dv">2</span>],</span>
+<span id="cb76-14"><a href="#cb76-14" tabindex="-1"></a>            <span class="fu">confint</span>(model_adjusted)[<span class="st">&quot;tooth_loss&quot;</span>, <span class="dv">2</span>],</span>
+<span id="cb76-15"><a href="#cb76-15" tabindex="-1"></a>            <span class="fu">confint</span>(model_crude_g)[<span class="st">&quot;perio_severity&quot;</span>, <span class="dv">2</span>],</span>
+<span id="cb76-16"><a href="#cb76-16" tabindex="-1"></a>            <span class="fu">confint</span>(model_adjusted_g)[<span class="st">&quot;perio_severity&quot;</span>, <span class="dv">2</span>]),</span>
+<span id="cb76-17"><a href="#cb76-17" tabindex="-1"></a>  <span class="at">measure =</span> <span class="fu">c</span>(<span class="st">&quot;Tooth Loss&quot;</span>, <span class="st">&quot;Tooth Loss&quot;</span>, <span class="st">&quot;Pocket Depth&quot;</span>, <span class="st">&quot;Pocket Depth&quot;</span>)</span>
+<span id="cb76-18"><a href="#cb76-18" tabindex="-1"></a>)</span>
+<span id="cb76-19"><a href="#cb76-19" tabindex="-1"></a></span>
+<span id="cb76-20"><a href="#cb76-20" tabindex="-1"></a>comparison<span class="sc">$</span>analysis <span class="ot">&lt;-</span> <span class="fu">factor</span>(comparison<span class="sc">$</span>analysis, <span class="at">levels =</span> comparison<span class="sc">$</span>analysis)</span>
+<span id="cb76-21"><a href="#cb76-21" tabindex="-1"></a></span>
+<span id="cb76-22"><a href="#cb76-22" tabindex="-1"></a><span class="fu">ggplot</span>(comparison, <span class="fu">aes</span>(<span class="at">x =</span> analysis, <span class="at">y =</span> estimate, <span class="at">color =</span> measure)) <span class="sc">+</span></span>
+<span id="cb76-23"><a href="#cb76-23" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb76-24"><a href="#cb76-24" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb76-25"><a href="#cb76-25" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb76-26"><a href="#cb76-26" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb76-27"><a href="#cb76-27" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Oral Health &amp; Systolic BP: Measurement Quality Matters&quot;</span>,</span>
+<span id="cb76-28"><a href="#cb76-28" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Crude vs adjusted effects across two exposure measures&quot;</span>,</span>
+<span id="cb76-29"><a href="#cb76-29" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb76-30"><a href="#cb76-30" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Coefficient (mmHg)&quot;</span>,</span>
+<span id="cb76-31"><a href="#cb76-31" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Exposure&quot;</span></span>
+<span id="cb76-32"><a href="#cb76-32" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb76-33"><a href="#cb76-33" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="p03_files/figure-html/unnamed-chunk-12-1.png" alt="" width="672" /></p>
+</div>
+<div id="cool-plots" class="section level1">
+<h1>COOL PLOTS</h1>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb77-2"><a href="#cb77-2" tabindex="-1"></a>cor_vars <span class="ot">&lt;-</span> analysis_g <span class="sc">%&gt;%</span> </span>
+<span id="cb77-3"><a href="#cb77-3" tabindex="-1"></a>  <span class="fu">select</span>(perio_severity, sys_avg, dia_avg, BMXBMI, RIDAGEYR, INDFMPIR) <span class="sc">%&gt;%</span></span>
+<span id="cb77-4"><a href="#cb77-4" tabindex="-1"></a>  <span class="fu">cor</span>(<span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb77-5"><a href="#cb77-5" tabindex="-1"></a><span class="fu">ggcorrplot</span>(cor_vars, <span class="at">lab =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
+## ℹ Please use tidy evaluation idioms with `aes()`.
+## ℹ See also `vignette(&quot;ggplot2-in-packages&quot;)` for more information.
+## ℹ The deprecated feature was likely used in the ggcorrplot package.
+##   Please report the issue at &lt;https://github.com/kassambara/ggcorrplot/issues&gt;.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<p><img src="p03_files/figure-html/unnamed-chunk-13-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb79-2"><a href="#cb79-2" tabindex="-1"></a><span class="fu">ggplot</span>(analysis_g, <span class="fu">aes</span>(<span class="at">x =</span> sys_avg, <span class="at">y =</span> perio_cat, <span class="at">fill =</span> perio_cat)) <span class="sc">+</span></span>
+<span id="cb79-3"><a href="#cb79-3" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb79-4"><a href="#cb79-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<pre><code>## Picking joint bandwidth of 3.96</code></pre>
+<p><img src="p03_files/figure-html/unnamed-chunk-14-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a><span class="fu">ggplot</span>(analysis_g, <span class="fu">aes</span>(<span class="at">x =</span> perio_severity, <span class="at">y =</span> sys_avg, <span class="at">color =</span> age_group)) <span class="sc">+</span></span>
+<span id="cb81-2"><a href="#cb81-2" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb81-3"><a href="#cb81-3" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> sex) <span class="sc">+</span></span>
+<span id="cb81-4"><a href="#cb81-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="p03_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" tabindex="-1"></a><span class="co"># marginal effects plot</span></span>
+<span id="cb83-2"><a href="#cb83-2" tabindex="-1"></a><span class="fu">ggplot</span>(analysis_g, <span class="fu">aes</span>(<span class="at">x =</span> perio_cat, <span class="at">y =</span> sys_avg, <span class="at">fill =</span> perio_cat)) <span class="sc">+</span></span>
+<span id="cb83-3"><a href="#cb83-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb83-4"><a href="#cb83-4" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb83-5"><a href="#cb83-5" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb83-6"><a href="#cb83-6" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="p03_files/figure-html/unnamed-chunk-15-2.png" alt="" width="672" /></p>
+</div>
+<div id="gum-health-and-cardiovascular-health-over-the-years"
+class="section level1">
+<h1>GUM HEALTH AND CARDIOVASCULAR HEALTH OVER THE YEARS</h1>
+<p>Now that I have established the critical link between cardiovascular
+disease markers and gum health, I want to look at how prevalence has
+changed over the years. However, gum health information has not been
+obtained every year.</p>
+<div id="information-regarding-the-nhanes-dataset"
+class="section level3">
+<h3>INFORMATION REGARDING THE NHANES DATASET</h3>
+</div>
+</div>
+</div>
+</div>
 
 
 
