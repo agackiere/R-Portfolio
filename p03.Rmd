@@ -19,7 +19,7 @@ knitr::include_graphics("Images/Cardiographicwide2.jpg")
 
 # 2017 - 2018 Data
 
-Data from 2019-2020 is limited access, and 2020-2023 encountered issues due to the Covid-19 Pandemic. Thus, I began by exploring the most recent dataset that included information about oral health.
+NHANES data from 2019-2020 is limited access, and 2020-2023 encountered issues due to the Covid-19 Pandemic. Thus, I began by exploring the most recent dataset that included information about oral health.
 
 ```{r load}
 library(nhanesA)
@@ -36,6 +36,8 @@ ohxden <- nhanes('OHXDEN_J')
 
 ```
 
+Note that SEQN is the participant identifier.
+
 ```{r merge}
 merged <- demo %>%
   left_join(ohxden, by = "SEQN") %>%
@@ -48,12 +50,23 @@ merged <- demo %>%
 
 nrow(merged)
 ncol(merged)
+```
 
+<details>
+
+<summary>See the code output for the head and names of the DF </summary>
+
+```` r
+```{r}
 head(merged)
 names(merged)
 ```
+</details>
+````
 
 ## Data Cleaning
+
+I'm creating a new DF that only includes the variables I want to analyze.
 
 ```{r variable-selection}
 # selecting the variables i want
@@ -93,6 +106,8 @@ nrow(analysis)
 ncol(analysis)
 ```
 
+Now I'm computing averages for the different cardiovascular health marker readings (the labs). I'm also computing the sum of teeth lost as an oral health marker.
+
 ```{r compute-averages}
 
 analysis <- analysis %>%
@@ -115,6 +130,8 @@ summary(analysis$tooth_loss)
 summary(analysis$sys_avg)
 
 ```
+
+I'm now filtering the data (I forgot to do so earlier) to handle the missing values.
 
 ```{r filter-data}
 analysis <- analysis %>%
@@ -173,10 +190,10 @@ analysis <- analysis %>%
 table(analysis$current_smoker)
 ```
 
-# Data Visualization 
+# Data Visualization
 
 ```{r}
-# Tooth loss category vs Average Systolic Blood Pressure
+# Tooth loss category vs. Average Systolic Blood Pressure
 ggplot(analysis, aes(x = tooth_loss_cat, y = sys_avg, fill = tooth_loss_cat)) +
   geom_boxplot(alpha = 0.7) +
   labs(
@@ -191,7 +208,7 @@ ggplot(analysis, aes(x = tooth_loss_cat, y = sys_avg, fill = tooth_loss_cat)) +
 
 ```{r}
 
-# Hypertension prevalence by tooth loss category
+# hypertension prevalence by tooth loss category
 analysis %>%
   group_by(tooth_loss_cat) %>%
   summarise(hyp_rate = mean(hypertension, na.rm = TRUE)) %>%
@@ -210,7 +227,7 @@ analysis %>%
 
 ```{r}
 
-# Scatter of tooth loss vs systolic by Age
+# Scatter plot of tooth loss vs. systolic by Age
 ggplot(analysis, aes(x = tooth_loss, y = sys_avg, color = age_group)) +
   geom_point(alpha = 0.3) +
   geom_smooth(method = "lm", se = FALSE) +
@@ -224,12 +241,11 @@ ggplot(analysis, aes(x = tooth_loss, y = sys_avg, color = age_group)) +
 
 ```
 
-# Data Analysis 
+# Data Analysis
 
 ```{r}
 
-
-# Model 1: crude
+# Model 1: crude linear regression
 model_crude <- lm(sys_avg ~ tooth_loss, data = analysis)
 summary(model_crude)
 
@@ -245,6 +261,8 @@ model_logistic <- glm(hypertension ~ tooth_loss + RIDAGEYR + sex + BMXBMI +
 summary(model_logistic)
 
 ```
+
+As we remove "confounders," tooth loss loose its significance as an independent predictor for cardiovascular disease markers (hypertension and systolic BP).
 
 My interpretation. I tried using plot_model from the sjPlot library, but it was difficult to work with. I got help for this here:
 
@@ -288,7 +306,7 @@ ggplot(coef_data, aes(x = model, y = estimate, color = model)) +
 
 # 2011-2012 Data
 
-Our issue with the previous one - we didn't have periodontal health. and that's what's really informative. Perhaps this will explain the null results from before. So, I sought to redo my analysis, but with more information.
+The 2017 data didn't have periodontal health, which is what's really informative. Perhaps this will explain the null results from before. So, I sought to redo my analysis, but with more information.
 
 ```{r}
 demo_g  <- nhanes('DEMO_G')
@@ -305,7 +323,7 @@ bmx_g   <- nhanes('BMX_G')
 
 ## Data Cleaning
 
-Note that SEQN is the participant identifier.
+Again, SEQN is the participant identifier.
 
 ```{r}
 merged_g <- demo_g %>%
@@ -322,6 +340,8 @@ nrow(merged_g)
 ncol(merged_g)
 
 ```
+
+I'm repeating the cleaning steps from before.
 
 ```{r}
 
@@ -355,6 +375,8 @@ merged_g <- merged_g %>%
 
 summary(merged_g$sys_avg)
 ```
+
+I found some strange values in the summary above. I realized I needed to remove the missing values.
 
 ```{r}
 # weird values check
@@ -402,7 +424,7 @@ table(analysis_g$perio_cat)
 
 ```
 
-## Data Analysis 
+## Data Analysis
 
 ```{r}
 
@@ -426,7 +448,7 @@ summary(model_logistic_g)
 
 ```
 
-# Comparison of Oral vs Gum Health Models 
+# Comparison of Oral vs Gum Health Models
 
 ```{r}
 
@@ -494,8 +516,6 @@ ggplot(analysis_g, aes(x = perio_severity, y = sys_avg, color = age_group)) +
 
 ```
 
-# GUM HEALTH AND CARDIOVASCULAR HEALTH OVER THE YEARS
+### INFORMATION REGARDING THE NHANES DATASET
 
-Now that I have established the critical link between cardiovascular disease markers and gum health, I want to look at how prevalence has changed over the years. However, gum health information has not been obtained every year.
-
-### INFORMATION REGARDING THE NHANES DATASET 
+Centers for Disease Control and Prevention (CDC). National Center for Health Statistics (NCHS). National Health and Nutrition Examination Survey Data. Hyattsville, MD: U.S. Department of Health and Human Services, Centers for Disease Control and Prevention, [2026][<https://www.cdc.gov/nchs/nhanes/about/>].
