@@ -1,0 +1,19 @@
+{
+  "festivalId" : "govball2026",
+  "userId" : "c3a3542b54a44c87b21ce09d4b910fe6",
+  "totalArtistsMatched" : 19,
+  "userLineupMatchPercentile" : 9,
+  "festivalPersona" : "WRISTBAND VETERAN",
+  "topArtists" : [ {
+    "name" : "Lorde"
+  }, {
+    "name" : "Baby Keem"
+  }, {
+    "name" : "A$AP Rocky"
+  }, {
+    "name" : "Ravyn Lenae"
+  }, {
+    "name" : "Kali Uchis"
+  } ],
+  "topDiscoveryArtists" : [ ]
+}

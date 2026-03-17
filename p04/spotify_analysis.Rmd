@@ -1,14 +1,14 @@
 ---
-title: "Portfolio 4"
+title: "My Spotify Listening Analysis"
+author: "Your Name"
+date: "`r Sys.Date()`"
 output:
-  html_document: 
-    theme: yeti
-    highlight: zenburn
-  word_document: default
-date: "2026-03-20"
+  html_document:
+    theme: flatly
+    toc: true
+    toc_float: true
+    code_folding: hide
 ---
-
-Spotify Data Analysis
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
@@ -19,12 +19,16 @@ library(lubridate)
 library(scales)
 ```
 
-## Loading in my spotify data
+---
+
+## Loading the Data
+
+Spotify exports streaming history as one or more JSON files named `Streaming_History_Audio_X.json`.
+Place all of them in the same folder as this `.Rmd` file, then run the chunk below.
 
 ```{r load-data}
-json_files <- list.files(path = "p04/Spotify Account Data", 
-                         pattern = "StreamingHistory_music.*\\.json",
-                         full.names = TRUE)
+# Read all streaming history JSON files and combine them
+json_files <- list.files(pattern = "Streaming_History_Audio.*\\.json")
 
 raw <- json_files %>%
   map(fromJSON) %>%
@@ -34,29 +38,40 @@ raw <- json_files %>%
 glimpse(raw)
 ```
 
+---
+
 ## Cleaning the Data
 
 ```{r clean-data}
 df <- raw %>%
+  # Rename columns to be more readable
   rename(
-    timestamp = endTime,
-    ms_played = msPlayed,
-    track     = trackName,
-    artist    = artistName
+    timestamp     = ts,
+    ms_played     = ms_played,
+    track         = master_metadata_track_name,
+    artist        = master_metadata_album_artist_name,
+    album         = master_metadata_album_album_name
   ) %>%
+  # Parse the timestamp
   mutate(
-    timestamp   = ymd_hm(timestamp),  # note: ymd_hm not ymd_hms, no seconds in basic format
-    date        = as_date(timestamp),
-    hour        = hour(timestamp),
+    timestamp  = ymd_hms(timestamp),
+    date       = as_date(timestamp),
+    hour       = hour(timestamp),
     day_of_week = wday(timestamp, label = TRUE, abbr = FALSE),
-    month       = floor_date(date, "month"),
+    month      = floor_date(date, "month"),
+    # Convert ms to minutes
     minutes_played = ms_played / 60000
   ) %>%
+  # Remove podcasts and very short plays (under 30 seconds — likely skips)
   filter(
     !is.na(track),
     ms_played > 30000
   )
+
+glimpse(df)
 ```
+
+---
 
 ## Overview
 
@@ -68,6 +83,8 @@ cat("Date range:", as.character(min(df$date)), "to", as.character(max(df$date)),
 cat("Total hours listened:", round(sum(df$minutes_played) / 60, 1), "\n")
 ```
 
+---
+
 ## Top Artists
 
 ```{r top-artists, fig.width=8, fig.height=5}
@@ -76,7 +93,7 @@ df %>%
   slice_head(n = 15) %>%
   mutate(artist = fct_reorder(artist, n)) %>%
   ggplot(aes(x = n, y = artist)) +
-  geom_col(fill = "plum4") +
+  geom_col(fill = "#1DB954") +
   labs(
     title = "My Top 15 Most Played Artists",
     x = "Number of Plays",
@@ -84,6 +101,8 @@ df %>%
   ) +
   theme_minimal(base_size = 13)
 ```
+
+---
 
 ## Top Tracks
 
@@ -94,7 +113,7 @@ df %>%
   mutate(label = paste0(track, " — ", artist),
          label = fct_reorder(label, n)) %>%
   ggplot(aes(x = n, y = label)) +
-  geom_col(fill = "plum4") +
+  geom_col(fill = "#1DB954") +
   labs(
     title = "My Top 15 Most Played Songs",
     x = "Number of Plays",
@@ -103,13 +122,15 @@ df %>%
   theme_minimal(base_size = 13)
 ```
 
+---
+
 ## Listening by Time of Day
 
 ```{r time-of-day, fig.width=8, fig.height=4}
 df %>%
   count(hour) %>%
   ggplot(aes(x = hour, y = n)) +
-  geom_col(fill = "plum4") +
+  geom_col(fill = "#1DB954") +
   scale_x_continuous(breaks = 0:23) +
   labs(
     title = "When Do I Listen to Music?",
@@ -119,13 +140,15 @@ df %>%
   theme_minimal(base_size = 13)
 ```
 
+---
+
 ## Listening by Day of Week
 
 ```{r day-of-week, fig.width=8, fig.height=4}
 df %>%
   count(day_of_week) %>%
   ggplot(aes(x = day_of_week, y = n)) +
-  geom_col(fill = "plum4") +
+  geom_col(fill = "#1DB954") +
   labs(
     title = "Which Days Do I Listen Most?",
     x = NULL,
@@ -134,14 +157,16 @@ df %>%
   theme_minimal(base_size = 13)
 ```
 
+---
+
 ## Listening Over Time
 
 ```{r over-time, fig.width=9, fig.height=4}
 df %>%
   count(month) %>%
   ggplot(aes(x = month, y = n)) +
-  geom_line(color = "plum", linewidth = 1.2) +
-  geom_point(color = "plum4", size = 2) +
+  geom_line(color = "#1DB954", linewidth = 1.2) +
+  geom_point(color = "#1DB954", size = 2) +
   scale_x_date(date_labels = "%b %Y", date_breaks = "1 month") +
   labs(
     title = "My Listening Activity Over the Past Year",
@@ -152,6 +177,8 @@ df %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+---
+
 ## Minutes Listened per Month
 
 ```{r minutes-per-month, fig.width=9, fig.height=4}
@@ -159,7 +186,7 @@ df %>%
   group_by(month) %>%
   summarise(hours = sum(minutes_played) / 60) %>%
   ggplot(aes(x = month, y = hours)) +
-  geom_col(fill = "plum4") +
+  geom_col(fill = "#1DB954") +
   scale_x_date(date_labels = "%b %Y", date_breaks = "1 month") +
   labs(
     title = "Hours Listened per Month",
@@ -170,6 +197,8 @@ df %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+---
+
 ## Artist Diversity Over Time
 
 How many unique artists did I listen to each month?
@@ -179,8 +208,8 @@ df %>%
   group_by(month) %>%
   summarise(unique_artists = n_distinct(artist)) %>%
   ggplot(aes(x = month, y = unique_artists)) +
-  geom_line(color = "plum", linewidth = 1.2) +
-  geom_point(color = "plum4", size = 2) +
+  geom_line(color = "#1DB954", linewidth = 1.2) +
+  geom_point(color = "#1DB954", size = 2) +
   scale_x_date(date_labels = "%b %Y", date_breaks = "1 month") +
   labs(
     title = "How Many Different Artists Did I Listen to Each Month?",
@@ -191,12 +220,10 @@ df %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
+---
 
 ## Notes
 
-Data covers the past year of streaming history from Spotify's data export. Plays under 30 seconds were excluded as likely skips and podcasts were excluded (no track metadata).
-
-
-
-
-
+- Data covers the past year of streaming history from Spotify's data export.
+- Plays under 30 seconds were excluded as likely skips.
+- Podcasts were excluded (no track metadata).

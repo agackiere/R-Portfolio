@@ -1,0 +1,422 @@
+{
+  "stats" : [ {
+    "date" : "2026-02-16",
+    "streamCount" : 0,
+    "secondsPlayed" : 0,
+    "topTracks" : [ {
+      "name" : "A Second To None",
+      "streamCount" : 4,
+      "secondsPlayed" : 696
+    }, {
+      "name" : "When the night was kind",
+      "streamCount" : 4,
+      "secondsPlayed" : 666
+    }, {
+      "name" : "Blue Note",
+      "streamCount" : 4,
+      "secondsPlayed" : 633
+    }, {
+      "name" : "Nothing Like",
+      "streamCount" : 4,
+      "secondsPlayed" : 632
+    }, {
+      "name" : "Just a Thought",
+      "streamCount" : 4,
+      "secondsPlayed" : 624
+    }, {
+      "name" : "Santa Monica",
+      "streamCount" : 4,
+      "secondsPlayed" : 601
+    }, {
+      "name" : "Still No Wiser",
+      "streamCount" : 4,
+      "secondsPlayed" : 540
+    }, {
+      "name" : "Orion",
+      "streamCount" : 4,
+      "secondsPlayed" : 496
+    }, {
+      "name" : "Drag Path",
+      "streamCount" : 3,
+      "secondsPlayed" : 672
+    }, {
+      "name" : "Marais Morning",
+      "streamCount" : 3,
+      "secondsPlayed" : 618
+    } ],
+    "topArtists" : [ {
+      "name" : "Luca Armone",
+      "streamCount" : 8,
+      "secondsPlayed" : 1332
+    }, {
+      "name" : "Hveiti Brauo",
+      "streamCount" : 8,
+      "secondsPlayed" : 1217
+    }, {
+      "name" : "Degli Scalzi",
+      "streamCount" : 7,
+      "secondsPlayed" : 1046
+    }, {
+      "name" : "Kendrick Lamar",
+      "streamCount" : 6,
+      "secondsPlayed" : 1690
+    }, {
+      "name" : "Niels Henningsen",
+      "streamCount" : 6,
+      "secondsPlayed" : 1032
+    }, {
+      "name" : "Russell Preston",
+      "streamCount" : 6,
+      "secondsPlayed" : 983
+    }, {
+      "name" : "Portiere Woodtar",
+      "streamCount" : 6,
+      "secondsPlayed" : 960
+    }, {
+      "name" : "Lecce Mchano",
+      "streamCount" : 6,
+      "secondsPlayed" : 864
+    }, {
+      "name" : "Sufjan Stevens",
+      "streamCount" : 5,
+      "secondsPlayed" : 1074
+    }, {
+      "name" : "Rex Orange County",
+      "streamCount" : 5,
+      "secondsPlayed" : 768
+    } ],
+    "topGenres" : [ ]
+  }, {
+    "date" : "2026-02-09",
+    "streamCount" : 0,
+    "secondsPlayed" : 0,
+    "topTracks" : [ {
+      "name" : "DtMF",
+      "streamCount" : 7,
+      "secondsPlayed" : 1478
+    }, {
+      "name" : "Messy",
+      "streamCount" : 6,
+      "secondsPlayed" : 1479
+    }, {
+      "name" : "WHERE IS MY HUSBAND!",
+      "streamCount" : 4,
+      "secondsPlayed" : 682
+    }, {
+      "name" : "Stateside + Zara Larsson",
+      "streamCount" : 4,
+      "secondsPlayed" : 535
+    }, {
+      "name" : "Everything is romantic featuring caroline polachek",
+      "streamCount" : 3,
+      "secondsPlayed" : 609
+    }, {
+      "name" : "Persuasive (with SZA)",
+      "streamCount" : 3,
+      "secondsPlayed" : 588
+    }, {
+      "name" : "Oscar Winning Tears.",
+      "streamCount" : 3,
+      "secondsPlayed" : 463
+    }, {
+      "name" : "Free Bird",
+      "streamCount" : 2,
+      "secondsPlayed" : 925
+    }, {
+      "name" : "Backseat",
+      "streamCount" : 2,
+      "secondsPlayed" : 766
+    }, {
+      "name" : "About You",
+      "streamCount" : 2,
+      "secondsPlayed" : 652
+    } ],
+    "topArtists" : [ {
+      "name" : "Bad Bunny",
+      "streamCount" : 17,
+      "secondsPlayed" : 3251
+    }, {
+      "name" : "RAYE",
+      "streamCount" : 10,
+      "secondsPlayed" : 1815
+    }, {
+      "name" : "Doechii",
+      "streamCount" : 7,
+      "secondsPlayed" : 1296
+    }, {
+      "name" : "Charli xcx",
+      "streamCount" : 7,
+      "secondsPlayed" : 1167
+    }, {
+      "name" : "Lola Young",
+      "streamCount" : 6,
+      "secondsPlayed" : 1479
+    }, {
+      "name" : "Stromae",
+      "streamCount" : 7,
+      "secondsPlayed" : 977
+    }, {
+      "name" : "SZA",
+      "streamCount" : 7,
+      "secondsPlayed" : 1562
+    }, {
+      "name" : "Clairo",
+      "streamCount" : 4,
+      "secondsPlayed" : 839
+    }, {
+      "name" : "PinkPantheress",
+      "streamCount" : 4,
+      "secondsPlayed" : 535
+    }, {
+      "name" : "Lorde",
+      "streamCount" : 4,
+      "secondsPlayed" : 884
+    } ],
+    "topGenres" : [ ]
+  }, {
+    "date" : "2026-02-02",
+    "streamCount" : 0,
+    "secondsPlayed" : 0,
+    "topTracks" : [ {
+      "name" : "Oscar Winning Tears.",
+      "streamCount" : 12,
+      "secondsPlayed" : 2198
+    }, {
+      "name" : "WHERE IS MY HUSBAND!",
+      "streamCount" : 12,
+      "secondsPlayed" : 2143
+    }, {
+      "name" : "Persuasive (with SZA)",
+      "streamCount" : 11,
+      "secondsPlayed" : 2279
+    }, {
+      "name" : "The Hardest Part",
+      "streamCount" : 9,
+      "secondsPlayed" : 1511
+    }, {
+      "name" : "Messy",
+      "streamCount" : 8,
+      "secondsPlayed" : 2256
+    }, {
+      "name" : "Die On This Hill",
+      "streamCount" : 8,
+      "secondsPlayed" : 1544
+    }, {
+      "name" : "The Thrill Is Gone.",
+      "streamCount" : 7,
+      "secondsPlayed" : 1393
+    }, {
+      "name" : "Stateside + Zara Larsson",
+      "streamCount" : 6,
+      "secondsPlayed" : 1061
+    }, {
+      "name" : "girl, get up. (feat. SZA)",
+      "streamCount" : 6,
+      "secondsPlayed" : 1025
+    }, {
+      "name" : "Casual",
+      "streamCount" : 5,
+      "secondsPlayed" : 1096
+    } ],
+    "topArtists" : [ {
+      "name" : "RAYE",
+      "streamCount" : 34,
+      "secondsPlayed" : 6458
+    }, {
+      "name" : "Doechii",
+      "streamCount" : 18,
+      "secondsPlayed" : 3463
+    }, {
+      "name" : "Lola Young",
+      "streamCount" : 14,
+      "secondsPlayed" : 3475
+    }, {
+      "name" : "Kendrick Lamar",
+      "streamCount" : 14,
+      "secondsPlayed" : 2955
+    }, {
+      "name" : "Olivia Dean",
+      "streamCount" : 13,
+      "secondsPlayed" : 2247
+    }, {
+      "name" : "Tyler, The Creator",
+      "streamCount" : 11,
+      "secondsPlayed" : 2417
+    }, {
+      "name" : "Clairo",
+      "streamCount" : 11,
+      "secondsPlayed" : 2027
+    }, {
+      "name" : "SZA",
+      "streamCount" : 18,
+      "secondsPlayed" : 3586
+    }, {
+      "name" : "SIENNA SPIRO",
+      "streamCount" : 8,
+      "secondsPlayed" : 1544
+    }, {
+      "name" : "Hozier",
+      "streamCount" : 8,
+      "secondsPlayed" : 1501
+    } ],
+    "topGenres" : [ ]
+  } ],
+  "highlights" : [ {
+    "date" : "2026-02-15",
+    "highlightType" : "FANS_LIKE_YOU",
+    "fansLikeYouHighlight" : {
+      "entity" : "DtMF",
+      "country" : "US",
+      "position" : 1,
+      "previousPosition" : 4,
+      "numberOfListeners" : 9331367
+    }
+  }, {
+    "date" : "2026-02-08",
+    "highlightType" : "ON_REPEAT",
+    "onRepeatHighlight" : {
+      "entity" : "WHERE IS MY HUSBAND!",
+      "streamCount" : 12
+    }
+  }, {
+    "date" : "2026-02-01",
+    "highlightType" : "STREAKS",
+    "streaksHighlight" : {
+      "entity" : "The Path of the Wind - Instrumental",
+      "dayStreaks" : 3
+    }
+  }, {
+    "date" : "2026-01-25",
+    "highlightType" : "MILESTONE",
+    "multiEntityMilestoneHighlight" : {
+      "entities" : [ "Original Broadway Cast of Hamilton", "Lin-Manuel Miranda", "Leslie Odom Jr.", "Non-Stop", "Right Hand Man", "The Meetings of the Waters", "The World Was Wide Enough", "Alexander Hamilton", "You'll Be Back" ],
+      "milestoneListeningSeconds" : 143857
+    }
+  }, {
+    "date" : "2026-01-18",
+    "highlightType" : "UNLIKE_COMBINATION",
+    "unlikeCombinationHighlight" : {
+      "firstEntity" : "The Refuge",
+      "secondEntity" : "Don't You Worry Child - Radio Edit"
+    }
+  }, {
+    "date" : "2026-01-11",
+    "highlightType" : "PROPORTION_LISTENING_ENTITY",
+    "proportionListeningHighlight" : {
+      "entity" : "a few beautiful songs",
+      "listeningPercentage" : 38.56667669279357
+    }
+  }, {
+    "date" : "2026-01-04",
+    "highlightType" : "ON_REPEAT",
+    "onRepeatHighlight" : {
+      "entity" : "Something About You",
+      "streamCount" : 7
+    }
+  }, {
+    "date" : "2025-12-28",
+    "highlightType" : "MILESTONE",
+    "multiEntityMilestoneHighlight" : {
+      "entities" : [ "The 1975", "Kanye West", "Kendrick Lamar", "About You", "It's Not Living (If It's Not With You)", "Dreams - 2004 Remaster", "Bound 2", "Seventeen", "Sing About Me, I'm Dying Of Thirst" ],
+      "milestoneListeningSeconds" : 82508
+    }
+  }, {
+    "date" : "2025-12-21",
+    "highlightType" : "STREAKS",
+    "streaksHighlight" : {
+      "entity" : "Bon Iver",
+      "dayStreaks" : 5
+    }
+  }, {
+    "date" : "2025-12-14",
+    "highlightType" : "ON_REPEAT",
+    "onRepeatHighlight" : {
+      "entity" : "Agape",
+      "streamCount" : 12
+    }
+  }, {
+    "date" : "2025-12-07",
+    "highlightType" : "UNLIKE_COMBINATION",
+    "unlikeCombinationHighlight" : {
+      "firstEntity" : "Hunter Keys",
+      "secondEntity" : "Stormzy"
+    }
+  }, {
+    "date" : "2025-11-30",
+    "highlightType" : "MILESTONE",
+    "multiEntityMilestoneHighlight" : {
+      "entities" : [ "The 1975", "Stromae", "Bigflo & Oli", "Chateau (Feel Alright)", "Autre part", "House Of Cards", "Show Me How", "Ma Meilleure Ennemie ft. Coldplay", "Paris" ],
+      "milestoneListeningSeconds" : 89300
+    }
+  }, {
+    "date" : "2025-11-23",
+    "highlightType" : "STREAKS",
+    "streaksHighlight" : {
+      "entity" : "Lana Del Rey",
+      "dayStreaks" : 6
+    }
+  }, {
+    "date" : "2025-11-16",
+    "highlightType" : "MILESTONE",
+    "multiEntityMilestoneHighlight" : {
+      "entities" : [ "Sufjan Stevens", "Kendrick Lamar", "RAYE", "The Meetings of the Waters", "La Bergère Et Le Ramoneur", "What Once Was", "Escapism.", "Space Song", "Shirim" ],
+      "milestoneListeningSeconds" : 117695
+    }
+  }, {
+    "date" : "2025-11-09",
+    "highlightType" : "STREAKS",
+    "streaksHighlight" : {
+      "entity" : "Lana Del Rey",
+      "dayStreaks" : 4
+    }
+  }, {
+    "date" : "2025-11-02",
+    "highlightType" : "UNLIKE_COMBINATION",
+    "unlikeCombinationHighlight" : {
+      "firstEntity" : "George Salazar",
+      "secondEntity" : "Art Taylor"
+    }
+  }, {
+    "date" : "2025-10-26",
+    "highlightType" : "UNLIKE_COMBINATION",
+    "unlikeCombinationHighlight" : {
+      "firstEntity" : "Rachel Bay Jones",
+      "secondEntity" : "Tony Yayo"
+    }
+  }, {
+    "date" : "2025-10-19",
+    "highlightType" : "ON_REPEAT",
+    "onRepeatHighlight" : {
+      "entity" : "David",
+      "streamCount" : 20
+    }
+  }, {
+    "date" : "2025-10-12",
+    "highlightType" : "STREAKS",
+    "streaksHighlight" : {
+      "entity" : "Kanye West",
+      "dayStreaks" : 4
+    }
+  }, {
+    "date" : "2025-10-05",
+    "highlightType" : "UNLIKE_COMBINATION",
+    "unlikeCombinationHighlight" : {
+      "firstEntity" : "Roadburn",
+      "secondEntity" : "空に歌えば"
+    }
+  }, {
+    "date" : "2025-09-28",
+    "highlightType" : "UNLIKE_COMBINATION",
+    "unlikeCombinationHighlight" : {
+      "firstEntity" : "Jeanne Cherhal",
+      "secondEntity" : "Deusdosol"
+    }
+  }, {
+    "date" : "2025-09-21",
+    "highlightType" : "MILESTONE",
+    "multiEntityMilestoneHighlight" : {
+      "entities" : [ "Joe Hisaishi", "Bon Iver", "Kendrick Lamar", "Summerboy", "Invincible (feat. Daniel Caesar)", "Oriental Wind", "The End and the Beginning - Song of Time (Theme Song) - Ending", "Fragile Dream", "Merry-Go-Round of Life - from 'Howl's Moving Castle'" ],
+      "milestoneListeningSeconds" : 65132
+    }
+  } ]
+}

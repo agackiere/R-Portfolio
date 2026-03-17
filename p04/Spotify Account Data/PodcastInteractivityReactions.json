@@ -1,0 +1,21 @@
+{
+  "reactions" : [ {
+    "comment" : "spotify:comment:4fy4deljwSpgK6LL3jR0ih",
+    "entityUri" : "spotify:episode:0UyocLxHH9mHWIgjmuTdMn",
+    "parentEntity" : "spotify:show:5NdDCZh1OCLkpoXGp9yAqx",
+    "reaction" : "LIKE",
+    "createdAt" : "2026-01-02T17:52:54.407Z"
+  }, {
+    "comment" : "spotify:comment:2IbVYPhskGyDva6Qf6gbwl",
+    "entityUri" : "spotify:episode:0UyocLxHH9mHWIgjmuTdMn",
+    "parentEntity" : "spotify:show:5NdDCZh1OCLkpoXGp9yAqx",
+    "reaction" : "LIKE",
+    "createdAt" : "2026-01-02T17:53:08.091Z"
+  }, {
+    "comment" : "spotify:comment:0IyVBURKWk3tgLfIqV1oG4",
+    "entityUri" : "spotify:episode:0UyocLxHH9mHWIgjmuTdMn",
+    "parentEntity" : "spotify:show:5NdDCZh1OCLkpoXGp9yAqx",
+    "reaction" : "LIKE",
+    "createdAt" : "2026-01-03T02:41:36.949Z"
+  } ]
+}
