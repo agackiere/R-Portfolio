@@ -8,7 +8,9 @@ output:
 date: "2026-03-20"
 ---
 
-Spotify Data Analysis
+# **Spotify Data Analysis**
+
+In this portfolio, I decided to analyze my spotify data to learn more about my musical preferences.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
@@ -191,12 +193,14 @@ df %>%
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-
 ## Notes
 
 Data covers the past year of streaming history from Spotify's data export. Plays under 30 seconds were excluded as likely skips and podcasts were excluded (no track metadata).
 
+### Saving data for the shiny app
 
+```{r}
+saveRDS(df, "p04/spotify_data.rds")
+```
 
-
-
+**To view the Shiny App, go to p04 folder, and you'll find it in the Spotify folder!**

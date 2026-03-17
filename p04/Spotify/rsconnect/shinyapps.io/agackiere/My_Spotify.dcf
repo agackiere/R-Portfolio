@@ -1,0 +1,12 @@
+name: My_Spotify
+title: My_Spotify
+username: agackiere
+account: agackiere
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 16920040
+bundleId: 11721961
+url: https://agackiere.shinyapps.io/My_Spotify/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

@@ -387,7 +387,10 @@ $(document).ready(function () {
 </div>
 
 
-<p>Spotify Data Analysis</p>
+<div id="spotify-data-analysis" class="section level1">
+<h1><strong>Spotify Data Analysis</strong></h1>
+<p>In this portfolio, I decided to analyze my spotify data to learn more
+about my musical preferences.</p>
 <div id="loading-in-my-spotify-data" class="section level2">
 <h2>Loading in my spotify data</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>json_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">&quot;p04/Spotify Account Data&quot;</span>, </span>
@@ -562,6 +565,11 @@ $(document).ready(function () {
 <p>Data covers the past year of streaming history from Spotify’s data
 export. Plays under 30 seconds were excluded as likely skips and
 podcasts were excluded (no track metadata).</p>
+<div id="saving-data-for-the-shiny-app" class="section level3">
+<h3>Saving data for the shiny app</h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">saveRDS</span>(df, <span class="st">&quot;p04/spotify_data.rds&quot;</span>)</span></code></pre></div>
+</div>
+</div>
 </div>
 
 
