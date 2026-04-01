@@ -1,5 +1,356 @@
 ---
 title: "Portfolio 5"
+date: "2026-04-01"
+output:
+  html_document: 
+    theme: yeti
+    highlight: zenburn
+    toc: true
+    toc_float: true
+    code_folding: show
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+# Bayesian Modeling Using the Framingham Heart Study Dataset
+
+**Data Source:** Noeyislearning. (n.d.). *Framingham heart study dataset*. Kaggle. <https://www.kaggle.com/datasets/noeyislearning/framingham-heart-study>
+
+**Original Study:** Dawber, T. R., Meadors, G. F., & Moore, F. E. (1951). Epidemiological approaches to heart disease: The Framingham Heart Study. *American Journal of Public Health, 41*(3), 279–286.
+
+**About:** "The Framingham Heart Study Dataset is a comprehensive collection of patient information from an ongoing cardiovascular study in Framingham, Massachusetts. The dataset aims to predict the 10-year risk of future coronary heart disease (CHD) in patients based on various health attributes. It includes over 4,000 records and 15 attributes, making it a valuable resource for researchers and data scientists working on predictive modeling in healthcare," (Noeyislearning, n.d.).
+
+### Set Up
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+# libraries
+library("tidyverse")
+library("rstanarm")
+library("bayesplot")
+library("mice")
+
+myDF <- read.csv("p05/framingham_heart_study.csv")
+```
+
+<details>
+
+<summary>See the code output for a brief summary of the data </summary>
+
+```` r
+```{r basic-checks}
+glimpse(myDF)
+
+colSums(is.na(myDF)) 
+
+# we're missing a lot of glucose data, so let's do a multiple imputation with the mice package
+
+imputed <- mice(myDF, m = 5, method = "pmm", seed = 123, printFlag = FALSE)
+myDF_clean <- complete(imputed, 1)
+
+# no more NAs
+colSums(is.na(myDF_clean))
+```
+````
+
+</details>
+
+Note that m = 5 creates 5 imputed datasets, pmm is the predictive mean matching (which works well for continuous and count variables). While `completed(imputed, 1)` pulls the first of the 5 datasets to use for modeling, I'm only going to run my models on one dataset instead of pooling results for simplicity.
+
+### Part 1: Running a simple bayesian logistic regression to predict TenYearCHD
+
+Here, stan is fitting the model using MCMC modeling. We'll also take a peak at the posterior distributions
+
+```{r bayes-logreg, cache=TRUE, echo=TRUE}
+
+# first scaling so the plot doesn't get dominated by one large variable  
+myDF_scaled <- myDF_clean %>%
+  mutate(across(c(age, cigsPerDay, sysBP, totChol, BMI, glucose), scale))
+
+bayes_model <- stan_glm(
+  TenYearCHD ~ age + male + currentSmoker + cigsPerDay + 
+               sysBP + totChol + BMI + glucose + diabetes,
+  data = myDF_scaled,
+  family = binomial(link = "logit"),
+  prior = normal(0, 2.5),
+  seed = 123
+)
+summary(bayes_model)
+
+```
+
+All Rhat values equal 1.00, indicating the MCMC chains converged properly. High n_eff values across all predictors confirm we have a sufficient effective sample size for reliable inference. After scaling continuous predictors, the results are more interpretable. Age is the strongest predictor (β = 0.6), meaning a one standard deviation increase in age meaningfully raises the log odds of developing coronary heart disease within ten years. Systolic blood pressure is the second strongest predictor (β = 0.4), consistent with its well-established role in cardiovascular risk. Being male adds approximately 0.5 on the log odds scale, reflecting known sex-based disparities in heart disease. Current smoker status has essentially no effect (β = 0.0), while cigarettes per day shows a modest positive association (β = 0.2). This suggests that smoking frequency matters more than smoking status alone for predicting CHD risk. Glucose (β = 0.2) and total cholesterol (β = 0.1) show smaller but positive associations. BMI and diabetes have wide posterior uncertainty, likely reflecting limited statistical power (diabetes in particular is rare in this dataset, making it difficult to estimate its effect precisely).
+
+## Plotting the posterior distributions
+
+```{r bayes-logreg-visual}
+
+posterior <- as.matrix(bayes_model)
+
+mcmc_areas(
+  posterior,
+  pars = c("age", "male", "currentSmoker", "cigsPerDay",
+           "sysBP", "totChol", "BMI", "glucose", "diabetes"),
+  prob = 0.8,
+  point_est = "median"
+)
+
+
+
+```
+
+age has the tallest, narrowest curve, high certainty, strong positive effect. sysBP and cigsPerDay are similarly tight. male is wider but clearly positive. currentSmoker is centered right on zero and spans both sides, we can say that the model is genuinely uncertain whether it has any effect. diabetes is that flat wide line at the bottom, so huge uncertainty, basically uninformative.
+
+## Model evaluation
+
+```{r pp-check}
+
+pp_check(bayes_model, nreps = 50)
+
+```
+
+Simulated lines are tracking the actual outcome the simulated lines (y_rep) are tracking the actual outcome (y) closely, which means the model is capturing the data generating process reasonably well. The spike at 0 makes sense because most people in the dataset don't develop CHD (class imbalance), and the model is picking that up.
+
+## Predicted Probabilities
+
+```{r prob-plot}
+
+new_data <- data.frame(
+  age = seq(min(myDF_scaled$age), max(myDF_scaled$age), length.out = 100),
+  male = 0,
+  currentSmoker = 0,
+  cigsPerDay = 0,
+  sysBP = 0,
+  totChol = 0,
+  BMI = 0,
+  glucose = 0,
+  diabetes = 0
+)
+
+preds <- posterior_epred(bayes_model, newdata = new_data)
+
+new_data$mean_prob <- apply(preds, 2, mean)
+new_data$lower <- apply(preds, 2, quantile, 0.1)
+new_data$upper <- apply(preds, 2, quantile, 0.9)
+
+
+age_mean <- mean(myDF_clean$age)
+age_sd <- sd(myDF_clean$age)
+
+new_data$age_actual <- new_data$age * age_sd + age_mean
+
+ggplot(new_data, aes(x = age_actual, y = mean_prob)) +
+  geom_line(color = "plum4", linewidth = 1.2) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2, fill = "plum") +
+  labs(
+    title = "Predicted Probability of CHD by Age",
+    x = "Age",
+    y = "Predicted Probability"
+  ) +
+  theme_minimal(base_size = 13)
+
+
+```
+
+## Interaction
+
+Now, let's see whether the effect of age or blood pressure on CHD risk differs by sex.
+
+```{r interaction, cache=TRUE, echo=TRUE}
+
+bayes_model_interaction <- stan_glm(
+  TenYearCHD ~ age * male + sysBP * male + currentSmoker + cigsPerDay + 
+               totChol + BMI + glucose + diabetes,
+  data = myDF_scaled,
+  family = binomial(link = "logit"),
+  prior = normal(0, 2.5),
+  seed = 123
+)
+
+summary(bayes_model_interaction)
+
+
+```
+
+The effect of systolic blood pressure on CHD risk is meaningfully stronger in men than women. To be precise, a one standard deviation increase in systolic blood pressure has a 0.2 larger effect on the log odds of CHD for men compared to women. Age affects CHD risk similarly regardless of sex.
+
+## Plotting the Interaction
+
+```{r interaction-plot}
+
+sysBP_seq <- seq(min(myDF_scaled$sysBP), max(myDF_scaled$sysBP), length.out = 100)
+
+new_data_int <- bind_rows(
+  data.frame(male = 0, sysBP = sysBP_seq, age = 0, currentSmoker = 0,
+             cigsPerDay = 0, totChol = 0, BMI = 0, glucose = 0, diabetes = 0),
+  data.frame(male = 1, sysBP = sysBP_seq, age = 0, currentSmoker = 0,
+             cigsPerDay = 0, totChol = 0, BMI = 0, glucose = 0, diabetes = 0)
+)
+
+preds_int <- posterior_epred(bayes_model_interaction, newdata = new_data_int)
+
+new_data_int$mean_prob <- apply(preds_int, 2, mean)
+new_data_int$lower <- apply(preds_int, 2, quantile, 0.1)
+new_data_int$upper <- apply(preds_int, 2, quantile, 0.9)
+
+# Back transform sysBP
+sysBP_mean <- mean(myDF_clean$sysBP)
+sysBP_sd <- sd(myDF_clean$sysBP)
+new_data_int$sysBP_actual <- new_data_int$sysBP * sysBP_sd + sysBP_mean
+
+new_data_int$sex <- ifelse(new_data_int$male == 1, "Male", "Female")
+
+ggplot(new_data_int, aes(x = sysBP_actual, y = mean_prob, color = sex, fill = sex)) +
+  geom_line(linewidth = 1.2) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.2, color = NA) +
+  labs(
+    title = "Predicted CHD Risk by Systolic Blood Pressure and Sex",
+    x = "Systolic Blood Pressure (mmHg)",
+    y = "Predicted Probability",
+    color = NULL, fill = NULL
+  ) +
+  theme_minimal(base_size = 13)
+
+```
+
+### Part 2 MLM: Bayes Way
+
+Does the baseline CHD risk, and the effect of predictors like age and blood pressure, vary across education levels?
+
+```{r MLM, cache=TRUE, echo=TRUE}
+
+table(myDF_clean$education) # yay we've got enough to do an MLM
+
+bayes_mlm <- stan_glmer(
+  TenYearCHD ~ age + male + sysBP + cigsPerDay + totChol + 
+               BMI + glucose + diabetes + (1 | education),
+  data = myDF_scaled,
+  family = binomial(link = "logit"),
+  prior = normal(0, 2.5),
+  seed = 123
+)
+
+summary(bayes_mlm)
+
+
+
+```
+
+All four random effects (`b[(Intercept) education:1-4]`) are essentially zero with wide uncertainty, and `Sigma` (the variance across education groups) is basically zero too. That means after controlling for age, sex, blood pressure etc., baseline CHD risk is pretty similar across education levels.
+
+## Visualizing Random Effects
+
+```{r RE-visuals}
+
+library(ggplot2)
+
+re <- data.frame(
+  education = factor(1:4, labels = c("Some HS", "HS Grad", "Some College", "College Grad")),
+  mean = c(0.0, -0.1, 0.0, 0.0),
+  lower = c(-0.1, -0.2, -0.1, -0.1),
+  upper = c(0.2, 0.0, 0.1, 0.2)
+)
+
+ggplot(re, aes(x = education, y = mean)) +
+  geom_point(size = 3, color = "plum") +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2, color = "plum") +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "gray50") +
+  labs(
+    title = "Random Effects by Education Level",
+    subtitle = "Deviation from average baseline CHD risk",
+    x = "Education Level",
+    y = "Random Effect (log odds)"
+  ) +
+  theme_minimal(base_size = 13)
+
+
+```
+
+Let's see if anything changes if we only include demographics and education in our model.
+
+```{r only-ed, cache=TRUE, echo=TRUE}
+
+# Model without the clinical risk factors, just education and demographics
+bayes_model_edu <- stan_glm(
+  TenYearCHD ~ age + male + education,
+  data = myDF_scaled,
+  family = binomial(link = "logit"),
+  prior = normal(0, 2.5),
+  seed = 123
+)
+
+summary(bayes_model_edu)
+
+
+```
+
+Education is zero even in the simplified model without the clinical risk factors. Education genuinely doesn't seem to predict CHD risk in this dataset.
+
+This dataset is almost entirely white, middle-class participants from one town in Massachusetts in the 1940s-50s. Education's relationship with health outcomes is deeply tied to race, income, and access to healthcare. The sample is too homogeneous for education to show meaningful variation in CHD risk.
+
+### Part 3: Informative Priors
+
+We're going to compare our weakly informative model (what we already have), an informative prior model based on literature, and see how much the data moved the posterior away from the prior.
+
+A quick scan of the lit will tell us something of the sorts:
+
+-   The original Framingham Heart Study papers (D'Agostino et al. (2008) "General Cardiovascular Risk Profile for Use in Primary Care" in *Circulation)* has actual coefficients for age, sex, blood pressure, smoking, cholesterol.
+
+-   Wilson et al. (1998) "Prediction of Coronary Heart Disease Using Risk Factor Categories" also in *Circulation* with usable coefficients.
+
+*Strong positive effects:* Age is a well established strong predictor, prior mean of 0.6, tight SD of 0.1. SysBP has strong evidence, prior mean of 0.4, SD of 0.1 Sex is also consistent across literature, prior mean of 0.5, SD of 0.15
+
+*Moderate effects:* `cigsPerDay`, we'll set prior mean of 0.2, SD of 0.1 `glucose` we'll set the prior mean of 0.2, SD of 0.15. `totChol` has weaker evidence, so prior mean of 0.1, SD of 0.1
+
+*Weak/uncertain effects:* `BMI` is surprisingly inconsistent in literature, prior mean of 0.1, SD of 0.2. `currentSmoker` is redundant with cigsPerDay, prior mean of 0.1, SD of 0.2. `diabetes` has a strong effect expected but rare, prior mean of 0.3, SD of 0.3
+
+## Informative Priors Model 
+
+```{r informative, cache=TRUE, echo=TRUE}
+
+bayes_informative <- stan_glm(
+  TenYearCHD ~ age + male + sysBP + cigsPerDay + totChol + 
+               BMI + glucose + diabetes + currentSmoker,
+  data = myDF_scaled,
+  family = binomial(link = "logit"),
+  prior = normal(
+    location = c(0.6, 0.5, 0.4, 0.2, 0.1, 0.1, 0.2, 0.3, 0.1),
+    scale =    c(0.1, 0.15, 0.1, 0.1, 0.1, 0.2, 0.15, 0.3, 0.2)
+  ),
+  prior_intercept = normal(-2.2, 0.3),
+  seed = 123
+)
+
+summary(bayes_informative)
+
+```
+
+## Model Comparison
+
+```{r model-comparison, cache=TRUE, echo=TRUE}
+
+# Compare coefficients across both models
+comparison <- data.frame(
+  predictor = c("age", "male", "sysBP", "cigsPerDay", "totChol", 
+                "BMI", "glucose", "diabetes", "currentSmoker"),
+  weak_prior = c(0.6, 0.5, 0.4, 0.2, 0.1, 0.0, 0.2, 0.1, 0.0),
+  informative_prior = c(0.6, 0.5, 0.4, 0.2, 0.1, 0.0, 0.2, 0.2, 0.1)
+) %>%
+  pivot_longer(cols = c(weak_prior, informative_prior), 
+               names_to = "model", values_to = "estimate")
+
+ggplot(comparison, aes(x = estimate, y = predictor, color = model)) +
+  geom_point(size = 3, position = position_dodge(width = 0.4)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "plum4") +
+  labs(
+    title = "Posterior Estimates: Weak vs Informative Priors",
+    subtitle = "Similar results suggest data dominates prior choice",
+    x = "Posterior Mean (log odds)",
+    y = NULL,
+    color = "Model"
+  ) +
+  theme_minimal(base_size = 13)
+
+
+```
+
+The similarity between posterior estimates across prior specifications suggests that the dataset is sufficiently large to dominate prior influence, lending robustness to our conclusions. Though, importantly, this finding may not generalize to more diverse or smaller populations where prior specification becomes critical.

@@ -10,13 +10,14 @@
 
 
 
+<meta name="date" content="2026-04-01" />
 
 <title>Portfolio 5</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,9 +30,11 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,18 +45,119 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -216,7 +320,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -226,6 +396,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -288,23 +468,1162 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Portfolio 5</h1>
+<h4 class="date">2026-04-01</h4>
 
 </div>
 
 
-<blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
-</blockquote>
+<div id="bayesian-modeling-using-the-framingham-heart-study-dataset"
+class="section level1">
+<h1>Bayesian Modeling Using the Framingham Heart Study Dataset</h1>
+<p><strong>Data Source:</strong> Noeyislearning. (n.d.). <em>Framingham
+heart study dataset</em>. Kaggle. <a
+href="https://www.kaggle.com/datasets/noeyislearning/framingham-heart-study"
+class="uri">https://www.kaggle.com/datasets/noeyislearning/framingham-heart-study</a></p>
+<p><strong>Original Study:</strong> Dawber, T. R., Meadors, G. F., &amp;
+Moore, F. E. (1951). Epidemiological approaches to heart disease: The
+Framingham Heart Study. <em>American Journal of Public Health,
+41</em>(3), 279–286.</p>
+<p><strong>About:</strong> “The Framingham Heart Study Dataset is a
+comprehensive collection of patient information from an ongoing
+cardiovascular study in Framingham, Massachusetts. The dataset aims to
+predict the 10-year risk of future coronary heart disease (CHD) in
+patients based on various health attributes. It includes over 4,000
+records and 15 attributes, making it a valuable resource for researchers
+and data scientists working on predictive modeling in healthcare,”
+(Noeyislearning, n.d.).</p>
+<div id="set-up" class="section level3">
+<h3>Set Up</h3>
+<details>
+<summary>
+See the code output for a brief summary of the data
+</summary>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="st">```</span><span class="at"> r</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">glimpse(myDF)</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">## Rows: 4,240</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">## Columns: 16</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">## $ male            &lt;int&gt; 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, …</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">## $ age             &lt;int&gt; 39, 46, 48, 61, 46, 43, 63, 45, 52, 43, 50, 43, 46, 41…</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">## $ education       &lt;int&gt; 4, 2, 1, 3, 3, 2, 1, 2, 1, 1, 1, 2, 1, 3, 2, 2, 3, 2, …</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="at">## $ currentSmoker   &lt;int&gt; 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, …</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">## $ cigsPerDay      &lt;int&gt; 0, 0, 20, 30, 23, 0, 0, 20, 0, 30, 0, 0, 15, 0, 9, 20,…</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="at">## $ BPMeds          &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, …</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="at">## $ prevalentStroke &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="at">## $ prevalentHyp    &lt;int&gt; 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, …</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="at">## $ diabetes        &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="at">## $ totChol         &lt;int&gt; 195, 250, 245, 225, 285, 228, 205, 313, 260, 225, 254,…</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="at">## $ sysBP           &lt;dbl&gt; 106.0, 121.0, 127.5, 150.0, 130.0, 180.0, 138.0, 100.0…</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="at">## $ diaBP           &lt;dbl&gt; 70.0, 81.0, 80.0, 95.0, 84.0, 110.0, 71.0, 71.0, 89.0,…</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="at">## $ BMI             &lt;dbl&gt; 26.97, 28.73, 25.34, 28.58, 23.10, 30.30, 33.11, 21.68…</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="at">## $ heartRate       &lt;int&gt; 80, 95, 75, 65, 85, 77, 60, 79, 76, 93, 75, 72, 98, 65…</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="at">## $ glucose         &lt;int&gt; 77, 76, 70, 103, 85, 99, 85, 78, 79, 88, 76, 61, 64, 8…</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="at">## $ TenYearCHD      &lt;int&gt; 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, …</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="st">```</span><span class="at"> r</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="at">colSums(is.na(myDF)) </span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="at">##            male             age       education   currentSmoker      cigsPerDay </span></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="at">##               0               0             105               0              29 </span></span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="at">##          BPMeds prevalentStroke    prevalentHyp        diabetes         totChol </span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="at">##              53               0               0               0              50 </span></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="at">##           sysBP           diaBP             BMI       heartRate         glucose </span></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="at">##               0               0              19               1             388 </span></span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="at">##      TenYearCHD </span></span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="at">##               0</span></span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a><span class="st">```</span><span class="at"> r</span></span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a><span class="at"># we&#39;re missing a lot of glucose data, so let&#39;s do a multiple imputation with the mice package</span></span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a><span class="at">imputed &lt;- mice(myDF, m = 5, method = &quot;pmm&quot;, seed = 123, printFlag = FALSE)</span></span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a><span class="at">myDF_clean &lt;- complete(imputed, 1)</span></span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a><span class="at"># no more NAs</span></span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a><span class="at">colSums(is.na(myDF_clean))</span></span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a><span class="st">```</span></span>
+<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a><span class="at">##            male             age       education   currentSmoker      cigsPerDay </span></span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a><span class="at">##               0               0               0               0               0 </span></span>
+<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a><span class="at">##          BPMeds prevalentStroke    prevalentHyp        diabetes         totChol </span></span>
+<span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a><span class="at">##               0               0               0               0               0 </span></span>
+<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a><span class="at">##           sysBP           diaBP             BMI       heartRate         glucose </span></span>
+<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a><span class="at">##               0               0               0               0               0 </span></span>
+<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a><span class="at">##      TenYearCHD </span></span>
+<span id="cb1-60"><a href="#cb1-60" tabindex="-1"></a><span class="at">##               0</span></span>
+<span id="cb1-61"><a href="#cb1-61" tabindex="-1"></a><span class="st">```</span></span></code></pre></div>
+</details>
+<p>Note that m = 5 creates 5 imputed datasets, pmm is the predictive
+mean matching (which works well for continuous and count variables).
+While <code>completed(imputed, 1)</code> pulls the first of the 5
+datasets to use for modeling, I’m only going to run my models on one
+dataset instead of pooling results for simplicity.</p>
+</div>
+<div
+id="part-1-running-a-simple-bayesian-logistic-regression-to-predict-tenyearchd"
+class="section level2">
+<h2>Part 1: Running a simple bayesian logistic regression to predict
+TenYearCHD</h2>
+<p>Here, stan is fitting the model using MCMC modeling. We’ll also take
+a peak at the posterior distributions</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># first scaling so the plot doesn&#39;t get dominated by one large variable  </span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>myDF_scaled <span class="ot">&lt;-</span> myDF_clean <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(age, cigsPerDay, sysBP, totChol, BMI, glucose), scale))</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>bayes_model <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  TenYearCHD <span class="sc">~</span> age <span class="sc">+</span> male <span class="sc">+</span> currentSmoker <span class="sc">+</span> cigsPerDay <span class="sc">+</span> </span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>               sysBP <span class="sc">+</span> totChol <span class="sc">+</span> BMI <span class="sc">+</span> glucose <span class="sc">+</span> diabetes,</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">data =</span> myDF_scaled,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">2.5</span>),</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">123</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 0.000626 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 6.26 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.878 seconds (Warm-up)
+## Chain 1:                0.968 seconds (Sampling)
+## Chain 1:                1.846 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 0.000139 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.39 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 1.01 seconds (Warm-up)
+## Chain 2:                0.916 seconds (Sampling)
+## Chain 2:                1.926 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 6.9e-05 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.69 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.852 seconds (Warm-up)
+## Chain 3:                0.769 seconds (Sampling)
+## Chain 3:                1.621 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 6.9e-05 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.69 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.857 seconds (Warm-up)
+## Chain 4:                0.833 seconds (Sampling)
+## Chain 4:                1.69 seconds (Total)
+## Chain 4:</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">summary</span>(bayes_model)</span></code></pre></div>
+<pre><code>## 
+## Model Info:
+##  function:     stan_glm
+##  family:       binomial [logit]
+##  formula:      TenYearCHD ~ age + male + currentSmoker + cigsPerDay + sysBP + 
+##     totChol + BMI + glucose + diabetes
+##  algorithm:    sampling
+##  sample:       4000 (posterior sample size)
+##  priors:       see help(&#39;prior_summary&#39;)
+##  observations: 4240
+##  predictors:   10
+## 
+## Estimates:
+##                 mean   sd   10%   50%   90%
+## (Intercept)   -2.2    0.1 -2.3  -2.2  -2.1 
+## age            0.6    0.1  0.5   0.6   0.6 
+## male           0.5    0.1  0.4   0.5   0.6 
+## currentSmoker  0.0    0.1 -0.2   0.0   0.2 
+## cigsPerDay     0.2    0.1  0.2   0.2   0.3 
+## sysBP          0.4    0.0  0.3   0.4   0.4 
+## totChol        0.1    0.0  0.0   0.1   0.1 
+## BMI            0.0    0.0  0.0   0.0   0.1 
+## glucose        0.2    0.1  0.1   0.2   0.3 
+## diabetes       0.1    0.3 -0.3   0.1   0.4 
+## 
+## Fit Diagnostics:
+##            mean   sd   10%   50%   90%
+## mean_PPD 0.2    0.0  0.1   0.2   0.2  
+## 
+## The mean_ppd is the sample average posterior predictive distribution of the outcome variable (for details see help(&#39;summary.stanreg&#39;)).
+## 
+## MCMC diagnostics
+##               mcse Rhat n_eff
+## (Intercept)   0.0  1.0  3548 
+## age           0.0  1.0  4544 
+## male          0.0  1.0  4649 
+## currentSmoker 0.0  1.0  3452 
+## cigsPerDay    0.0  1.0  3269 
+## sysBP         0.0  1.0  4484 
+## totChol       0.0  1.0  4671 
+## BMI           0.0  1.0  4910 
+## glucose       0.0  1.0  4099 
+## diabetes      0.0  1.0  3818 
+## mean_PPD      0.0  1.0  3758 
+## log-posterior 0.0  1.0  1893 
+## 
+## For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</code></pre>
+<p>All Rhat values equal 1.00, indicating the MCMC chains converged
+properly. High n_eff values across all predictors confirm we have a
+sufficient effective sample size for reliable inference. After scaling
+continuous predictors, the results are more interpretable. Age is the
+strongest predictor (β = 0.6), meaning a one standard deviation increase
+in age meaningfully raises the log odds of developing coronary heart
+disease within ten years. Systolic blood pressure is the second
+strongest predictor (β = 0.4), consistent with its well-established role
+in cardiovascular risk. Being male adds approximately 0.5 on the log
+odds scale, reflecting known sex-based disparities in heart disease.
+Current smoker status has essentially no effect (β = 0.0), while
+cigarettes per day shows a modest positive association (β = 0.2). This
+suggests that smoking frequency matters more than smoking status alone
+for predicting CHD risk. Glucose (β = 0.2) and total cholesterol (β =
+0.1) show smaller but positive associations. BMI and diabetes have wide
+posterior uncertainty, likely reflecting limited statistical power
+(diabetes in particular is rare in this dataset, making it difficult to
+estimate its effect precisely).</p>
+<div id="plotting-the-posterior-distributions" class="section level3">
+<h3>Plotting the posterior distributions</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(bayes_model)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">mcmc_areas</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  posterior,</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;currentSmoker&quot;</span>, <span class="st">&quot;cigsPerDay&quot;</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>           <span class="st">&quot;sysBP&quot;</span>, <span class="st">&quot;totChol&quot;</span>, <span class="st">&quot;BMI&quot;</span>, <span class="st">&quot;glucose&quot;</span>, <span class="st">&quot;diabetes&quot;</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="at">prob =</span> <span class="fl">0.8</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>  <span class="at">point_est =</span> <span class="st">&quot;median&quot;</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>)</span></code></pre></div>
+<p><img src="p05_files/figure-html/bayes-logreg-visual-1.png" alt="" width="672" /></p>
+<p>age has the tallest, narrowest curve, high certainty, strong positive
+effect. sysBP and cigsPerDay are similarly tight. male is wider but
+clearly positive. currentSmoker is centered right on zero and spans both
+sides, we can say that the model is genuinely uncertain whether it has
+any effect. diabetes is that flat wide line at the bottom, so huge
+uncertainty, basically uninformative.</p>
+</div>
+</div>
+<div id="model-evaluation" class="section level2">
+<h2>Model evaluation</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">pp_check</span>(bayes_model, <span class="at">nreps =</span> <span class="dv">50</span>)</span></code></pre></div>
+<p><img src="p05_files/figure-html/pp-check-1.png" alt="" width="672" /></p>
+<p>Simulated lines are tracking the actual outcome the simulated lines
+(y_rep) are tracking the actual outcome (y) closely, which means the
+model is capturing the data generating process reasonably well. The
+spike at 0 makes sense because most people in the dataset don’t develop
+CHD (class imbalance), and the model is picking that up.</p>
+</div>
+<div id="predicted-probabilities" class="section level2">
+<h2>Predicted Probabilities</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">seq</span>(<span class="fu">min</span>(myDF_scaled<span class="sc">$</span>age), <span class="fu">max</span>(myDF_scaled<span class="sc">$</span>age), <span class="at">length.out =</span> <span class="dv">100</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="at">male =</span> <span class="dv">0</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">currentSmoker =</span> <span class="dv">0</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="at">cigsPerDay =</span> <span class="dv">0</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="at">sysBP =</span> <span class="dv">0</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="at">totChol =</span> <span class="dv">0</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="at">BMI =</span> <span class="dv">0</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  <span class="at">glucose =</span> <span class="dv">0</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  <span class="at">diabetes =</span> <span class="dv">0</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>)</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">posterior_epred</span>(bayes_model, <span class="at">newdata =</span> new_data)</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>new_data<span class="sc">$</span>mean_prob <span class="ot">&lt;-</span> <span class="fu">apply</span>(preds, <span class="dv">2</span>, mean)</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>new_data<span class="sc">$</span>lower <span class="ot">&lt;-</span> <span class="fu">apply</span>(preds, <span class="dv">2</span>, quantile, <span class="fl">0.1</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>new_data<span class="sc">$</span>upper <span class="ot">&lt;-</span> <span class="fu">apply</span>(preds, <span class="dv">2</span>, quantile, <span class="fl">0.9</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>age_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(myDF_clean<span class="sc">$</span>age)</span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>age_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(myDF_clean<span class="sc">$</span>age)</span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>new_data<span class="sc">$</span>age_actual <span class="ot">&lt;-</span> new_data<span class="sc">$</span>age <span class="sc">*</span> age_sd <span class="sc">+</span> age_mean</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="fu">ggplot</span>(new_data, <span class="fu">aes</span>(<span class="at">x =</span> age_actual, <span class="at">y =</span> mean_prob)) <span class="sc">+</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;plum4&quot;</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">fill =</span> <span class="st">&quot;plum&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Predicted Probability of CHD by Age&quot;</span>,</span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Age&quot;</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Predicted Probability&quot;</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
+<p><img src="p05_files/figure-html/prob-plot-1.png" alt="" width="672" /></p>
+<div id="interaction" class="section level3">
+<h3>Interaction</h3>
+<p>Now, let’s see whether the effect of age or blood pressure on CHD
+risk differs by sex.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>bayes_model_interaction <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  TenYearCHD <span class="sc">~</span> age <span class="sc">*</span> male <span class="sc">+</span> sysBP <span class="sc">*</span> male <span class="sc">+</span> currentSmoker <span class="sc">+</span> cigsPerDay <span class="sc">+</span> </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>               totChol <span class="sc">+</span> BMI <span class="sc">+</span> glucose <span class="sc">+</span> diabetes,</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="at">data =</span> myDF_scaled,</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">2.5</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">123</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 8.9e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.89 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 1.147 seconds (Warm-up)
+## Chain 1:                1.176 seconds (Sampling)
+## Chain 1:                2.323 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 7.9e-05 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.79 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 1.11 seconds (Warm-up)
+## Chain 2:                1.022 seconds (Sampling)
+## Chain 2:                2.132 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 7.5e-05 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.75 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 1.133 seconds (Warm-up)
+## Chain 3:                1.127 seconds (Sampling)
+## Chain 3:                2.26 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 0.000119 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.19 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 1.079 seconds (Warm-up)
+## Chain 4:                1.011 seconds (Sampling)
+## Chain 4:                2.09 seconds (Total)
+## Chain 4:</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">summary</span>(bayes_model_interaction)</span></code></pre></div>
+<pre><code>## 
+## Model Info:
+##  function:     stan_glm
+##  family:       binomial [logit]
+##  formula:      TenYearCHD ~ age * male + sysBP * male + currentSmoker + cigsPerDay + 
+##     totChol + BMI + glucose + diabetes
+##  algorithm:    sampling
+##  sample:       4000 (posterior sample size)
+##  priors:       see help(&#39;prior_summary&#39;)
+##  observations: 4240
+##  predictors:   12
+## 
+## Estimates:
+##                 mean   sd   10%   50%   90%
+## (Intercept)   -2.2    0.1 -2.3  -2.2  -2.0 
+## age            0.6    0.1  0.5   0.6   0.7 
+## male           0.5    0.1  0.3   0.5   0.6 
+## sysBP          0.3    0.1  0.2   0.3   0.4 
+## currentSmoker  0.0    0.1 -0.2   0.0   0.2 
+## cigsPerDay     0.2    0.1  0.2   0.2   0.3 
+## totChol        0.1    0.0  0.0   0.1   0.1 
+## BMI            0.0    0.0  0.0   0.0   0.1 
+## glucose        0.2    0.1  0.1   0.2   0.3 
+## diabetes       0.1    0.3 -0.3   0.1   0.4 
+## age:male       0.0    0.1 -0.2   0.0   0.1 
+## male:sysBP     0.2    0.1  0.1   0.2   0.3 
+## 
+## Fit Diagnostics:
+##            mean   sd   10%   50%   90%
+## mean_PPD 0.2    0.0  0.1   0.2   0.2  
+## 
+## The mean_ppd is the sample average posterior predictive distribution of the outcome variable (for details see help(&#39;summary.stanreg&#39;)).
+## 
+## MCMC diagnostics
+##               mcse Rhat n_eff
+## (Intercept)   0.0  1.0  3073 
+## age           0.0  1.0  2092 
+## male          0.0  1.0  3912 
+## sysBP         0.0  1.0  2771 
+## currentSmoker 0.0  1.0  3453 
+## cigsPerDay    0.0  1.0  3411 
+## totChol       0.0  1.0  4724 
+## BMI           0.0  1.0  4876 
+## glucose       0.0  1.0  3648 
+## diabetes      0.0  1.0  3654 
+## age:male      0.0  1.0  2000 
+## male:sysBP    0.0  1.0  2986 
+## mean_PPD      0.0  1.0  4553 
+## log-posterior 0.1  1.0  1631 
+## 
+## For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</code></pre>
+<p>The effect of systolic blood pressure on CHD risk is meaningfully
+stronger in men than women. To be precise, a one standard deviation
+increase in systolic blood pressure has a 0.2 larger effect on the log
+odds of CHD for men compared to women. Age affects CHD risk similarly
+regardless of sex.</p>
+</div>
+<div id="plotting-the-interaction" class="section level3">
+<h3>Plotting the Interaction</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>sysBP_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(myDF_scaled<span class="sc">$</span>sysBP), <span class="fu">max</span>(myDF_scaled<span class="sc">$</span>sysBP), <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>new_data_int <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">male =</span> <span class="dv">0</span>, <span class="at">sysBP =</span> sysBP_seq, <span class="at">age =</span> <span class="dv">0</span>, <span class="at">currentSmoker =</span> <span class="dv">0</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>             <span class="at">cigsPerDay =</span> <span class="dv">0</span>, <span class="at">totChol =</span> <span class="dv">0</span>, <span class="at">BMI =</span> <span class="dv">0</span>, <span class="at">glucose =</span> <span class="dv">0</span>, <span class="at">diabetes =</span> <span class="dv">0</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">male =</span> <span class="dv">1</span>, <span class="at">sysBP =</span> sysBP_seq, <span class="at">age =</span> <span class="dv">0</span>, <span class="at">currentSmoker =</span> <span class="dv">0</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>             <span class="at">cigsPerDay =</span> <span class="dv">0</span>, <span class="at">totChol =</span> <span class="dv">0</span>, <span class="at">BMI =</span> <span class="dv">0</span>, <span class="at">glucose =</span> <span class="dv">0</span>, <span class="at">diabetes =</span> <span class="dv">0</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>)</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>preds_int <span class="ot">&lt;-</span> <span class="fu">posterior_epred</span>(bayes_model_interaction, <span class="at">newdata =</span> new_data_int)</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>new_data_int<span class="sc">$</span>mean_prob <span class="ot">&lt;-</span> <span class="fu">apply</span>(preds_int, <span class="dv">2</span>, mean)</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>new_data_int<span class="sc">$</span>lower <span class="ot">&lt;-</span> <span class="fu">apply</span>(preds_int, <span class="dv">2</span>, quantile, <span class="fl">0.1</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>new_data_int<span class="sc">$</span>upper <span class="ot">&lt;-</span> <span class="fu">apply</span>(preds_int, <span class="dv">2</span>, quantile, <span class="fl">0.9</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="co"># Back transform sysBP</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a>sysBP_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(myDF_clean<span class="sc">$</span>sysBP)</span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a>sysBP_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(myDF_clean<span class="sc">$</span>sysBP)</span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a>new_data_int<span class="sc">$</span>sysBP_actual <span class="ot">&lt;-</span> new_data_int<span class="sc">$</span>sysBP <span class="sc">*</span> sysBP_sd <span class="sc">+</span> sysBP_mean</span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a>new_data_int<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(new_data_int<span class="sc">$</span>male <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="fu">ggplot</span>(new_data_int, <span class="fu">aes</span>(<span class="at">x =</span> sysBP_actual, <span class="at">y =</span> mean_prob, <span class="at">color =</span> sex, <span class="at">fill =</span> sex)) <span class="sc">+</span></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Predicted CHD Risk by Systolic Blood Pressure and Sex&quot;</span>,</span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Systolic Blood Pressure (mmHg)&quot;</span>,</span>
+<span id="cb13-29"><a href="#cb13-29" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Predicted Probability&quot;</span>,</span>
+<span id="cb13-30"><a href="#cb13-30" tabindex="-1"></a>    <span class="at">color =</span> <span class="cn">NULL</span>, <span class="at">fill =</span> <span class="cn">NULL</span></span>
+<span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
+<p><img src="p05_files/figure-html/interaction-plot-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="part-2-mlm-bayes-way" class="section level2">
+<h2>Part 2 MLM: Bayes Way</h2>
+<p>Does the baseline CHD risk, and the effect of predictors like age and
+blood pressure, vary across education levels?</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">table</span>(myDF_clean<span class="sc">$</span>education) <span class="co"># yay we&#39;ve got enough to do an MLM</span></span></code></pre></div>
+<pre><code>## 
+##    1    2    3    4 
+## 1760 1280  715  485</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>bayes_mlm <span class="ot">&lt;-</span> <span class="fu">stan_glmer</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>  TenYearCHD <span class="sc">~</span> age <span class="sc">+</span> male <span class="sc">+</span> sysBP <span class="sc">+</span> cigsPerDay <span class="sc">+</span> totChol <span class="sc">+</span> </span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>               BMI <span class="sc">+</span> glucose <span class="sc">+</span> diabetes <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> education),</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="at">data =</span> myDF_scaled,</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">2.5</span>),</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">123</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 1).
+## Chain 1: Rejecting initial value:
+## Chain 1:   Log probability evaluates to log(0), i.e. negative infinity.
+## Chain 1:   Stan can&#39;t start sampling from this initial value.
+## Chain 1: Rejecting initial value:
+## Chain 1:   Log probability evaluates to log(0), i.e. negative infinity.
+## Chain 1:   Stan can&#39;t start sampling from this initial value.
+## Chain 1: 
+## Chain 1: Gradient evaluation took 0.000813 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 8.13 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 17.734 seconds (Warm-up)
+## Chain 1:                12.729 seconds (Sampling)
+## Chain 1:                30.463 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 0.001086 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 10.86 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 16.511 seconds (Warm-up)
+## Chain 2:                7.572 seconds (Sampling)
+## Chain 2:                24.083 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 0.000345 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 3.45 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 21.734 seconds (Warm-up)
+## Chain 3:                10.671 seconds (Sampling)
+## Chain 3:                32.405 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 0.002125 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 21.25 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 18.603 seconds (Warm-up)
+## Chain 4:                15.291 seconds (Sampling)
+## Chain 4:                33.894 seconds (Total)
+## Chain 4:</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">summary</span>(bayes_mlm)</span></code></pre></div>
+<pre><code>## 
+## Model Info:
+##  function:     stan_glmer
+##  family:       binomial [logit]
+##  formula:      TenYearCHD ~ age + male + sysBP + cigsPerDay + totChol + BMI + 
+##     glucose + diabetes + (1 | education)
+##  algorithm:    sampling
+##  sample:       4000 (posterior sample size)
+##  priors:       see help(&#39;prior_summary&#39;)
+##  observations: 4240
+##  groups:       education (4)
+## 
+## Estimates:
+##                                            mean   sd   10%   50%   90%
+## (Intercept)                              -2.2    0.1 -2.3  -2.2  -2.1 
+## age                                       0.5    0.1  0.5   0.5   0.6 
+## male                                      0.5    0.1  0.4   0.5   0.6 
+## sysBP                                     0.4    0.0  0.3   0.4   0.4 
+## cigsPerDay                                0.2    0.0  0.2   0.2   0.3 
+## totChol                                   0.1    0.0  0.0   0.1   0.1 
+## BMI                                       0.0    0.0  0.0   0.0   0.1 
+## glucose                                   0.2    0.1  0.1   0.2   0.3 
+## diabetes                                  0.1    0.3 -0.3   0.1   0.4 
+## b[(Intercept) education:1]                0.0    0.1 -0.1   0.0   0.2 
+## b[(Intercept) education:2]               -0.1    0.1 -0.2   0.0   0.0 
+## b[(Intercept) education:3]                0.0    0.1 -0.1   0.0   0.1 
+## b[(Intercept) education:4]                0.0    0.1 -0.1   0.0   0.2 
+## Sigma[education:(Intercept),(Intercept)]  0.0    0.1  0.0   0.0   0.1 
+## 
+## Fit Diagnostics:
+##            mean   sd   10%   50%   90%
+## mean_PPD 0.2    0.0  0.1   0.2   0.2  
+## 
+## The mean_ppd is the sample average posterior predictive distribution of the outcome variable (for details see help(&#39;summary.stanreg&#39;)).
+## 
+## MCMC diagnostics
+##                                          mcse Rhat n_eff
+## (Intercept)                              0.0  1.0  1208 
+## age                                      0.0  1.0  3243 
+## male                                     0.0  1.0  3400 
+## sysBP                                    0.0  1.0  3660 
+## cigsPerDay                               0.0  1.0  3352 
+## totChol                                  0.0  1.0  3384 
+## BMI                                      0.0  1.0  3934 
+## glucose                                  0.0  1.0  3127 
+## diabetes                                 0.0  1.0  2704 
+## b[(Intercept) education:1]               0.0  1.0  1037 
+## b[(Intercept) education:2]               0.0  1.0  1071 
+## b[(Intercept) education:3]               0.0  1.0  1223 
+## b[(Intercept) education:4]               0.0  1.0  1462 
+## Sigma[education:(Intercept),(Intercept)] 0.0  1.0   852 
+## mean_PPD                                 0.0  1.0  4290 
+## log-posterior                            0.1  1.0  1138 
+## 
+## For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</code></pre>
+<p>All four random effects (<code>b[(Intercept) education:1-4]</code>)
+are essentially zero with wide uncertainty, and <code>Sigma</code> (the
+variance across education groups) is basically zero too. That means
+after controlling for age, sex, blood pressure etc., baseline CHD risk
+is pretty similar across education levels.</p>
+<div id="visualizing-random-effects" class="section level3">
+<h3>Visualizing Random Effects</h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>re <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>  <span class="at">education =</span> <span class="fu">factor</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Some HS&quot;</span>, <span class="st">&quot;HS Grad&quot;</span>, <span class="st">&quot;Some College&quot;</span>, <span class="st">&quot;College Grad&quot;</span>)),</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>  <span class="at">mean =</span> <span class="fu">c</span>(<span class="fl">0.0</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.0</span>, <span class="fl">0.0</span>),</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>  <span class="at">lower =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="sc">-</span><span class="fl">0.2</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="sc">-</span><span class="fl">0.1</span>),</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>  <span class="at">upper =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.0</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>)</span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a><span class="fu">ggplot</span>(re, <span class="fu">aes</span>(<span class="at">x =</span> education, <span class="at">y =</span> mean)) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;plum&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lower, <span class="at">ymax =</span> upper), <span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">&quot;plum&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Random Effects by Education Level&quot;</span>,</span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Deviation from average baseline CHD risk&quot;</span>,</span>
+<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Education Level&quot;</span>,</span>
+<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Random Effect (log odds)&quot;</span></span>
+<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
+<p><img src="p05_files/figure-html/RE-visuals-1.png" alt="" width="672" /></p>
+<p>Let’s see if anything changes if we only include demographics and
+education in our model.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># Model without the clinical risk factors, just education and demographics</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>bayes_model_edu <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>  TenYearCHD <span class="sc">~</span> age <span class="sc">+</span> male <span class="sc">+</span> education,</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>  <span class="at">data =</span> myDF_scaled,</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">normal</span>(<span class="dv">0</span>, <span class="fl">2.5</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">123</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 9.8e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.98 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.445 seconds (Warm-up)
+## Chain 1:                0.493 seconds (Sampling)
+## Chain 1:                0.938 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 7.1e-05 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.71 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.45 seconds (Warm-up)
+## Chain 2:                0.424 seconds (Sampling)
+## Chain 2:                0.874 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 5.9e-05 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.59 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.417 seconds (Warm-up)
+## Chain 3:                0.43 seconds (Sampling)
+## Chain 3:                0.847 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 7e-05 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.7 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.414 seconds (Warm-up)
+## Chain 4:                0.435 seconds (Sampling)
+## Chain 4:                0.849 seconds (Total)
+## Chain 4:</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="fu">summary</span>(bayes_model_edu)</span></code></pre></div>
+<pre><code>## 
+## Model Info:
+##  function:     stan_glm
+##  family:       binomial [logit]
+##  formula:      TenYearCHD ~ age + male + education
+##  algorithm:    sampling
+##  sample:       4000 (posterior sample size)
+##  priors:       see help(&#39;prior_summary&#39;)
+##  observations: 4240
+##  predictors:   4
+## 
+## Estimates:
+##               mean   sd   10%   50%   90%
+## (Intercept) -2.0    0.1 -2.2  -2.0  -1.9 
+## age          0.6    0.0  0.6   0.6   0.7 
+## male         0.6    0.1  0.4   0.6   0.7 
+## education    0.0    0.0 -0.1   0.0   0.0 
+## 
+## Fit Diagnostics:
+##            mean   sd   10%   50%   90%
+## mean_PPD 0.2    0.0  0.1   0.2   0.2  
+## 
+## The mean_ppd is the sample average posterior predictive distribution of the outcome variable (for details see help(&#39;summary.stanreg&#39;)).
+## 
+## MCMC diagnostics
+##               mcse Rhat n_eff
+## (Intercept)   0.0  1.0  3985 
+## age           0.0  1.0  3195 
+## male          0.0  1.0  4602 
+## education     0.0  1.0  4447 
+## mean_PPD      0.0  1.0  4593 
+## log-posterior 0.0  1.0  1794 
+## 
+## For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</code></pre>
+<p>Education is zero even in the simplified model without the clinical
+risk factors. Education genuinely doesn’t seem to predict CHD risk in
+this dataset.</p>
+<p>This dataset is almost entirely white, middle-class participants from
+one town in Massachusetts in the 1940s-50s. Education’s relationship
+with health outcomes is deeply tied to race, income, and access to
+healthcare. The sample is too homogeneous for education to show
+meaningful variation in CHD risk.</p>
+</div>
+</div>
+<div id="part-3-informative-priors" class="section level2">
+<h2>Part 3: Informative Priors</h2>
+<p>We’re going to compare our weakly informative model (what we already
+have), an informative prior model based on literature, and see how much
+the data moved the posterior away from the prior.</p>
+<p>A quick scan of the lit will tell us something of the sorts:</p>
+<ul>
+<li><p>The original Framingham Heart Study papers (D’Agostino et
+al. (2008) “General Cardiovascular Risk Profile for Use in Primary Care”
+in <em>Circulation)</em> has actual coefficients for age, sex, blood
+pressure, smoking, cholesterol.</p></li>
+<li><p>Wilson et al. (1998) “Prediction of Coronary Heart Disease Using
+Risk Factor Categories” also in <em>Circulation</em> with usable
+coefficients.</p></li>
+</ul>
+<p><em>Strong positive effects:</em> Age is a well established strong
+predictor, prior mean of 0.6, tight SD of 0.1. SysBP has strong
+evidence, prior mean of 0.4, SD of 0.1 Sex is also consistent across
+literature, prior mean of 0.5, SD of 0.15</p>
+<p><em>Moderate effects:</em> <code>cigsPerDay</code>, we’ll set prior
+mean of 0.2, SD of 0.1 <code>glucose</code> we’ll set the prior mean of
+0.2, SD of 0.15. <code>totChol</code> has weaker evidence, so prior mean
+of 0.1, SD of 0.1</p>
+<p><em>Weak/uncertain effects:</em> <code>BMI</code> is surprisingly
+inconsistent in literature, prior mean of 0.1, SD of 0.2.
+<code>currentSmoker</code> is redundant with cigsPerDay, prior mean of
+0.1, SD of 0.2. <code>diabetes</code> has a strong effect expected but
+rare, prior mean of 0.3, SD of 0.3</p>
+<div id="informative-priors-model" class="section level3">
+<h3>Informative Priors Model</h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>bayes_informative <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  TenYearCHD <span class="sc">~</span> age <span class="sc">+</span> male <span class="sc">+</span> sysBP <span class="sc">+</span> cigsPerDay <span class="sc">+</span> totChol <span class="sc">+</span> </span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>               BMI <span class="sc">+</span> glucose <span class="sc">+</span> diabetes <span class="sc">+</span> currentSmoker,</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>  <span class="at">data =</span> myDF_scaled,</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>  <span class="at">prior =</span> <span class="fu">normal</span>(</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>    <span class="at">location =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.5</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.1</span>),</span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>    <span class="at">scale =</span>    <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.15</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.15</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a>  ),</span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a>  <span class="at">prior_intercept =</span> <span class="fu">normal</span>(<span class="sc">-</span><span class="fl">2.2</span>, <span class="fl">0.3</span>),</span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">123</span></span>
+<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 0.000105 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.05 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.908 seconds (Warm-up)
+## Chain 1:                0.744 seconds (Sampling)
+## Chain 1:                1.652 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 7.2e-05 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.72 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.947 seconds (Warm-up)
+## Chain 2:                0.734 seconds (Sampling)
+## Chain 2:                1.681 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 5.4e-05 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.54 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.926 seconds (Warm-up)
+## Chain 3:                0.749 seconds (Sampling)
+## Chain 3:                1.675 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL &#39;bernoulli&#39; NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 5.9e-05 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.59 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
+## Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
+## Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
+## Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
+## Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.879 seconds (Warm-up)
+## Chain 4:                0.772 seconds (Sampling)
+## Chain 4:                1.651 seconds (Total)
+## Chain 4:</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">summary</span>(bayes_informative)</span></code></pre></div>
+<pre><code>## 
+## Model Info:
+##  function:     stan_glm
+##  family:       binomial [logit]
+##  formula:      TenYearCHD ~ age + male + sysBP + cigsPerDay + totChol + BMI + 
+##     glucose + diabetes + currentSmoker
+##  algorithm:    sampling
+##  sample:       4000 (posterior sample size)
+##  priors:       see help(&#39;prior_summary&#39;)
+##  observations: 4240
+##  predictors:   10
+## 
+## Estimates:
+##                 mean   sd   10%   50%   90%
+## (Intercept)   -2.2    0.1 -2.4  -2.2  -2.1 
+## age            0.6    0.0  0.5   0.6   0.6 
+## male           0.5    0.1  0.4   0.5   0.6 
+## sysBP          0.4    0.0  0.3   0.4   0.4 
+## cigsPerDay     0.2    0.1  0.2   0.2   0.3 
+## totChol        0.1    0.0  0.0   0.1   0.1 
+## BMI            0.0    0.0  0.0   0.0   0.1 
+## glucose        0.2    0.0  0.1   0.2   0.2 
+## diabetes       0.2    0.2 -0.1   0.2   0.4 
+## currentSmoker  0.1    0.1 -0.1   0.1   0.2 
+## 
+## Fit Diagnostics:
+##            mean   sd   10%   50%   90%
+## mean_PPD 0.2    0.0  0.1   0.2   0.2  
+## 
+## The mean_ppd is the sample average posterior predictive distribution of the outcome variable (for details see help(&#39;summary.stanreg&#39;)).
+## 
+## MCMC diagnostics
+##               mcse Rhat n_eff
+## (Intercept)   0.0  1.0  3456 
+## age           0.0  1.0  4067 
+## male          0.0  1.0  3986 
+## sysBP         0.0  1.0  3961 
+## cigsPerDay    0.0  1.0  3406 
+## totChol       0.0  1.0  4692 
+## BMI           0.0  1.0  4010 
+## glucose       0.0  1.0  3997 
+## diabetes      0.0  1.0  3758 
+## currentSmoker 0.0  1.0  3315 
+## mean_PPD      0.0  1.0  5117 
+## log-posterior 0.1  1.0  1702 
+## 
+## For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</code></pre>
+</div>
+<div id="model-comparison" class="section level3">
+<h3>Model Comparison</h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># Compare coefficients across both models</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  <span class="at">predictor =</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;sysBP&quot;</span>, <span class="st">&quot;cigsPerDay&quot;</span>, <span class="st">&quot;totChol&quot;</span>, </span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>                <span class="st">&quot;BMI&quot;</span>, <span class="st">&quot;glucose&quot;</span>, <span class="st">&quot;diabetes&quot;</span>, <span class="st">&quot;currentSmoker&quot;</span>),</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>  <span class="at">weak_prior =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.5</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.0</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.0</span>),</span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a>  <span class="at">informative_prior =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.5</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.0</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(weak_prior, informative_prior), </span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;model&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;estimate&quot;</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a><span class="fu">ggplot</span>(comparison, <span class="fu">aes</span>(<span class="at">x =</span> estimate, <span class="at">y =</span> predictor, <span class="at">color =</span> model)) <span class="sc">+</span></span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.4</span>)) <span class="sc">+</span></span>
+<span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;plum4&quot;</span>) <span class="sc">+</span></span>
+<span id="cb29-14"><a href="#cb29-14" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb29-15"><a href="#cb29-15" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Posterior Estimates: Weak vs Informative Priors&quot;</span>,</span>
+<span id="cb29-16"><a href="#cb29-16" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Similar results suggest data dominates prior choice&quot;</span>,</span>
+<span id="cb29-17"><a href="#cb29-17" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Posterior Mean (log odds)&quot;</span>,</span>
+<span id="cb29-18"><a href="#cb29-18" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb29-19"><a href="#cb29-19" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Model&quot;</span></span>
+<span id="cb29-20"><a href="#cb29-20" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb29-21"><a href="#cb29-21" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
+<p><img src="p05_files/figure-html/model-comparison-1.png" alt="" width="672" /></p>
+<p>The similarity between posterior estimates across prior
+specifications suggests that the dataset is sufficiently large to
+dominate prior influence, lending robustness to our conclusions. Though,
+importantly, this finding may not generalize to more diverse or smaller
+populations where prior specification becomes critical.</p>
+</div>
+</div>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -336,7 +1655,41 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
