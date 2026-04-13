@@ -1,5 +1,266 @@
 ---
 title: "Portfolio 7"
+output:
+  html_document: 
+    theme: yeti
+    highlight: zenburn
+  word_document: default
+date: "2026-01-27"
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+# Visualizing Course Evaluations
+
+In this portfolio piece, I'll be using R to help me with reviewing some extra course evaluations students filled out for a course I helped teach. These are NOT official course evaluations that are mandated by the university. We ask students to fill these out to help us improve the class for the following years. The first step was to enter all of their ratings and comments, which brought me back to my data entry days as a Freshman undergraduate student. Just as these students learned from us this semester, I'm hoping their data can help me learn a thing or two about how they felt about this course. Although I have already read through their comments (I would have loved to do more text analysis, but for such a small "sample size", manually reading them over makes more sense), sometimes visualizing data can reveal things we otherwise wouldn't have noticed. Let's get started!
+
+```{r setup}
+#| echo: false
+#| output: false
+
+courseDF <- read.csv("~/Desktop/R_Lab/R-Portfolio/p07/course_feedback.csv")
+
+# loading stuff if needed
+library("haven")
+library("tidyverse")
+library("patchwork")
+library("ggplot2")
+library("psych")
+library("stringr")
+library("wordcloud2")
+library("tidytext")
+library("ggwordcloud")
+library("plotly")
+
+head(courseDF)
+```
+
+***Let's get some descriptives:***
+
+### How satisfied were students with the topics covered in the course?
+
+```{r}
+
+summary(courseDF$Topic_Choice)
+
+ggplot(courseDF, aes(x = factor(Topic_Choice))) +
+  geom_bar(fill = "plum") +
+  labs(x = "Rating of the topics covered in class", y = "# of students")
+```
+
+### How well did they think class time was spent? 
+
+```{r}
+
+summary(courseDF$Class_Time)
+
+ggplot(courseDF, aes(x = factor(Class_Time))) +
+  geom_bar(fill = "plum") +
+  labs(x = "Ratings of how class time was spent", y = "# of students")
+
+```
+
+### How satisfied were students with the discussion boards?
+
+```{r}
+summary(courseDF$Discussion_Boards)
+
+ggplot(courseDF, aes(x = factor(Discussion_Boards))) +
+  geom_bar(fill = "plum") +
+  labs(x = "Ratings of Online Discussion Boards", y = "# of students")
+```
+
+### How satisfied were students with the student led class?
+
+```{r}
+summary(courseDF$Student_Led_Class)
+
+ggplot(courseDF, aes(x = factor(Student_Led_Class))) +
+  geom_bar(fill = "plum") +
+  labs(x = "Ratings of student led classes", y = "# of students")
+
+```
+
+#### Now let's summarize those findings:
+
+```{r}
+library(knitr) # that way it looks nice!
+
+summary_table <- data.frame(
+  Variable = c("Topic Choice", "Class Time", "Discussion Boards", "Student Led Class"),
+  Median = c(median(courseDF$Topic_Choice, na.rm = TRUE),
+             median(courseDF$Class_Time, na.rm = TRUE),
+             median(courseDF$Discussion_Boards, na.rm = TRUE),
+             median(courseDF$Student_Led_Class, na.rm = TRUE)),
+  Mode = c(which.max(tabulate(courseDF$Topic_Choice)),
+           which.max(tabulate(courseDF$Class_Time)),
+           which.max(tabulate(courseDF$Discussion_Boards)),
+           which.max(tabulate(courseDF$Student_Led_Class)))
+)
+
+kable(summary_table, caption = "Summary of Course Aspects Ratings")
+
+```
+
+### Specific Assignments
+
+*Students had to complete 2 assignments, which they could choose from a list. Let's see what they thought of them:*
+
+```{r}
+# Case Studies 
+summary(courseDF$Case_Studies)
+
+# Podcasts
+summary(courseDF$Podcasts)
+
+# Interviews
+summary(courseDF$Interviews)
+
+# Lead a class 
+summary(courseDF$Class_Lead)
+
+# Other (e.g., pamphlet, website)
+summary(courseDF$Miscellaneous)
+
+```
+
+#### Visualization of Assignment Ratings
+
+```{r}
+library(ggplot2)
+library(patchwork)
+
+p1 <- ggplot(courseDF, aes(x = factor(Case_Studies))) +
+  geom_bar(fill = "plum") +
+  labs(title = "Case Studies", x = "Rating", y = "Count")
+
+p2 <- ggplot(courseDF, aes(x = factor(Podcasts))) +
+  geom_bar(fill = "plum") +
+  labs(title = "Podcasts", x = "Rating", y = "Count")
+
+p3 <- ggplot(courseDF, aes(x = factor(Interviews))) +
+  geom_bar(fill = "plum") +
+  labs(title = "Interviews", x = "Rating", y = "Count")
+
+p4 <- ggplot(courseDF, aes(x = factor(Class_Lead))) +
+  geom_bar(fill = "plum") +
+  labs(title = "Lead a Class", x = "Rating", y = "Count")
+
+p5 <- ggplot(courseDF, aes(x = factor(Miscellaneous))) +
+  geom_bar(fill = "plum") +
+  labs(title = "Other", x = "Rating", y = "Count")
+
+(p1 | p2 | p3) / (p4 | p5)
+
+
+
+```
+
+#### Which Assignment Did Most Students Pick?
+
+As you see, there are plenty of NAs. So let's see which assignments most students picked. I'll be using plotly to make it more interactive.
+
+```{r}
+assignment_counts <- data.frame(
+  Assignment = c("Case Studies", "Podcasts", "Interviews", "Lead a Class", "Other"),
+  Count = c(
+    sum(!is.na(courseDF$Case_Studies)),
+    sum(!is.na(courseDF$Podcasts)),
+    sum(!is.na(courseDF$Interviews)),
+    sum(!is.na(courseDF$Class_Lead)),
+    sum(!is.na(courseDF$Miscellaneous))
+  )
+)
+
+p_participation <- ggplot(assignment_counts, aes(x = Assignment, y = Count)) +
+  geom_bar(stat = "identity", fill = "plum") +
+  labs(title = "Assignment Participation", x = "Assignment", y = "Number of Students")
+
+ggplotly(p_participation)
+```
+
+#### Chi-Square Test for Assignment Choice
+
+Let's see if those choices meaningful differ:
+
+```{r}
+
+chisq.test(assignment_counts$Count)
+
+```
+
+### Keywords
+
+In the open-ended section of course evaluations, students were able to make any sort of comments about the course. I want to see what words pop up most often (I'm adding positive and negative ones, as well as pedogagy-related keywords).
+
+```{r}
+
+keywords <- c("confusing", "difficult", "boring", "overwhelming", "helpful", "engaging", "interesting", "enjoyed")
+
+keyword_counts <- data.frame(
+  Keyword = keywords,
+  Count = sapply(keywords, function(kw) sum(str_detect(courseDF$Comments, regex(kw, ignore_case = TRUE)), na.rm = TRUE))
+)
+
+ggplot(keyword_counts, aes(x = reorder(Keyword, Count), y = Count)) +
+  geom_bar(stat = "identity", fill = "plum") +
+  coord_flip() +
+  labs(title = "Keyword Frequency in Written Feedback", x = "Keyword", y = "Count")
+
+```
+
+```{r}
+keywords <- c("discussion", "discuss", "conversation", "peers", "classmates", "perspective", "improve", "wish", "unclear", "more", "less")
+
+keyword_counts <- data.frame(
+  Keyword = keywords,
+  Count = sapply(keywords, function(kw) sum(str_detect(courseDF$Comments, regex(kw, ignore_case = TRUE)), na.rm = TRUE))
+)
+
+ggplot(keyword_counts, aes(x = reorder(Keyword, Count), y = Count)) +
+  geom_bar(stat = "identity", fill = "plum4") +
+  coord_flip() +
+  labs(title = "Keyword Frequency in Written Feedback", x = "Keyword", y = "Count")
+
+
+
+```
+
+#### Word Cloud
+
+```{r}
+courseDF %>%
+  unnest_tokens(word, Comments) %>%
+  anti_join(stop_words) %>%
+  count(word, sort = TRUE) %>%
+  wordcloud2(color = "random-light", backgroundColor = "white")
+```
+
+##### Let's try ggwordcloud as well:
+
+```{r}
+
+courseDF %>%
+  unnest_tokens(word, Comments) %>%
+  anti_join(stop_words) %>%
+  count(word, sort = TRUE) %>%
+  ggplot(aes(label = word, size = n, color = n)) +
+  geom_text_wordcloud() +
+  scale_color_gradient(low = "plum", high = "purple4")
+
+```
+
+### Sentiment Scoring
+
+Were comments mostly positive or negative, or a mix?
+
+```{r}
+courseDF %>%
+  unnest_tokens(word, Comments) %>%
+  inner_join(get_sentiments("bing")) %>%
+  count(sentiment)
+
+
+```
+
+# Conclusion
+
+Overall, student feedback was largely positive. Discussion-based activities were frequently mentioned in written comments, consistent with high ratings on class time and student-led classes. Assignment participation was unevenly distributed (χ²significant), with leading a class being most popular. Podcasts and case studies were also quite popular. Nevertheless, students seemed pleased with the assignments. Many students brought up class and online discussions in their comments. With this insight, I know to inspect these aspects of the class more closely when I start making adjustments to the course, and see what feedback students may offer in their comments.
