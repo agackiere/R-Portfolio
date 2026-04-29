@@ -9,7 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Anaelle Gackiere" />
 
+<meta name="date" content="2026-04-28" />
 
 <title>Portfolio 9</title>
 
@@ -32,6 +34,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -291,17 +295,3045 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Portfolio 9</h1>
+<h4 class="author">Anaelle Gackiere</h4>
+<h4 class="date">2026-04-28</h4>
 
 </div>
 
 
-<blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
-</blockquote>
+<hr />
+<div id="overview" class="section level1">
+<h1>Overview</h1>
+<p>This report presents the analyses for the <strong>Time Task</strong>
+of the Social Engagement Reinforcement Learning paradigm. Participants
+provided ratings of how different amounts of seconds spent with someone
+else would motivate them to participate in a Jenga activity (+15 secs, 0
+secs, -15 secs). They also rated how much time, if given the choice,
+they would like to spend playing with another student. Afterwards, they
+completed a reinforcement learning task where outcomes varied in how
+much time they spent with other people (same as explicit ratings:
+positive = + 15 secs, neutral = 0 seconds, negative = - 15 seconds).</p>
+<p>The measure of interest is the <strong>computationally inferred
+Reward Value (cRV / k parameter)</strong>, which captures the reward
+values each time outcome through their behavior.</p>
+<hr />
+</div>
+<div id="setup" class="section level1">
+<h1>Setup</h1>
+<pre class="r"><code>load(&quot;preprocessed_Time_behavior.RData&quot;)
+load(&quot;analysis_ready_Time.RData&quot;)
+load(&quot;loo_objects_Time.RData&quot;)
+
+# Load k parameters
+parT &lt;- readMat(&quot;Qparams_ABK_FYP_Time.mat&quot;)
+N_T = length(parT$alpha.QabkF[1,])
+
+alphaT = vector(length = N_T)
+betaT  = vector(length = N_T)
+kHiT   = vector(length = N_T)
+kLowT  = vector(length = N_T)
+kMedT  = vector(length = N_T)
+
+for (i in 1:N_T) {
+  alphaT[i] &lt;- median(parT$alpha.QabkF[,i])
+  betaT[i]  &lt;- median(parT$beta.QabkF[,i])
+  kHiT[i]   &lt;- median(parT$kPos.QabkF[,i])
+  kLowT[i]  &lt;- median(parT$kNeg.QabkF[,i])
+  kMedT[i]  &lt;- median(parT$kNeu.QabkF[,i])
+}</code></pre>
+<hr />
+</div>
+<div id="explicit-ratings" class="section level1">
+<h1>Explicit Ratings</h1>
+<div id="descriptive-statistics" class="section level2">
+<h2>Descriptive Statistics</h2>
+<pre class="r"><code>desc_table_T &lt;- data.frame(
+  Condition = c(&quot;Positive (more time)&quot;, &quot;Neutral&quot;, &quot;Negative (less time)&quot;),
+  N         = c(sum(!is.na(analysis_df_time$PosTime_1)),
+                sum(!is.na(analysis_df_time$NeutralTime_1)),
+                sum(!is.na(analysis_df_time$NegTime_1))),
+  Mean      = round(c(mean(analysis_df_time$PosTime_1, na.rm=TRUE),
+                      mean(analysis_df_time$NeutralTime_1, na.rm=TRUE),
+                      mean(analysis_df_time$NegTime_1, na.rm=TRUE)), 3),
+  SD        = round(c(sd(analysis_df_time$PosTime_1, na.rm=TRUE),
+                      sd(analysis_df_time$NeutralTime_1, na.rm=TRUE),
+                      sd(analysis_df_time$NegTime_1, na.rm=TRUE)), 3)
+)
+
+kable(desc_table_T, caption = &quot;Descriptive Statistics - Explicit Ratings (Time Task)&quot;) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+Descriptive Statistics - Explicit Ratings (Time Task)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Condition
+</th>
+<th style="text-align:right;">
+N
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+SD
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Positive (more time)
+</td>
+<td style="text-align:right;">
+130
+</td>
+<td style="text-align:right;">
+4.292
+</td>
+<td style="text-align:right;">
+1.124
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neutral
+</td>
+<td style="text-align:right;">
+130
+</td>
+<td style="text-align:right;">
+4.046
+</td>
+<td style="text-align:right;">
+0.464
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Negative (less time)
+</td>
+<td style="text-align:right;">
+130
+</td>
+<td style="text-align:right;">
+4.015
+</td>
+<td style="text-align:right;">
+0.972
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="t-tests" class="section level2">
+<h2>T-tests</h2>
+<pre class="r"><code>te1 &lt;- t.test(analysis_df_time$PosTime_1, analysis_df_time$NeutralTime_1, paired=TRUE)
+te2 &lt;- t.test(analysis_df_time$PosTime_1, analysis_df_time$NegTime_1, paired=TRUE)
+te3 &lt;- t.test(analysis_df_time$NeutralTime_1, analysis_df_time$NegTime_1, paired=TRUE)
+
+ttest_table_T &lt;- data.frame(
+  Comparison = c(&quot;Positive vs Neutral&quot;, &quot;Positive vs Negative&quot;, &quot;Neutral vs Negative&quot;),
+  t          = round(c(te1$statistic, te2$statistic, te3$statistic), 3),
+  df         = c(te1$parameter, te2$parameter, te3$parameter),
+  p          = round(c(te1$p.value, te2$p.value, te3$p.value), 4),
+  Mean_diff  = round(c(te1$estimate, te2$estimate, te3$estimate), 3)
+)
+
+kable(ttest_table_T, caption = &quot;Paired T-tests - Explicit Ratings (Time Task)&quot;) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+Paired T-tests - Explicit Ratings (Time Task)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Comparison
+</th>
+<th style="text-align:right;">
+t
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:right;">
+Mean_diff
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Positive vs Neutral
+</td>
+<td style="text-align:right;">
+2.473
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+0.0147
+</td>
+<td style="text-align:right;">
+0.246
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Positive vs Negative
+</td>
+<td style="text-align:right;">
+1.694
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+0.0926
+</td>
+<td style="text-align:right;">
+0.277
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neutral vs Negative
+</td>
+<td style="text-align:right;">
+0.332
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+0.7403
+</td>
+<td style="text-align:right;">
+0.031
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="plot" class="section level2">
+<h2>Plot</h2>
+<pre class="r"><code>ePosT &lt;- data.frame(value = analysis_df_time$PosTime_1,     param = &quot;Positive&quot;)
+eNeuT &lt;- data.frame(value = analysis_df_time$NeutralTime_1, param = &quot;Neutral&quot;)
+eNegT &lt;- data.frame(value = analysis_df_time$NegTime_1,     param = &quot;Negative&quot;)
+eAllT &lt;- rbind(ePosT, eNeuT, eNegT)
+eAllT$param &lt;- factor(eAllT$param, levels = c(&quot;Positive&quot;, &quot;Neutral&quot;, &quot;Negative&quot;))
+
+ggplot(eAllT, aes(x = param, y = value, fill = param)) +
+  geom_violin(position = position_dodge(0.9)) +
+  geom_boxplot(width = 0.2, position = position_dodge(0.9)) +
+  labs(x = &quot;Condition&quot;, y = &quot;Explicit Rating&quot;, title = &quot;Explicit Ratings by Condition (Time Task)&quot;) +
+  theme_classic() +
+  theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="p09_files/figure-html/time-explicit-plot-1.png" alt="" width="672" /></p>
+<hr />
+</div>
+</div>
+<div id="implicit-motivation-crv-k-parameters" class="section level1">
+<h1>Implicit Motivation (cRV / k parameters)</h1>
+<div id="descriptive-statistics-1" class="section level2">
+<h2>Descriptive Statistics</h2>
+<pre class="r"><code>imv_desc_T &lt;- data.frame(
+  Condition = c(&quot;Positive/More Time (kPos)&quot;, &quot;Negative/Less Time (kNeg)&quot;, &quot;Neutral (kNeu)&quot;),
+  N         = c(length(kHiT), length(kLowT), length(kMedT)),
+  Mean      = round(c(mean(kHiT), mean(kLowT), mean(kMedT)), 3),
+  SD        = round(c(sd(kHiT), sd(kLowT), sd(kMedT)), 3),
+  Median    = round(c(median(kHiT), median(kLowT), median(kMedT)), 3)
+)
+
+kable(imv_desc_T, caption = &quot;Descriptive Statistics - IMV Parameters (Time Task)&quot;) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+Descriptive Statistics - IMV Parameters (Time Task)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Condition
+</th>
+<th style="text-align:right;">
+N
+</th>
+<th style="text-align:right;">
+Mean
+</th>
+<th style="text-align:right;">
+SD
+</th>
+<th style="text-align:right;">
+Median
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Positive/More Time (kPos)
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+0.761
+</td>
+<td style="text-align:right;">
+0.476
+</td>
+<td style="text-align:right;">
+0.703
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Negative/Less Time (kNeg)
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+1.052
+</td>
+<td style="text-align:right;">
+0.240
+</td>
+<td style="text-align:right;">
+1.033
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neutral (kNeu)
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+1.093
+</td>
+<td style="text-align:right;">
+0.049
+</td>
+<td style="text-align:right;">
+1.091
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="t-tests-1" class="section level2">
+<h2>T-tests</h2>
+<pre class="r"><code>ti1_T &lt;- t.test(analysis_df_time$PosTime_imv, analysis_df_time$NegTime_imv, paired=TRUE)
+ti2_T &lt;- t.test(analysis_df_time$PosTime_imv, analysis_df_time$NeuTime_imv, paired=TRUE)
+ti3_T &lt;- t.test(analysis_df_time$NeuTime_imv, analysis_df_time$NegTime_imv, paired=TRUE)
+
+imv_ttest_T &lt;- data.frame(
+  Comparison = c(&quot;Positive vs Negative&quot;, &quot;Positive vs Neutral&quot;, &quot;Neutral vs Negative&quot;),
+  t          = round(c(ti1_T$statistic, ti2_T$statistic, ti3_T$statistic), 3),
+  df         = c(ti1_T$parameter, ti2_T$parameter, ti3_T$parameter),
+  p          = round(c(ti1_T$p.value, ti2_T$p.value, ti3_T$p.value), 4),
+  Mean_diff  = round(c(ti1_T$estimate, ti2_T$estimate, ti3_T$estimate), 3)
+)
+
+kable(imv_ttest_T, caption = &quot;Paired T-tests - IMV Parameters (Time Task)&quot;) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+Paired T-tests - IMV Parameters (Time Task)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Comparison
+</th>
+<th style="text-align:right;">
+t
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:right;">
+Mean_diff
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Positive vs Negative
+</td>
+<td style="text-align:right;">
+-4.928
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.276
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Positive vs Neutral
+</td>
+<td style="text-align:right;">
+-7.693
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+-0.318
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neutral vs Negative
+</td>
+<td style="text-align:right;">
+1.837
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+0.0686
+</td>
+<td style="text-align:right;">
+0.042
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="effect-size-positive-vs-negative" class="section level2">
+<h2>Effect Size (Positive vs Negative)</h2>
+<pre class="r"><code>effectsize(t.test(analysis_df_time$PosTime_imv, analysis_df_time$NegTime_imv, var.equal=TRUE, paired=TRUE))</code></pre>
+<pre><code>## For paired samples, &#39;repeated_measures_d()&#39; provides more options.</code></pre>
+<pre><code>## Cohen&#39;s d |         95% CI
+## --------------------------
+## -0.43     | [-0.61, -0.25]</code></pre>
+</div>
+<div id="plot-1" class="section level2">
+<h2>Plot</h2>
+<pre class="r"><code>kHiTDat  &lt;- data.frame(value = kHiT, param = &quot;Positive&quot;)
+kLowTDat &lt;- data.frame(value = kLowT, param = &quot;Negative&quot;)
+kMidTDat &lt;- data.frame(value = kMedT, param = &quot;Neutral&quot;)
+HiLowT   &lt;- rbind(kHiTDat, kMidTDat, kLowTDat)
+HiLowT$param &lt;- factor(HiLowT$param, levels = c(&quot;Positive&quot;, &quot;Neutral&quot;, &quot;Negative&quot;))
+
+ggplot(HiLowT, aes(x = param, y = value, fill = param)) +
+  geom_violin(position = position_dodge(0.9)) +
+  geom_boxplot(width = 0.2, position = position_dodge(0.9)) +
+  labs(x = &quot;Condition&quot;, y = &quot;cRV (k)&quot;, title = &quot;Implicit Motivation by Condition (Time Task)&quot;) +
+  theme_classic() +
+  theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="p09_files/figure-html/time-imv-plot-1.png" alt="" width="672" /></p>
+<hr />
+</div>
+</div>
+<div id="implicit-explicit-correlations" class="section level1">
+<h1>Implicit-Explicit Correlations</h1>
+<div id="full-difference-scores" class="section level2">
+<h2>Full Difference Scores</h2>
+<pre class="r"><code>c_full &lt;- cor.test(analysis_df_time$PosvsNegTime_diff_imv, analysis_df_time$PosvsNegTime_diff_explicit)
+
+kable(data.frame(
+  Comparison = &quot;IMV diff (Pos-Neg) ~ Explicit diff (Pos-Neg)&quot;,
+  r          = round(c_full$estimate, 3),
+  p          = round(c_full$p.value, 4),
+  CI_lower   = round(c_full$conf.int[1], 3),
+  CI_upper   = round(c_full$conf.int[2], 3)
+), caption = &quot;Full Difference Score Correlation&quot;) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;))</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+Full Difference Score Correlation
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Comparison
+</th>
+<th style="text-align:right;">
+r
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:right;">
+CI_lower
+</th>
+<th style="text-align:right;">
+CI_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+cor
+</td>
+<td style="text-align:left;">
+IMV diff (Pos-Neg) ~ Explicit diff (Pos-Neg)
+</td>
+<td style="text-align:right;">
+0.377
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.219
+</td>
+<td style="text-align:right;">
+0.516
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sub-difference-scores" class="section level2">
+<h2>Sub-Difference Scores</h2>
+<pre class="r"><code>cs1 &lt;- cor.test(analysis_df_time$PosNeu_diff_imv, analysis_df_time$PosTime_1 - analysis_df_time$NeutralTime_1)
+cs2 &lt;- cor.test(analysis_df_time$NeuNeg_diff_imv, analysis_df_time$NeutralTime_1 - analysis_df_time$NegTime_1)
+
+sub_cor_table &lt;- data.frame(
+  Comparison = c(&quot;IMV Pos-Neu ~ Explicit Pos-Neu&quot;, &quot;IMV Neu-Neg ~ Explicit Neu-Neg&quot;),
+  r          = round(c(cs1$estimate, cs2$estimate), 3),
+  p          = round(c(cs1$p.value, cs2$p.value), 4),
+  CI_lower   = round(c(cs1$conf.int[1], cs2$conf.int[1]), 3),
+  CI_upper   = round(c(cs1$conf.int[2], cs2$conf.int[2]), 3)
+)
+
+kable(sub_cor_table, caption = &quot;Sub-Difference Score Correlations: Implicit ~ Explicit&quot;) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;)) %&gt;%
+  row_spec(which(sub_cor_table$p &lt; .05), bold = TRUE, color = &quot;white&quot;, background = &quot;#2c7bb6&quot;)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+Sub-Difference Score Correlations: Implicit ~ Explicit
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Comparison
+</th>
+<th style="text-align:right;">
+r
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:right;">
+CI_lower
+</th>
+<th style="text-align:right;">
+CI_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+IMV Pos-Neu ~ Explicit Pos-Neu
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.300
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.0005
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.134
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.449
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+IMV Neu-Neg ~ Explicit Neu-Neg
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.233
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.0076
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.064
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.390
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+</div>
+<div id="social-preference-rating-analyses" class="section level1">
+<h1>Social Preference Rating Analyses</h1>
+<div id="social-vs.-solo-ratings" class="section level2">
+<h2>Social vs. Solo Ratings</h2>
+<pre class="r"><code># Social vs Solo ratings plot
+social_solo_dat &lt;- data.frame(
+  value = c(as.numeric(analysis_df_time$Social_Rating), 
+            as.numeric(analysis_df_time$Solo_Rating)),
+  param = c(rep(&quot;Social&quot;, nrow(analysis_df_time)), 
+            rep(&quot;Solo&quot;, nrow(analysis_df_time)))
+)
+
+social_solo_dat$param &lt;- factor(social_solo_dat$param, levels = c(&quot;Social&quot;, &quot;Solo&quot;))
+
+ggplot(social_solo_dat, aes(x = param, y = value, fill = param)) +
+  geom_boxplot(width = 0.4, outlier.shape = NA) +
+  geom_jitter(width = 0.15, alpha = 0.3, size = 1) +
+  labs(x = &quot;Condition&quot;, y = &quot;Rating&quot;,
+       title = &quot;Social vs Solo Task Preference Ratings&quot;) +
+  theme_classic() +
+  theme(legend.position = &quot;none&quot;)</code></pre>
+<pre><code>## Warning: Removed 3 rows containing non-finite outside the scale range
+## (`stat_boxplot()`).</code></pre>
+<pre><code>## Warning: Removed 3 rows containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
+<p><img src="p09_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" /></p>
+<pre class="r"><code>t.test(as.numeric(analysis_df_time$Social_Rating),
+       as.numeric(analysis_df_time$Solo_Rating),
+       paired = TRUE)</code></pre>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  as.numeric(analysis_df_time$Social_Rating) and as.numeric(analysis_df_time$Solo_Rating)
+## t = 13.755, df = 127, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean difference is not equal to 0
+## 95 percent confidence interval:
+##  1.504926 2.010699
+## sample estimates:
+## mean difference 
+##        1.757812</code></pre>
+</div>
+<div id="correlations-with-rating-diff-social---solo"
+class="section level2">
+<h2>Correlations with Rating Diff (Social - Solo)</h2>
+<pre class="r"><code>rct1 &lt;- cor.test(analysis_df_time$PosvsNegTime_diff_imv, analysis_df_time$Rating_diff)
+rct2 &lt;- cor.test(analysis_df_time$PosvsNegTime_diff_explicit, analysis_df_time$Rating_diff)
+rct3 &lt;- cor.test(analysis_df_time$PosNeu_diff_imv, analysis_df_time$Rating_diff)
+rct4 &lt;- cor.test(analysis_df_time$NeuNeg_diff_imv, analysis_df_time$Rating_diff)
+
+rating_cor_T &lt;- data.frame(
+  Predictor = c(&quot;IMV diff (Pos-Neg)&quot;, &quot;Explicit diff (Pos-Neg)&quot;,
+                &quot;IMV diff (Pos-Neu)&quot;, &quot;IMV diff (Neu-Neg)&quot;),
+  r         = round(c(rct1$estimate, rct2$estimate, rct3$estimate, rct4$estimate), 3),
+  p         = round(c(rct1$p.value, rct2$p.value, rct3$p.value, rct4$p.value), 4),
+  CI_lower  = round(c(rct1$conf.int[1], rct2$conf.int[1], rct3$conf.int[1], rct4$conf.int[1]), 3),
+  CI_upper  = round(c(rct1$conf.int[2], rct2$conf.int[2], rct3$conf.int[2], rct4$conf.int[2]), 3)
+)
+
+kable(rating_cor_T, caption = &quot;Correlations with Social-Solo Rating Difference (Time Task)&quot;) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;)) %&gt;%
+  row_spec(which(rating_cor_T$p &lt; .05), bold = TRUE, color = &quot;white&quot;, background = &quot;#2c7bb6&quot;)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+Correlations with Social-Solo Rating Difference (Time Task)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Predictor
+</th>
+<th style="text-align:right;">
+r
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:right;">
+CI_lower
+</th>
+<th style="text-align:right;">
+CI_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+IMV diff (Pos-Neg)
+</td>
+<td style="text-align:right;">
+0.171
+</td>
+<td style="text-align:right;">
+0.0543
+</td>
+<td style="text-align:right;">
+-0.003
+</td>
+<td style="text-align:right;">
+0.334
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+Explicit diff (Pos-Neg)
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.187
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.0345
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.014
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.349
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IMV diff (Pos-Neu)
+</td>
+<td style="text-align:right;">
+0.149
+</td>
+<td style="text-align:right;">
+0.0932
+</td>
+<td style="text-align:right;">
+-0.025
+</td>
+<td style="text-align:right;">
+0.314
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IMV diff (Neu-Neg)
+</td>
+<td style="text-align:right;">
+0.146
+</td>
+<td style="text-align:right;">
+0.0990
+</td>
+<td style="text-align:right;">
+-0.028
+</td>
+<td style="text-align:right;">
+0.312
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+</div>
+<div id="trait-correlations" class="section level1">
+<h1>Trait Correlations</h1>
+<pre class="r"><code>trait_vars_T &lt;- c(&quot;Extraversion&quot;, &quot;Neuroticism&quot;, &quot;Openness&quot;, &quot;LSAS&quot;,
+                  &quot;Prosocial_Interactions&quot;, &quot;Neg_Social_Potency&quot;, &quot;Sociability&quot;,
+                  &quot;Admiration&quot;, &quot;Passivity&quot;, &quot;Sexual_Relations&quot;,
+                  &quot;Time_Actual&quot;, &quot;Time_Choice_1&quot;)
+
+dv_vars_T &lt;- c(&quot;PosvsNegTime_diff_imv&quot;, &quot;PosvsNegTime_diff_explicit&quot;)
+
+cor_table_fn &lt;- function(df, dv_vars, trait_vars) {
+  results &lt;- list()
+  for (dv in dv_vars) {
+    dv_results &lt;- lapply(trait_vars, function(trait) {
+      res &lt;- cor.test(df[[dv]], df[[trait]], use = &quot;complete.obs&quot;)
+      data.frame(
+        DV       = dv,
+        Trait    = trait,
+        r        = round(as.numeric(res$estimate), 3),
+        p        = round(res$p.value, 3),
+        CI_lower = round(res$conf.int[1], 3),
+        CI_upper = round(res$conf.int[2], 3)
+      )
+    })
+    results[[dv]] &lt;- do.call(rbind, dv_results)
+  }
+  do.call(rbind, results)
+}
+
+cor_results_T &lt;- cor_table_fn(analysis_df_time, dv_vars_T, trait_vars_T)
+
+kable(subset(cor_results_T, DV == &quot;PosvsNegTime_diff_imv&quot;)[,-1],
+      caption = &quot;IMV Diff ~ Traits (Time Task)&quot;, row.names = FALSE) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;)) %&gt;%
+  row_spec(which(subset(cor_results_T, DV == &quot;PosvsNegTime_diff_imv&quot;)$p &lt; .05),
+           bold = TRUE, color = &quot;white&quot;, background = &quot;#2c7bb6&quot;)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+IMV Diff ~ Traits (Time Task)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Trait
+</th>
+<th style="text-align:right;">
+r
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:right;">
+CI_lower
+</th>
+<th style="text-align:right;">
+CI_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Extraversion
+</td>
+<td style="text-align:right;">
+0.171
+</td>
+<td style="text-align:right;">
+0.052
+</td>
+<td style="text-align:right;">
+-0.001
+</td>
+<td style="text-align:right;">
+0.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neuroticism
+</td>
+<td style="text-align:right;">
+-0.123
+</td>
+<td style="text-align:right;">
+0.164
+</td>
+<td style="text-align:right;">
+-0.289
+</td>
+<td style="text-align:right;">
+0.050
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Openness
+</td>
+<td style="text-align:right;">
+-0.055
+</td>
+<td style="text-align:right;">
+0.536
+</td>
+<td style="text-align:right;">
+-0.225
+</td>
+<td style="text-align:right;">
+0.119
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSAS
+</td>
+<td style="text-align:right;">
+-0.105
+</td>
+<td style="text-align:right;">
+0.236
+</td>
+<td style="text-align:right;">
+-0.272
+</td>
+<td style="text-align:right;">
+0.069
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Prosocial_Interactions
+</td>
+<td style="text-align:right;">
+0.076
+</td>
+<td style="text-align:right;">
+0.390
+</td>
+<td style="text-align:right;">
+-0.097
+</td>
+<td style="text-align:right;">
+0.245
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neg_Social_Potency
+</td>
+<td style="text-align:right;">
+-0.022
+</td>
+<td style="text-align:right;">
+0.804
+</td>
+<td style="text-align:right;">
+-0.193
+</td>
+<td style="text-align:right;">
+0.151
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sociability
+</td>
+<td style="text-align:right;">
+0.164
+</td>
+<td style="text-align:right;">
+0.063
+</td>
+<td style="text-align:right;">
+-0.009
+</td>
+<td style="text-align:right;">
+0.327
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Admiration
+</td>
+<td style="text-align:right;">
+0.085
+</td>
+<td style="text-align:right;">
+0.335
+</td>
+<td style="text-align:right;">
+-0.088
+</td>
+<td style="text-align:right;">
+0.254
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Passivity
+</td>
+<td style="text-align:right;">
+-0.149
+</td>
+<td style="text-align:right;">
+0.091
+</td>
+<td style="text-align:right;">
+-0.313
+</td>
+<td style="text-align:right;">
+0.024
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sexual_Relations
+</td>
+<td style="text-align:right;">
+-0.020
+</td>
+<td style="text-align:right;">
+0.825
+</td>
+<td style="text-align:right;">
+-0.191
+</td>
+<td style="text-align:right;">
+0.153
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+Time_Actual
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.416
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.000
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.263
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.549
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+Time_Choice_1
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.493
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.000
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.350
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.613
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>kable(subset(cor_results_T, DV == &quot;PosvsNegTime_diff_explicit&quot;)[,-1],
+      caption = &quot;Explicit Diff ~ Traits (Time Task)&quot;, row.names = FALSE) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;)) %&gt;%
+  row_spec(which(subset(cor_results_T, DV == &quot;PosvsNegTime_diff_explicit&quot;)$p &lt; .05),
+           bold = TRUE, color = &quot;white&quot;, background = &quot;#2c7bb6&quot;)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+Explicit Diff ~ Traits (Time Task)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Trait
+</th>
+<th style="text-align:right;">
+r
+</th>
+<th style="text-align:right;">
+p
+</th>
+<th style="text-align:right;">
+CI_lower
+</th>
+<th style="text-align:right;">
+CI_upper
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+Extraversion
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.271
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.002
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.104
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.423
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neuroticism
+</td>
+<td style="text-align:right;">
+-0.112
+</td>
+<td style="text-align:right;">
+0.204
+</td>
+<td style="text-align:right;">
+-0.279
+</td>
+<td style="text-align:right;">
+0.061
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Openness
+</td>
+<td style="text-align:right;">
+-0.103
+</td>
+<td style="text-align:right;">
+0.245
+</td>
+<td style="text-align:right;">
+-0.270
+</td>
+<td style="text-align:right;">
+0.071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSAS
+</td>
+<td style="text-align:right;">
+-0.154
+</td>
+<td style="text-align:right;">
+0.080
+</td>
+<td style="text-align:right;">
+-0.318
+</td>
+<td style="text-align:right;">
+0.019
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Prosocial_Interactions
+</td>
+<td style="text-align:right;">
+0.171
+</td>
+<td style="text-align:right;">
+0.051
+</td>
+<td style="text-align:right;">
+-0.001
+</td>
+<td style="text-align:right;">
+0.334
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neg_Social_Potency
+</td>
+<td style="text-align:right;">
+-0.058
+</td>
+<td style="text-align:right;">
+0.511
+</td>
+<td style="text-align:right;">
+-0.228
+</td>
+<td style="text-align:right;">
+0.115
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sociability
+</td>
+<td style="text-align:right;">
+0.102
+</td>
+<td style="text-align:right;">
+0.246
+</td>
+<td style="text-align:right;">
+-0.071
+</td>
+<td style="text-align:right;">
+0.270
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Admiration
+</td>
+<td style="text-align:right;">
+0.164
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+-0.009
+</td>
+<td style="text-align:right;">
+0.327
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Passivity
+</td>
+<td style="text-align:right;">
+-0.046
+</td>
+<td style="text-align:right;">
+0.607
+</td>
+<td style="text-align:right;">
+-0.216
+</td>
+<td style="text-align:right;">
+0.128
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sexual_Relations
+</td>
+<td style="text-align:right;">
+0.027
+</td>
+<td style="text-align:right;">
+0.759
+</td>
+<td style="text-align:right;">
+-0.146
+</td>
+<td style="text-align:right;">
+0.198
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Time_Actual
+</td>
+<td style="text-align:right;">
+0.172
+</td>
+<td style="text-align:right;">
+0.050
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.334
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+Time_Choice_1
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.367
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.000
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.208
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.508
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="moderation-analyses" class="section level1">
+<h1>Moderation Analyses</h1>
+<div id="does-extraversion-moderate-the-implicit-explicit-link"
+class="section level2">
+<h2>Does Extraversion Moderate the Implicit-Explicit Link?</h2>
+<pre class="r"><code>mod_extra_impexp &lt;- lm(PosvsNegTime_diff_explicit ~ imv_diff_c * extraversion_c, 
+                       data = analysis_df_time)
+summary(mod_extra_impexp)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = PosvsNegTime_diff_explicit ~ imv_diff_c * extraversion_c, 
+##     data = analysis_df_time)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.8158 -0.9153  0.0235  0.9746  4.8994 
+## 
+## Coefficients:
+##                           Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                0.32280    0.14807   2.180   0.0311 *  
+## imv_diff_c                 0.95174    0.23463   4.056 8.68e-05 ***
+## extraversion_c             0.06334    0.02632   2.406   0.0176 *  
+## imv_diff_c:extraversion_c -0.07426    0.03441  -2.158   0.0328 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.671 on 126 degrees of freedom
+## Multiple R-squared:  0.215,  Adjusted R-squared:  0.1963 
+## F-statistic:  11.5 on 3 and 126 DF,  p-value: 1.025e-06</code></pre>
+<p><em>IMV diff is a strong predictor (p &lt; .001). People with higher
+implicit valuation differentiation also show higher explicit valuation
+differentiation. Extraversion is a significant main effect (p = .018).
+More extraverted people show larger explicit valuation differences
+between positive and negative time conditions. The interaction is
+significant (p = .033). Extraversion moderates the implicit-explicit
+relationship. The negative coefficient suggests the link between
+implicit and explicit valuation is stronger for less extraverted (more
+introverted) people.</em></p>
+<pre class="r"><code># Explicit differentiation by extraversion
+ggplot(analysis_df_time, aes(x = Extraversion, y = PosvsNegTime_diff_explicit)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = &quot;lm&quot;, se = TRUE, color = &quot;#2c7bb6&quot;) +
+  labs(x = &quot;Extraversion&quot;, y = &quot;Explicit Diff (Pos - Neg)&quot;,
+       title = &quot;Extraversion Predicts Explicit Social Time Differentiation&quot;) +
+  theme_classic()</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="p09_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
+<pre class="r"><code># IMV differentiation by extraversion
+ggplot(analysis_df_time, aes(x = Extraversion, y = PosvsNegTime_diff_imv)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = &quot;lm&quot;, se = TRUE, color = &quot;#2c7bb6&quot;) +
+  labs(x = &quot;Extraversion&quot;, y = &quot;IMV Diff (Pos - Neg)&quot;,
+       title = &quot;Extraversion Predicts Implicit Social Time Differentiation&quot;) +
+  theme_classic()</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="p09_files/figure-html/unnamed-chunk-2-2.png" alt="" width="672" /></p>
+<hr />
+</div>
+</div>
+<div id="state-social-motivation-time-choice-imv"
+class="section level1">
+<h1>State Social Motivation: Time Choice → IMV</h1>
+<p><strong>Time_Choice_1</strong> is a state/motivational measure (how
+much do I want to be with people right now), whereas
+<strong>Extraversion</strong> is a trait measure (how much do I
+generally want to be with people). The RL measure appears sensitive to
+state-level motivation.</p>
+<div id="time-choice-predicts-imv-diff" class="section level2">
+<h2>Time Choice Predicts IMV Diff</h2>
+<pre class="r"><code>mod_timechoice &lt;- lm(PosvsNegTime_diff_imv ~ time_choice_c, data = analysis_df_time)
+summary(mod_timechoice)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = PosvsNegTime_diff_imv ~ time_choice_c, data = analysis_df_time)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.28684 -0.39743 -0.01925  0.33411  1.61013 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   -0.27461    0.04929  -5.571 1.44e-07 ***
+## time_choice_c  0.10367    0.01625   6.381 3.01e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5598 on 127 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.2427, Adjusted R-squared:  0.2368 
+## F-statistic: 40.71 on 1 and 127 DF,  p-value: 3.01e-09</code></pre>
+<p><em>Prior explicit social motivation (Time Choice) strongly predicts
+implicit learning differentiation (R² = .24, p &lt; .001) — people who
+want to spend more time with others show greater implicit valuation of
+positive time outcomes.</em></p>
+</div>
+<div id="does-extraversion-moderate-the-time-choice-imv-link"
+class="section level2">
+<h2>Does Extraversion Moderate the Time Choice → IMV Link?</h2>
+<pre class="r"><code>mod_timechoice_extra &lt;- lm(PosvsNegTime_diff_imv ~ time_choice_c * extraversion_c, 
+                           data = analysis_df_time)
+summary(mod_timechoice_extra)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = PosvsNegTime_diff_imv ~ time_choice_c * extraversion_c, 
+##     data = analysis_df_time)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.20391 -0.36826 -0.04963  0.35914  1.59145 
+## 
+## Coefficients:
+##                               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                  -0.269317   0.050293  -5.355 3.96e-07 ***
+## time_choice_c                 0.099911   0.016626   6.009 1.89e-08 ***
+## extraversion_c                0.008850   0.008826   1.003    0.318    
+## time_choice_c:extraversion_c -0.001597   0.002817  -0.567    0.572    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.5613 on 125 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.2508, Adjusted R-squared:  0.2328 
+## F-statistic: 13.95 on 3 and 125 DF,  p-value: 6.701e-08</code></pre>
+<p><em>The Time Choice → IMV relationship is equally strong regardless
+of extraversion level (interaction p = .572), suggesting the RL measure
+captures state-level social motivation independently of stable
+personality traits.</em></p>
+<pre class="r"><code># Histogram of Time Choice
+ggplot(analysis_df_time, aes(x = Time_Choice_1)) +
+  geom_histogram(binwidth = 1, fill = &quot;#2c7bb6&quot;, color = &quot;white&quot;, alpha = 0.8) +
+  labs(x = &quot;Time Choice (minutes)&quot;, y = &quot;Count&quot;,
+       title = &quot;Distribution of Chosen Time with Others&quot;) +
+  theme_classic()</code></pre>
+<pre><code>## Warning: Removed 1 row containing non-finite outside the scale range
+## (`stat_bin()`).</code></pre>
+<p><img src="p09_files/figure-html/unnamed-chunk-3-1.png" alt="" width="672" /></p>
+<pre class="r"><code># Time Choice ~ IMV diff
+ggplot(analysis_df_time, aes(x = Time_Choice_1, y = PosvsNegTime_diff_imv)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = &quot;lm&quot;, se = TRUE, color = &quot;#2c7bb6&quot;) +
+  labs(x = &quot;Time Choice (minutes)&quot;, y = &quot;IMV Diff (Pos - Neg)&quot;,
+       title = &quot;Time Choice vs. cRVs&quot;) +
+  theme_classic()</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 1 row containing non-finite outside the scale range
+## (`stat_smooth()`).</code></pre>
+<pre><code>## Warning: Removed 1 row containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
+<p><img src="p09_files/figure-html/unnamed-chunk-3-2.png" alt="" width="672" /></p>
+<pre class="r"><code>cor.test(analysis_df_time$Time_Choice_1, analysis_df_time$PosvsNegTime_diff_imv)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  analysis_df_time$Time_Choice_1 and analysis_df_time$PosvsNegTime_diff_imv
+## t = 6.3805, df = 127, p-value = 3.01e-09
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.3496113 0.6133136
+## sample estimates:
+##       cor 
+## 0.4926914</code></pre>
+<pre class="r"><code># Time Choice ~ Explicit diff
+ggplot(analysis_df_time, aes(x = Time_Choice_1, y = PosvsNegTime_diff_explicit)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = &quot;lm&quot;, se = TRUE, color = &quot;#2c7bb6&quot;) +
+  labs(x = &quot;Time Choice (minutes)&quot;, y = &quot;Explicit Diff (Pos - Neg)&quot;,
+       title = &quot;Time Choice vs. Explicit Ratings&quot;) +
+  theme_classic()</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 1 row containing non-finite outside the scale range (`stat_smooth()`).
+## Removed 1 row containing missing values or values outside the scale range
+## (`geom_point()`).</code></pre>
+<p><img src="p09_files/figure-html/unnamed-chunk-3-3.png" alt="" width="672" /></p>
+<pre class="r"><code>cor.test(analysis_df_time$Time_Choice_1, analysis_df_time$PosvsNegTime_diff_explicit)</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  analysis_df_time$Time_Choice_1 and analysis_df_time$PosvsNegTime_diff_explicit
+## t = 4.449, df = 127, p-value = 1.864e-05
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.2075264 0.5078290
+## sample estimates:
+##       cor 
+## 0.3672083</code></pre>
+<p>Time Choice) predicts both implicit and explicit differentiation, but
+the relationship is stronger for the implicit measure.</p>
+<pre class="r"><code># Create comprehensive correlation table for all IMV and explicit measures
+all_vars &lt;- c(&quot;PosTime_imv&quot;, &quot;NegTime_imv&quot;, &quot;NeuTime_imv&quot;, &quot;PosvsNegTime_diff_imv&quot;,
+              &quot;PosNeu_diff_imv&quot;, &quot;NeuNeg_diff_imv&quot;,
+              &quot;PosTime_1&quot;, &quot;NegTime_1&quot;, &quot;NeutralTime_1&quot;, &quot;PosvsNegTime_diff_explicit&quot;,
+              &quot;Rating_diff&quot;, &quot;Time_Choice_1&quot;, &quot;Time_Actual&quot;,
+              &quot;Extraversion&quot;, &quot;Neuroticism&quot;, &quot;LSAS&quot;, &quot;Prosocial_Interactions&quot;,
+              &quot;Sociability&quot;, &quot;Social_Rating&quot;, &quot;Solo_Rating&quot;)
+
+# Build correlation matrix
+cor_matrix &lt;- cor(analysis_df_time[, all_vars], use = &quot;pairwise.complete.obs&quot;)
+p_matrix &lt;- matrix(NA, nrow = length(all_vars), ncol = length(all_vars))
+for (i in 1:length(all_vars)) {
+  for (j in 1:length(all_vars)) {
+    if (i != j) {
+      p_matrix[i,j] &lt;- cor.test(analysis_df_time[[all_vars[i]]], 
+                                  analysis_df_time[[all_vars[j]]])$p.value
+    }
+  }
+}
+
+rownames(p_matrix) &lt;- colnames(p_matrix) &lt;- all_vars
+
+# Display as kable - round and mark significant ones
+cor_display &lt;- round(cor_matrix, 2)
+cor_display[p_matrix &gt; .05] &lt;- NA  # blank out non-significant
+
+kable(cor_display, 
+      caption = &quot;Correlation Matrix (significant correlations only, p &lt; .05)&quot;) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;, &quot;responsive&quot;),
+                font_size = 11)</code></pre>
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 11px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+Correlation Matrix (significant correlations only, p &lt; .05)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+PosTime_imv
+</th>
+<th style="text-align:right;">
+NegTime_imv
+</th>
+<th style="text-align:right;">
+NeuTime_imv
+</th>
+<th style="text-align:right;">
+PosvsNegTime_diff_imv
+</th>
+<th style="text-align:right;">
+PosNeu_diff_imv
+</th>
+<th style="text-align:right;">
+NeuNeg_diff_imv
+</th>
+<th style="text-align:right;">
+PosTime_1
+</th>
+<th style="text-align:right;">
+NegTime_1
+</th>
+<th style="text-align:right;">
+NeutralTime_1
+</th>
+<th style="text-align:right;">
+PosvsNegTime_diff_explicit
+</th>
+<th style="text-align:right;">
+Rating_diff
+</th>
+<th style="text-align:right;">
+Time_Choice_1
+</th>
+<th style="text-align:right;">
+Time_Actual
+</th>
+<th style="text-align:right;">
+Extraversion
+</th>
+<th style="text-align:right;">
+Neuroticism
+</th>
+<th style="text-align:right;">
+LSAS
+</th>
+<th style="text-align:right;">
+Prosocial_Interactions
+</th>
+<th style="text-align:right;">
+Sociability
+</th>
+<th style="text-align:right;">
+Social_Rating
+</th>
+<th style="text-align:right;">
+Solo_Rating
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+PosTime_imv
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+-0.51
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NegTime_imv
+</td>
+<td style="text-align:right;">
+-0.51
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+-0.27
+</td>
+<td style="text-align:right;">
+-0.76
+</td>
+<td style="text-align:right;">
+-0.48
+</td>
+<td style="text-align:right;">
+-0.98
+</td>
+<td style="text-align:right;">
+-0.36
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.32
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.35
+</td>
+<td style="text-align:right;">
+-0.40
+</td>
+<td style="text-align:right;">
+-0.18
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.24
+</td>
+<td style="text-align:right;">
+-0.19
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NeuTime_imv
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+-0.27
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PosvsNegTime_diff_imv
+</td>
+<td style="text-align:right;">
+0.94
+</td>
+<td style="text-align:right;">
+-0.76
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.93
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PosNeu_diff_imv
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+-0.48
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.93
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NeuNeg_diff_imv
+</td>
+<td style="text-align:right;">
+0.51
+</td>
+<td style="text-align:right;">
+-0.98
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.47
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+-0.18
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PosTime_1
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+-0.36
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+-0.58
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.90
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NegTime_1
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+-0.30
+</td>
+<td style="text-align:right;">
+-0.18
+</td>
+<td style="text-align:right;">
+-0.58
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.87
+</td>
+<td style="text-align:right;">
+-0.19
+</td>
+<td style="text-align:right;">
+-0.28
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.24
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.18
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NeutralTime_1
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PosvsNegTime_diff_explicit
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+-0.32
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+0.34
+</td>
+<td style="text-align:right;">
+0.31
+</td>
+<td style="text-align:right;">
+0.90
+</td>
+<td style="text-align:right;">
+-0.87
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rating_diff
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.19
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+-0.75
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Time_Choice_1
+</td>
+<td style="text-align:right;">
+0.48
+</td>
+<td style="text-align:right;">
+-0.35
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0.46
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+0.38
+</td>
+<td style="text-align:right;">
+-0.28
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+-0.25
+</td>
+<td style="text-align:right;">
+-0.20
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Time_Actual
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+-0.40
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.42
+</td>
+<td style="text-align:right;">
+0.35
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Extraversion
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.18
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.24
+</td>
+<td style="text-align:right;">
+-0.24
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.27
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+-0.36
+</td>
+<td style="text-align:right;">
+-0.37
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.58
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Neuroticism
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.25
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.36
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LSAS
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.20
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.37
+</td>
+<td style="text-align:right;">
+0.36
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.22
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Prosocial_Interactions
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sociability
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.24
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.22
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.58
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.22
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Social_Rating
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.19
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.19
+</td>
+<td style="text-align:right;">
+0.33
+</td>
+<td style="text-align:right;">
+-0.18
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+0.41
+</td>
+<td style="text-align:right;">
+0.18
+</td>
+<td style="text-align:right;">
+0.21
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.23
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Solo_Rating
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+-0.75
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+0.30
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="model-comparison" class="section level1">
+<h1>Model Comparison</h1>
+<pre class="r"><code># MODEL COMPARISON
+
+# Load saved LOO objects
+load(&quot;loo_objects_Time.RData&quot;)
+
+# Load models for WAIC
+load(&quot;fitQ_ABK_FYP_Time&quot;)
+load(&quot;fitQ_explicit_Time.RData&quot;)
+
+# Extract log likelihoods
+loglik_Q_full &lt;- extract_log_lik(fitQabkF, merge_chains = FALSE)
+loglik_explicit &lt;- extract_log_lik(fitQ_explicit, merge_chains = FALSE)
+
+# Subset k model to same participants as explicit model
+na_idx &lt;- is.na(as.numeric(analysis_df_time$PosTime_1[match(
+  read.csv(&quot;ParticipantIDs_Time.csv&quot;)$participantIDs, analysis_df_time$PID)]))
+
+# WAIC
+waic_k        &lt;- waic(loglik_Q_full[,,!na_idx])</code></pre>
+<pre><code>## Warning: 
+## 126 (97.7%) p_waic estimates greater than 0.4. We recommend trying loo instead.</code></pre>
+<pre class="r"><code>waic_explicit &lt;- waic(loglik_explicit)</code></pre>
+<pre><code>## Warning: 
+## 25 (19.4%) p_waic estimates greater than 0.4. We recommend trying loo instead.</code></pre>
+<pre class="r"><code># LOO comparison table
+loo_comp &lt;- loo_compare(looQabkF_sub, loo_explicit)
+
+loo_comp_table &lt;- data.frame(
+  Model     = c(&quot;K Model (estimated reward values)&quot;,
+                &quot;Explicit Model (fixed reward values)&quot;),
+  ELPD_diff = round(loo_comp[,1], 2),
+  SE_diff   = round(loo_comp[,2], 2),
+  ELPD_loo  = round(c(looQabkF_sub$estimates[1,1], loo_explicit$estimates[1,1]), 2),
+  SE_loo    = round(c(looQabkF_sub$estimates[1,2], loo_explicit$estimates[1,2]), 2),
+  p_loo     = round(c(looQabkF_sub$estimates[2,1], loo_explicit$estimates[2,1]), 2)
+)
+
+kable(loo_comp_table,
+      caption = &quot;LOO Model Comparison: K Model vs Explicit Ratings Model&quot;,
+      col.names = c(&quot;Model&quot;, &quot;ELPD Diff&quot;, &quot;SE Diff&quot;, &quot;ELPD LOO&quot;, &quot;SE LOO&quot;, &quot;p LOO&quot;)) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;)) %&gt;%
+  row_spec(1, bold = TRUE, color = &quot;white&quot;, background = &quot;#2c7bb6&quot;)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+LOO Model Comparison: K Model vs Explicit Ratings Model
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Model
+</th>
+<th style="text-align:right;">
+ELPD Diff
+</th>
+<th style="text-align:right;">
+SE Diff
+</th>
+<th style="text-align:right;">
+ELPD LOO
+</th>
+<th style="text-align:right;">
+SE LOO
+</th>
+<th style="text-align:right;">
+p LOO
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+model1
+</td>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+K Model (estimated reward values)
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.00
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.00
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+-2806.35
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+70.36
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+199.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+model2
+</td>
+<td style="text-align:left;">
+Explicit Model (fixed reward values)
+</td>
+<td style="text-align:right;">
+-595.84
+</td>
+<td style="text-align:right;">
+67.38
+</td>
+<td style="text-align:right;">
+-3402.19
+</td>
+<td style="text-align:right;">
+20.18
+</td>
+<td style="text-align:right;">
+68.25
+</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># WAIC comparison table
+waic_comp &lt;- loo_compare(waic_k, waic_explicit)
+
+waic_comp_table &lt;- data.frame(
+  Model     = c(&quot;K Model (estimated reward values)&quot;,
+                &quot;Explicit Model (fixed reward values)&quot;),
+  ELPD_diff = round(waic_comp[,1], 2),
+  SE_diff   = round(waic_comp[,2], 2)
+)
+
+kable(waic_comp_table,
+      caption = &quot;WAIC Model Comparison: K Model vs Explicit Ratings Model&quot;,
+      col.names = c(&quot;Model&quot;, &quot;ELPD Diff&quot;, &quot;SE Diff&quot;)) %&gt;%
+  kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;, &quot;condensed&quot;)) %&gt;%
+  row_spec(1, bold = TRUE, color = &quot;white&quot;, background = &quot;#2c7bb6&quot;)</code></pre>
+<table class="table table-striped table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<caption>
+WAIC Model Comparison: K Model vs Explicit Ratings Model
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Model
+</th>
+<th style="text-align:right;">
+ELPD Diff
+</th>
+<th style="text-align:right;">
+SE Diff
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+model1
+</td>
+<td style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+K Model (estimated reward values)
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.00
+</td>
+<td style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(44, 123, 182, 255) !important;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+model2
+</td>
+<td style="text-align:left;">
+Explicit Model (fixed reward values)
+</td>
+<td style="text-align:right;">
+-634.32
+</td>
+<td style="text-align:right;">
+68.57
+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
 
 
 
