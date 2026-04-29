@@ -34,7 +34,7 @@ myDF <- read.csv("p05/framingham_heart_study.csv")
 
 <details>
 
-<summary>See the code output for a brief summary of the data </summary>
+<summary>See the code output for a brief summary of the data</summary>
 
 ```` r
 ```{r basic-checks}
@@ -303,7 +303,7 @@ A quick scan of the lit will tell us something of the sorts:
 
 *Weak/uncertain effects:* `BMI` is surprisingly inconsistent in literature, prior mean of 0.1, SD of 0.2. `currentSmoker` is redundant with cigsPerDay, prior mean of 0.1, SD of 0.2. `diabetes` has a strong effect expected but rare, prior mean of 0.3, SD of 0.3
 
-## Informative Priors Model 
+## Informative Priors Model
 
 ```{r informative, cache=TRUE, echo=TRUE}
 

@@ -10,13 +10,14 @@
 
 
 
+<meta name="date" content="2026-04-01" />
 
 <title>Portfolio 6</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -29,9 +30,11 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,18 +45,119 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -216,7 +320,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -226,6 +396,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -288,23 +468,1021 @@ $(document).ready(function () {
 
 <div id="header">
 
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">Portfolio 6</h1>
+<h4 class="date">2026-04-01</h4>
 
 </div>
 
 
-<blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
-</blockquote>
+<p>MIDUS DATASET</p>
+<p>Last portfolio piece, I explored the Bayesian Modeling. Now, I want
+to answer a research gap.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>select <span class="ot">&lt;-</span> dplyr<span class="sc">::</span>select</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>filter <span class="ot">&lt;-</span> dplyr<span class="sc">::</span>filter</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># if needed</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;haven&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.2.0     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.1     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;cmdstanr&quot;</span>)</span></code></pre></div>
+<pre><code>## This is cmdstanr version 0.8.0
+## - CmdStanR documentation and vignettes: mc-stan.org/cmdstanr
+## - CmdStan path: /Users/anaellegackiere/.cmdstan/cmdstan-2.38.0
+## - CmdStan version: 2.38.0</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;brms&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: Rcpp
+## Loading &#39;brms&#39; package (version 2.23.0). Useful instructions
+## can be found by typing help(&#39;brms&#39;). A more detailed introduction
+## to the package is available through vignette(&#39;brms_overview&#39;).
+## 
+## Attaching package: &#39;brms&#39;
+## 
+## The following object is masked from &#39;package:stats&#39;:
+## 
+##     ar</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;labelled&quot;</span>) <span class="co"># for me, quick checks</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;patchwork&quot;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tidybayes&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;tidybayes&#39;
+## 
+## The following objects are masked from &#39;package:brms&#39;:
+## 
+##     dstudent_t, pstudent_t, qstudent_t, rstudent_t</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;tableone&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;psych&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;psych&#39;
+## 
+## The following object is masked from &#39;package:brms&#39;:
+## 
+##     cs
+## 
+## The following objects are masked from &#39;package:ggplot2&#39;:
+## 
+##     %+%, alpha</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/M1_survey.sav&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/M2_survey.sav&quot;</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/M3_survey.sav&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">dim</span>(m1)</span></code></pre></div>
+<pre><code>## [1] 7108 2098</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">dim</span>(m2)</span></code></pre></div>
+<pre><code>## [1] 4963 2189</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">dim</span>(m3)</span></code></pre></div>
+<pre><code>## [1] 3294 2613</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Check distributions across waves for HLOC var</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">summary</span>(m1<span class="sc">$</span>A1SHLOCS)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   5.750   6.250   6.124   6.750   7.000     822</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">summary</span>(m2<span class="sc">$</span>B1SHLOCS)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   5.750   6.250   6.063   6.750   7.000     947</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">summary</span>(m3<span class="sc">$</span>C1SHLOCS)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   5.750   6.250   6.052   6.750   7.000     371</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">summary</span>(m1<span class="sc">$</span>A1SHLOCO)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   2.000   3.500   3.309   4.000   7.000     828</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">summary</span>(m2<span class="sc">$</span>B1SHLOCO)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   2.000   3.500   3.263   4.000   7.000     948</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">summary</span>(m3<span class="sc">$</span>C1SHLOCO)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   2.000   3.000   3.107   4.000   7.000     374</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="co"># same for all three waves?</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="fu">summary</span>(m1<span class="sc">$</span>A1SJ6)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   2.000   2.000   2.109   3.000   3.000     856</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">summary</span>(m2<span class="sc">$</span>B1SG6)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   1.000   2.000   1.927   2.000   3.000     979</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">summary</span>(m3<span class="sc">$</span>C1SG7)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   1.000   1.000   2.000   1.941   2.000   3.000     403</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="co"># cleaning script</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>m1_clean <span class="ot">&lt;-</span> m1 <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>    <span class="at">person_id =</span> M2ID,</span>
+<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a>    <span class="at">age =</span> A1PAGE_M2,</span>
+<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>    <span class="at">sex =</span> A1PRSEX,</span>
+<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a>    <span class="at">race =</span> A1SS7R,</span>
+<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a>    <span class="at">education =</span> A1PEDUCP,</span>
+<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a>    <span class="at">income =</span> A1SHHTOT,</span>
+<span id="cb36-10"><a href="#cb36-10" tabindex="-1"></a>    <span class="at">chronic =</span> A1SCHRON,</span>
+<span id="cb36-11"><a href="#cb36-11" tabindex="-1"></a>    <span class="at">fin_suff =</span> A1SJ6,</span>
+<span id="cb36-12"><a href="#cb36-12" tabindex="-1"></a>    <span class="at">hloc_self =</span> A1SHLOCS,</span>
+<span id="cb36-13"><a href="#cb36-13" tabindex="-1"></a>    <span class="at">hloc_others =</span> A1SHLOCO</span>
+<span id="cb36-14"><a href="#cb36-14" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb36-15"><a href="#cb36-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wave =</span> <span class="dv">1</span>)</span>
+<span id="cb36-16"><a href="#cb36-16" tabindex="-1"></a></span>
+<span id="cb36-17"><a href="#cb36-17" tabindex="-1"></a>m2_clean <span class="ot">&lt;-</span> m2 <span class="sc">%&gt;%</span></span>
+<span id="cb36-18"><a href="#cb36-18" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb36-19"><a href="#cb36-19" tabindex="-1"></a>    <span class="at">person_id =</span> M2ID,</span>
+<span id="cb36-20"><a href="#cb36-20" tabindex="-1"></a>    <span class="at">fin_suff =</span> B1SG6,</span>
+<span id="cb36-21"><a href="#cb36-21" tabindex="-1"></a>    <span class="at">hloc_self =</span> B1SHLOCS,</span>
+<span id="cb36-22"><a href="#cb36-22" tabindex="-1"></a>    <span class="at">hloc_others =</span> B1SHLOCO</span>
+<span id="cb36-23"><a href="#cb36-23" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb36-24"><a href="#cb36-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wave =</span> <span class="dv">2</span>)</span>
+<span id="cb36-25"><a href="#cb36-25" tabindex="-1"></a></span>
+<span id="cb36-26"><a href="#cb36-26" tabindex="-1"></a>m3_clean <span class="ot">&lt;-</span> m3 <span class="sc">%&gt;%</span></span>
+<span id="cb36-27"><a href="#cb36-27" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb36-28"><a href="#cb36-28" tabindex="-1"></a>    <span class="at">person_id =</span> M2ID,</span>
+<span id="cb36-29"><a href="#cb36-29" tabindex="-1"></a>    <span class="at">fin_suff =</span> C1SG7,</span>
+<span id="cb36-30"><a href="#cb36-30" tabindex="-1"></a>    <span class="at">hloc_self =</span> C1SHLOCS,</span>
+<span id="cb36-31"><a href="#cb36-31" tabindex="-1"></a>    <span class="at">hloc_others =</span> C1SHLOCO</span>
+<span id="cb36-32"><a href="#cb36-32" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb36-33"><a href="#cb36-33" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wave =</span> <span class="dv">3</span>)</span>
+<span id="cb36-34"><a href="#cb36-34" tabindex="-1"></a></span>
+<span id="cb36-35"><a href="#cb36-35" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(m1_clean, m2_clean, m3_clean)</span>
+<span id="cb36-36"><a href="#cb36-36" tabindex="-1"></a></span>
+<span id="cb36-37"><a href="#cb36-37" tabindex="-1"></a></span>
+<span id="cb36-38"><a href="#cb36-38" tabindex="-1"></a><span class="co"># since demographics only in M1, we&#39;ll fill them in for the other years</span></span>
+<span id="cb36-39"><a href="#cb36-39" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> data_long <span class="sc">%&gt;%</span></span>
+<span id="cb36-40"><a href="#cb36-40" tabindex="-1"></a>  <span class="fu">arrange</span>(person_id, wave) <span class="sc">%&gt;%</span></span>
+<span id="cb36-41"><a href="#cb36-41" tabindex="-1"></a>  <span class="fu">group_by</span>(person_id) <span class="sc">%&gt;%</span></span>
+<span id="cb36-42"><a href="#cb36-42" tabindex="-1"></a>  <span class="fu">fill</span>(age, sex, race, education, income, chronic, <span class="at">.direction =</span> <span class="st">&quot;down&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb36-43"><a href="#cb36-43" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="fu">dim</span>(data_long)</span></code></pre></div>
+<pre><code>## [1] 15365    11</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="co"># Check missingness systematically</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>data_long <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>  <span class="fu">group_by</span>(wave) <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a>    <span class="at">miss_fin =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(fin_suff)),</span>
+<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a>    <span class="at">miss_hloc_self =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(hloc_self)),</span>
+<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a>    <span class="at">miss_hloc_others =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(hloc_others)),</span>
+<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a>    <span class="at">miss_race =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(race)),</span>
+<span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a>    <span class="at">miss_edu =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(education)),</span>
+<span id="cb39-11"><a href="#cb39-11" tabindex="-1"></a>    <span class="at">miss_income =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(income)),</span>
+<span id="cb39-12"><a href="#cb39-12" tabindex="-1"></a>    <span class="at">miss_chronic =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(chronic))</span>
+<span id="cb39-13"><a href="#cb39-13" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 9
+##    wave     n miss_fin miss_hloc_self miss_hloc_others miss_race miss_edu
+##   &lt;dbl&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;            &lt;int&gt;     &lt;int&gt;    &lt;int&gt;
+## 1     1  7108      856            822              828       854       13
+## 2     2  4963      979            947              948       294        8
+## 3     3  3294      403            371              374       129        4
+## # ℹ 2 more variables: miss_income &lt;int&gt;, miss_chronic &lt;int&gt;</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="co"># all three waves </span></span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>data_long <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>  <span class="fu">group_by</span>(person_id) <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_waves =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(hloc_self))) <span class="sc">%&gt;%</span></span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>  <span class="fu">count</span>(n_waves)</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 2
+##   n_waves     n
+##     &lt;int&gt; &lt;int&gt;
+## 1       0   663
+## 2       1  2296
+## 3       2  1518
+## 4       3  2631</code></pre>
+<p>2631 people have data from all three waves, which should be enough
+for the MLM.</p>
+<p>The within-person sample is really the 2631 with all three waves plus
+some contribution from the 1518 with two. The unbalanced data structure
+would cause problems with frequentist estimation, so Bayesian MLM works
+well here.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="co"># Recode missing value codes to NA</span></span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> data_long <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a>    <span class="at">fin_suff =</span> <span class="fu">ifelse</span>(fin_suff <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">8</span>), <span class="cn">NA</span>, fin_suff),</span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a>    <span class="at">hloc_self =</span> <span class="fu">ifelse</span>(hloc_self <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">99</span>, <span class="dv">8</span>), <span class="cn">NA</span>, hloc_self),</span>
+<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a>    <span class="at">hloc_others =</span> <span class="fu">ifelse</span>(hloc_others <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">99</span>, <span class="dv">8</span>), <span class="cn">NA</span>, hloc_others),</span>
+<span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a>    <span class="at">race =</span> <span class="fu">ifelse</span>(race <span class="sc">%in%</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">8</span>), <span class="cn">NA</span>, race),</span>
+<span id="cb43-8"><a href="#cb43-8" tabindex="-1"></a>    <span class="at">education =</span> <span class="fu">ifelse</span>(education <span class="sc">==</span> <span class="dv">9</span>, <span class="cn">NA</span>, education),</span>
+<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a>    <span class="at">income =</span> <span class="fu">ifelse</span>(income <span class="sc">==</span> <span class="dv">999999</span>, <span class="cn">NA</span>, income)</span>
+<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a>  )</span>
+<span id="cb43-11"><a href="#cb43-11" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" tabindex="-1"></a><span class="co"># Drop people with no outcome data at all</span></span>
+<span id="cb43-13"><a href="#cb43-13" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> data_long <span class="sc">%&gt;%</span></span>
+<span id="cb43-14"><a href="#cb43-14" tabindex="-1"></a>  <span class="fu">group_by</span>(person_id) <span class="sc">%&gt;%</span></span>
+<span id="cb43-15"><a href="#cb43-15" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(hloc_self)) <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-16"><a href="#cb43-16" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb43-17"><a href="#cb43-17" tabindex="-1"></a></span>
+<span id="cb43-18"><a href="#cb43-18" tabindex="-1"></a><span class="fu">dim</span>(data_long)</span></code></pre></div>
+<pre><code>## [1] 14502    11</code></pre>
+<p>Centering Variables</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="co"># factor categorical vars </span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> data_long <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a>    <span class="at">sex =</span> <span class="fu">factor</span>(sex),</span>
+<span id="cb45-5"><a href="#cb45-5" tabindex="-1"></a>    <span class="at">race =</span> <span class="fu">factor</span>(race),</span>
+<span id="cb45-6"><a href="#cb45-6" tabindex="-1"></a>    <span class="at">education =</span> <span class="fu">factor</span>(education)</span>
+<span id="cb45-7"><a href="#cb45-7" tabindex="-1"></a>  )</span>
+<span id="cb45-8"><a href="#cb45-8" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" tabindex="-1"></a><span class="co"># prep (making it so that it&#39;s easier to run since lots of levels)</span></span>
+<span id="cb45-10"><a href="#cb45-10" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> data_long <span class="sc">%&gt;%</span></span>
+<span id="cb45-11"><a href="#cb45-11" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb45-12"><a href="#cb45-12" tabindex="-1"></a>    <span class="at">race_simple =</span> <span class="fu">case_when</span>(</span>
+<span id="cb45-13"><a href="#cb45-13" tabindex="-1"></a>      race <span class="sc">==</span> <span class="st">&quot;1&quot;</span> <span class="sc">~</span> <span class="st">&quot;White&quot;</span>,</span>
+<span id="cb45-14"><a href="#cb45-14" tabindex="-1"></a>      race <span class="sc">==</span> <span class="st">&quot;2&quot;</span> <span class="sc">~</span> <span class="st">&quot;Black&quot;</span>,</span>
+<span id="cb45-15"><a href="#cb45-15" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;Other&quot;</span></span>
+<span id="cb45-16"><a href="#cb45-16" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="fu">factor</span>(),</span>
+<span id="cb45-17"><a href="#cb45-17" tabindex="-1"></a>    <span class="at">education_simple =</span> <span class="fu">case_when</span>(</span>
+<span id="cb45-18"><a href="#cb45-18" tabindex="-1"></a>      education <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>) <span class="sc">~</span> <span class="st">&quot;HS or Less&quot;</span>,</span>
+<span id="cb45-19"><a href="#cb45-19" tabindex="-1"></a>      education <span class="sc">==</span> <span class="st">&quot;3&quot;</span> <span class="sc">~</span> <span class="st">&quot;Some College&quot;</span>,</span>
+<span id="cb45-20"><a href="#cb45-20" tabindex="-1"></a>      education <span class="sc">==</span> <span class="st">&quot;4&quot;</span> <span class="sc">~</span> <span class="st">&quot;College or More&quot;</span></span>
+<span id="cb45-21"><a href="#cb45-21" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span> <span class="fu">factor</span>()</span>
+<span id="cb45-22"><a href="#cb45-22" tabindex="-1"></a>  )</span>
+<span id="cb45-23"><a href="#cb45-23" tabindex="-1"></a></span>
+<span id="cb45-24"><a href="#cb45-24" tabindex="-1"></a><span class="co"># all centering together after cleaning</span></span>
+<span id="cb45-25"><a href="#cb45-25" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> data_long <span class="sc">%&gt;%</span></span>
+<span id="cb45-26"><a href="#cb45-26" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb45-27"><a href="#cb45-27" tabindex="-1"></a>    <span class="at">age_c =</span> age <span class="sc">-</span> <span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb45-28"><a href="#cb45-28" tabindex="-1"></a>    <span class="at">income_c =</span> income <span class="sc">-</span> <span class="fu">mean</span>(income, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb45-29"><a href="#cb45-29" tabindex="-1"></a>    <span class="at">income_scaled =</span> income_c <span class="sc">/</span> <span class="dv">10000</span>,</span>
+<span id="cb45-30"><a href="#cb45-30" tabindex="-1"></a>    <span class="at">chronic_c =</span> chronic <span class="sc">-</span> <span class="fu">mean</span>(chronic, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb45-31"><a href="#cb45-31" tabindex="-1"></a>    <span class="at">wave_c =</span> wave <span class="sc">-</span> <span class="fu">mean</span>(wave, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb45-32"><a href="#cb45-32" tabindex="-1"></a>    <span class="at">fin_suff_mean =</span> <span class="fu">ave</span>(fin_suff, person_id,</span>
+<span id="cb45-33"><a href="#cb45-33" tabindex="-1"></a>                        <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb45-34"><a href="#cb45-34" tabindex="-1"></a>  )</span>
+<span id="cb45-35"><a href="#cb45-35" tabindex="-1"></a></span>
+<span id="cb45-36"><a href="#cb45-36" tabindex="-1"></a><span class="co"># then save</span></span>
+<span id="cb45-37"><a href="#cb45-37" tabindex="-1"></a><span class="fu">saveRDS</span>(data_long, <span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/data_long.rds&quot;</span>)</span></code></pre></div>
+<div id="hloc-for-self-models" class="section level1">
+<h1>HLOC for Self Models</h1>
+<div id="iccmodel-0" class="section level2">
+<h2>ICC/Model 0</h2>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/fit0.rds&quot;</span>)) {</span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>  fit0 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/fit0.rds&quot;</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a>  fit0 <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a>    hloc_self <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> person_id),</span>
+<span id="cb46-6"><a href="#cb46-6" tabindex="-1"></a>    <span class="at">data =</span> data_long,</span>
+<span id="cb46-7"><a href="#cb46-7" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">gaussian</span>(),</span>
+<span id="cb46-8"><a href="#cb46-8" tabindex="-1"></a>    <span class="at">prior =</span> <span class="fu">c</span>(</span>
+<span id="cb46-9"><a href="#cb46-9" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">6</span>, <span class="dv">2</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb46-10"><a href="#cb46-10" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
+<span id="cb46-11"><a href="#cb46-11" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sigma)</span>
+<span id="cb46-12"><a href="#cb46-12" tabindex="-1"></a>    ),</span>
+<span id="cb46-13"><a href="#cb46-13" tabindex="-1"></a>    <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb46-14"><a href="#cb46-14" tabindex="-1"></a>    <span class="at">iter =</span> <span class="dv">2000</span>,</span>
+<span id="cb46-15"><a href="#cb46-15" tabindex="-1"></a>    <span class="at">warmup =</span> <span class="dv">1000</span>,</span>
+<span id="cb46-16"><a href="#cb46-16" tabindex="-1"></a>    <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb46-17"><a href="#cb46-17" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">42</span>,</span>
+<span id="cb46-18"><a href="#cb46-18" tabindex="-1"></a>    <span class="at">backend =</span> <span class="st">&quot;cmdstanr&quot;</span></span>
+<span id="cb46-19"><a href="#cb46-19" tabindex="-1"></a>  )</span>
+<span id="cb46-20"><a href="#cb46-20" tabindex="-1"></a>  <span class="fu">saveRDS</span>(fit0, <span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/fit0.rds&quot;</span>)</span>
+<span id="cb46-21"><a href="#cb46-21" tabindex="-1"></a>}</span>
+<span id="cb46-22"><a href="#cb46-22" tabindex="-1"></a></span>
+<span id="cb46-23"><a href="#cb46-23" tabindex="-1"></a><span class="co"># these run regardless</span></span>
+<span id="cb46-24"><a href="#cb46-24" tabindex="-1"></a><span class="fu">summary</span>(fit0)</span></code></pre></div>
+<pre><code>## Loading required namespace: rstan</code></pre>
+<pre><code>##  Family: gaussian 
+##   Links: mu = identity 
+## Formula: hloc_self ~ 1 + (1 | person_id) 
+##    Data: data_long (Number of observations: 13225) 
+##   Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+##          total post-warmup draws = 4000
+## 
+## Multilevel Hyperparameters:
+## ~person_id (Number of levels: 6445) 
+##               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sd(Intercept)     0.53      0.01     0.51     0.55 1.00     1063     1960
+## 
+## Regression Coefficients:
+##           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## Intercept     6.08      0.01     6.07     6.10 1.00     2760     2726
+## 
+## Further Distributional Parameters:
+##       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sigma     0.64      0.01     0.63     0.65 1.00     1701     2199
+## 
+## Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
+## and Tail_ESS are effective sample size measures, and Rhat is the potential
+## scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>var_components <span class="ot">&lt;-</span> <span class="fu">VarCorr</span>(fit0)</span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>var_between <span class="ot">&lt;-</span> var_components<span class="sc">$</span>person_id<span class="sc">$</span>sd[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>var_within <span class="ot">&lt;-</span> var_components<span class="sc">$</span>residual__<span class="sc">$</span>sd[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a>icc <span class="ot">&lt;-</span> var_between <span class="sc">/</span> (var_between <span class="sc">+</span> var_within)</span>
+<span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a>icc</span></code></pre></div>
+<pre><code>## [1] 0.4087881</code></pre>
+<p>The null model partitioned variance in internal health LOC into
+between-person and within-person components. The ICC of 0.41 indicates
+that 41% of total variance reflects stable individual differences, with
+the remaining 59% capturing within-person fluctuation across waves. This
+confirms that MLM is appropriate and that there is meaningful change to
+explain over time.</p>
+</div>
+<div id="level-1-model" class="section level2">
+<h2>Level 1 Model</h2>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit1.rds&quot;</span>)) {</span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a>  fit1 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit1.rds&quot;</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb51-4"><a href="#cb51-4" tabindex="-1"></a>  fit1 <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb51-5"><a href="#cb51-5" tabindex="-1"></a>    hloc_self <span class="sc">~</span> </span>
+<span id="cb51-6"><a href="#cb51-6" tabindex="-1"></a>      wave_c <span class="sc">*</span> fin_suff_mean <span class="sc">+</span></span>
+<span id="cb51-7"><a href="#cb51-7" tabindex="-1"></a>      (<span class="dv">1</span> <span class="sc">+</span> wave_c <span class="sc">|</span> person_id),</span>
+<span id="cb51-8"><a href="#cb51-8" tabindex="-1"></a>    <span class="at">data =</span> data_long,</span>
+<span id="cb51-9"><a href="#cb51-9" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">gaussian</span>(),</span>
+<span id="cb51-10"><a href="#cb51-10" tabindex="-1"></a>    <span class="at">prior =</span> <span class="fu">c</span>(</span>
+<span id="cb51-11"><a href="#cb51-11" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">6</span>, <span class="dv">2</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb51-12"><a href="#cb51-12" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b),</span>
+<span id="cb51-13"><a href="#cb51-13" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
+<span id="cb51-14"><a href="#cb51-14" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sigma),</span>
+<span id="cb51-15"><a href="#cb51-15" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor)</span>
+<span id="cb51-16"><a href="#cb51-16" tabindex="-1"></a>    ),</span>
+<span id="cb51-17"><a href="#cb51-17" tabindex="-1"></a>    <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb51-18"><a href="#cb51-18" tabindex="-1"></a>    <span class="at">iter =</span> <span class="dv">4000</span>,</span>
+<span id="cb51-19"><a href="#cb51-19" tabindex="-1"></a>    <span class="at">warmup =</span> <span class="dv">1000</span>,</span>
+<span id="cb51-20"><a href="#cb51-20" tabindex="-1"></a>    <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb51-21"><a href="#cb51-21" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">42</span>,</span>
+<span id="cb51-22"><a href="#cb51-22" tabindex="-1"></a>    <span class="at">backend =</span> <span class="st">&quot;cmdstanr&quot;</span></span>
+<span id="cb51-23"><a href="#cb51-23" tabindex="-1"></a>  )</span>
+<span id="cb51-24"><a href="#cb51-24" tabindex="-1"></a>  <span class="fu">saveRDS</span>(fit1, <span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit1.rds&quot;</span>)</span>
+<span id="cb51-25"><a href="#cb51-25" tabindex="-1"></a>}</span>
+<span id="cb51-26"><a href="#cb51-26" tabindex="-1"></a></span>
+<span id="cb51-27"><a href="#cb51-27" tabindex="-1"></a><span class="fu">summary</span>(fit1)</span></code></pre></div>
+<pre><code>## Warning: There were 5 divergent transitions after warmup. Increasing
+## adapt_delta above 0.8 may help. See
+## http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup</code></pre>
+<pre><code>##  Family: gaussian 
+##   Links: mu = identity 
+## Formula: hloc_self ~ wave_c * fin_suff_mean + (1 + wave_c | person_id) 
+##    Data: data_long (Number of observations: 13168) 
+##   Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+##          total post-warmup draws = 12000
+## 
+## Multilevel Hyperparameters:
+## ~person_id (Number of levels: 6390) 
+##                       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+## sd(Intercept)             0.53      0.01     0.51     0.54 1.00     2932
+## sd(wave_c)                0.02      0.01     0.00     0.05 1.00     1989
+## cor(Intercept,wave_c)    -0.12      0.37    -0.79     0.68 1.00    11072
+##                       Tail_ESS
+## sd(Intercept)             5661
+## sd(wave_c)                2971
+## cor(Intercept,wave_c)     6348
+## 
+## Regression Coefficients:
+##                      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+## Intercept                6.34      0.03     6.28     6.41 1.00     6110
+## wave_c                  -0.06      0.03    -0.12    -0.01 1.00     7804
+## fin_suff_mean           -0.13      0.02    -0.16    -0.10 1.00     6275
+## wave_c:fin_suff_mean     0.00      0.01    -0.02     0.03 1.00     7869
+##                      Tail_ESS
+## Intercept                7354
+## wave_c                   7708
+## fin_suff_mean            7348
+## wave_c:fin_suff_mean     7540
+## 
+## Further Distributional Parameters:
+##       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sigma     0.63      0.01     0.62     0.65 1.00     4192     7162
+## 
+## Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
+## and Tail_ESS are effective sample size measures, and Rhat is the potential
+## scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+<p>Model 1 tested whether chronic financial insufficiency predicted
+internal health LOC trajectories over 20 years, and whether its effect
+changed over time. Financial insufficiency was associated with lower
+internal health LOC (β = -0.13, 95% CI [-0.16, -0.10]), but the wave ×
+financial insufficiency interaction was null (β = 0.00, 95% CI [-0.02,
+0.03]) and random slope variance was negligible (SD = 0.02), indicating
+that trajectories did not meaningfully differ across people or financial
+groups. Model 2 therefore simplifies to a random intercept only.</p>
+</div>
+<div id="level-2-model" class="section level2">
+<h2>Level 2 model</h2>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="co"># now fit 2 </span></span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit2.rds&quot;</span>)) {</span>
+<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a>  fit2 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit2.rds&quot;</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb54-5"><a href="#cb54-5" tabindex="-1"></a>  fit2 <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb54-6"><a href="#cb54-6" tabindex="-1"></a>    hloc_self <span class="sc">~</span> </span>
+<span id="cb54-7"><a href="#cb54-7" tabindex="-1"></a>      wave_c <span class="sc">+</span></span>
+<span id="cb54-8"><a href="#cb54-8" tabindex="-1"></a>      fin_suff_mean <span class="sc">+</span></span>
+<span id="cb54-9"><a href="#cb54-9" tabindex="-1"></a>      age_c <span class="sc">+</span> sex <span class="sc">+</span> race_simple <span class="sc">+</span> education_simple <span class="sc">+</span> </span>
+<span id="cb54-10"><a href="#cb54-10" tabindex="-1"></a>      income_scaled <span class="sc">+</span> chronic_c <span class="sc">+</span></span>
+<span id="cb54-11"><a href="#cb54-11" tabindex="-1"></a>      (<span class="dv">1</span> <span class="sc">|</span> person_id),</span>
+<span id="cb54-12"><a href="#cb54-12" tabindex="-1"></a>    <span class="at">data =</span> data_long,</span>
+<span id="cb54-13"><a href="#cb54-13" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">gaussian</span>(),</span>
+<span id="cb54-14"><a href="#cb54-14" tabindex="-1"></a>    <span class="at">prior =</span> <span class="fu">c</span>(</span>
+<span id="cb54-15"><a href="#cb54-15" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">6</span>, <span class="dv">2</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb54-16"><a href="#cb54-16" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b),</span>
+<span id="cb54-17"><a href="#cb54-17" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
+<span id="cb54-18"><a href="#cb54-18" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sigma)</span>
+<span id="cb54-19"><a href="#cb54-19" tabindex="-1"></a>    ),</span>
+<span id="cb54-20"><a href="#cb54-20" tabindex="-1"></a>    <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb54-21"><a href="#cb54-21" tabindex="-1"></a>    <span class="at">iter =</span> <span class="dv">4000</span>,</span>
+<span id="cb54-22"><a href="#cb54-22" tabindex="-1"></a>    <span class="at">warmup =</span> <span class="dv">1000</span>,</span>
+<span id="cb54-23"><a href="#cb54-23" tabindex="-1"></a>    <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb54-24"><a href="#cb54-24" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">42</span>,</span>
+<span id="cb54-25"><a href="#cb54-25" tabindex="-1"></a>    <span class="at">backend =</span> <span class="st">&quot;cmdstanr&quot;</span>,</span>
+<span id="cb54-26"><a href="#cb54-26" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">list</span>(<span class="at">max_treedepth =</span> <span class="dv">15</span>, <span class="at">adapt_delta =</span> <span class="fl">0.95</span>) <span class="co"># reduce divergences</span></span>
+<span id="cb54-27"><a href="#cb54-27" tabindex="-1"></a>  )</span>
+<span id="cb54-28"><a href="#cb54-28" tabindex="-1"></a>  <span class="fu">saveRDS</span>(fit2, <span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit2.rds&quot;</span>)</span>
+<span id="cb54-29"><a href="#cb54-29" tabindex="-1"></a>}</span>
+<span id="cb54-30"><a href="#cb54-30" tabindex="-1"></a></span>
+<span id="cb54-31"><a href="#cb54-31" tabindex="-1"></a><span class="fu">summary</span>(fit2)</span></code></pre></div>
+<pre><code>##  Family: gaussian 
+##   Links: mu = identity 
+## Formula: hloc_self ~ wave_c + fin_suff_mean + age_c + sex + race_simple + education_simple + income_scaled + chronic_c + (1 | person_id) 
+##    Data: data_long (Number of observations: 12637) 
+##   Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+##          total post-warmup draws = 12000
+## 
+## Multilevel Hyperparameters:
+## ~person_id (Number of levels: 6061) 
+##               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sd(Intercept)     0.51      0.01     0.49     0.53 1.00     3584     6320
+## 
+## Regression Coefficients:
+##                             Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+## Intercept                       6.27      0.06     6.16     6.38 1.00     9706
+## wave_c                         -0.06      0.01    -0.08    -0.05 1.00    25341
+## fin_suff_mean                  -0.08      0.02    -0.11    -0.05 1.00    10687
+## age_c                           0.00      0.00    -0.00     0.00 1.00    12263
+## sex2                            0.13      0.02     0.10     0.17 1.00    10326
+## race_simpleOther               -0.13      0.06    -0.25    -0.01 1.00    10069
+## race_simpleWhite               -0.04      0.04    -0.13     0.04 1.00     9790
+## education_simpleHSorLess       -0.10      0.02    -0.14    -0.05 1.00     9244
+## education_simpleSomeCollege    -0.03      0.02    -0.08     0.01 1.00     9327
+## income_scaled                   0.00      0.00    -0.00     0.01 1.00    11179
+## chronic_c                      -0.04      0.00    -0.05    -0.03 1.00    11224
+##                             Tail_ESS
+## Intercept                       9266
+## wave_c                          9818
+## fin_suff_mean                  10292
+## age_c                          10068
+## sex2                           10388
+## race_simpleOther                9606
+## race_simpleWhite                9394
+## education_simpleHSorLess        9786
+## education_simpleSomeCollege     9129
+## income_scaled                   9967
+## chronic_c                      10273
+## 
+## Further Distributional Parameters:
+##       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sigma     0.63      0.01     0.62     0.64 1.00     5658     8605
+## 
+## Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
+## and Tail_ESS are effective sample size measures, and Rhat is the potential
+## scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+<p>Model 2 added demographic covariates to test whether financial
+insufficiency predicts internal health LOC above and beyond age, sex,
+race, education, objective income, and chronic illness. It does — people
+with chronically higher financial insufficiency reported meaningfully
+lower internal health LOC (β = -0.08, 95% CI [-0.11, -0.05]), while
+objective income showed essentially no independent association (β =
+0.00). This suggests the psychological experience of financial stress,
+not material wealth itself, is what erodes perceived health agency.</p>
+</div>
+</div>
+<div id="hloc-others" class="section level1">
+<h1>HLOC Others</h1>
+<div id="model-0" class="section level2">
+<h2>Model 0</h2>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="co"># Model 0: Others</span></span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit0_o.rds&quot;</span>)) {</span>
+<span id="cb56-3"><a href="#cb56-3" tabindex="-1"></a>  fit0_o <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit0_o.rds&quot;</span>)</span>
+<span id="cb56-4"><a href="#cb56-4" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb56-5"><a href="#cb56-5" tabindex="-1"></a>  fit0_o <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb56-6"><a href="#cb56-6" tabindex="-1"></a>    hloc_others <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> person_id),</span>
+<span id="cb56-7"><a href="#cb56-7" tabindex="-1"></a>    <span class="at">data =</span> data_long,</span>
+<span id="cb56-8"><a href="#cb56-8" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">gaussian</span>(),</span>
+<span id="cb56-9"><a href="#cb56-9" tabindex="-1"></a>    <span class="at">prior =</span> <span class="fu">c</span>(</span>
+<span id="cb56-10"><a href="#cb56-10" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="at">class =</span> Intercept),  <span class="co"># note: mean is ~3 not 6</span></span>
+<span id="cb56-11"><a href="#cb56-11" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
+<span id="cb56-12"><a href="#cb56-12" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sigma)</span>
+<span id="cb56-13"><a href="#cb56-13" tabindex="-1"></a>    ),</span>
+<span id="cb56-14"><a href="#cb56-14" tabindex="-1"></a>    <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb56-15"><a href="#cb56-15" tabindex="-1"></a>    <span class="at">iter =</span> <span class="dv">2000</span>,</span>
+<span id="cb56-16"><a href="#cb56-16" tabindex="-1"></a>    <span class="at">warmup =</span> <span class="dv">1000</span>,</span>
+<span id="cb56-17"><a href="#cb56-17" tabindex="-1"></a>    <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb56-18"><a href="#cb56-18" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">42</span>,</span>
+<span id="cb56-19"><a href="#cb56-19" tabindex="-1"></a>    <span class="at">backend =</span> <span class="st">&quot;cmdstanr&quot;</span></span>
+<span id="cb56-20"><a href="#cb56-20" tabindex="-1"></a>  )</span>
+<span id="cb56-21"><a href="#cb56-21" tabindex="-1"></a>  <span class="fu">saveRDS</span>(fit0_o, <span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit0_o.rds&quot;</span>)</span>
+<span id="cb56-22"><a href="#cb56-22" tabindex="-1"></a>}</span>
+<span id="cb56-23"><a href="#cb56-23" tabindex="-1"></a></span>
+<span id="cb56-24"><a href="#cb56-24" tabindex="-1"></a><span class="fu">summary</span>(fit0_o)</span></code></pre></div>
+<pre><code>##  Family: gaussian 
+##   Links: mu = identity 
+## Formula: hloc_others ~ 1 + (1 | person_id) 
+##    Data: data_long (Number of observations: 13213) 
+##   Draws: 4 chains, each with iter = 2000; warmup = 1000; thin = 1;
+##          total post-warmup draws = 4000
+## 
+## Multilevel Hyperparameters:
+## ~person_id (Number of levels: 6441) 
+##               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sd(Intercept)     0.86      0.02     0.83     0.89 1.00      996     1989
+## 
+## Regression Coefficients:
+##           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## Intercept     3.28      0.01     3.25     3.31 1.00     3010     3197
+## 
+## Further Distributional Parameters:
+##       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sigma     1.13      0.01     1.11     1.14 1.00     1611     2436
+## 
+## Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
+## and Tail_ESS are effective sample size measures, and Rhat is the potential
+## scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>var_components_o <span class="ot">&lt;-</span> <span class="fu">VarCorr</span>(fit0_o)</span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a>var_between_o <span class="ot">&lt;-</span> var_components_o<span class="sc">$</span>person_id<span class="sc">$</span>sd[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a>var_within_o <span class="ot">&lt;-</span> var_components_o<span class="sc">$</span>residual__<span class="sc">$</span>sd[<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb58-4"><a href="#cb58-4" tabindex="-1"></a>icc_o <span class="ot">&lt;-</span> var_between_o <span class="sc">/</span> (var_between_o <span class="sc">+</span> var_within_o)</span>
+<span id="cb58-5"><a href="#cb58-5" tabindex="-1"></a>icc_o</span></code></pre></div>
+<pre><code>## [1] 0.367357</code></pre>
+<p>The null model for external health LOC yielded an ICC of 0.37,
+indicating that 37% of variance reflects stable between-person
+differences. Again, this is sufficient to justify MLM and suggests
+meaningful individual variation in external health attribution.</p>
+</div>
+<div id="model-1" class="section level2">
+<h2>Model 1</h2>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a><span class="co"># Model 1: Others</span></span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit1_o.rds&quot;</span>)) {</span>
+<span id="cb60-3"><a href="#cb60-3" tabindex="-1"></a>  fit1_o <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit1_o.rds&quot;</span>)</span>
+<span id="cb60-4"><a href="#cb60-4" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb60-5"><a href="#cb60-5" tabindex="-1"></a>  fit1_o <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb60-6"><a href="#cb60-6" tabindex="-1"></a>    hloc_others <span class="sc">~</span> </span>
+<span id="cb60-7"><a href="#cb60-7" tabindex="-1"></a>      wave_c <span class="sc">*</span> fin_suff_mean <span class="sc">+</span></span>
+<span id="cb60-8"><a href="#cb60-8" tabindex="-1"></a>      (<span class="dv">1</span> <span class="sc">+</span> wave_c <span class="sc">|</span> person_id),</span>
+<span id="cb60-9"><a href="#cb60-9" tabindex="-1"></a>    <span class="at">data =</span> data_long,</span>
+<span id="cb60-10"><a href="#cb60-10" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">gaussian</span>(),</span>
+<span id="cb60-11"><a href="#cb60-11" tabindex="-1"></a>    <span class="at">prior =</span> <span class="fu">c</span>(</span>
+<span id="cb60-12"><a href="#cb60-12" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb60-13"><a href="#cb60-13" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b),</span>
+<span id="cb60-14"><a href="#cb60-14" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
+<span id="cb60-15"><a href="#cb60-15" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sigma),</span>
+<span id="cb60-16"><a href="#cb60-16" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor)</span>
+<span id="cb60-17"><a href="#cb60-17" tabindex="-1"></a>    ),</span>
+<span id="cb60-18"><a href="#cb60-18" tabindex="-1"></a>    <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb60-19"><a href="#cb60-19" tabindex="-1"></a>    <span class="at">iter =</span> <span class="dv">4000</span>,</span>
+<span id="cb60-20"><a href="#cb60-20" tabindex="-1"></a>    <span class="at">warmup =</span> <span class="dv">1000</span>,</span>
+<span id="cb60-21"><a href="#cb60-21" tabindex="-1"></a>    <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb60-22"><a href="#cb60-22" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">42</span>,</span>
+<span id="cb60-23"><a href="#cb60-23" tabindex="-1"></a>    <span class="at">backend =</span> <span class="st">&quot;cmdstanr&quot;</span></span>
+<span id="cb60-24"><a href="#cb60-24" tabindex="-1"></a>  )</span>
+<span id="cb60-25"><a href="#cb60-25" tabindex="-1"></a>  <span class="fu">saveRDS</span>(fit1_o, <span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit1_o.rds&quot;</span>)</span>
+<span id="cb60-26"><a href="#cb60-26" tabindex="-1"></a>}</span>
+<span id="cb60-27"><a href="#cb60-27" tabindex="-1"></a></span>
+<span id="cb60-28"><a href="#cb60-28" tabindex="-1"></a><span class="fu">summary</span>(fit1_o)</span></code></pre></div>
+<pre><code>##  Family: gaussian 
+##   Links: mu = identity 
+## Formula: hloc_others ~ wave_c * fin_suff_mean + (1 + wave_c | person_id) 
+##    Data: data_long (Number of observations: 13156) 
+##   Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+##          total post-warmup draws = 12000
+## 
+## Multilevel Hyperparameters:
+## ~person_id (Number of levels: 6386) 
+##                       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+## sd(Intercept)             0.83      0.02     0.80     0.86 1.00     2057
+## sd(wave_c)                0.24      0.04     0.15     0.32 1.00      475
+## cor(Intercept,wave_c)    -0.55      0.11    -0.80    -0.38 1.00      584
+##                       Tail_ESS
+## sd(Intercept)             4613
+## sd(wave_c)                1148
+## cor(Intercept,wave_c)     1172
+## 
+## Regression Coefficients:
+##                      Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+## Intercept                2.46      0.05     2.36     2.57 1.00     6541
+## wave_c                  -0.15      0.05    -0.25    -0.06 1.00     7036
+## fin_suff_mean            0.40      0.03     0.35     0.45 1.00     6687
+## wave_c:fin_suff_mean     0.05      0.02     0.00     0.10 1.00     6952
+##                      Tail_ESS
+## Intercept                8061
+## wave_c                   8172
+## fin_suff_mean            8258
+## wave_c:fin_suff_mean     7969
+## 
+## Further Distributional Parameters:
+##       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sigma     1.10      0.01     1.07     1.12 1.00      706     1873
+## 
+## Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
+## and Tail_ESS are effective sample size measures, and Rhat is the potential
+## scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+<p>Model 1 tested whether chronic financial insufficiency predicted
+external health LOC trajectories over time. Financial insufficiency was
+strongly and positively associated with external LOC (β = 0.40, 95% CI
+[0.35, 0.45]) — opposite in direction to the internal LOC finding —
+indicating that financially insufficient people attribute health control
+more to doctors and external forces. A credible interaction with wave (β
+= 0.05, 95% CI [0.00, 0.10]) and substantial random slope variance (SD =
+0.24) suggested that trajectories differed meaningfully across people,
+so Model 2 retains the random slope structure.</p>
+</div>
+<div id="model-2" class="section level2">
+<h2>Model 2</h2>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit2_o.rds&quot;</span>)) {</span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a>  fit2_o <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit2_o.rds&quot;</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb62-4"><a href="#cb62-4" tabindex="-1"></a>  fit2_o <span class="ot">&lt;-</span> <span class="fu">brm</span>(</span>
+<span id="cb62-5"><a href="#cb62-5" tabindex="-1"></a>    hloc_others <span class="sc">~</span> </span>
+<span id="cb62-6"><a href="#cb62-6" tabindex="-1"></a>      wave_c <span class="sc">*</span> fin_suff_mean <span class="sc">+</span></span>
+<span id="cb62-7"><a href="#cb62-7" tabindex="-1"></a>      age_c <span class="sc">+</span> sex <span class="sc">+</span> race_simple <span class="sc">+</span> education_simple <span class="sc">+</span></span>
+<span id="cb62-8"><a href="#cb62-8" tabindex="-1"></a>      income_scaled <span class="sc">+</span> chronic_c <span class="sc">+</span></span>
+<span id="cb62-9"><a href="#cb62-9" tabindex="-1"></a>      (<span class="dv">1</span> <span class="sc">+</span> wave_c <span class="sc">|</span> person_id),</span>
+<span id="cb62-10"><a href="#cb62-10" tabindex="-1"></a>    <span class="at">data =</span> data_long,</span>
+<span id="cb62-11"><a href="#cb62-11" tabindex="-1"></a>    <span class="at">family =</span> <span class="fu">gaussian</span>(),</span>
+<span id="cb62-12"><a href="#cb62-12" tabindex="-1"></a>    <span class="at">prior =</span> <span class="fu">c</span>(</span>
+<span id="cb62-13"><a href="#cb62-13" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">3</span>, <span class="dv">2</span>), <span class="at">class =</span> Intercept),</span>
+<span id="cb62-14"><a href="#cb62-14" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">class =</span> b),</span>
+<span id="cb62-15"><a href="#cb62-15" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sd),</span>
+<span id="cb62-16"><a href="#cb62-16" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), <span class="at">class =</span> sigma),</span>
+<span id="cb62-17"><a href="#cb62-17" tabindex="-1"></a>      <span class="fu">prior</span>(<span class="fu">lkj</span>(<span class="dv">2</span>), <span class="at">class =</span> cor)</span>
+<span id="cb62-18"><a href="#cb62-18" tabindex="-1"></a>    ),</span>
+<span id="cb62-19"><a href="#cb62-19" tabindex="-1"></a>    <span class="at">chains =</span> <span class="dv">4</span>,</span>
+<span id="cb62-20"><a href="#cb62-20" tabindex="-1"></a>    <span class="at">iter =</span> <span class="dv">4000</span>,</span>
+<span id="cb62-21"><a href="#cb62-21" tabindex="-1"></a>    <span class="at">warmup =</span> <span class="dv">1000</span>,</span>
+<span id="cb62-22"><a href="#cb62-22" tabindex="-1"></a>    <span class="at">cores =</span> <span class="dv">4</span>,</span>
+<span id="cb62-23"><a href="#cb62-23" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">42</span>,</span>
+<span id="cb62-24"><a href="#cb62-24" tabindex="-1"></a>    <span class="at">backend =</span> <span class="st">&quot;cmdstanr&quot;</span>,</span>
+<span id="cb62-25"><a href="#cb62-25" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">list</span>(<span class="at">max_treedepth =</span> <span class="dv">15</span>, <span class="at">adapt_delta =</span> <span class="fl">0.95</span>)</span>
+<span id="cb62-26"><a href="#cb62-26" tabindex="-1"></a>  )</span>
+<span id="cb62-27"><a href="#cb62-27" tabindex="-1"></a>  <span class="fu">saveRDS</span>(fit2_o, <span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/modelfit2_o.rds&quot;</span>)</span>
+<span id="cb62-28"><a href="#cb62-28" tabindex="-1"></a>}</span>
+<span id="cb62-29"><a href="#cb62-29" tabindex="-1"></a></span>
+<span id="cb62-30"><a href="#cb62-30" tabindex="-1"></a><span class="fu">summary</span>(fit2_o)</span></code></pre></div>
+<pre><code>##  Family: gaussian 
+##   Links: mu = identity 
+## Formula: hloc_others ~ wave_c * fin_suff_mean + age_c + sex + race_simple + education_simple + income_scaled + chronic_c + (1 + wave_c | person_id) 
+##    Data: data_long (Number of observations: 12626) 
+##   Draws: 4 chains, each with iter = 4000; warmup = 1000; thin = 1;
+##          total post-warmup draws = 12000
+## 
+## Multilevel Hyperparameters:
+## ~person_id (Number of levels: 6057) 
+##                       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+## sd(Intercept)             0.75      0.02     0.72     0.78 1.00     2627
+## sd(wave_c)                0.23      0.04     0.15     0.31 1.01      670
+## cor(Intercept,wave_c)    -0.61      0.11    -0.87    -0.42 1.01      788
+##                       Tail_ESS
+## sd(Intercept)             5620
+## sd(wave_c)                1452
+## cor(Intercept,wave_c)     1455
+## 
+## Regression Coefficients:
+##                             Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+## Intercept                       2.65      0.09     2.47     2.84 1.00     8944
+## wave_c                         -0.12      0.05    -0.21    -0.03 1.00    11122
+## fin_suff_mean                   0.30      0.03     0.24     0.35 1.00     9618
+## age_c                           0.02      0.00     0.01     0.02 1.00    11670
+## sex2                           -0.01      0.03    -0.06     0.05 1.00    10026
+## race_simpleOther               -0.10      0.09    -0.28     0.09 1.00     8924
+## race_simpleWhite               -0.23      0.07    -0.36    -0.09 1.00     8771
+## education_simpleHSorLess        0.42      0.04     0.35     0.49 1.00     8430
+## education_simpleSomeCollege     0.23      0.04     0.16     0.30 1.00     8285
+## income_scaled                  -0.01      0.00    -0.01    -0.01 1.00    10294
+## chronic_c                       0.04      0.01     0.03     0.05 1.00    10522
+## wave_c:fin_suff_mean            0.04      0.02    -0.01     0.09 1.00    10934
+##                             Tail_ESS
+## Intercept                       9406
+## wave_c                          9348
+## fin_suff_mean                   9675
+## age_c                           9948
+## sex2                           10390
+## race_simpleOther                9548
+## race_simpleWhite                9498
+## education_simpleHSorLess        9214
+## education_simpleSomeCollege     9110
+## income_scaled                   9740
+## chronic_c                       9937
+## wave_c:fin_suff_mean            8681
+## 
+## Further Distributional Parameters:
+##       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+## sigma     1.09      0.01     1.07     1.12 1.00     1070     2915
+## 
+## Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
+## and Tail_ESS are effective sample size measures, and Rhat is the potential
+## scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
+<p>After controlling for age, sex, race, education, objective income,
+and chronic illness, financial insufficiency remained a strong positive
+predictor of external health LOC (β = 0.30, 95% CI [0.24, 0.35]). The
+wave × financial insufficiency interaction was no longer credible once
+covariates were added, suggesting the trajectory difference in Model 1
+was partially explained by demographic factors. Taken together with the
+internal HLOC results, chronic financial insufficiency is associated
+with a reorientation of health control beliefs; it simultaneously
+decreases internal agency and amplifies external attribution above and
+beyond what objective income alone captures.</p>
+</div>
+</div>
+<div id="model-selection-and-sensitivity-analyses"
+class="section level1">
+<h1>Model Selection and Sensitivity analyses</h1>
+<p>Model selection was guided by theoretical considerations and
+inspection of random effects variance. For LOC-Self, the negligible
+random slope variance (SD = 0.02) and null wave × financial
+insufficiency interaction justified simplifying to a random intercept
+only in Model 2. For LOC-Others, substantial random slope variance (SD =
+0.24) supported retaining the random slope structure throughout.</p>
+</div>
+<div id="attrition" class="section level1">
+<h1>Attrition</h1>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="co"># Create n_waves variable in data_long</span></span>
+<span id="cb64-2"><a href="#cb64-2" tabindex="-1"></a>data_long <span class="ot">&lt;-</span> data_long <span class="sc">%&gt;%</span></span>
+<span id="cb64-3"><a href="#cb64-3" tabindex="-1"></a>  <span class="fu">group_by</span>(person_id) <span class="sc">%&gt;%</span></span>
+<span id="cb64-4"><a href="#cb64-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_waves =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(hloc_self))) <span class="sc">%&gt;%</span></span>
+<span id="cb64-5"><a href="#cb64-5" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb64-6"><a href="#cb64-6" tabindex="-1"></a></span>
+<span id="cb64-7"><a href="#cb64-7" tabindex="-1"></a><span class="co"># Now run attrition analysis</span></span>
+<span id="cb64-8"><a href="#cb64-8" tabindex="-1"></a>data_long <span class="sc">%&gt;%</span></span>
+<span id="cb64-9"><a href="#cb64-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dropout =</span> n_waves <span class="sc">&lt;</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb64-10"><a href="#cb64-10" tabindex="-1"></a>  <span class="fu">group_by</span>(dropout) <span class="sc">%&gt;%</span></span>
+<span id="cb64-11"><a href="#cb64-11" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb64-12"><a href="#cb64-12" tabindex="-1"></a>    <span class="at">n_people =</span> <span class="fu">n_distinct</span>(person_id),</span>
+<span id="cb64-13"><a href="#cb64-13" tabindex="-1"></a>    <span class="at">mean_fin =</span> <span class="fu">mean</span>(fin_suff, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb64-14"><a href="#cb64-14" tabindex="-1"></a>    <span class="at">mean_hloc_self =</span> <span class="fu">mean</span>(hloc_self, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb64-15"><a href="#cb64-15" tabindex="-1"></a>    <span class="at">mean_hloc_others =</span> <span class="fu">mean</span>(hloc_others, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb64-16"><a href="#cb64-16" tabindex="-1"></a>    <span class="at">mean_income =</span> <span class="fu">mean</span>(income, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb64-17"><a href="#cb64-17" tabindex="-1"></a>    <span class="at">mean_age =</span> <span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb64-18"><a href="#cb64-18" tabindex="-1"></a>    <span class="at">mean_chronic =</span> <span class="fu">mean</span>(chronic, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb64-19"><a href="#cb64-19" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 8
+##   dropout n_people mean_fin mean_hloc_self mean_hloc_others mean_income mean_age
+##   &lt;lgl&gt;      &lt;int&gt;    &lt;dbl&gt;          &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;
+## 1 FALSE       2631     1.96           6.11             3.13      82189.     46.3
+## 2 TRUE        3814     2.11           6.05             3.43      70169.     46.7
+## # ℹ 1 more variable: mean_chronic &lt;dbl&gt;</code></pre>
+<p>Visualization (unadjusted means)</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a>traj_data <span class="ot">&lt;-</span> data_long <span class="sc">%&gt;%</span></span>
+<span id="cb66-2"><a href="#cb66-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(fin_suff) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(hloc_self) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(hloc_others)) <span class="sc">%&gt;%</span></span>
+<span id="cb66-3"><a href="#cb66-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fin_group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb66-4"><a href="#cb66-4" tabindex="-1"></a>    fin_suff <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">&quot;More than enough&quot;</span>,</span>
+<span id="cb66-5"><a href="#cb66-5" tabindex="-1"></a>    fin_suff <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">&quot;Just enough&quot;</span>,</span>
+<span id="cb66-6"><a href="#cb66-6" tabindex="-1"></a>    fin_suff <span class="sc">==</span> <span class="dv">3</span> <span class="sc">~</span> <span class="st">&quot;Not enough&quot;</span></span>
+<span id="cb66-7"><a href="#cb66-7" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">factor</span>(<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;More than enough&quot;</span>, <span class="st">&quot;Just enough&quot;</span>, <span class="st">&quot;Not enough&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb66-8"><a href="#cb66-8" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(fin_group)) <span class="sc">%&gt;%</span></span>
+<span id="cb66-9"><a href="#cb66-9" tabindex="-1"></a>  <span class="fu">group_by</span>(wave, fin_group) <span class="sc">%&gt;%</span></span>
+<span id="cb66-10"><a href="#cb66-10" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb66-11"><a href="#cb66-11" tabindex="-1"></a>    <span class="at">mean_self   =</span> <span class="fu">mean</span>(hloc_self, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb66-12"><a href="#cb66-12" tabindex="-1"></a>    <span class="at">se_self     =</span> <span class="fu">sd</span>(hloc_self, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb66-13"><a href="#cb66-13" tabindex="-1"></a>    <span class="at">mean_others =</span> <span class="fu">mean</span>(hloc_others, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb66-14"><a href="#cb66-14" tabindex="-1"></a>    <span class="at">se_others   =</span> <span class="fu">sd</span>(hloc_others, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">n</span>()),</span>
+<span id="cb66-15"><a href="#cb66-15" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb66-16"><a href="#cb66-16" tabindex="-1"></a>  )</span>
+<span id="cb66-17"><a href="#cb66-17" tabindex="-1"></a></span>
+<span id="cb66-18"><a href="#cb66-18" tabindex="-1"></a></span>
+<span id="cb66-19"><a href="#cb66-19" tabindex="-1"></a></span>
+<span id="cb66-20"><a href="#cb66-20" tabindex="-1"></a>pub_theme <span class="ot">&lt;-</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb66-21"><a href="#cb66-21" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb66-22"><a href="#cb66-22" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>,</span>
+<span id="cb66-23"><a href="#cb66-23" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb66-24"><a href="#cb66-24" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb66-25"><a href="#cb66-25" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb66-26"><a href="#cb66-26" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">&quot;bold&quot;</span>)</span>
+<span id="cb66-27"><a href="#cb66-27" tabindex="-1"></a>  )</span>
+<span id="cb66-28"><a href="#cb66-28" tabindex="-1"></a></span>
+<span id="cb66-29"><a href="#cb66-29" tabindex="-1"></a>pd <span class="ot">&lt;-</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.15</span>)</span>
+<span id="cb66-30"><a href="#cb66-30" tabindex="-1"></a></span>
+<span id="cb66-31"><a href="#cb66-31" tabindex="-1"></a>p_self <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(traj_data, <span class="fu">aes</span>(<span class="at">x =</span> wave, <span class="at">y =</span> mean_self,</span>
+<span id="cb66-32"><a href="#cb66-32" tabindex="-1"></a>                                 <span class="at">linetype =</span> fin_group,</span>
+<span id="cb66-33"><a href="#cb66-33" tabindex="-1"></a>                                 <span class="at">shape =</span> fin_group,</span>
+<span id="cb66-34"><a href="#cb66-34" tabindex="-1"></a>                                 <span class="at">group =</span> fin_group)) <span class="sc">+</span></span>
+<span id="cb66-35"><a href="#cb66-35" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>, <span class="at">position =</span> pd) <span class="sc">+</span></span>
+<span id="cb66-36"><a href="#cb66-36" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_self <span class="sc">-</span> se_self,</span>
+<span id="cb66-37"><a href="#cb66-37" tabindex="-1"></a>                    <span class="at">ymax =</span> mean_self <span class="sc">+</span> se_self),</span>
+<span id="cb66-38"><a href="#cb66-38" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.08</span>, <span class="at">position =</span> pd) <span class="sc">+</span></span>
+<span id="cb66-39"><a href="#cb66-39" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">position =</span> pd,</span>
+<span id="cb66-40"><a href="#cb66-40" tabindex="-1"></a>             <span class="at">bg =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb66-41"><a href="#cb66-41" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb66-42"><a href="#cb66-42" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;1995&quot;</span>, <span class="st">&quot;2004&quot;</span>, <span class="st">&quot;2013&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb66-43"><a href="#cb66-43" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(</span>
+<span id="cb66-44"><a href="#cb66-44" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>, <span class="st">&quot;dotdash&quot;</span>),</span>
+<span id="cb66-45"><a href="#cb66-45" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;More than enough&quot;</span>, <span class="st">&quot;Just enough&quot;</span>, <span class="st">&quot;Not enough&quot;</span>)</span>
+<span id="cb66-46"><a href="#cb66-46" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb66-47"><a href="#cb66-47" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(</span>
+<span id="cb66-48"><a href="#cb66-48" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">24</span>, <span class="dv">22</span>),</span>
+<span id="cb66-49"><a href="#cb66-49" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;More than enough&quot;</span>, <span class="st">&quot;Just enough&quot;</span>, <span class="st">&quot;Not enough&quot;</span>)</span>
+<span id="cb66-50"><a href="#cb66-50" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb66-51"><a href="#cb66-51" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">7</span>),</span>
+<span id="cb66-52"><a href="#cb66-52" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="fl">5.5</span>, <span class="dv">6</span>, <span class="fl">6.5</span>, <span class="dv">7</span>)) <span class="sc">+</span></span>
+<span id="cb66-53"><a href="#cb66-53" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb66-54"><a href="#cb66-54" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;A. Internal Health LOC&quot;</span>,</span>
+<span id="cb66-55"><a href="#cb66-55" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb66-56"><a href="#cb66-56" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Internal LOC (mean)&quot;</span>,</span>
+<span id="cb66-57"><a href="#cb66-57" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">&quot;Financial Sufficiency&quot;</span>,</span>
+<span id="cb66-58"><a href="#cb66-58" tabindex="-1"></a>    <span class="at">shape =</span> <span class="st">&quot;Financial Sufficiency&quot;</span></span>
+<span id="cb66-59"><a href="#cb66-59" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb66-60"><a href="#cb66-60" tabindex="-1"></a>  pub_theme</span>
+<span id="cb66-61"><a href="#cb66-61" tabindex="-1"></a></span>
+<span id="cb66-62"><a href="#cb66-62" tabindex="-1"></a>p_others <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(traj_data, <span class="fu">aes</span>(<span class="at">x =</span> wave, <span class="at">y =</span> mean_others,</span>
+<span id="cb66-63"><a href="#cb66-63" tabindex="-1"></a>                                   <span class="at">linetype =</span> fin_group,</span>
+<span id="cb66-64"><a href="#cb66-64" tabindex="-1"></a>                                   <span class="at">shape =</span> fin_group,</span>
+<span id="cb66-65"><a href="#cb66-65" tabindex="-1"></a>                                   <span class="at">group =</span> fin_group)) <span class="sc">+</span></span>
+<span id="cb66-66"><a href="#cb66-66" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>, <span class="at">position =</span> pd) <span class="sc">+</span></span>
+<span id="cb66-67"><a href="#cb66-67" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_others <span class="sc">-</span> se_others,</span>
+<span id="cb66-68"><a href="#cb66-68" tabindex="-1"></a>                    <span class="at">ymax =</span> mean_others <span class="sc">+</span> se_others),</span>
+<span id="cb66-69"><a href="#cb66-69" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.08</span>, <span class="at">position =</span> pd) <span class="sc">+</span></span>
+<span id="cb66-70"><a href="#cb66-70" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>, <span class="at">position =</span> pd,</span>
+<span id="cb66-71"><a href="#cb66-71" tabindex="-1"></a>             <span class="at">bg =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb66-72"><a href="#cb66-72" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb66-73"><a href="#cb66-73" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;1995&quot;</span>, <span class="st">&quot;2004&quot;</span>, <span class="st">&quot;2013&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb66-74"><a href="#cb66-74" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(</span>
+<span id="cb66-75"><a href="#cb66-75" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>, <span class="st">&quot;dotdash&quot;</span>),</span>
+<span id="cb66-76"><a href="#cb66-76" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;More than enough&quot;</span>, <span class="st">&quot;Just enough&quot;</span>, <span class="st">&quot;Not enough&quot;</span>)</span>
+<span id="cb66-77"><a href="#cb66-77" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb66-78"><a href="#cb66-78" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(</span>
+<span id="cb66-79"><a href="#cb66-79" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">24</span>, <span class="dv">22</span>),</span>
+<span id="cb66-80"><a href="#cb66-80" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;More than enough&quot;</span>, <span class="st">&quot;Just enough&quot;</span>, <span class="st">&quot;Not enough&quot;</span>)</span>
+<span id="cb66-81"><a href="#cb66-81" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb66-82"><a href="#cb66-82" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>),</span>
+<span id="cb66-83"><a href="#cb66-83" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="fl">2.5</span>, <span class="dv">3</span>, <span class="fl">3.5</span>, <span class="dv">4</span>, <span class="fl">4.5</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb66-84"><a href="#cb66-84" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb66-85"><a href="#cb66-85" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;B. External Health LOC&quot;</span>,</span>
+<span id="cb66-86"><a href="#cb66-86" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Wave&quot;</span>,</span>
+<span id="cb66-87"><a href="#cb66-87" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;External LOC (mean)&quot;</span>,</span>
+<span id="cb66-88"><a href="#cb66-88" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">&quot;Financial Sufficiency&quot;</span>,</span>
+<span id="cb66-89"><a href="#cb66-89" tabindex="-1"></a>    <span class="at">shape =</span> <span class="st">&quot;Financial Sufficiency&quot;</span></span>
+<span id="cb66-90"><a href="#cb66-90" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb66-91"><a href="#cb66-91" tabindex="-1"></a>  pub_theme</span>
+<span id="cb66-92"><a href="#cb66-92" tabindex="-1"></a></span>
+<span id="cb66-93"><a href="#cb66-93" tabindex="-1"></a>p_self <span class="sc">/</span> p_others <span class="sc">+</span></span>
+<span id="cb66-94"><a href="#cb66-94" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>) <span class="sc">+</span></span>
+<span id="cb66-95"><a href="#cb66-95" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb66-96"><a href="#cb66-96" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Note: Y-axis ranges differ between panels to aid visualization.</span><span class="sc">\n</span><span class="st">Both variables measured on identical 1-7 scales.&quot;</span>,</span>
+<span id="cb66-97"><a href="#cb66-97" tabindex="-1"></a>    <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">9</span>))</span>
+<span id="cb66-98"><a href="#cb66-98" tabindex="-1"></a>  ) <span class="sc">&amp;</span></span>
+<span id="cb66-99"><a href="#cb66-99" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="p06_files/figure-html/visuals-sens-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;~/Desktop/R_Lab/R-Portfolio/p06/figure1_trajectories.png&quot;</span>,</span>
+<span id="cb67-2"><a href="#cb67-2" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">7</span>, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div>
+<p>Tables</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hloc_self&quot;</span>, <span class="st">&quot;hloc_others&quot;</span>, <span class="st">&quot;fin_suff&quot;</span>, </span>
+<span id="cb68-2"><a href="#cb68-2" tabindex="-1"></a>          <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;chronic&quot;</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="#cb68-4" tabindex="-1"></a>tab1 <span class="ot">&lt;-</span> <span class="fu">CreateTableOne</span>(<span class="at">vars =</span> vars, <span class="at">data =</span> data_long)</span>
+<span id="cb68-5"><a href="#cb68-5" tabindex="-1"></a><span class="fu">print</span>(tab1, <span class="at">showAllLevels =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##                          
+##                           level Overall            
+##   n                                14502           
+##   hloc_self (mean (SD))             6.09 (0.83)    
+##   hloc_others (mean (SD))           3.25 (1.41)    
+##   fin_suff (mean (SD))              2.02 (0.67)    
+##   income (mean (SD))            76943.60 (66026.01)
+##   age (mean (SD))                  46.51 (12.45)   
+##   chronic (mean (SD))               2.34 (2.43)</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a><span class="co"># Extract fixed effects from both models</span></span>
+<span id="cb70-2"><a href="#cb70-2" tabindex="-1"></a>self_results <span class="ot">&lt;-</span> <span class="fu">fixef</span>(fit2) <span class="sc">%&gt;%</span></span>
+<span id="cb70-3"><a href="#cb70-3" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb70-4"><a href="#cb70-4" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Parameter&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb70-5"><a href="#cb70-5" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb70-6"><a href="#cb70-6" tabindex="-1"></a>    <span class="at">Estimate_Self =</span> Estimate,</span>
+<span id="cb70-7"><a href="#cb70-7" tabindex="-1"></a>    <span class="at">Error_Self =</span> Est.Error,</span>
+<span id="cb70-8"><a href="#cb70-8" tabindex="-1"></a>    <span class="at">Lower_Self =</span> <span class="st">`</span><span class="at">Q2.5</span><span class="st">`</span>,</span>
+<span id="cb70-9"><a href="#cb70-9" tabindex="-1"></a>    <span class="at">Upper_Self =</span> <span class="st">`</span><span class="at">Q97.5</span><span class="st">`</span></span>
+<span id="cb70-10"><a href="#cb70-10" tabindex="-1"></a>  )</span>
+<span id="cb70-11"><a href="#cb70-11" tabindex="-1"></a></span>
+<span id="cb70-12"><a href="#cb70-12" tabindex="-1"></a>others_results <span class="ot">&lt;-</span> <span class="fu">fixef</span>(fit2_o) <span class="sc">%&gt;%</span></span>
+<span id="cb70-13"><a href="#cb70-13" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb70-14"><a href="#cb70-14" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="st">&quot;Parameter&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb70-15"><a href="#cb70-15" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb70-16"><a href="#cb70-16" tabindex="-1"></a>    <span class="at">Estimate_Others =</span> Estimate,</span>
+<span id="cb70-17"><a href="#cb70-17" tabindex="-1"></a>    <span class="at">Error_Others =</span> Est.Error,</span>
+<span id="cb70-18"><a href="#cb70-18" tabindex="-1"></a>    <span class="at">Lower_Others =</span> <span class="st">`</span><span class="at">Q2.5</span><span class="st">`</span>,</span>
+<span id="cb70-19"><a href="#cb70-19" tabindex="-1"></a>    <span class="at">Upper_Others =</span> <span class="st">`</span><span class="at">Q97.5</span><span class="st">`</span></span>
+<span id="cb70-20"><a href="#cb70-20" tabindex="-1"></a>  )</span>
+<span id="cb70-21"><a href="#cb70-21" tabindex="-1"></a></span>
+<span id="cb70-22"><a href="#cb70-22" tabindex="-1"></a><span class="co"># Merge</span></span>
+<span id="cb70-23"><a href="#cb70-23" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">left_join</span>(self_results, others_results, <span class="at">by =</span> <span class="st">&quot;Parameter&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb70-24"><a href="#cb70-24" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb70-25"><a href="#cb70-25" tabindex="-1"></a>    <span class="at">Self =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.2f [%.2f, %.2f]&quot;</span>, </span>
+<span id="cb70-26"><a href="#cb70-26" tabindex="-1"></a>                   Estimate_Self, Lower_Self, Upper_Self),</span>
+<span id="cb70-27"><a href="#cb70-27" tabindex="-1"></a>    <span class="at">Others =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.2f [%.2f, %.2f]&quot;</span>, </span>
+<span id="cb70-28"><a href="#cb70-28" tabindex="-1"></a>                     Estimate_Others, Lower_Others, Upper_Others)</span>
+<span id="cb70-29"><a href="#cb70-29" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb70-30"><a href="#cb70-30" tabindex="-1"></a>  <span class="fu">select</span>(Parameter, Self, Others)</span>
+<span id="cb70-31"><a href="#cb70-31" tabindex="-1"></a></span>
+<span id="cb70-32"><a href="#cb70-32" tabindex="-1"></a><span class="fu">print</span>(combined)</span></code></pre></div>
+<pre><code>##                      Parameter                 Self               Others
+## 1                    Intercept    6.27 [6.16, 6.38]    2.65 [2.47, 2.84]
+## 2                       wave_c -0.06 [-0.08, -0.05] -0.12 [-0.21, -0.03]
+## 3                fin_suff_mean -0.08 [-0.11, -0.05]    0.30 [0.24, 0.35]
+## 4                        age_c   0.00 [-0.00, 0.00]    0.02 [0.01, 0.02]
+## 5                         sex2    0.13 [0.10, 0.17]  -0.01 [-0.06, 0.05]
+## 6             race_simpleOther -0.13 [-0.25, -0.01]  -0.10 [-0.28, 0.09]
+## 7             race_simpleWhite  -0.04 [-0.13, 0.04] -0.23 [-0.36, -0.09]
+## 8     education_simpleHSorLess -0.10 [-0.14, -0.05]    0.42 [0.35, 0.49]
+## 9  education_simpleSomeCollege  -0.03 [-0.08, 0.01]    0.23 [0.16, 0.30]
+## 10               income_scaled   0.00 [-0.00, 0.01] -0.01 [-0.01, -0.01]
+## 11                   chronic_c -0.04 [-0.05, -0.03]    0.04 [0.03, 0.05]</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a>combined <span class="ot">&lt;-</span> combined <span class="sc">%&gt;%</span></span>
+<span id="cb72-2"><a href="#cb72-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Parameter =</span> <span class="fu">recode</span>(Parameter,</span>
+<span id="cb72-3"><a href="#cb72-3" tabindex="-1"></a>    <span class="st">&quot;Intercept&quot;</span> <span class="ot">=</span> <span class="st">&quot;Intercept&quot;</span>,</span>
+<span id="cb72-4"><a href="#cb72-4" tabindex="-1"></a>    <span class="st">&quot;wave_c&quot;</span> <span class="ot">=</span> <span class="st">&quot;Wave&quot;</span>,</span>
+<span id="cb72-5"><a href="#cb72-5" tabindex="-1"></a>    <span class="st">&quot;fin_suff_mean&quot;</span> <span class="ot">=</span> <span class="st">&quot;Financial insufficiency&quot;</span>,</span>
+<span id="cb72-6"><a href="#cb72-6" tabindex="-1"></a>    <span class="st">&quot;age_c&quot;</span> <span class="ot">=</span> <span class="st">&quot;Age&quot;</span>,</span>
+<span id="cb72-7"><a href="#cb72-7" tabindex="-1"></a>    <span class="st">&quot;sex2&quot;</span> <span class="ot">=</span> <span class="st">&quot;Sex (female)&quot;</span>,</span>
+<span id="cb72-8"><a href="#cb72-8" tabindex="-1"></a>    <span class="st">&quot;race_simpleOther&quot;</span> <span class="ot">=</span> <span class="st">&quot;Race: Other vs Black&quot;</span>,</span>
+<span id="cb72-9"><a href="#cb72-9" tabindex="-1"></a>    <span class="st">&quot;race_simpleWhite&quot;</span> <span class="ot">=</span> <span class="st">&quot;Race: White vs Black&quot;</span>,</span>
+<span id="cb72-10"><a href="#cb72-10" tabindex="-1"></a>    <span class="st">&quot;education_simpleHSorLess&quot;</span> <span class="ot">=</span> <span class="st">&quot;Education: HS or less&quot;</span>,</span>
+<span id="cb72-11"><a href="#cb72-11" tabindex="-1"></a>    <span class="st">&quot;education_simpleSomeCollege&quot;</span> <span class="ot">=</span> <span class="st">&quot;Education: Some college&quot;</span>,</span>
+<span id="cb72-12"><a href="#cb72-12" tabindex="-1"></a>    <span class="st">&quot;income_scaled&quot;</span> <span class="ot">=</span> <span class="st">&quot;Household income ($10k)&quot;</span>,</span>
+<span id="cb72-13"><a href="#cb72-13" tabindex="-1"></a>    <span class="st">&quot;chronic_c&quot;</span> <span class="ot">=</span> <span class="st">&quot;Chronic conditions&quot;</span>,</span>
+<span id="cb72-14"><a href="#cb72-14" tabindex="-1"></a>    <span class="st">&quot;wave_c:fin_suff_mean&quot;</span> <span class="ot">=</span> <span class="st">&quot;Wave × Financial insufficiency&quot;</span></span>
+<span id="cb72-15"><a href="#cb72-15" tabindex="-1"></a>  ))</span>
+<span id="cb72-16"><a href="#cb72-16" tabindex="-1"></a></span>
+<span id="cb72-17"><a href="#cb72-17" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb72-18"><a href="#cb72-18" tabindex="-1"></a><span class="fu">kable</span>(combined, </span>
+<span id="cb72-19"><a href="#cb72-19" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">&quot;Table 2. Bayesian MLM Results for Internal and External Health LOC&quot;</span>,</span>
+<span id="cb72-20"><a href="#cb72-20" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Predictor&quot;</span>, <span class="st">&quot;LOC-Self β [95% CI]&quot;</span>, </span>
+<span id="cb72-21"><a href="#cb72-21" tabindex="-1"></a>                    <span class="st">&quot;LOC-Others β [95% CI]&quot;</span>))</span></code></pre></div>
+<table>
+<caption>Table 2. Bayesian MLM Results for Internal and External Health
+LOC</caption>
+<thead>
+<tr class="header">
+<th align="left">Predictor</th>
+<th align="left">LOC-Self β [95% CI]</th>
+<th align="left">LOC-Others β [95% CI]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Intercept</td>
+<td align="left">6.27 [6.16, 6.38]</td>
+<td align="left">2.65 [2.47, 2.84]</td>
+</tr>
+<tr class="even">
+<td align="left">Wave</td>
+<td align="left">-0.06 [-0.08, -0.05]</td>
+<td align="left">-0.12 [-0.21, -0.03]</td>
+</tr>
+<tr class="odd">
+<td align="left">Financial insufficiency</td>
+<td align="left">-0.08 [-0.11, -0.05]</td>
+<td align="left">0.30 [0.24, 0.35]</td>
+</tr>
+<tr class="even">
+<td align="left">Age</td>
+<td align="left">0.00 [-0.00, 0.00]</td>
+<td align="left">0.02 [0.01, 0.02]</td>
+</tr>
+<tr class="odd">
+<td align="left">Sex (female)</td>
+<td align="left">0.13 [0.10, 0.17]</td>
+<td align="left">-0.01 [-0.06, 0.05]</td>
+</tr>
+<tr class="even">
+<td align="left">Race: Other vs Black</td>
+<td align="left">-0.13 [-0.25, -0.01]</td>
+<td align="left">-0.10 [-0.28, 0.09]</td>
+</tr>
+<tr class="odd">
+<td align="left">Race: White vs Black</td>
+<td align="left">-0.04 [-0.13, 0.04]</td>
+<td align="left">-0.23 [-0.36, -0.09]</td>
+</tr>
+<tr class="even">
+<td align="left">Education: HS or less</td>
+<td align="left">-0.10 [-0.14, -0.05]</td>
+<td align="left">0.42 [0.35, 0.49]</td>
+</tr>
+<tr class="odd">
+<td align="left">Education: Some college</td>
+<td align="left">-0.03 [-0.08, 0.01]</td>
+<td align="left">0.23 [0.16, 0.30]</td>
+</tr>
+<tr class="even">
+<td align="left">Household income ($10k)</td>
+<td align="left">0.00 [-0.00, 0.01]</td>
+<td align="left">-0.01 [-0.01, -0.01]</td>
+</tr>
+<tr class="odd">
+<td align="left">Chronic conditions</td>
+<td align="left">-0.04 [-0.05, -0.03]</td>
+<td align="left">0.04 [0.03, 0.05]</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -336,7 +1514,41 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

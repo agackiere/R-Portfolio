@@ -1,5 +1,691 @@
 ---
 title: "Portfolio 6"
+date: "2026-04-01"
+output:
+  html_document: 
+    theme: yeti
+    highlight: zenburn
+    toc: true
+    toc_float: true
+    code_folding: show
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+MIDUS DATASET
+
+Health locus of control represents the degree to which people believe their health is self-determined versus controlled by external forces. It has well-established links to health behavior and outcomes. However, most prior work treats it as a stable trait, and few studies have examined how financial circumstances, beyond SES status, shape these beliefs over time. Using the MIDUS longitudinal dataset, I applied Bayesian multilevel modeling to test whether chronic financial insufficiency predicts trajectories of both internal and external health locus of control across midlife. Here, subjective financial insufficiency is distinguished from objective income. The question guiding this research was whether the psychological experience of not having enough, independent of actual income, is what drives shifts in perceived health agency.
+
+```{r set-up}
+
+select <- dplyr::select
+filter <- dplyr::filter
+
+# if needed
+library("haven")
+library("tidyverse")
+library("cmdstanr")
+library("brms")
+library("labelled") # for me, quick checks
+library("patchwork")
+library("ggplot2")
+library("tidybayes")
+library("dplyr")
+library("tableone")
+library("psych")
+library("knitr")
+
+m1 <- read_sav("~/Desktop/R_Lab/R-Portfolio/p06/M1_survey.sav")
+
+m2 <- read_sav("~/Desktop/R_Lab/R-Portfolio/p06/M2_survey.sav")
+
+m3 <- read_sav("~/Desktop/R_Lab/R-Portfolio/p06/M3_survey.sav")
+```
+
+```{r data-view}
+
+dim(m1)
+dim(m2)
+dim(m3)
+
+# Check distributions across waves for HLOC var
+summary(m1$A1SHLOCS)
+summary(m2$B1SHLOCS)
+summary(m3$C1SHLOCS)
+
+summary(m1$A1SHLOCO)
+summary(m2$B1SHLOCO)
+summary(m3$C1SHLOCO)
+
+# same for all three waves?
+summary(m1$A1SJ6)
+summary(m2$B1SG6)
+summary(m3$C1SG7)
+
+# cleaning script
+m1_clean <- m1 %>%
+  select(
+    person_id = M2ID,
+    age = A1PAGE_M2,
+    sex = A1PRSEX,
+    race = A1SS7R,
+    education = A1PEDUCP,
+    income = A1SHHTOT,
+    chronic = A1SCHRON,
+    fin_suff = A1SJ6,
+    hloc_self = A1SHLOCS,
+    hloc_others = A1SHLOCO
+  ) %>%
+  mutate(wave = 1)
+
+m2_clean <- m2 %>%
+  select(
+    person_id = M2ID,
+    fin_suff = B1SG6,
+    hloc_self = B1SHLOCS,
+    hloc_others = B1SHLOCO
+  ) %>%
+  mutate(wave = 2)
+
+m3_clean <- m3 %>%
+  select(
+    person_id = M2ID,
+    fin_suff = C1SG7,
+    hloc_self = C1SHLOCS,
+    hloc_others = C1SHLOCO
+  ) %>%
+  mutate(wave = 3)
+
+data_long <- bind_rows(m1_clean, m2_clean, m3_clean)
+
+
+# since demographics only in M1, we'll fill them in for the other years
+data_long <- data_long %>%
+  arrange(person_id, wave) %>%
+  group_by(person_id) %>%
+  fill(age, sex, race, education, income, chronic, .direction = "down") %>%
+  ungroup()
+```
+
+
+```{r check-data}
+dim(data_long)
+
+# Check missingness systematically
+data_long %>%
+  group_by(wave) %>%
+  summarise(
+    n = n(),
+    miss_fin = sum(is.na(fin_suff)),
+    miss_hloc_self = sum(is.na(hloc_self)),
+    miss_hloc_others = sum(is.na(hloc_others)),
+    miss_race = sum(is.na(race)),
+    miss_edu = sum(is.na(education)),
+    miss_income = sum(is.na(income)),
+    miss_chronic = sum(is.na(chronic))
+  )
+
+# all three waves 
+data_long %>%
+  group_by(person_id) %>%
+  summarise(n_waves = sum(!is.na(hloc_self))) %>%
+  count(n_waves)
+
+
+```
+
+2631 people have data from all three waves, which should be enough for the MLM. 
+
+The within-person sample is really the 2631 with all three waves plus some contribution from the 1518 with two. The unbalanced data structure would cause problems with frequentist estimation, so Bayesian MLM works well here.
+
+```{r more-cleaning}
+
+# Recode missing value codes to NA
+data_long <- data_long %>%
+  mutate(
+    fin_suff = ifelse(fin_suff %in% c(-1, 8), NA, fin_suff),
+    hloc_self = ifelse(hloc_self %in% c(-1, 99, 8), NA, hloc_self),
+    hloc_others = ifelse(hloc_others %in% c(-1, 99, 8), NA, hloc_others),
+    race = ifelse(race %in% c(-1, 8), NA, race),
+    education = ifelse(education == 9, NA, education),
+    income = ifelse(income == 999999, NA, income)
+  )
+
+# Drop people with no outcome data at all
+data_long <- data_long %>%
+  group_by(person_id) %>%
+  filter(sum(!is.na(hloc_self)) > 0) %>%
+  ungroup()
+
+dim(data_long)
+
+
+
+
+```
+
+Centering Variables
+```{r center-finance}
+# factor categorical vars 
+data_long <- data_long %>%
+  mutate(
+    sex = factor(sex),
+    race = factor(race),
+    education = factor(education)
+  )
+
+# prep (making it so that it's easier to run since lots of levels)
+data_long <- data_long %>%
+  mutate(
+    race_simple = case_when(
+      race == "1" ~ "White",
+      race == "2" ~ "Black",
+      TRUE ~ "Other"
+    ) %>% factor(),
+    education_simple = case_when(
+      education %in% c("1", "2") ~ "HS or Less",
+      education == "3" ~ "Some College",
+      education == "4" ~ "College or More"
+    ) %>% factor()
+  )
+
+# all centering together after cleaning
+data_long <- data_long %>%
+  mutate(
+    age_c = age - mean(age, na.rm = TRUE),
+    income_c = income - mean(income, na.rm = TRUE),
+    income_scaled = income_c / 10000,
+    chronic_c = chronic - mean(chronic, na.rm = TRUE),
+    wave_c = wave - mean(wave, na.rm = TRUE),
+    fin_suff_mean = ave(fin_suff, person_id,
+                        FUN = function(x) mean(x, na.rm = TRUE))
+  )
+
+# then save
+saveRDS(data_long, "~/Desktop/R_Lab/R-Portfolio/p06/data_long.rds")
+
+```
+
+# HLOC for Self Models
+
+## ICC/Model 0
+```{r simpleICC}
+if (file.exists("~/Desktop/R_Lab/R-Portfolio/p06/fit0.rds")) {
+  fit0 <- readRDS("~/Desktop/R_Lab/R-Portfolio/p06/fit0.rds")
+} else {
+  fit0 <- brm(
+    hloc_self ~ 1 + (1 | person_id),
+    data = data_long,
+    family = gaussian(),
+    prior = c(
+      prior(normal(6, 2), class = Intercept),
+      prior(exponential(1), class = sd),
+      prior(exponential(1), class = sigma)
+    ),
+    chains = 4,
+    iter = 2000,
+    warmup = 1000,
+    cores = 4,
+    seed = 42,
+    backend = "cmdstanr"
+  )
+  saveRDS(fit0, "~/Desktop/R_Lab/R-Portfolio/p06/fit0.rds")
+}
+
+# these run regardless
+summary(fit0)
+
+var_components <- VarCorr(fit0)
+var_between <- var_components$person_id$sd[1]^2
+var_within <- var_components$residual__$sd[1]^2
+icc <- var_between / (var_between + var_within)
+icc
+
+```
+
+The null model partitioned variance in internal health LOC into between-person and within-person components. The ICC of 0.41 indicates that 41% of total variance reflects stable individual differences, with the remaining 59% capturing within-person fluctuation across waves. This confirms that MLM is appropriate and that there is meaningful change to explain over time.
+
+## Level 1 Model 
+
+```{r l1-model, warning=FALSE}
+if (file.exists("~/Desktop/R_Lab/R-Portfolio/p06/modelfit1.rds")) {
+  fit1 <- readRDS("~/Desktop/R_Lab/R-Portfolio/p06/modelfit1.rds")
+} else {
+  fit1 <- brm(
+    hloc_self ~ 
+      wave_c * fin_suff_mean +
+      (1 + wave_c | person_id),
+    data = data_long,
+    family = gaussian(),
+    prior = c(
+      prior(normal(6, 2), class = Intercept),
+      prior(normal(0, 1), class = b),
+      prior(exponential(1), class = sd),
+      prior(exponential(1), class = sigma),
+      prior(lkj(2), class = cor)
+    ),
+    chains = 4,
+    iter = 4000,
+    warmup = 1000,
+    cores = 4,
+    seed = 42,
+    backend = "cmdstanr"
+  )
+  saveRDS(fit1, "~/Desktop/R_Lab/R-Portfolio/p06/modelfit1.rds")
+}
+
+summary(fit1)
+
+```
+Model 1 tested whether chronic financial insufficiency predicted internal health LOC trajectories over 20 years, and whether its effect changed over time. Financial insufficiency was associated with lower internal health LOC (β = -0.13, 95% CI [-0.16, -0.10]), but the wave × financial insufficiency interaction was null (β = 0.00, 95% CI [-0.02, 0.03]) and random slope variance was negligible (SD = 0.02), indicating that trajectories did not meaningfully differ across people or financial groups. Model 2 therefore simplifies to a random intercept only.
+
+## Level 2 model
+```{r l2-model}
+# now fit 2 
+if (file.exists("~/Desktop/R_Lab/R-Portfolio/p06/modelfit2.rds")) {
+  fit2 <- readRDS("~/Desktop/R_Lab/R-Portfolio/p06/modelfit2.rds")
+} else {
+  fit2 <- brm(
+    hloc_self ~ 
+      wave_c +
+      fin_suff_mean +
+      age_c + sex + race_simple + education_simple + 
+      income_scaled + chronic_c +
+      (1 | person_id),
+    data = data_long,
+    family = gaussian(),
+    prior = c(
+      prior(normal(6, 2), class = Intercept),
+      prior(normal(0, 1), class = b),
+      prior(exponential(1), class = sd),
+      prior(exponential(1), class = sigma)
+    ),
+    chains = 4,
+    iter = 4000,
+    warmup = 1000,
+    cores = 4,
+    seed = 42,
+    backend = "cmdstanr",
+    control = list(max_treedepth = 15, adapt_delta = 0.95) # reduce divergences
+  )
+  saveRDS(fit2, "~/Desktop/R_Lab/R-Portfolio/p06/modelfit2.rds")
+}
+
+summary(fit2)
+
+```
+
+Model 2 added demographic covariates to test whether financial insufficiency predicts internal health LOC above and beyond age, sex, race, education, objective income, and chronic illness. It does — people with chronically higher financial insufficiency reported meaningfully lower internal health LOC (β = -0.08, 95% CI [-0.11, -0.05]), while objective income showed essentially no independent association (β = 0.00). This suggests the psychological experience of financial stress, not material wealth itself, is what erodes perceived health agency.
+
+# HLOC Others
+
+## Model 0
+
+```{r model-0}
+
+# Model 0: Others
+if (file.exists("~/Desktop/R_Lab/R-Portfolio/p06/modelfit0_o.rds")) {
+  fit0_o <- readRDS("~/Desktop/R_Lab/R-Portfolio/p06/modelfit0_o.rds")
+} else {
+  fit0_o <- brm(
+    hloc_others ~ 1 + (1 | person_id),
+    data = data_long,
+    family = gaussian(),
+    prior = c(
+      prior(normal(3, 2), class = Intercept),  # note: mean is ~3 not 6
+      prior(exponential(1), class = sd),
+      prior(exponential(1), class = sigma)
+    ),
+    chains = 4,
+    iter = 2000,
+    warmup = 1000,
+    cores = 4,
+    seed = 42,
+    backend = "cmdstanr"
+  )
+  saveRDS(fit0_o, "~/Desktop/R_Lab/R-Portfolio/p06/modelfit0_o.rds")
+}
+
+summary(fit0_o)
+
+var_components_o <- VarCorr(fit0_o)
+var_between_o <- var_components_o$person_id$sd[1]^2
+var_within_o <- var_components_o$residual__$sd[1]^2
+icc_o <- var_between_o / (var_between_o + var_within_o)
+icc_o
+
+
+
+
+```
+The null model for external health LOC yielded an ICC of 0.37, indicating that 37% of variance reflects stable between-person differences. Again, this is sufficient to justify MLM and suggests meaningful individual variation in external health attribution.
+
+## Model 1
+
+```{r model1-others}
+# Model 1: Others
+if (file.exists("~/Desktop/R_Lab/R-Portfolio/p06/modelfit1_o.rds")) {
+  fit1_o <- readRDS("~/Desktop/R_Lab/R-Portfolio/p06/modelfit1_o.rds")
+} else {
+  fit1_o <- brm(
+    hloc_others ~ 
+      wave_c * fin_suff_mean +
+      (1 + wave_c | person_id),
+    data = data_long,
+    family = gaussian(),
+    prior = c(
+      prior(normal(3, 2), class = Intercept),
+      prior(normal(0, 1), class = b),
+      prior(exponential(1), class = sd),
+      prior(exponential(1), class = sigma),
+      prior(lkj(2), class = cor)
+    ),
+    chains = 4,
+    iter = 4000,
+    warmup = 1000,
+    cores = 4,
+    seed = 42,
+    backend = "cmdstanr"
+  )
+  saveRDS(fit1_o, "~/Desktop/R_Lab/R-Portfolio/p06/modelfit1_o.rds")
+}
+
+summary(fit1_o)
+
+
+```
+
+Model 1 tested whether chronic financial insufficiency predicted external health LOC trajectories over time. Financial insufficiency was strongly and positively associated with external LOC (β = 0.40, 95% CI [0.35, 0.45]) — opposite in direction to the internal LOC finding — indicating that financially insufficient people attribute health control more to doctors and external forces. A credible interaction with wave (β = 0.05, 95% CI [0.00, 0.10]) and substantial random slope variance (SD = 0.24) suggested that trajectories differed meaningfully across people, so Model 2 retains the random slope structure.
+
+
+## Model 2
+```{r model2-others}
+if (file.exists("~/Desktop/R_Lab/R-Portfolio/p06/modelfit2_o.rds")) {
+  fit2_o <- readRDS("~/Desktop/R_Lab/R-Portfolio/p06/modelfit2_o.rds")
+} else {
+  fit2_o <- brm(
+    hloc_others ~ 
+      wave_c * fin_suff_mean +
+      age_c + sex + race_simple + education_simple +
+      income_scaled + chronic_c +
+      (1 + wave_c | person_id),
+    data = data_long,
+    family = gaussian(),
+    prior = c(
+      prior(normal(3, 2), class = Intercept),
+      prior(normal(0, 1), class = b),
+      prior(exponential(1), class = sd),
+      prior(exponential(1), class = sigma),
+      prior(lkj(2), class = cor)
+    ),
+    chains = 4,
+    iter = 4000,
+    warmup = 1000,
+    cores = 4,
+    seed = 42,
+    backend = "cmdstanr",
+    control = list(max_treedepth = 15, adapt_delta = 0.95)
+  )
+  saveRDS(fit2_o, "~/Desktop/R_Lab/R-Portfolio/p06/modelfit2_o.rds")
+}
+
+summary(fit2_o)
+
+```
+
+After controlling for age, sex, race, education, objective income, and chronic illness, financial insufficiency remained a strong positive predictor of external health LOC (β = 0.30, 95% CI [0.24, 0.35]). The wave × financial insufficiency interaction was no longer credible once covariates were added, suggesting the trajectory difference in Model 1 was partially explained by demographic factors. Taken together with the internal HLOC results, chronic financial insufficiency is associated with a reorientation of health control beliefs; it simultaneously decreases internal agency and amplifies external attribution above and beyond what objective income alone captures.
+
+## Model Selection and Sensitivity analyses 
+
+Model selection was guided by theoretical considerations and inspection of random effects variance. For LOC-Self, the negligible random slope variance (SD = 0.02) and null wave × financial insufficiency interaction justified simplifying to a random intercept only in Model 2. For LOC-Others, substantial random slope variance (SD = 0.24) supported retaining the random slope structure throughout.
+
+## Attrition
+```{r attrition-check}
+# Create n_waves variable in data_long
+data_long <- data_long %>%
+  group_by(person_id) %>%
+  mutate(n_waves = sum(!is.na(hloc_self))) %>%
+  ungroup()
+
+# Now run attrition analysis
+data_long %>%
+  mutate(dropout = n_waves < 3) %>%
+  group_by(dropout) %>%
+  summarise(
+    n_people = n_distinct(person_id),
+    mean_fin = mean(fin_suff, na.rm = TRUE),
+    mean_hloc_self = mean(hloc_self, na.rm = TRUE),
+    mean_hloc_others = mean(hloc_others, na.rm = TRUE),
+    mean_income = mean(income, na.rm = TRUE),
+    mean_age = mean(age, na.rm = TRUE),
+    mean_chronic = mean(chronic, na.rm = TRUE)
+  )
+
+```
+
+Participants who dropped out across waves reported slightly higher financial insufficiency (M = 2.11 vs. 1.96), lower income ($70,169 vs. $82,189), and higher external health LOC (3.43 vs. 3.13) compared to completers. Internal health LOC and age were similar across groups. This pattern suggests that attrition was not random and that those with greater financial stress were less likely to remain in the study, which could lead to underestimation of the association between financial insufficiency and external LOC in the full sample. The Bayesian MLM partially mitigates this by retaining participants with incomplete data rather than requiring complete cases, but selective attrition remains a limitation of the findings.
+
+# Results
+```{r hloc-tables}
+
+vars <- c("hloc_self", "hloc_others", "fin_suff", 
+          "income", "age", "chronic")
+
+tab1 <- CreateTableOne(vars = vars, data = data_long)
+print(tab1, showAllLevels = TRUE)
+
+```
+
+```{r extraction}
+# Extract fixed effects from both models
+self_results <- fixef(fit2) %>%
+  as.data.frame() %>%
+  rownames_to_column("Parameter") %>%
+  rename(
+    Estimate_Self = Estimate,
+    Error_Self = Est.Error,
+    Lower_Self = `Q2.5`,
+    Upper_Self = `Q97.5`
+  )
+
+others_results <- fixef(fit2_o) %>%
+  as.data.frame() %>%
+  rownames_to_column("Parameter") %>%
+  rename(
+    Estimate_Others = Estimate,
+    Error_Others = Est.Error,
+    Lower_Others = `Q2.5`,
+    Upper_Others = `Q97.5`
+  )
+
+# Merge
+combined <- left_join(self_results, others_results, by = "Parameter") %>%
+  mutate(
+    Self = sprintf("%.2f [%.2f, %.2f]", 
+                   Estimate_Self, Lower_Self, Upper_Self),
+    Others = sprintf("%.2f [%.2f, %.2f]", 
+                     Estimate_Others, Lower_Others, Upper_Others)
+  ) %>%
+  select(Parameter, Self, Others)
+
+print(combined)
+```
+
+## MLM Results Table
+```{r table-MLMResults}
+
+combined <- combined %>%
+  mutate(Parameter = recode(Parameter,
+    "Intercept" = "Intercept",
+    "wave_c" = "Wave",
+    "fin_suff_mean" = "Financial insufficiency",
+    "age_c" = "Age",
+    "sex2" = "Sex (female)",
+    "race_simpleOther" = "Race: Other vs Black",
+    "race_simpleWhite" = "Race: White vs Black",
+    "education_simpleHSorLess" = "Education: HS or less",
+    "education_simpleSomeCollege" = "Education: Some college",
+    "income_scaled" = "Household income ($10k)",
+    "chronic_c" = "Chronic conditions",
+    "wave_c:fin_suff_mean" = "Wave × Financial insufficiency"
+  ))
+
+
+kable(combined, 
+      caption = "Table 2. Bayesian MLM Results for Internal and External Health LOC",
+      col.names = c("Predictor", "LOC-Self β [95% CI]", 
+                    "LOC-Others β [95% CI]"))
+```
+
+## Visualizing the Results
+
+### Coefficient plot
+```{r}
+```{r coef-plot, fig.width=10, fig.height=6}
+self_coef <- fixef(fit2) %>%
+  as.data.frame() %>%
+  rownames_to_column("Parameter") %>%
+  mutate(Model = "Internal LOC")
+
+others_coef <- fixef(fit2_o) %>%
+  as.data.frame() %>%
+  rownames_to_column("Parameter") %>%
+  mutate(Model = "External LOC")
+
+coef_data <- bind_rows(self_coef, others_coef) %>%
+  filter(!Parameter %in% c("Intercept", "wave_c:fin_suff_mean")) %>%
+  mutate(Parameter = recode(Parameter,
+    "wave_c" = "Wave",
+    "fin_suff_mean" = "Financial insufficiency",
+    "age_c" = "Age",
+    "sex2" = "Sex (female)",
+    "race_simpleOther" = "Race: Other vs Black",
+    "race_simpleWhite" = "Race: White vs Black",
+    "education_simpleHSorLess" = "Education: HS or less",
+    "education_simpleSomeCollege" = "Education: Some college",
+    "income_scaled" = "Household income ($10k)",
+    "chronic_c" = "Chronic conditions"
+  ))
+
+ggplot(coef_data, aes(x = Estimate, y = reorder(Parameter, Estimate),
+                       xmin = Q2.5, xmax = Q97.5,
+                       color = Model, shape = Model)) +
+  geom_pointrange(position = position_dodge(width = 0.5), size = 0.7) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  scale_color_manual(values = c("Internal LOC" = "black", 
+                                 "External LOC" = "gray50")) +
+  labs(
+    title = "Figure 2. Predictor Estimates for Internal and External Health LOC",
+    x = "Posterior Estimate (95% CI)",
+    y = NULL,
+    color = NULL, shape = NULL,
+    caption = "Note: Intercept excluded for clarity. Estimates from fully adjusted models."
+  ) +
+  pub_theme +
+  theme(legend.position = "top")
+```
+```
+
+
+### Trajectories 
+
+```{r visuals-sens}
+```{r visuals-sens, fig.width=10, fig.height=9}
+traj_data <- data_long %>%
+  filter(!is.na(fin_suff) & !is.na(hloc_self) & !is.na(hloc_others)) %>%
+  mutate(fin_group = case_when(
+    fin_suff == 1 ~ "More than enough",
+    fin_suff == 2 ~ "Just enough",
+    fin_suff == 3 ~ "Not enough"
+  ) %>% factor(levels = c("More than enough", "Just enough", "Not enough"))) %>%
+  filter(!is.na(fin_group)) %>%
+  group_by(wave, fin_group) %>%
+  summarise(
+    mean_self   = mean(hloc_self, na.rm = TRUE),
+    se_self     = sd(hloc_self, na.rm = TRUE) / sqrt(n()),
+    mean_others = mean(hloc_others, na.rm = TRUE),
+    se_others   = sd(hloc_others, na.rm = TRUE) / sqrt(n()),
+    .groups = "drop"
+  )
+
+pub_theme <- theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "bottom",
+    plot.title = element_text(face = "bold", size = 13),
+    axis.title = element_text(size = 12),
+    panel.grid.minor = element_blank(),
+    strip.text = element_text(face = "bold")
+  )
+
+pd <- position_dodge(width = 0.3)
+
+p_self <- ggplot(traj_data, aes(x = wave, y = mean_self,
+                                 linetype = fin_group,
+                                 shape = fin_group,
+                                 group = fin_group)) +
+  geom_line(linewidth = 1.4, position = pd) +
+  geom_errorbar(aes(ymin = mean_self - se_self,
+                    ymax = mean_self + se_self),
+                width = 0.1, position = pd) +
+  geom_point(size = 5, position = pd,
+             bg = "white", color = "black") +
+  scale_x_continuous(breaks = c(1, 2, 3),
+                     labels = c("1995", "2004", "2013")) +
+  scale_linetype_manual(
+    values = c("solid", "dashed", "dotdash"),
+    labels = c("More than enough", "Just enough", "Not enough")
+  ) +
+  scale_shape_manual(
+    values = c(21, 24, 22),
+    labels = c("More than enough", "Just enough", "Not enough")
+  ) +
+  scale_y_continuous(limits = c(5, 7),
+                     breaks = c(5, 5.5, 6, 6.5, 7)) +
+  labs(
+    title = "A. Internal Health LOC",
+    x = NULL,
+    y = "Internal LOC (mean)",
+    linetype = "Financial Sufficiency",
+    shape = "Financial Sufficiency"
+  ) +
+  pub_theme
+
+p_others <- ggplot(traj_data, aes(x = wave, y = mean_others,
+                                   linetype = fin_group,
+                                   shape = fin_group,
+                                   group = fin_group)) +
+  geom_line(linewidth = 1.4, position = pd) +
+  geom_errorbar(aes(ymin = mean_others - se_others,
+                    ymax = mean_others + se_others),
+                width = 0.1, position = pd) +
+  geom_point(size = 5, position = pd,
+             bg = "white", color = "black") +
+  scale_x_continuous(breaks = c(1, 2, 3),
+                     labels = c("1995", "2004", "2013")) +
+  scale_linetype_manual(
+    values = c("solid", "dashed", "dotdash"),
+    labels = c("More than enough", "Just enough", "Not enough")
+  ) +
+  scale_shape_manual(
+    values = c(21, 24, 22),
+    labels = c("More than enough", "Just enough", "Not enough")
+  ) +
+  scale_y_continuous(limits = c(2, 5),
+                     breaks = c(2, 2.5, 3, 3.5, 4, 4.5, 5)) +
+  labs(
+    title = "B. External Health LOC",
+    x = "Wave",
+    y = "External LOC (mean)",
+    linetype = "Financial Sufficiency",
+    shape = "Financial Sufficiency"
+  ) +
+  pub_theme
+
+p_self / p_others +
+  plot_layout(guides = "collect") +
+  plot_annotation(
+    caption = "Note: Y-axis ranges differ between panels to aid visualization.\nBoth variables measured on identical 1-7 scales.",
+    theme = theme(plot.caption = element_text(hjust = 0, size = 9))
+  ) &
+  theme(legend.position = "bottom")
+```
+```
+

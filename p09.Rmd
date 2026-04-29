@@ -1,5 +1,523 @@
 ---
 title: "Portfolio 9"
+author: "Anaelle Gackiere"
+date: "`r Sys.Date()`"
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "/Users/anaellegackiere/Desktop/R_Lab/R-Portfolio/p09")
+
+library(hBayesDM)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(viridis)
+library(tidyverse)
+library(R.matlab)
+library(pastecs)
+library(rstatix)
+library(emmeans)
+library(afex)
+library(effectsize)
+library(ggpubr)
+library(readxl)
+library(knitr)
+library(kableExtra)
+library(interactions)
+library(mediation)
+library(loo)
+library(rstan)
+```
+
+---
+
+# Overview
+
+This report presents the analyses for the **Time Task** of the Social Engagement Reinforcement Learning paradigm. Participants provided ratings of how different amounts of seconds spent with someone else would motivate them to participate in a Jenga activity (+15 secs, 0 secs, -15 secs). They also rated how much time, if given the choice, they would like to spend playing with another student. Afterwards, they completed a reinforcement learning task where outcomes varied in how much time they spent with other people (same as explicit ratings: positive = + 15 secs, neutral = 0 seconds, negative = - 15 seconds).
+
+The measure of interest is the **computationally inferred Reward Value (cRV / k parameter)**, which captures the reward values each time outcome through their behavior.
+
+---
+
+# Setup
+
+```{r time-setup}
+load("preprocessed_Time_behavior.RData")
+load("analysis_ready_Time.RData")
+load("loo_objects_Time.RData")
+
+# Load k parameters
+parT <- readMat("Qparams_ABK_FYP_Time.mat")
+N_T = length(parT$alpha.QabkF[1,])
+
+alphaT = vector(length = N_T)
+betaT  = vector(length = N_T)
+kHiT   = vector(length = N_T)
+kLowT  = vector(length = N_T)
+kMedT  = vector(length = N_T)
+
+for (i in 1:N_T) {
+  alphaT[i] <- median(parT$alpha.QabkF[,i])
+  betaT[i]  <- median(parT$beta.QabkF[,i])
+  kHiT[i]   <- median(parT$kPos.QabkF[,i])
+  kLowT[i]  <- median(parT$kNeg.QabkF[,i])
+  kMedT[i]  <- median(parT$kNeu.QabkF[,i])
+}
+```
+
+---
+
+# Explicit Ratings
+
+## Descriptive Statistics
+
+```{r time-explicit-desc}
+desc_table_T <- data.frame(
+  Condition = c("Positive (more time)", "Neutral", "Negative (less time)"),
+  N         = c(sum(!is.na(analysis_df_time$PosTime_1)),
+                sum(!is.na(analysis_df_time$NeutralTime_1)),
+                sum(!is.na(analysis_df_time$NegTime_1))),
+  Mean      = round(c(mean(analysis_df_time$PosTime_1, na.rm=TRUE),
+                      mean(analysis_df_time$NeutralTime_1, na.rm=TRUE),
+                      mean(analysis_df_time$NegTime_1, na.rm=TRUE)), 3),
+  SD        = round(c(sd(analysis_df_time$PosTime_1, na.rm=TRUE),
+                      sd(analysis_df_time$NeutralTime_1, na.rm=TRUE),
+                      sd(analysis_df_time$NegTime_1, na.rm=TRUE)), 3)
+)
+
+kable(desc_table_T, caption = "Descriptive Statistics - Explicit Ratings (Time Task)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+## T-tests
+
+```{r time-explicit-ttests}
+te1 <- t.test(analysis_df_time$PosTime_1, analysis_df_time$NeutralTime_1, paired=TRUE)
+te2 <- t.test(analysis_df_time$PosTime_1, analysis_df_time$NegTime_1, paired=TRUE)
+te3 <- t.test(analysis_df_time$NeutralTime_1, analysis_df_time$NegTime_1, paired=TRUE)
+
+ttest_table_T <- data.frame(
+  Comparison = c("Positive vs Neutral", "Positive vs Negative", "Neutral vs Negative"),
+  t          = round(c(te1$statistic, te2$statistic, te3$statistic), 3),
+  df         = c(te1$parameter, te2$parameter, te3$parameter),
+  p          = round(c(te1$p.value, te2$p.value, te3$p.value), 4),
+  Mean_diff  = round(c(te1$estimate, te2$estimate, te3$estimate), 3)
+)
+
+kable(ttest_table_T, caption = "Paired T-tests - Explicit Ratings (Time Task)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+## Plot
+
+```{r time-explicit-plot, fig.width=7, fig.height=5}
+ePosT <- data.frame(value = analysis_df_time$PosTime_1,     param = "Positive")
+eNeuT <- data.frame(value = analysis_df_time$NeutralTime_1, param = "Neutral")
+eNegT <- data.frame(value = analysis_df_time$NegTime_1,     param = "Negative")
+eAllT <- rbind(ePosT, eNeuT, eNegT)
+eAllT$param <- factor(eAllT$param, levels = c("Positive", "Neutral", "Negative"))
+
+ggplot(eAllT, aes(x = param, y = value, fill = param)) +
+  geom_violin(position = position_dodge(0.9)) +
+  geom_boxplot(width = 0.2, position = position_dodge(0.9)) +
+  labs(x = "Condition", y = "Explicit Rating", title = "Explicit Ratings by Condition (Time Task)") +
+  theme_classic() +
+  theme(legend.position = "none")
+```
+
+---
+
+# Implicit Motivation (cRV / k parameters)
+
+## Descriptive Statistics
+
+```{r time-imv-desc}
+imv_desc_T <- data.frame(
+  Condition = c("Positive/More Time (kPos)", "Negative/Less Time (kNeg)", "Neutral (kNeu)"),
+  N         = c(length(kHiT), length(kLowT), length(kMedT)),
+  Mean      = round(c(mean(kHiT), mean(kLowT), mean(kMedT)), 3),
+  SD        = round(c(sd(kHiT), sd(kLowT), sd(kMedT)), 3),
+  Median    = round(c(median(kHiT), median(kLowT), median(kMedT)), 3)
+)
+
+kable(imv_desc_T, caption = "Descriptive Statistics - IMV Parameters (Time Task)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+## T-tests
+
+```{r time-imv-ttests}
+ti1_T <- t.test(analysis_df_time$PosTime_imv, analysis_df_time$NegTime_imv, paired=TRUE)
+ti2_T <- t.test(analysis_df_time$PosTime_imv, analysis_df_time$NeuTime_imv, paired=TRUE)
+ti3_T <- t.test(analysis_df_time$NeuTime_imv, analysis_df_time$NegTime_imv, paired=TRUE)
+
+imv_ttest_T <- data.frame(
+  Comparison = c("Positive vs Negative", "Positive vs Neutral", "Neutral vs Negative"),
+  t          = round(c(ti1_T$statistic, ti2_T$statistic, ti3_T$statistic), 3),
+  df         = c(ti1_T$parameter, ti2_T$parameter, ti3_T$parameter),
+  p          = round(c(ti1_T$p.value, ti2_T$p.value, ti3_T$p.value), 4),
+  Mean_diff  = round(c(ti1_T$estimate, ti2_T$estimate, ti3_T$estimate), 3)
+)
+
+kable(imv_ttest_T, caption = "Paired T-tests - IMV Parameters (Time Task)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+## Effect Size (Positive vs Negative)
+
+```{r time-imv-effectsize}
+effectsize(t.test(analysis_df_time$PosTime_imv, analysis_df_time$NegTime_imv, var.equal=TRUE, paired=TRUE))
+```
+
+## Plot
+
+```{r time-imv-plot, fig.width=7, fig.height=5}
+kHiTDat  <- data.frame(value = kHiT, param = "Positive")
+kLowTDat <- data.frame(value = kLowT, param = "Negative")
+kMidTDat <- data.frame(value = kMedT, param = "Neutral")
+HiLowT   <- rbind(kHiTDat, kMidTDat, kLowTDat)
+HiLowT$param <- factor(HiLowT$param, levels = c("Positive", "Neutral", "Negative"))
+
+ggplot(HiLowT, aes(x = param, y = value, fill = param)) +
+  geom_violin(position = position_dodge(0.9)) +
+  geom_boxplot(width = 0.2, position = position_dodge(0.9)) +
+  labs(x = "Condition", y = "cRV (k)", title = "Implicit Motivation by Condition (Time Task)") +
+  theme_classic() +
+  theme(legend.position = "none")
+```
+
+---
+
+# Implicit-Explicit Correlations
+
+## Full Difference Scores
+
+```{r time-imp-exp-full}
+c_full <- cor.test(analysis_df_time$PosvsNegTime_diff_imv, analysis_df_time$PosvsNegTime_diff_explicit)
+
+kable(data.frame(
+  Comparison = "IMV diff (Pos-Neg) ~ Explicit diff (Pos-Neg)",
+  r          = round(c_full$estimate, 3),
+  p          = round(c_full$p.value, 4),
+  CI_lower   = round(c_full$conf.int[1], 3),
+  CI_upper   = round(c_full$conf.int[2], 3)
+), caption = "Full Difference Score Correlation") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+## Sub-Difference Scores
+
+```{r time-imp-exp-sub}
+cs1 <- cor.test(analysis_df_time$PosNeu_diff_imv, analysis_df_time$PosTime_1 - analysis_df_time$NeutralTime_1)
+cs2 <- cor.test(analysis_df_time$NeuNeg_diff_imv, analysis_df_time$NeutralTime_1 - analysis_df_time$NegTime_1)
+
+sub_cor_table <- data.frame(
+  Comparison = c("IMV Pos-Neu ~ Explicit Pos-Neu", "IMV Neu-Neg ~ Explicit Neu-Neg"),
+  r          = round(c(cs1$estimate, cs2$estimate), 3),
+  p          = round(c(cs1$p.value, cs2$p.value), 4),
+  CI_lower   = round(c(cs1$conf.int[1], cs2$conf.int[1]), 3),
+  CI_upper   = round(c(cs1$conf.int[2], cs2$conf.int[2]), 3)
+)
+
+kable(sub_cor_table, caption = "Sub-Difference Score Correlations: Implicit ~ Explicit") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  row_spec(which(sub_cor_table$p < .05), bold = TRUE, color = "white", background = "#2c7bb6")
+```
+
+---
+
+# Social Preference Rating Analyses
+
+## Social vs. Solo Ratings 
+
+```{r}
+# Social vs Solo ratings plot
+social_solo_dat <- data.frame(
+  value = c(as.numeric(analysis_df_time$Social_Rating), 
+            as.numeric(analysis_df_time$Solo_Rating)),
+  param = c(rep("Social", nrow(analysis_df_time)), 
+            rep("Solo", nrow(analysis_df_time)))
+)
+
+social_solo_dat$param <- factor(social_solo_dat$param, levels = c("Social", "Solo"))
+
+ggplot(social_solo_dat, aes(x = param, y = value, fill = param)) +
+  geom_boxplot(width = 0.4, outlier.shape = NA) +
+  geom_jitter(width = 0.15, alpha = 0.3, size = 1) +
+  labs(x = "Condition", y = "Rating",
+       title = "Social vs Solo Task Preference Ratings") +
+  theme_classic() +
+  theme(legend.position = "none")
+
+t.test(as.numeric(analysis_df_time$Social_Rating),
+       as.numeric(analysis_df_time$Solo_Rating),
+       paired = TRUE)
+```
+
+## Correlations with Rating Diff (Social - Solo)
+
+```{r time-rating-cors}
+rct1 <- cor.test(analysis_df_time$PosvsNegTime_diff_imv, analysis_df_time$Rating_diff)
+rct2 <- cor.test(analysis_df_time$PosvsNegTime_diff_explicit, analysis_df_time$Rating_diff)
+rct3 <- cor.test(analysis_df_time$PosNeu_diff_imv, analysis_df_time$Rating_diff)
+rct4 <- cor.test(analysis_df_time$NeuNeg_diff_imv, analysis_df_time$Rating_diff)
+
+rating_cor_T <- data.frame(
+  Predictor = c("IMV diff (Pos-Neg)", "Explicit diff (Pos-Neg)",
+                "IMV diff (Pos-Neu)", "IMV diff (Neu-Neg)"),
+  r         = round(c(rct1$estimate, rct2$estimate, rct3$estimate, rct4$estimate), 3),
+  p         = round(c(rct1$p.value, rct2$p.value, rct3$p.value, rct4$p.value), 4),
+  CI_lower  = round(c(rct1$conf.int[1], rct2$conf.int[1], rct3$conf.int[1], rct4$conf.int[1]), 3),
+  CI_upper  = round(c(rct1$conf.int[2], rct2$conf.int[2], rct3$conf.int[2], rct4$conf.int[2]), 3)
+)
+
+kable(rating_cor_T, caption = "Correlations with Social-Solo Rating Difference (Time Task)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  row_spec(which(rating_cor_T$p < .05), bold = TRUE, color = "white", background = "#2c7bb6")
+```
+
+
+---
+
+# Trait Correlations
+
+```{r time-trait-cors}
+trait_vars_T <- c("Extraversion", "Neuroticism", "Openness", "LSAS",
+                  "Prosocial_Interactions", "Neg_Social_Potency", "Sociability",
+                  "Admiration", "Passivity", "Sexual_Relations",
+                  "Time_Actual", "Time_Choice_1")
+
+dv_vars_T <- c("PosvsNegTime_diff_imv", "PosvsNegTime_diff_explicit")
+
+cor_table_fn <- function(df, dv_vars, trait_vars) {
+  results <- list()
+  for (dv in dv_vars) {
+    dv_results <- lapply(trait_vars, function(trait) {
+      res <- cor.test(df[[dv]], df[[trait]], use = "complete.obs")
+      data.frame(
+        DV       = dv,
+        Trait    = trait,
+        r        = round(as.numeric(res$estimate), 3),
+        p        = round(res$p.value, 3),
+        CI_lower = round(res$conf.int[1], 3),
+        CI_upper = round(res$conf.int[2], 3)
+      )
+    })
+    results[[dv]] <- do.call(rbind, dv_results)
+  }
+  do.call(rbind, results)
+}
+
+cor_results_T <- cor_table_fn(analysis_df_time, dv_vars_T, trait_vars_T)
+
+kable(subset(cor_results_T, DV == "PosvsNegTime_diff_imv")[,-1],
+      caption = "IMV Diff ~ Traits (Time Task)", row.names = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  row_spec(which(subset(cor_results_T, DV == "PosvsNegTime_diff_imv")$p < .05),
+           bold = TRUE, color = "white", background = "#2c7bb6")
+
+kable(subset(cor_results_T, DV == "PosvsNegTime_diff_explicit")[,-1],
+      caption = "Explicit Diff ~ Traits (Time Task)", row.names = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  row_spec(which(subset(cor_results_T, DV == "PosvsNegTime_diff_explicit")$p < .05),
+           bold = TRUE, color = "white", background = "#2c7bb6")
+```
+
+---
+
+
+# Moderation Analyses
+
+## Does Extraversion Moderate the Implicit-Explicit Link?
+
+```{r time-mod-extra}
+mod_extra_impexp <- lm(PosvsNegTime_diff_explicit ~ imv_diff_c * extraversion_c, 
+                       data = analysis_df_time)
+summary(mod_extra_impexp)
+```
+*IMV diff is a strong predictor (p < .001). People with higher implicit valuation 
+differentiation also show higher explicit valuation differentiation. Extraversion is 
+a significant main effect (p = .018). More extraverted people show larger explicit 
+valuation differences between positive and negative time conditions. The interaction 
+is significant (p = .033). Extraversion moderates the implicit-explicit relationship. 
+The negative coefficient suggests the link between implicit and explicit valuation is 
+stronger for less extraverted (more introverted) people.* 
+
+```{r}
+# Explicit differentiation by extraversion
+ggplot(analysis_df_time, aes(x = Extraversion, y = PosvsNegTime_diff_explicit)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm", se = TRUE, color = "#2c7bb6") +
+  labs(x = "Extraversion", y = "Explicit Diff (Pos - Neg)",
+       title = "Extraversion Predicts Explicit Social Time Differentiation") +
+  theme_classic()
+
+# IMV differentiation by extraversion
+ggplot(analysis_df_time, aes(x = Extraversion, y = PosvsNegTime_diff_imv)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm", se = TRUE, color = "#2c7bb6") +
+  labs(x = "Extraversion", y = "IMV Diff (Pos - Neg)",
+       title = "Extraversion Predicts Implicit Social Time Differentiation") +
+  theme_classic()
+
+```
+
+
+---
+
+# State Social Motivation: Time Choice → IMV
+
+**Time_Choice_1** is a state/motivational measure (how much do I want to be with people right now), whereas **Extraversion** is a trait measure (how much do I generally want to be with people). The RL measure appears sensitive to state-level motivation.
+
+## Time Choice Predicts IMV Diff
+
+```{r time-choice-imv}
+mod_timechoice <- lm(PosvsNegTime_diff_imv ~ time_choice_c, data = analysis_df_time)
+summary(mod_timechoice)
+```
+
+*Prior explicit social motivation (Time Choice) strongly predicts implicit learning differentiation (R² = .24, p < .001) — people who want to spend more time with others show greater implicit valuation of positive time outcomes.*
+
+## Does Extraversion Moderate the Time Choice → IMV Link?
+
+```{r time-choice-imv-mod}
+mod_timechoice_extra <- lm(PosvsNegTime_diff_imv ~ time_choice_c * extraversion_c, 
+                           data = analysis_df_time)
+summary(mod_timechoice_extra)
+```
+
+*The Time Choice → IMV relationship is equally strong regardless of extraversion level (interaction p = .572), suggesting the RL measure captures state-level social motivation independently of stable personality traits.*
+
+
+```{r}
+# Histogram of Time Choice
+ggplot(analysis_df_time, aes(x = Time_Choice_1)) +
+  geom_histogram(binwidth = 1, fill = "#2c7bb6", color = "white", alpha = 0.8) +
+  labs(x = "Time Choice (minutes)", y = "Count",
+       title = "Distribution of Chosen Time with Others") +
+  theme_classic()
+
+# Time Choice ~ IMV diff
+ggplot(analysis_df_time, aes(x = Time_Choice_1, y = PosvsNegTime_diff_imv)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm", se = TRUE, color = "#2c7bb6") +
+  labs(x = "Time Choice (minutes)", y = "IMV Diff (Pos - Neg)",
+       title = "Time Choice vs. cRVs") +
+  theme_classic()
+
+cor.test(analysis_df_time$Time_Choice_1, analysis_df_time$PosvsNegTime_diff_imv)
+
+# Time Choice ~ Explicit diff
+ggplot(analysis_df_time, aes(x = Time_Choice_1, y = PosvsNegTime_diff_explicit)) +
+  geom_point(alpha = 0.4) +
+  geom_smooth(method = "lm", se = TRUE, color = "#2c7bb6") +
+  labs(x = "Time Choice (minutes)", y = "Explicit Diff (Pos - Neg)",
+       title = "Time Choice vs. Explicit Ratings") +
+  theme_classic()
+
+cor.test(analysis_df_time$Time_Choice_1, analysis_df_time$PosvsNegTime_diff_explicit)
+```
+
+Time Choice) predicts both implicit and explicit differentiation, but the relationship is stronger for the implicit measure.
+
+
+
+
+```{r}
+# Create comprehensive correlation table for all IMV and explicit measures
+all_vars <- c("PosTime_imv", "NegTime_imv", "NeuTime_imv", "PosvsNegTime_diff_imv",
+              "PosNeu_diff_imv", "NeuNeg_diff_imv",
+              "PosTime_1", "NegTime_1", "NeutralTime_1", "PosvsNegTime_diff_explicit",
+              "Rating_diff", "Time_Choice_1", "Time_Actual",
+              "Extraversion", "Neuroticism", "LSAS", "Prosocial_Interactions",
+              "Sociability", "Social_Rating", "Solo_Rating")
+
+# Build correlation matrix
+cor_matrix <- cor(analysis_df_time[, all_vars], use = "pairwise.complete.obs")
+p_matrix <- matrix(NA, nrow = length(all_vars), ncol = length(all_vars))
+for (i in 1:length(all_vars)) {
+  for (j in 1:length(all_vars)) {
+    if (i != j) {
+      p_matrix[i,j] <- cor.test(analysis_df_time[[all_vars[i]]], 
+                                  analysis_df_time[[all_vars[j]]])$p.value
+    }
+  }
+}
+
+rownames(p_matrix) <- colnames(p_matrix) <- all_vars
+
+# Display as kable - round and mark significant ones
+cor_display <- round(cor_matrix, 2)
+cor_display[p_matrix > .05] <- NA  # blank out non-significant
+
+kable(cor_display, 
+      caption = "Correlation Matrix (significant correlations only, p < .05)") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+                font_size = 11)
+```
+
+
+
+# Model Comparison
+```{r model-comparison}
+# MODEL COMPARISON
+
+# Load saved LOO objects
+load("loo_objects_Time.RData")
+
+# Load models for WAIC
+load("fitQ_ABK_FYP_Time")
+load("fitQ_explicit_Time.RData")
+
+# Extract log likelihoods
+loglik_Q_full <- extract_log_lik(fitQabkF, merge_chains = FALSE)
+loglik_explicit <- extract_log_lik(fitQ_explicit, merge_chains = FALSE)
+
+# Subset k model to same participants as explicit model
+na_idx <- is.na(as.numeric(analysis_df_time$PosTime_1[match(
+  read.csv("ParticipantIDs_Time.csv")$participantIDs, analysis_df_time$PID)]))
+
+# WAIC
+waic_k        <- waic(loglik_Q_full[,,!na_idx])
+waic_explicit <- waic(loglik_explicit)
+
+# LOO comparison table
+loo_comp <- loo_compare(looQabkF_sub, loo_explicit)
+
+loo_comp_table <- data.frame(
+  Model     = c("K Model (estimated reward values)",
+                "Explicit Model (fixed reward values)"),
+  ELPD_diff = round(loo_comp[,1], 2),
+  SE_diff   = round(loo_comp[,2], 2),
+  ELPD_loo  = round(c(looQabkF_sub$estimates[1,1], loo_explicit$estimates[1,1]), 2),
+  SE_loo    = round(c(looQabkF_sub$estimates[1,2], loo_explicit$estimates[1,2]), 2),
+  p_loo     = round(c(looQabkF_sub$estimates[2,1], loo_explicit$estimates[2,1]), 2)
+)
+
+kable(loo_comp_table,
+      caption = "LOO Model Comparison: K Model vs Explicit Ratings Model",
+      col.names = c("Model", "ELPD Diff", "SE Diff", "ELPD LOO", "SE LOO", "p LOO")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  row_spec(1, bold = TRUE, color = "white", background = "#2c7bb6")
+
+# WAIC comparison table
+waic_comp <- loo_compare(waic_k, waic_explicit)
+
+waic_comp_table <- data.frame(
+  Model     = c("K Model (estimated reward values)",
+                "Explicit Model (fixed reward values)"),
+  ELPD_diff = round(waic_comp[,1], 2),
+  SE_diff   = round(waic_comp[,2], 2)
+)
+
+kable(waic_comp_table,
+      caption = "WAIC Model Comparison: K Model vs Explicit Ratings Model",
+      col.names = c("Model", "ELPD Diff", "SE Diff")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed")) %>%
+  row_spec(1, bold = TRUE, color = "white", background = "#2c7bb6")
+```
+
+---
+
+

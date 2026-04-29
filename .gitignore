@@ -40,3 +40,30 @@ vignettes/*.pdf
 
 # Specific keeps
 !.gitkeep
+p03/.DS_Store
+p04/.DS_Store
+*.mat
+*.stan
+docs/p09/analysis_ready_Time.RData
+docs/p09/fitQ_ABK_FYP_Time
+docs/p09/.DS_Store
+docs/p08/ESS11_France/ESS11e04_1-subset codebook.html
+docs/p08/.DS_Store
+docs/p06/MR1_P1_SURVEY_N3577_20250407.sav
+docs/p06/MR2_P1_SURVEY_N2154_20251003.sav
+docs/p06/fit0.rds
+docs/p06/fit1.rds
+docs/p06/modelfit0_o.rds
+docs/p06/modelfit1.rds
+docs/p06/modelfit1_o.rds
+docs/p06/modelfit2.rds
+docs/p06/modelfit2_o.rds
+docs/p06/modelfit2_o_sens.rds
+docs/p06/modelfit2_sens.rds
+docs/p06/modelfit2_sens4.rds
+docs/p08/ESS11_France/ESS11_France.csv
+docs/p06/data_long.rds
+docs/p04/.DS_Store
+docs/p04/.DS_Store
+docs/p02/Codebook (PDF).webloc
+*.webloc

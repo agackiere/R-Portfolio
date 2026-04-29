@@ -54,7 +54,7 @@ ncol(merged)
 
 <details>
 
-<summary>See the code output for the head and names of the DF </summary>
+<summary>See the code output for the head and names of the DF</summary>
 
 ```` r
 ```{r}

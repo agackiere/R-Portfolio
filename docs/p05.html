@@ -579,9 +579,9 @@ dataset instead of pooling results for simplicity.</p>
 </div>
 <div
 id="part-1-running-a-simple-bayesian-logistic-regression-to-predict-tenyearchd"
-class="section level2">
-<h2>Part 1: Running a simple bayesian logistic regression to predict
-TenYearCHD</h2>
+class="section level3">
+<h3>Part 1: Running a simple bayesian logistic regression to predict
+TenYearCHD</h3>
 <p>Here, stan is fitting the model using MCMC modeling. We’ll also take
 a peak at the posterior distributions</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># first scaling so the plot doesn&#39;t get dominated by one large variable  </span></span>
@@ -762,8 +762,9 @@ for predicting CHD risk. Glucose (β = 0.2) and total cholesterol (β =
 posterior uncertainty, likely reflecting limited statistical power
 (diabetes in particular is rare in this dataset, making it difficult to
 estimate its effect precisely).</p>
-<div id="plotting-the-posterior-distributions" class="section level3">
-<h3>Plotting the posterior distributions</h3>
+</div>
+<div id="plotting-the-posterior-distributions" class="section level2">
+<h2>Plotting the posterior distributions</h2>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>posterior <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(bayes_model)</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">mcmc_areas</span>(</span>
@@ -780,7 +781,6 @@ clearly positive. currentSmoker is centered right on zero and spans both
 sides, we can say that the model is genuinely uncertain whether it has
 any effect. diabetes is that flat wide line at the bottom, so huge
 uncertainty, basically uninformative.</p>
-</div>
 </div>
 <div id="model-evaluation" class="section level2">
 <h2>Model evaluation</h2>
@@ -828,8 +828,9 @@ CHD (class imbalance), and the model is picking that up.</p>
 <span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
 <p><img src="p05_files/figure-html/prob-plot-1.png" alt="" width="672" /></p>
-<div id="interaction" class="section level3">
-<h3>Interaction</h3>
+</div>
+<div id="interaction" class="section level2">
+<h2>Interaction</h2>
 <p>Now, let’s see whether the effect of age or blood pressure on CHD
 risk differs by sex.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>bayes_model_interaction <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(</span>
@@ -998,8 +999,8 @@ increase in systolic blood pressure has a 0.2 larger effect on the log
 odds of CHD for men compared to women. Age affects CHD risk similarly
 regardless of sex.</p>
 </div>
-<div id="plotting-the-interaction" class="section level3">
-<h3>Plotting the Interaction</h3>
+<div id="plotting-the-interaction" class="section level2">
+<h2>Plotting the Interaction</h2>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>sysBP_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(myDF_scaled<span class="sc">$</span>sysBP), <span class="fu">max</span>(myDF_scaled<span class="sc">$</span>sysBP), <span class="at">length.out =</span> <span class="dv">100</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>new_data_int <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
@@ -1033,10 +1034,8 @@ regardless of sex.</p>
 <span id="cb13-31"><a href="#cb13-31" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb13-32"><a href="#cb13-32" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
 <p><img src="p05_files/figure-html/interaction-plot-1.png" alt="" width="672" /></p>
-</div>
-</div>
-<div id="part-2-mlm-bayes-way" class="section level2">
-<h2>Part 2 MLM: Bayes Way</h2>
+<div id="part-2-mlm-bayes-way" class="section level3">
+<h3>Part 2 MLM: Bayes Way</h3>
 <p>Does the baseline CHD risk, and the effect of predictors like age and
 blood pressure, vary across education levels?</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">table</span>(myDF_clean<span class="sc">$</span>education) <span class="co"># yay we&#39;ve got enough to do an MLM</span></span></code></pre></div>
@@ -1218,8 +1217,10 @@ are essentially zero with wide uncertainty, and <code>Sigma</code> (the
 variance across education groups) is basically zero too. That means
 after controlling for age, sex, blood pressure etc., baseline CHD risk
 is pretty similar across education levels.</p>
-<div id="visualizing-random-effects" class="section level3">
-<h3>Visualizing Random Effects</h3>
+</div>
+</div>
+<div id="visualizing-random-effects" class="section level2">
+<h2>Visualizing Random Effects</h2>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>re <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
@@ -1394,10 +1395,8 @@ one town in Massachusetts in the 1940s-50s. Education’s relationship
 with health outcomes is deeply tied to race, income, and access to
 healthcare. The sample is too homogeneous for education to show
 meaningful variation in CHD risk.</p>
-</div>
-</div>
-<div id="part-3-informative-priors" class="section level2">
-<h2>Part 3: Informative Priors</h2>
+<div id="part-3-informative-priors" class="section level3">
+<h3>Part 3: Informative Priors</h3>
 <p>We’re going to compare our weakly informative model (what we already
 have), an informative prior model based on literature, and see how much
 the data moved the posterior away from the prior.</p>
@@ -1424,8 +1423,10 @@ inconsistent in literature, prior mean of 0.1, SD of 0.2.
 <code>currentSmoker</code> is redundant with cigsPerDay, prior mean of
 0.1, SD of 0.2. <code>diabetes</code> has a strong effect expected but
 rare, prior mean of 0.3, SD of 0.3</p>
-<div id="informative-priors-model" class="section level3">
-<h3>Informative Priors Model</h3>
+</div>
+</div>
+<div id="informative-priors-model" class="section level2">
+<h2>Informative Priors Model</h2>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>bayes_informative <span class="ot">&lt;-</span> <span class="fu">stan_glm</span>(</span>
 <span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  TenYearCHD <span class="sc">~</span> age <span class="sc">+</span> male <span class="sc">+</span> sysBP <span class="sc">+</span> cigsPerDay <span class="sc">+</span> totChol <span class="sc">+</span> </span>
 <span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>               BMI <span class="sc">+</span> glucose <span class="sc">+</span> diabetes <span class="sc">+</span> currentSmoker,</span>
@@ -1587,8 +1588,8 @@ rare, prior mean of 0.3, SD of 0.3</p>
 ## 
 ## For each parameter, mcse is Monte Carlo standard error, n_eff is a crude measure of effective sample size, and Rhat is the potential scale reduction factor on split chains (at convergence Rhat=1).</code></pre>
 </div>
-<div id="model-comparison" class="section level3">
-<h3>Model Comparison</h3>
+<div id="model-comparison" class="section level2">
+<h2>Model Comparison</h2>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># Compare coefficients across both models</span></span>
 <span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  <span class="at">predictor =</span> <span class="fu">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;male&quot;</span>, <span class="st">&quot;sysBP&quot;</span>, <span class="st">&quot;cigsPerDay&quot;</span>, <span class="st">&quot;totChol&quot;</span>, </span>
@@ -1616,7 +1617,6 @@ specifications suggests that the dataset is sufficiently large to
 dominate prior influence, lending robustness to our conclusions. Though,
 importantly, this finding may not generalize to more diverse or smaller
 populations where prior specification becomes critical.</p>
-</div>
 </div>
 </div>
 

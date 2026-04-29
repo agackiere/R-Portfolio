@@ -46,7 +46,7 @@ ggplot(courseDF, aes(x = factor(Topic_Choice))) +
   labs(x = "Rating of the topics covered in class", y = "# of students")
 ```
 
-### How well did they think class time was spent? 
+### How well did they think class time was spent?
 
 ```{r}
 
