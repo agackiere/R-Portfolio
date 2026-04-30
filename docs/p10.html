@@ -9,7 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Anaelle Gackiere" />
 
+<meta name="date" content="2026-04-29" />
 
 <title>Portfolio 10</title>
 
@@ -291,108 +293,650 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Portfolio 10</h1>
+<h4 class="author">Anaelle Gackiere</h4>
+<h4 class="date">2026-04-29</h4>
 
 </div>
 
 
-<blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
-</blockquote>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-hendrerit purus ut dapibus vestibulum. Suspendisse potenti. Cras
-faucibus mauris in leo condimentum lobortis. Cras euismod sollicitudin
-augue, ut venenatis quam placerat eu. Maecenas vulputate rhoncus odio,
-in interdum risus malesuada gravida. Maecenas cursus sed dui sit amet
-lacinia. Nunc dignissim metus nec ex mattis, non rutrum urna cursus.
-Morbi pretium elementum purus, in aliquet libero eleifend ac. Nam
-finibus, ligula sed ultrices pharetra, tellus risus consequat tortor,
-facilisis maximus elit lectus a metus. Sed vel dictum nulla, vitae
-blandit turpis. Integer pulvinar tempor diam ac venenatis. Vestibulum
-est lacus, suscipit et ipsum nec, consectetur iaculis leo. Morbi libero
-lacus, scelerisque non sollicitudin vitae, accumsan sed tellus.
-Suspendisse quis orci tellus.</p>
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
-<p>This is an R Markdown document. Markdown is a simple formatting
-syntax for authoring HTML, PDF, and MS Word documents. For more details
-on using R Markdown see <a href="http://rmarkdown.rstudio.com"
-class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be
-generated that includes both content as well as the output of any
-embedded R code chunks within the document. You can embed an R code
-chunk like this:</p>
-<pre class="r"><code>summary(cars)</code></pre>
-<pre><code>##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00</code></pre>
-<p>Maecenas luctus convallis efficitur. Vestibulum pharetra laoreet nibh
-non congue. Etiam ornare, neque sit amet condimentum aliquet, odio ipsum
-porttitor elit, eu malesuada turpis augue sit amet arcu. Integer nec
-quam et massa congue tincidunt. Donec sit amet diam placerat, pharetra
-quam nec, ornare nisl. Quisque erat turpis, imperdiet eget tellus non,
-interdum ultricies nisi. Fusce a erat est. Nunc sollicitudin ante non
-eros vulputate, sed eleifend nulla hendrerit. Nam ac quam nulla.
-Praesent a ligula a justo auctor tristique ac vel neque. Class aptent
-taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-himenaeos. Quisque tempor felis sed lorem efficitur volutpat. Aliquam
-lectus diam, lacinia vitae velit eget, pulvinar porta massa. Curabitur
-nec egestas mi.</p>
+<div
+id="part-1-visualizing-rct-results-of-streptomycin-therapy-for-tuberculosis"
+class="section level2">
+<h2>Part 1: Visualizing RCT Results of Streptomycin Therapy for
+Tuberculosis</h2>
+<p>I am interested in working in RCTs in the future, so I wanted to test
+out data visualization techniques that work well with two-arm trials.
+Alluvial diagrams are great for tracing patient flow through a trial and
+showing how individuals move from treatment assignment through
+intermediate outcomes to final results in a single graphic. For this
+piece I used the 1948 Streptomycin Trial, one of the first modern
+randomized controlled trials ever conducted, to explore both the overall
+treatment effect and who developed antibiotic resistance.</p>
+<p>Source: <code>medicaldata</code> package, strep_tb data</p>
+<pre class="r"><code>data(strep_tb)
+glimpse(strep_tb)</code></pre>
+<pre><code>## Rows: 107
+## Columns: 13
+## $ patient_id          &lt;chr&gt; &quot;0001&quot;, &quot;0002&quot;, &quot;0003&quot;, &quot;0004&quot;, &quot;0005&quot;, &quot;0006&quot;, &quot;0…
+## $ arm                 &lt;fct&gt; Control, Control, Control, Control, Control, Contr…
+## $ dose_strep_g        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ dose_PAS_g          &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ gender              &lt;fct&gt; M, F, F, M, F, M, F, M, F, M, F, M, F, M, F, M, F,…
+## $ baseline_condition  &lt;fct&gt; 1_Good, 1_Good, 1_Good, 1_Good, 1_Good, 1_Good, 1_…
+## $ baseline_temp       &lt;fct&gt; 1_98-98.9F, 3_100-100.9F, 1_98-98.9F, 1_98-98.9F, …
+## $ baseline_esr        &lt;fct&gt; 2_11-20, 2_11-20, 3_21-50, 3_21-50, 3_21-50, 3_21-…
+## $ baseline_cavitation &lt;fct&gt; yes, no, no, no, no, no, yes, yes, yes, yes, no, y…
+## $ strep_resistance    &lt;fct&gt; 1_sens_0-8, 1_sens_0-8, 1_sens_0-8, 1_sens_0-8, 1_…
+## $ radiologic_6m       &lt;fct&gt; 6_Considerable_improvement, 5_Moderate_improvement…
+## $ rad_num             &lt;dbl&gt; 6, 5, 5, 5, 5, 6, 5, 5, 5, 5, 6, 5, 5, 5, 5, 6, 5,…
+## $ improved            &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TR…</code></pre>
+<pre class="r"><code># data cleaning
+strep_clean &lt;- strep_tb %&gt;%
+  mutate(
+    strep_resistance = recode(strep_resistance,
+      &quot;1_sens_0-8&quot; = &quot;Sensitive&quot;,
+      &quot;2_mod_8-99&quot; = &quot;Moderate&quot;,
+      &quot;3_resist_100+&quot; = &quot;Resistant&quot;
+    ),
+    radiologic_6m = recode(radiologic_6m,
+      &quot;1_Death&quot; = &quot;Death&quot;,
+      &quot;2_Considerable_deterioration&quot; = &quot;Considerable\nDeterioration&quot;,
+      &quot;3_Moderate_deterioration&quot; = &quot;Moderate\nDeterioration&quot;,
+      &quot;4_No_change&quot; = &quot;No Change&quot;,
+      &quot;5_Moderate_improvement&quot; = &quot;Moderate\nImprovement&quot;,
+      &quot;6_Considerable_improvement&quot; = &quot;Considerable\nImprovement&quot;
+    ),
+    baseline_condition = recode(baseline_condition,
+      &quot;1_Good&quot; = &quot;Good&quot;,
+      &quot;2_Fair&quot; = &quot;Fair&quot;,
+      &quot;3_Poor&quot; = &quot;Poor&quot;
+    ),
+    baseline_temp = recode(baseline_temp,
+      &quot;1_98-98.9F&quot; = &quot;98-98.9°F&quot;,
+      &quot;2_99-99.9F&quot; = &quot;99-99.9°F&quot;,
+      &quot;3_100-100.9F&quot; = &quot;100-100.9°F&quot;,
+      &quot;4_100F+&quot; = &quot;100°F+&quot;
+    ),
+    baseline_esr = recode(baseline_esr,
+      &quot;1_0-10&quot; = &quot;0-10&quot;,
+      &quot;2_11-20&quot; = &quot;11-20&quot;,
+      &quot;3_21-50&quot; = &quot;21-50&quot;,
+      &quot;4_51+&quot; = &quot;51+&quot;
+    ),
+    baseline_cavitation = recode(baseline_cavitation,
+      &quot;0_no&quot; = &quot;No&quot;,
+      &quot;1_yes&quot; = &quot;Yes&quot;
+    )
+  )</code></pre>
+<div id="baseline-characteristics-of-tb-sample." class="section level3">
+<h3>Baseline Characteristics of TB sample.</h3>
+<p>The arms look well balanced across all characteristics given this was
+1948 and randomization methods were primitive. Gender, baseline
+condition, cavitation, ESR all roughly equal between groups. One might
+notice a slight imbalance in that the streptomycin arm has slightly more
+patients in the highest fever category (100F+) than control.</p>
+<pre class="r"><code>strep_table1 &lt;- strep_clean %&gt;%
+  select(arm, gender, baseline_condition, baseline_temp, baseline_esr, baseline_cavitation) %&gt;%
+  rename(
+    &quot;Gender&quot; = gender,
+    &quot;Baseline Condition&quot; = baseline_condition,
+    &quot;Temperature&quot; = baseline_temp,
+    &quot;ESR&quot; = baseline_esr,
+    &quot;Cavitation on X-Ray&quot; = baseline_cavitation
+  ) %&gt;%
+  pivot_longer(cols = -arm, names_to = &quot;variable&quot;, values_to = &quot;value&quot;) %&gt;%
+  count(arm, variable, value) %&gt;%
+  group_by(arm, variable) %&gt;%
+  mutate(pct = n / sum(n))
+
+ggplot(strep_table1, aes(x = value, y = pct, fill = arm)) +
+  geom_col(position = &quot;dodge&quot;, alpha = 0.85) +
+  facet_wrap(~variable, scales = &quot;free_x&quot;) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c(&quot;Streptomycin&quot; = &quot;plum4&quot;, &quot;Control&quot; = &quot;pink&quot;)) +
+  labs(
+    title = &quot;Baseline Characteristics by Treatment Arm&quot;,
+    subtitle = &quot;The 1948 Streptomycin Trial&quot;,
+    x = NULL,
+    y = &quot;Percentage&quot;,
+    fill = &quot;Treatment Arm&quot;
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))</code></pre>
+<p><img src="p10_files/figure-html/baseline-tb-1.png" alt="" width="672" /></p>
 </div>
-<div id="including-plots" class="section level2">
-<h2>Including Plots</h2>
-<p>You can also embed plots, for example:</p>
-<p><img src="p10_files/figure-html/pressure-1.png" alt="" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the
-code chunk to prevent printing of the R code that generated the
-plot.</p>
-<p>Morbi tincidunt mollis odio sit amet feugiat. Ut vel risus eu ante
-dictum consequat. Integer et luctus mauris. Donec nec faucibus urna, sed
-commodo risus. Nam elementum pulvinar erat, eget convallis est blandit
-vel. Etiam gravida sapien eu massa hendrerit maximus. Proin dolor quam,
-porta vitae libero non, venenatis porta tellus. Vivamus et elit a est
-aliquet consequat. Proin tempus, purus quis suscipit placerat, dui nunc
-euismod dui, sit amet luctus leo lectus in risus. Phasellus consectetur
-eleifend arcu. Nullam venenatis blandit nulla ut ullamcorper. Vestibulum
-eu arcu quis massa scelerisque sodales in ac augue. Quisque dapibus
-fringilla turpis, ut cursus tortor cursus sed. Sed facilisis quam eget
-neque viverra venenatis. Suspendisse ut lorem nec erat elementum
-bibendum. Curabitur lobortis purus in cursus blandit.</p>
-<p>Aliquam sed ex et lorem consequat feugiat at porta leo. Fusce id
-hendrerit tellus. Maecenas dictum felis neque, quis dictum metus
-tristique eu. Vivamus sed blandit nisl. Integer ut urna dolor. Cras in
-egestas eros, in aliquam nisi. Duis vitae elementum quam. Vivamus vel
-turpis commodo, porttitor urna vitae, viverra sem. Nam nec dignissim
-erat, id viverra libero. Integer vel lectus pellentesque tortor
-fringilla posuere. Vivamus quis magna accumsan, porta tortor at, aliquam
-urna. Aliquam vestibulum ante massa, ut gravida lectus sagittis
-vitae.</p>
-<p>Sed eget ipsum auctor, gravida magna sit amet, tincidunt mi. Nulla
-erat ante, volutpat nec sem eget, luctus posuere est. Praesent convallis
-nunc ac turpis bibendum, in maximus magna convallis. Vestibulum ante
-ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-Sed sit amet nulla ante. Sed elit sem, lobortis nec nisi a, rhoncus
-ornare nunc. Curabitur ultrices neque feugiat, facilisis magna eu,
-consectetur magna. Mauris id eleifend ex.</p>
-<p>Morbi tincidunt mollis odio sit amet feugiat. Ut vel risus eu ante
-dictum consequat. Integer et luctus mauris. Donec nec faucibus urna, sed
-commodo risus. Nam elementum pulvinar erat, eget convallis est blandit
-vel. Etiam gravida sapien eu massa hendrerit maximus. Proin dolor quam,
-porta vitae libero non, venenatis porta tellus. Vivamus et elit a est
-aliquet consequat. Proin tempus, purus quis suscipit placerat, dui nunc
-euismod dui, sit amet luctus leo lectus in risus. Phasellus consectetur
-eleifend arcu. Nullam venenatis blandit nulla ut ullamcorper. Vestibulum
-eu arcu quis massa scelerisque sodales in ac augue. Quisque dapibus
-fringilla turpis, ut cursus tortor cursus sed. Sed facilisis quam eget
-neque viverra venenatis. Suspendisse ut lorem nec erat elementum
-bibendum. Curabitur lobortis purus in cursus blandit.</p>
+<div id="alluvial-plot" class="section level3">
+<h3>Alluvial Plot</h3>
+<pre class="r"><code>strep_clean %&gt;%
+  group_by(arm, strep_resistance, radiologic_6m) %&gt;%
+  summarise(freq = n(), .groups = &quot;drop&quot;) %&gt;%
+  ggplot(aes(axis1 = arm, 
+             axis2 = strep_resistance, 
+             axis3 = radiologic_6m,
+             y = freq)) +
+  geom_alluvium(aes(fill = arm), alpha = 0.7) +
+  geom_stratum() +
+  geom_text(stat = &quot;stratum&quot;, aes(label = after_stat(stratum)), size = 3) +
+  scale_fill_manual(values = c(&quot;Streptomycin&quot; = &quot;plum4&quot;, &quot;Control&quot; = &quot;plum&quot;)) +
+  labs(
+    title = &quot;Treatment Arm → Resistance → Outcome in the 1948 Streptomycin Trial&quot;,
+    y = &quot;Number of Patients&quot;,
+    fill = &quot;Treatment Arm&quot;
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = &quot;bottom&quot;)</code></pre>
+<p><img src="p10_files/figure-html/alluvial-plot-1.png" alt="" width="672" /></p>
+<p>Streptomycin dominates the top outcomes (considerable improvement)
+while the control flows heavily toward death and deterioration. The
+historical finding was that all the resistance flows from the
+streptomycin arm only.</p>
+<div id="who-developed-resistance" class="section level4">
+<h4>Who developed resistance?</h4>
+<p>Based on the plot below, resistance was not randomly distributed
+among streptomycin-treated patients. Those who developed resistance were
+disproportionately in poor baseline condition and more likely to present
+with cavitation on their chest X-ray which are indicators of more
+advanced disease. Higher ESR and fever followed the same pattern.</p>
+<p>This interpretation was confirmed by follow-up analyses. Patients who
+developed resistance were more likely to present with cavitation (χ²(1)
+= 4.65, p = .031) and poor baseline condition (Fisher’s exact, p &lt;
+.001) at enrollment. This suggests that higher disease severity may have
+given the bacterium more opportunity to mutate. This pattern remains
+relevant today, where the most vulnerable patients are often the most
+likely to develop antibiotic resistance</p>
+<pre class="r"><code>strep_resist &lt;- strep_clean %&gt;%
+  filter(arm == &quot;Streptomycin&quot;) %&gt;%
+  filter(strep_resistance != &quot;Moderate&quot;) # only 8 moderate cases, too few to compare
+table(strep_resist$strep_resistance)</code></pre>
+<pre><code>## 
+## Sensitive  Moderate Resistant 
+##        13         0        34</code></pre>
+<pre class="r"><code>strep_resist %&gt;%
+  select(strep_resistance, baseline_condition, baseline_temp, 
+         baseline_esr, baseline_cavitation) %&gt;%
+  pivot_longer(cols = -strep_resistance, 
+               names_to = &quot;variable&quot;, 
+               values_to = &quot;value&quot;) %&gt;%
+  count(strep_resistance, variable, value) %&gt;%
+  group_by(strep_resistance, variable) %&gt;%
+  mutate(pct = n / sum(n)) %&gt;%
+  ggplot(aes(x = value, y = pct, fill = strep_resistance)) +
+  geom_col(position = &quot;dodge&quot;, alpha = 0.85) +
+  facet_wrap(~variable, scales = &quot;free_x&quot;, nrow = 2) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c(&quot;Sensitive&quot; = &quot;plum4&quot;, &quot;Resistant&quot; = &quot;pink&quot;)) +
+  labs(
+    title = &quot;Baseline Characteristics by Streptomycin Resistance&quot;,
+    subtitle = &quot;Who developed resistance in the Streptomycin arm?&quot;,
+    x = NULL,
+    y = &quot;Percentage&quot;,
+    fill = &quot;Resistance Status&quot;
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))</code></pre>
+<p><img src="p10_files/figure-html/step-resist-1.png" alt="" width="672" /></p>
+<pre class="r"><code># follow up chi square test for cavitation
+strep_resist_binary &lt;- strep_clean %&gt;%
+  filter(arm == &quot;Streptomycin&quot;) %&gt;%
+  filter(strep_resistance %in% c(&quot;Sensitive&quot;, &quot;Resistant&quot;)) %&gt;%
+  mutate(strep_resistance = droplevels(strep_resistance))
+
+chisq.test(table(strep_resist_binary$baseline_cavitation, 
+                 strep_resist_binary$strep_resistance))</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  table(strep_resist_binary$baseline_cavitation, strep_resist_binary$strep_resistance)
+## X-squared = 4.6484, df = 1, p-value = 0.03108</code></pre>
+<pre class="r"><code># fisher for baseline condition
+fisher.test(table(strep_resist_binary$baseline_condition, 
+                  strep_resist_binary$strep_resistance))</code></pre>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  table(strep_resist_binary$baseline_condition, strep_resist_binary$strep_resistance)
+## p-value = 3.005e-06
+## alternative hypothesis: two.sided</code></pre>
+</div>
+</div>
+</div>
+<div
+id="part-2-visualizing-a-randomized-trial-of-six-therapies-for-scurvy"
+class="section level2">
+<h2>Part 2: Visualizing a Randomized Trial of Six Therapies for
+Scurvy</h2>
+<p>The <code>scurvy</code> dataset from the <code>medicaldata</code>
+package contains results from James Lind’s 1757 trial testing six
+treatments for scurvy in 12 sailors. . I was drawn to it as a natural
+companion to the streptomycin piece since both are landmark historical
+trials that changed medicine, and both reward careful visualization
+despite their small sample sizes.</p>
+<pre class="r"><code>data(scurvy)
+glimpse(scurvy)</code></pre>
+<pre><code>## Rows: 12
+## Columns: 8
+## $ study_id                  &lt;chr&gt; &quot;001&quot;, &quot;002&quot;, &quot;003&quot;, &quot;004&quot;, &quot;005&quot;, &quot;006&quot;, &quot;0…
+## $ treatment                 &lt;fct&gt; cider, cider, dilute_sulfuric_acid, dilute_s…
+## $ dosing_regimen_for_scurvy &lt;chr&gt; &quot;1 quart per day&quot;, &quot;1 quart per day&quot;, &quot;25 dr…
+## $ gum_rot_d6                &lt;fct&gt; 2_moderate, 2_moderate, 1_mild, 2_moderate, …
+## $ skin_sores_d6             &lt;fct&gt; 2_moderate, 1_mild, 3_severe, 3_severe, 3_se…
+## $ weakness_of_the_knees_d6  &lt;fct&gt; 2_moderate, 2_moderate, 3_severe, 3_severe, …
+## $ lassitude_d6              &lt;fct&gt; 2_moderate, 3_severe, 3_severe, 3_severe, 3_…
+## $ fit_for_duty_d6           &lt;fct&gt; 0_no, 0_no, 0_no, 0_no, 0_no, 0_no, 0_no, 0_…</code></pre>
+<pre class="r"><code>radar_data &lt;- scurvy %&gt;%
+  mutate(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6),
+                ~ as.numeric(str_extract(as.character(.), &quot;\\d&quot;)))) %&gt;%
+  group_by(treatment) %&gt;%
+  summarise(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6), mean)) %&gt;%
+  column_to_rownames(&quot;treatment&quot;)
+
+# fmsb set up
+radar_data &lt;- rbind(
+  max = rep(3, 4),
+  min = rep(1, 4),
+  radar_data
+)
+
+colnames(radar_data) &lt;- c(&quot;Gum Rot&quot;, &quot;Skin Sores&quot;, &quot;Weak Knees&quot;, &quot;Lassitude&quot;)</code></pre>
+<div id="scurvy-radar-chart" class="section level4">
+<h4>Scurvy Radar Chart</h4>
+<p>Since there are quite a few groups, it is difficult to read at first.
+Upon closer inspection though, one can see that citrus, in red, is at
+the center of the plot compared to all other treatments (and
+colors).</p>
+<pre class="r"><code>colors &lt;- c(&quot;yellow&quot;, &quot;red&quot;, &quot;green&quot;, &quot;purple&quot;, &quot;blue&quot;, &quot;orange&quot;)
+
+radarchart(radar_data,
+  pcol = colors,
+  pfcol = scales::alpha(colors, 0.2),
+  plwd = 2,
+  title = &quot;Scurvy Symptoms by Treatment at Day 6&quot;
+)
+
+legend(&quot;topright&quot;, legend = rownames(radar_data)[3:8],
+       col = colors, lty = 1, lwd = 2, cex = 0.8)</code></pre>
+<p><img src="p10_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" /></p>
+</div>
+<div id="scurvy-heatmap" class="section level4">
+<h4>Scurvy Heatmap</h4>
+<p>The heatmap better displays the stark difference in symptoms for
+citrus compared to the other treatments.</p>
+<pre class="r"><code>scurvy_heat &lt;- scurvy %&gt;%
+  mutate(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6),
+                ~ as.numeric(str_extract(as.character(.), &quot;\\d&quot;)))) %&gt;%
+  group_by(treatment) %&gt;%
+  summarise(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6), mean)) %&gt;%
+  pivot_longer(cols = -treatment, names_to = &quot;symptom&quot;, values_to = &quot;severity&quot;) %&gt;%
+  mutate(
+    symptom = recode(symptom,
+      &quot;gum_rot_d6&quot; = &quot;Gum Rot&quot;,
+      &quot;skin_sores_d6&quot; = &quot;Skin Sores&quot;,
+      &quot;weakness_of_the_knees_d6&quot; = &quot;Weak Knees&quot;,
+      &quot;lassitude_d6&quot; = &quot;Lassitude&quot;
+    ),
+    treatment = recode(treatment,
+      &quot;citrus&quot; = &quot;Citrus&quot;,
+      &quot;cider&quot; = &quot;Cider&quot;,
+      &quot;dilute_sulfuric_acid&quot; = &quot;Dilute Sulfuric Acid&quot;,
+      &quot;vinegar&quot; = &quot;Vinegar&quot;,
+      &quot;purgative_mixture&quot; = &quot;Purgative Mixture&quot;,
+      &quot;sea_water&quot; = &quot;Sea Water&quot;
+    )
+  )
+
+ggplot(scurvy_heat, aes(x = symptom, y = treatment, fill = severity)) +
+  geom_tile(color = &quot;white&quot;, linewidth = 0.8) +
+  geom_text(aes(label = round(severity, 1)), color = &quot;white&quot;, size = 4) +
+  scale_fill_gradient(low = &quot;plum&quot;, high = &quot;plum4&quot;,
+                      name = &quot;Severity&quot;,
+                      breaks = c(1, 2, 3),
+                      labels = c(&quot;Mild&quot;, &quot;Moderate&quot;, &quot;Severe&quot;)) +
+  labs(
+    title = &quot;Scurvy Symptom Severity by Treatment at Day 6&quot;,
+    subtitle = &quot;James Lind&#39;s 1757 trial [lower is better]&quot;,
+    x = NULL,
+    y = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="p10_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
+<p>James Lind’s 1757 trial tested six treatments for scurvy aboard a
+Royal Navy vessel. The results are clearly unambiguous; citrus alone
+produced meaningful symptom relief across all four measures by day 6,
+while every other treatment left patients severely symptomatic.</p>
+</div>
+</div>
+<div
+id="part-3-visualizing-the-obstetrics-and-periodontal-therapy-rct-dataset"
+class="section level2">
+<h2>Part 3: Visualizing the Obstetrics and Periodontal Therapy RCT
+Dataset</h2>
+<p>Finally, I wanted to visualize a modern RCT using the OPT dataset, a
+trial examining whether treating maternal periodontal disease could
+reduce preterm birth risk. Given my interest in health equity, I was
+particularly curious whether treatment effects and birth outcomes
+differed by racial group.</p>
+<p>Source: <code>medicaldata</code> package, opt data</p>
+<p>Michalowicz et al., ‘Treatment of periodontal disease and the risk of
+preterm birth’, N Engl J Med 2006; 355:1885-1894. DOI:
+10.1056/NEJMoa062249</p>
+<pre class="r"><code>data(opt)
+head(opt)</code></pre>
+<pre><code>##      PID Clinic Group Age Black White Nat.Am Asian Hisp Education Public.Asstce
+## 1 100034     NY     C  25   Yes   No     No    No       8-12 yrs            No 
+## 2 100042     NY     C  21   Yes   No     No    No       8-12 yrs            Yes
+## 3 100067     NY     T  25   No    Yes    No    No   Yes 8-12 yrs            No 
+## 4 100083     NY     C  36   Yes   No     No    No       MT 12 yrs           Yes
+## 5 100091     NY     C  21   No    Yes    No    No   Yes 8-12 yrs            No 
+## 6 100109     NY     T  40   No    No     No    Yes      8-12 yrs            No 
+##   Hypertension Diabetes BL.Diab.Type BMI Use.Tob BL.Cig.Day Use.Alc BL.Drks.Day
+## 1          N        No          &lt;NA&gt;  NA     Yes          5     No           NA
+## 2          N        No          &lt;NA&gt;  21     No          NA     No           NA
+## 3          N        No          &lt;NA&gt;  24     No          NA     No           NA
+## 4          N        No          &lt;NA&gt;  36     No          NA     No           NA
+## 5          N        No          &lt;NA&gt;  27     No          NA     No           NA
+## 6          N        No          &lt;NA&gt;  24     No          NA     No           NA
+##   Drug.Add Prev.preg N.prev.preg Live.PTB Any.stillbirth Spont.ab Induced.ab
+## 1      No        No           NA     &lt;NA&gt;           &lt;NA&gt;     &lt;NA&gt;       &lt;NA&gt;
+## 2      No        Yes           5      Yes            No       No         Yes
+## 3      No        Yes           2      Yes            No                     
+## 4      No        Yes           4      No             No       Yes        Yes
+## 5      No        No           NA     &lt;NA&gt;           &lt;NA&gt;     &lt;NA&gt;       &lt;NA&gt;
+## 6      No        No           NA     &lt;NA&gt;           &lt;NA&gt;     &lt;NA&gt;       &lt;NA&gt;
+##   Any.live.ptb.sb.sp.ab.in.ab N.living.kids Tx.comp. Local.anes Topical.Anest
+## 1                        &lt;NA&gt;            NA     &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;
+## 2                         Yes             2     &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;
+## 3                         Yes             1      Und        No            No 
+## 4                         Yes             2     &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;
+## 5                        &lt;NA&gt;            NA     &lt;NA&gt;       &lt;NA&gt;          &lt;NA&gt;
+## 6                        &lt;NA&gt;            NA      Und        No            Yes
+##    Tx.time EDC.necessary. Completed.EDC N.extractions N.perm.restorations
+## 1       NA            No           &lt;NA&gt;            NA                  NA
+## 2       NA                                         NA                  NA
+## 3 1.000000            Yes           Yes             0                   1
+## 4       NA            No           &lt;NA&gt;            NA                  NA
+## 5       NA            Yes           Yes             0                   1
+## 6 1.666667                                         NA                  NA
+##   N.qualifying.teeth BL.GE BL..BOP BL.PD.avg BL..PD.4 BL..PD.5 BL.CAL.avg
+## 1                 13 1.429  48.214     2.696   17.857    5.357      1.291
+## 2                 12 1.298  79.762     2.685   17.857   10.119      1.119
+## 3                 16 1.784  80.247     2.821   25.309   12.346      1.407
+## 4                 15 1.596 100.000     2.814   17.308    5.769      1.494
+## 5                 16 1.173  94.048     2.768   23.214   14.286      1.327
+## 6                 16 0.969  85.185     2.932   25.309   10.494      1.432
+##   BL..CAL.2 BL..CAL.3 BL.Calc.I BL.Pl.I V3.GE V3..BOP V3.PD.avg V3..PD.4
+## 1    38.182     5.455     1.028   1.583 1.637  88.690     3.000   27.381
+## 2    25.000    10.119     0.861   1.194    NA      NA        NA       NA
+## 3    42.593    16.049     0.972   0.917    NA      NA        NA       NA
+## 4    38.312    13.636     2.083   2.028 1.000  99.359     3.660   49.359
+## 5    40.476    14.286     1.111   1.083 1.762  72.619     2.744   23.214
+## 6    45.679    11.728     0.194   0.611    NA      NA        NA       NA
+##   V3..PD.5 V3.CAL.avg V3..CAL.2 V3..CAL.3 V3.Calc.I V3.Pl.I V5.GE V5..BOP
+## 1   13.095      1.557    46.108    17.365     1.111   0.917 2.077  86.310
+## 2       NA         NA        NA        NA        NA      NA    NA      NA
+## 3       NA         NA        NA        NA        NA      NA    NA      NA
+## 4   26.923      2.282    79.487    39.103     1.778   1.111 1.000  99.359
+## 5   13.095      1.280    38.690    13.095     0.806   0.778 1.845  56.548
+## 6       NA         NA        NA        NA        NA      NA    NA      NA
+##   V5.PD.avg V5..PD.4 V5..PD.5 V5.CAL.avg V5..CAL.2 V5..CAL.3 V5.Calc.I V5.Pl.I
+## 1     2.929   23.214   11.310      1.500    44.643    13.095     1.111   1.639
+## 2        NA       NA       NA         NA        NA        NA        NA      NA
+## 3        NA       NA       NA         NA        NA        NA        NA      NA
+## 4     3.660   49.359   26.923      2.282    79.487    39.103     1.778   1.111
+## 5     2.786   22.024   13.690      1.321    44.048    13.690     1.000   1.250
+## 6        NA       NA       NA         NA        NA        NA        NA      NA
+##   N.PAL.sites        Birth.outcome Preg.ended...37.wk GA.at.outcome Birthweight
+## 1           0 Live birth                          No            265        3490
+## 2           0 Live birth                          Yes           253        2350
+## 3           0 Live birth                          No            266        2525
+## 4           8 Live birth                          No            271        3650
+## 5           0 Live birth                          No            280        3865
+## 6           0 Live birth                          No            275        3120
+##   Fetal.congenital.anomaly Apgar1 Apgar5 Any.SAE. GA...1st.SAE Bact.vag
+## 1                      No       9      9      No           259      No 
+## 2                      No       4      7      No           259      No 
+## 3                      No       8      9      No           259      No 
+## 4                      No       9      9      No           259      No 
+## 5                      No       9      9      No           259      No 
+## 6                      No       8      9      No           259      No 
+##   Gest.diab Oligo Polyhyd Gonorrhea Chlamydia Strep.B Traumatic.Inj UTI
+## 1       Yes   No      No                                        No  No 
+## 2       No    No      No        No        Yes                   No  No 
+## 3       Yes   Yes     No                                        No  No 
+## 4       No    No      No                                        No  No 
+## 5       No    No      No        No        No                    No  No 
+## 6       No    No      No        No        No      Yes           No  No 
+##   Pre.eclamp Mom.HIV.status BL.Anti.inf BL.Cortico BL.Antibio BL.Bac.vag
+## 1        No             No            0          0          0          0
+## 2        No             No            0          0          0          0
+## 3        No             No            0          0          0          0
+## 4        No             No            1          0          0          0
+## 5        No             No            0          0          0          0
+## 6        No             No            0          0          0          0
+##   V3.Anti.inf V3.Cortico V3.Antibio V3.Bac.vag V5.Anti.inf V5.Cortico
+## 1           0          0          0          0           0          0
+## 2          NA         NA         NA         NA          NA         NA
+## 3          NA         NA         NA         NA          NA         NA
+## 4           1          0          0          0           0          0
+## 5           0          0          0          0          NA         NA
+## 6          NA         NA         NA         NA          NA         NA
+##   V5.Antibio V5.Bac.vag X..Vis.Att X..Vis.Elig X1st.Miss.Vis   OAA1  OCR1  OFN1
+## 1          0          0          5           5           100  6.745 5.476 3.816
+## 2         NA         NA          0           5             2 13.281 4.597 3.525
+## 3         NA         NA          2           5             3  16.17 6.077 4.462
+## 4          0          0          3           5             2  8.795 8.197 4.847
+## 5         NA         NA          4           5             5  6.663 6.302 5.238
+## 6         NA         NA          1           5             3  5.694 6.297 4.646
+##     OPG1  OPI1  OTD1  OTF1  OCRP1 O1B1    O61 O81  OPGE21 OTNF1 OMMP91
+## 1  16.72 3.599 5.909 7.056 18.331  1.2    4.9 1.2 103.631   1.2  2.312
+## 2  3.894 2.677 5.408 6.388  6.929  1.2    4.9 1.2 138.577   1.2  1.755
+## 3 16.164 2.985 5.803 5.893  2.813  1.2 101.36 1.2 189.849   1.2  1.561
+## 4 18.257 9.439 3.975 4.847   31.5  1.2    4.9 1.2 114.965  1.32  0.883
+## 5 10.935 4.119  2.17   5.6  1.026  1.2    4.9 1.2 264.073   1.2  0.452
+## 6  5.035 5.094 2.771 8.916  3.596  1.2    4.9 1.2  61.821   1.2   0.29
+##   ETXU_CAT1 OFIBRIN1  OAA5  OCR5  OFN5   OPG5  OPI5  OTD5  OTF5 OCRP5 O1B5 O65
+## 1         1      9.3 8.264  1.63 2.301 15.682 4.119 5.894  7.27 7.012  1.2 4.9
+## 2         2   11.148     .     .     .      .     .     .     .     .    .   .
+## 3         2       20     .     .     .      .     .     .     .     .    .   .
+## 4         2   16.096 2.534   4.2 2.767 19.636 9.584 3.252 5.691 7.848  1.2 4.9
+## 5         1    9.668 4.299 2.083 1.279  8.567 2.463 1.716 2.831  2.76  1.2 4.9
+## 6         2   11.526     .     .     .      .     .     .     .     .    .   .
+##   O85  OPGE25 OTNF5 OMMP95 ETXU_CAT5 OFIBRIN5  BL.DNA   BL.Univ BL.AA   BL.PG
+## 1 1.2  836.57   1.2  1.126         1     58.4      NA        NA    NA      NA
+## 2   .       .     .      .         .        . 1804.65 135000000 12500       0
+## 3   .       .     .      .         .        . 1198.60 307000000     0 9310000
+## 4 1.2  252.26   1.2  0.428         1       76      NA        NA    NA      NA
+## 5 1.2 1521.16   1.2  0.236         1       78      NA        NA    NA      NA
+## 6   .       .     .      .         .        .      NA        NA    NA      NA
+##     BL.TD   BL.TF   BL.PI   BL.CR    BL.FN    BL.S7 V5.DNA V5.Univ V5.AA V5.PG
+## 1      NA      NA      NA      NA       NA       NA     NA      NA    NA    NA
+## 2 4480000 6460000       0 3730000 29900000 44600000     NA      NA    NA    NA
+## 3 5490000 3520000 9790000 5050000 38400000 71600000     NA      NA    NA    NA
+## 4      NA      NA      NA      NA       NA       NA     NA      NA    NA    NA
+## 5      NA      NA      NA      NA       NA       NA     NA      NA    NA    NA
+## 6      NA      NA      NA      NA       NA       NA     NA      NA    NA    NA
+##   V5.TD V5.TF V5.PI V5.CR V5.FN V5.S7 BL..AA BL..PG BL..TD BL..TF BL..PI BL..CR
+## 1    NA    NA    NA    NA    NA    NA     NA     NA     NA     NA     NA     NA
+## 2    NA    NA    NA    NA    NA    NA   0.01   0.00   3.32   4.79   0.00   2.76
+## 3    NA    NA    NA    NA    NA    NA   0.00   3.03   1.79   1.15   3.19   1.64
+## 4    NA    NA    NA    NA    NA    NA     NA     NA     NA     NA     NA     NA
+## 5    NA    NA    NA    NA    NA    NA     NA     NA     NA     NA     NA     NA
+## 6    NA    NA    NA    NA    NA    NA     NA     NA     NA     NA     NA     NA
+##   BL..FN BL..S7 V5..AA V5..PG V5..TD V5..TF V5..PI V5..CR V5..FN V5..S7
+## 1     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 2  22.15  33.02     NA     NA     NA     NA     NA     NA     NA     NA
+## 3  12.51  23.31     NA     NA     NA     NA     NA     NA     NA     NA
+## 4     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 5     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 6     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA</code></pre>
+<pre class="r"><code>dim(opt)</code></pre>
+<pre><code>## [1] 823 171</code></pre>
+<div id="visualizing-birth-weight-outcomes" class="section level4">
+<h4>Visualizing Birth Weight Outcomes</h4>
+<pre class="r"><code>opt_race &lt;- opt %&gt;%
+  filter(!is.na(Birthweight)) %&gt;%
+  mutate(race = case_when(
+    Black == &quot;Yes&quot; ~ &quot;Black&quot;,
+    White == &quot;Yes&quot; ~ &quot;White&quot;,
+    Hisp  == &quot;Yes&quot; ~ &quot;Hispanic&quot;,
+    Asian == &quot;Yes&quot; ~ &quot;Asian&quot;,
+    Nat.Am == &quot;Yes&quot; ~ &quot;Native American&quot;,
+    TRUE ~ &quot;Other/Unknown&quot;
+  )) %&gt;%
+  filter(race != &quot;Other/Unknown&quot;)
+
+ggplot(opt_race, aes(x = Birthweight, y = race, fill = race)) +
+  geom_density_ridges(alpha = 0.7, scale = 1.2) +
+  geom_vline(xintercept = 2500, linetype = &quot;dashed&quot;, color = &quot;gray40&quot;) +
+  scale_fill_brewer(palette = &quot;Set2&quot;) +
+  annotate(&quot;text&quot;, x = 2500, y = 0.5, label = &quot;Low birthweight\nthreshold (2500g)&quot;, 
+           hjust = 1.1, size = 3.5, color = &quot;gray40&quot;) +
+  labs(
+    title = &quot;Birth Weight Distribution by Race&quot;,
+    subtitle = &quot;OPT Trial participants, periodontal therapy RCT&quot;,
+    x = &quot;Birth Weight (grams)&quot;,
+    y = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = &quot;none&quot;)</code></pre>
+<pre><code>## Picking joint bandwidth of 196</code></pre>
+<p><img src="p10_files/figure-html/opt-ridges-1.png" alt="" width="672" /></p>
+<p>The Native American distribution looked strange, so I checked the
+sample size before making any further inferences:</p>
+<pre class="r"><code>table(opt_race$race)</code></pre>
+<pre><code>## 
+##           Asian           Black        Hispanic Native American           White 
+##               7             364             210               3             225</code></pre>
+<p>There are 7 Asian and 3 Native American participants. Those
+distributions are unreliable, so they have to be dropped.</p>
+<pre class="r"><code>opt_race &lt;- opt_race %&gt;%
+  filter(race %in% c(&quot;Black&quot;, &quot;White&quot;, &quot;Hispanic&quot;))
+
+ggplot(opt_race, aes(x = Birthweight, y = race, fill = race)) +
+  geom_density_ridges(alpha = 0.7, scale = 1.2) +
+  geom_vline(xintercept = 2500, linetype = &quot;dashed&quot;, color = &quot;gray40&quot;) +
+  scale_fill_brewer(palette = &quot;Set2&quot;) +
+  annotate(&quot;text&quot;, x = 2500, y = 0.5, label = &quot;Low birthweight\nthreshold (2500g)&quot;, 
+           hjust = 1.1, size = 3.5, color = &quot;gray40&quot;) +
+  labs(
+    title = &quot;Birth Weight Distribution by Race&quot;,
+    subtitle = &quot;OPT Trial participants, periodontal therapy RCT&quot;,
+    x = &quot;Birth Weight (grams)&quot;,
+    y = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = &quot;none&quot;)</code></pre>
+<pre><code>## Picking joint bandwidth of 133</code></pre>
+<p><img src="p10_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" /></p>
+<p>Did periodontal treatment affect birthweight differently across
+racial groups?</p>
+<pre class="r"><code>ggplot(opt_race, aes(x = Birthweight, y = race, fill = Group)) +
+  geom_density_ridges(alpha = 0.6, scale = 1.2) +
+  geom_vline(xintercept = 2500, linetype = &quot;dashed&quot;, color = &quot;gray40&quot;) +
+  scale_fill_manual(values = c(&quot;T&quot; = &quot;plum4&quot;, &quot;C&quot; = &quot;plum&quot;),
+                    labels = c(&quot;T&quot; = &quot;Treatment&quot;, &quot;C&quot; = &quot;Control&quot;)) +
+  annotate(&quot;text&quot;, x = 2400, y = 0.5, label = &quot;Low birthweight\nthreshold (2500g)&quot;, 
+           hjust = 1.1, size = 3.5, color = &quot;gray40&quot;) +
+  labs(
+    title = &quot;Birth Weight Distribution by Race and Treatment Arm&quot;,
+    subtitle = &quot;Did periodontal treatment affect birthweight differently across racial groups?&quot;,
+    x = &quot;Birth Weight (grams)&quot;,
+    y = NULL,
+    fill = &quot;Treatment Arm&quot;
+  ) +
+  theme_minimal(base_size = 13)</code></pre>
+<pre><code>## Picking joint bandwidth of 154</code></pre>
+<p><img src="p10_files/figure-html/opt-ridges2-1.png" alt="" width="672" /></p>
+<p>Periodontal treatment did not meaningfully shift birthweight
+distributions within any racial group. The treatment and control curves
+overlap substantially for Black, Hispanic, and White participants alike.
+This confirms the trial’s published null finding that treating maternal
+periodontal disease did not reduce preterm birth or low birthweight risk
+regardless of race.</p>
+<p>However the racial disparity in birthweight is clearly visible
+regardless of treatment arm. Black participants show a left-shifted
+distribution with more mass below the 2500g low birthweight threshold
+compared to White and Hispanic participants. Periodontal treatment did
+nothing to close that gap.</p>
+</div>
+<div id="visualizing-preterm-births" class="section level4">
+<h4>Visualizing Preterm Births</h4>
+<pre class="r"><code>opt_race &lt;- opt_race %&gt;%
+  mutate(Preg.ended...37.wk = trimws(as.character(Preg.ended...37.wk)))
+
+opt_race %&gt;%
+  filter(Preg.ended...37.wk %in% c(&quot;Yes&quot;, &quot;No&quot;)) %&gt;%
+  group_by(race, Group, Preg.ended...37.wk) %&gt;%
+  summarise(n = n(), .groups = &quot;drop&quot;) %&gt;%
+  group_by(race, Group) %&gt;%
+  mutate(pct = n / sum(n)) %&gt;%
+  filter(Preg.ended...37.wk == &quot;Yes&quot;) %&gt;%
+  ggplot(aes(x = race, y = pct, fill = Group)) +
+  geom_col(position = &quot;dodge&quot;, alpha = 0.85) +
+  scale_fill_manual(values = c(&quot;T&quot; = &quot;plum4&quot;, &quot;C&quot; = &quot;plum&quot;),
+                    labels = c(&quot;T&quot; = &quot;Treatment&quot;, &quot;C&quot; = &quot;Control&quot;)) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = &quot;Preterm Birth Rate by Race and Treatment Arm&quot;,
+    x = NULL,
+    y = &quot;Preterm Birth Rate&quot;,
+    fill = &quot;Treatment Arm&quot;
+  ) +
+  theme_minimal(base_size = 13)</code></pre>
+<p><img src="p10_files/figure-html/opt-preterm-1.png" alt="" width="672" /></p>
+<p>Black participants had the highest preterm birth rates overall, and
+treatment made virtually no difference. Hispanic participants showed the
+largest gap between arms, with the treatment group having lower preterm
+birth rates, though small sample sizes make this hard to interpret
+confidently. White participants showed the opposite pattern, with
+slightly higher rates in the treatment arm.</p>
+<p>The overall null finding might mask potential heterogeneity by race.
+The intervention may have had differential effects that were washed out
+in the aggregate analysis.</p>
+<div
+id="logistic-regression-with-interaction-term-between-race-and-treatment-group"
+class="section level5">
+<h5>Logistic Regression with interaction term between race and treatment
+group</h5>
+<pre class="r"><code>preterm_model &lt;- glm(
+  (Preg.ended...37.wk == &quot;Yes&quot;) ~ race * Group,
+  data = opt_race,
+  family = binomial
+)
+
+summary(preterm_model)</code></pre>
+<pre><code>## 
+## Call:
+## glm(formula = (Preg.ended...37.wk == &quot;Yes&quot;) ~ race * Group, family = binomial, 
+##     data = opt_race)
+## 
+## Coefficients:
+##                     Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)         -1.64334    0.20285  -8.101 5.45e-16 ***
+## raceHispanic        -0.61842    0.38931  -1.588    0.112    
+## raceWhite           -0.59349    0.37652  -1.576    0.115    
+## GroupT              -0.03922    0.28643  -0.137    0.891    
+## raceHispanic:GroupT -0.49222    0.60772  -0.810    0.418    
+## raceWhite:GroupT     0.16584    0.52545   0.316    0.752    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 590.79  on 798  degrees of freedom
+## Residual deviance: 579.77  on 793  degrees of freedom
+## AIC: 591.77
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>The logistic regression with race by treatment interaction terms
+found no statistically significant differential treatment effects by
+race (all p &gt; .40), which suggests the visual differences observed
+are likely due to chance given limited statistical power. Adequately
+powered subgroup analyses would require a much larger trial with
+prespecified racial subgroup analyses which is a design consideration
+that remains underutilized in RCTs today.</p>
+</div>
+</div>
 </div>
 
 

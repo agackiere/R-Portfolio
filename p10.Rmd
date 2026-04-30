@@ -1,20 +1,422 @@
 ---
 title: "Portfolio 10"
+author: "Anaelle Gackiere"
+date: "`r Sys.Date()`"
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+## Part 1: Visualizing RCT Results of Streptomycin Therapy for Tuberculosis
 
+I am interested in working in RCTs in the future, so I wanted to test out data visualization techniques that work well with two-arm trials. Alluvial diagrams are great for tracing patient flow through a trial and showing how individuals move from treatment assignment through intermediate outcomes to final results in a single graphic. For this piece I used the 1948 Streptomycin Trial, one of the first modern randomized controlled trials ever conducted, to explore both the overall treatment effect and who developed antibiotic resistance.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit purus ut dapibus vestibulum. Suspendisse potenti. Cras faucibus mauris in leo condimentum lobortis. Cras euismod sollicitudin augue, ut venenatis quam placerat eu. Maecenas vulputate rhoncus odio, in interdum risus malesuada gravida. Maecenas cursus sed dui sit amet lacinia. Nunc dignissim metus nec ex mattis, non rutrum urna cursus. Morbi pretium elementum purus, in aliquet libero eleifend ac. Nam finibus, ligula sed ultrices pharetra, tellus risus consequat tortor, facilisis maximus elit lectus a metus. Sed vel dictum nulla, vitae blandit turpis. Integer pulvinar tempor diam ac venenatis. Vestibulum est lacus, suscipit et ipsum nec, consectetur iaculis leo. Morbi libero lacus, scelerisque non sollicitudin vitae, accumsan sed tellus. Suspendisse quis orci tellus.
+Source: `medicaldata` package, strep_tb data
 
+```{r set-up, include=FALSE}
+library("medicaldata")
+library("ggalluvial") # for alluvial plot
+library("ggplot2")
+library("dplyr")
+library("tidyverse")
+library("fmsb") # for radar chart
+library("ggridges")
 
-```{r, child='p10/demo.Rmd'}
 ```
 
+```{r tb-prep}
+data(strep_tb)
+glimpse(strep_tb)
 
-Aliquam sed ex et lorem consequat feugiat at porta leo. Fusce id hendrerit tellus. Maecenas dictum felis neque, quis dictum metus tristique eu. Vivamus sed blandit nisl. Integer ut urna dolor. Cras in egestas eros, in aliquam nisi. Duis vitae elementum quam. Vivamus vel turpis commodo, porttitor urna vitae, viverra sem. Nam nec dignissim erat, id viverra libero. Integer vel lectus pellentesque tortor fringilla posuere. Vivamus quis magna accumsan, porta tortor at, aliquam urna. Aliquam vestibulum ante massa, ut gravida lectus sagittis vitae.
+# data cleaning
+strep_clean <- strep_tb %>%
+  mutate(
+    strep_resistance = recode(strep_resistance,
+      "1_sens_0-8" = "Sensitive",
+      "2_mod_8-99" = "Moderate",
+      "3_resist_100+" = "Resistant"
+    ),
+    radiologic_6m = recode(radiologic_6m,
+      "1_Death" = "Death",
+      "2_Considerable_deterioration" = "Considerable\nDeterioration",
+      "3_Moderate_deterioration" = "Moderate\nDeterioration",
+      "4_No_change" = "No Change",
+      "5_Moderate_improvement" = "Moderate\nImprovement",
+      "6_Considerable_improvement" = "Considerable\nImprovement"
+    ),
+    baseline_condition = recode(baseline_condition,
+      "1_Good" = "Good",
+      "2_Fair" = "Fair",
+      "3_Poor" = "Poor"
+    ),
+    baseline_temp = recode(baseline_temp,
+      "1_98-98.9F" = "98-98.9°F",
+      "2_99-99.9F" = "99-99.9°F",
+      "3_100-100.9F" = "100-100.9°F",
+      "4_100F+" = "100°F+"
+    ),
+    baseline_esr = recode(baseline_esr,
+      "1_0-10" = "0-10",
+      "2_11-20" = "11-20",
+      "3_21-50" = "21-50",
+      "4_51+" = "51+"
+    ),
+    baseline_cavitation = recode(baseline_cavitation,
+      "0_no" = "No",
+      "1_yes" = "Yes"
+    )
+  )
 
-Sed eget ipsum auctor, gravida magna sit amet, tincidunt mi. Nulla erat ante, volutpat nec sem eget, luctus posuere est. Praesent convallis nunc ac turpis bibendum, in maximus magna convallis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed sit amet nulla ante. Sed elit sem, lobortis nec nisi a, rhoncus ornare nunc. Curabitur ultrices neque feugiat, facilisis magna eu, consectetur magna. Mauris id eleifend ex.
+```
 
-Morbi tincidunt mollis odio sit amet feugiat. Ut vel risus eu ante dictum consequat. Integer et luctus mauris. Donec nec faucibus urna, sed commodo risus. Nam elementum pulvinar erat, eget convallis est blandit vel. Etiam gravida sapien eu massa hendrerit maximus. Proin dolor quam, porta vitae libero non, venenatis porta tellus. Vivamus et elit a est aliquet consequat. Proin tempus, purus quis suscipit placerat, dui nunc euismod dui, sit amet luctus leo lectus in risus. Phasellus consectetur eleifend arcu. Nullam venenatis blandit nulla ut ullamcorper. Vestibulum eu arcu quis massa scelerisque sodales in ac augue. Quisque dapibus fringilla turpis, ut cursus tortor cursus sed. Sed facilisis quam eget neque viverra venenatis. Suspendisse ut lorem nec erat elementum bibendum. Curabitur lobortis purus in cursus blandit.
+### Baseline Characteristics of TB sample.
 
+The arms look well balanced across all characteristics given this was 1948 and randomization methods were primitive. Gender, baseline condition, cavitation, ESR all roughly equal between groups. One might notice a slight imbalance in that the streptomycin arm has slightly more patients in the highest fever category (100F+) than control.
+
+```{r baseline-tb}
+
+strep_table1 <- strep_clean %>%
+  select(arm, gender, baseline_condition, baseline_temp, baseline_esr, baseline_cavitation) %>%
+  rename(
+    "Gender" = gender,
+    "Baseline Condition" = baseline_condition,
+    "Temperature" = baseline_temp,
+    "ESR" = baseline_esr,
+    "Cavitation on X-Ray" = baseline_cavitation
+  ) %>%
+  pivot_longer(cols = -arm, names_to = "variable", values_to = "value") %>%
+  count(arm, variable, value) %>%
+  group_by(arm, variable) %>%
+  mutate(pct = n / sum(n))
+
+ggplot(strep_table1, aes(x = value, y = pct, fill = arm)) +
+  geom_col(position = "dodge", alpha = 0.85) +
+  facet_wrap(~variable, scales = "free_x") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("Streptomycin" = "plum4", "Control" = "pink")) +
+  labs(
+    title = "Baseline Characteristics by Treatment Arm",
+    subtitle = "The 1948 Streptomycin Trial",
+    x = NULL,
+    y = "Percentage",
+    fill = "Treatment Arm"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+### Alluvial Plot
+
+```{r alluvial-plot}
+
+strep_clean %>%
+  group_by(arm, strep_resistance, radiologic_6m) %>%
+  summarise(freq = n(), .groups = "drop") %>%
+  ggplot(aes(axis1 = arm, 
+             axis2 = strep_resistance, 
+             axis3 = radiologic_6m,
+             y = freq)) +
+  geom_alluvium(aes(fill = arm), alpha = 0.7) +
+  geom_stratum() +
+  geom_text(stat = "stratum", aes(label = after_stat(stratum)), size = 3) +
+  scale_fill_manual(values = c("Streptomycin" = "plum4", "Control" = "plum")) +
+  labs(
+    title = "Treatment Arm → Resistance → Outcome in the 1948 Streptomycin Trial",
+    y = "Number of Patients",
+    fill = "Treatment Arm"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom")
+```
+
+Streptomycin dominates the top outcomes (considerable improvement) while the control flows heavily toward death and deterioration. The historical finding was that all the resistance flows from the streptomycin arm only.
+
+#### Who developed resistance?
+
+Based on the plot below, resistance was not randomly distributed among streptomycin-treated patients. Those who developed resistance were disproportionately in poor baseline condition and more likely to present with cavitation on their chest X-ray which are indicators of more advanced disease. Higher ESR and fever followed the same pattern.
+
+This interpretation was confirmed by follow-up analyses. Patients who developed resistance were more likely to present with cavitation (χ²(1) = 4.65, p = .031) and poor baseline condition (Fisher's exact, p \< .001) at enrollment. This suggests that higher disease severity may have given the bacterium more opportunity to mutate. This pattern remains relevant today, where the most vulnerable patients are often the most likely to develop antibiotic resistance
+
+```{r step-resist}
+
+strep_resist <- strep_clean %>%
+  filter(arm == "Streptomycin") %>%
+  filter(strep_resistance != "Moderate") # only 8 moderate cases, too few to compare
+table(strep_resist$strep_resistance)
+
+strep_resist %>%
+  select(strep_resistance, baseline_condition, baseline_temp, 
+         baseline_esr, baseline_cavitation) %>%
+  pivot_longer(cols = -strep_resistance, 
+               names_to = "variable", 
+               values_to = "value") %>%
+  count(strep_resistance, variable, value) %>%
+  group_by(strep_resistance, variable) %>%
+  mutate(pct = n / sum(n)) %>%
+  ggplot(aes(x = value, y = pct, fill = strep_resistance)) +
+  geom_col(position = "dodge", alpha = 0.85) +
+  facet_wrap(~variable, scales = "free_x", nrow = 2) +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("Sensitive" = "plum4", "Resistant" = "pink")) +
+  labs(
+    title = "Baseline Characteristics by Streptomycin Resistance",
+    subtitle = "Who developed resistance in the Streptomycin arm?",
+    x = NULL,
+    y = "Percentage",
+    fill = "Resistance Status"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r chi-square-tb}
+
+# follow up chi square test for cavitation
+strep_resist_binary <- strep_clean %>%
+  filter(arm == "Streptomycin") %>%
+  filter(strep_resistance %in% c("Sensitive", "Resistant")) %>%
+  mutate(strep_resistance = droplevels(strep_resistance))
+
+chisq.test(table(strep_resist_binary$baseline_cavitation, 
+                 strep_resist_binary$strep_resistance))
+
+# fisher for baseline condition
+fisher.test(table(strep_resist_binary$baseline_condition, 
+                  strep_resist_binary$strep_resistance))
+
+```
+
+## Part 2: Visualizing a Randomized Trial of Six Therapies for Scurvy
+
+The `scurvy` dataset from the `medicaldata` package contains results from James Lind's 1757 trial testing six treatments for scurvy in 12 sailors. . I was drawn to it as a natural companion to the streptomycin piece since both are landmark historical trials that changed medicine, and both reward careful visualization despite their small sample sizes.
+
+```{r scurvy-setup}
+data(scurvy)
+glimpse(scurvy)
+```
+
+```{r dataclean-scurvy}
+
+radar_data <- scurvy %>%
+  mutate(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6),
+                ~ as.numeric(str_extract(as.character(.), "\\d")))) %>%
+  group_by(treatment) %>%
+  summarise(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6), mean)) %>%
+  column_to_rownames("treatment")
+
+# fmsb set up
+radar_data <- rbind(
+  max = rep(3, 4),
+  min = rep(1, 4),
+  radar_data
+)
+
+colnames(radar_data) <- c("Gum Rot", "Skin Sores", "Weak Knees", "Lassitude")
+
+```
+
+#### Scurvy Radar Chart
+
+Since there are quite a few groups, it is difficult to read at first. Upon closer inspection though, one can see that citrus, in red, is at the center of the plot compared to all other treatments (and colors).
+
+```{r}
+colors <- c("yellow", "red", "green", "purple", "blue", "orange")
+
+radarchart(radar_data,
+  pcol = colors,
+  pfcol = scales::alpha(colors, 0.2),
+  plwd = 2,
+  title = "Scurvy Symptoms by Treatment at Day 6"
+)
+
+legend("topright", legend = rownames(radar_data)[3:8],
+       col = colors, lty = 1, lwd = 2, cex = 0.8)
+```
+
+#### Scurvy Heatmap
+
+The heatmap better displays the stark difference in symptoms for citrus compared to the other treatments.
+
+```{r}
+scurvy_heat <- scurvy %>%
+  mutate(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6),
+                ~ as.numeric(str_extract(as.character(.), "\\d")))) %>%
+  group_by(treatment) %>%
+  summarise(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6), mean)) %>%
+  pivot_longer(cols = -treatment, names_to = "symptom", values_to = "severity") %>%
+  mutate(
+    symptom = recode(symptom,
+      "gum_rot_d6" = "Gum Rot",
+      "skin_sores_d6" = "Skin Sores",
+      "weakness_of_the_knees_d6" = "Weak Knees",
+      "lassitude_d6" = "Lassitude"
+    ),
+    treatment = recode(treatment,
+      "citrus" = "Citrus",
+      "cider" = "Cider",
+      "dilute_sulfuric_acid" = "Dilute Sulfuric Acid",
+      "vinegar" = "Vinegar",
+      "purgative_mixture" = "Purgative Mixture",
+      "sea_water" = "Sea Water"
+    )
+  )
+
+ggplot(scurvy_heat, aes(x = symptom, y = treatment, fill = severity)) +
+  geom_tile(color = "white", linewidth = 0.8) +
+  geom_text(aes(label = round(severity, 1)), color = "white", size = 4) +
+  scale_fill_gradient(low = "plum", high = "plum4",
+                      name = "Severity",
+                      breaks = c(1, 2, 3),
+                      labels = c("Mild", "Moderate", "Severe")) +
+  labs(
+    title = "Scurvy Symptom Severity by Treatment at Day 6",
+    subtitle = "James Lind's 1757 trial [lower is better]",
+    x = NULL,
+    y = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid = element_blank())
+
+```
+
+James Lind's 1757 trial tested six treatments for scurvy aboard a Royal Navy vessel. The results are clearly unambiguous; citrus alone produced meaningful symptom relief across all four measures by day 6, while every other treatment left patients severely symptomatic.
+
+## Part 3: Visualizing the Obstetrics and Periodontal Therapy RCT Dataset
+
+Finally, I wanted to visualize a modern RCT using the OPT dataset, a trial examining whether treating maternal periodontal disease could reduce preterm birth risk. Given my interest in health equity, I was particularly curious whether treatment effects and birth outcomes differed by racial group.
+
+Source: `medicaldata` package, opt data
+
+Michalowicz et al., 'Treatment of periodontal disease and the risk of preterm birth', N Engl J Med 2006; 355:1885-1894. DOI: 10.1056/NEJMoa062249
+
+```{r}
+data(opt)
+head(opt)
+dim(opt)
+```
+
+#### Visualizing Birth Weight Outcomes
+
+```{r opt-ridges}
+opt_race <- opt %>%
+  filter(!is.na(Birthweight)) %>%
+  mutate(race = case_when(
+    Black == "Yes" ~ "Black",
+    White == "Yes" ~ "White",
+    Hisp  == "Yes" ~ "Hispanic",
+    Asian == "Yes" ~ "Asian",
+    Nat.Am == "Yes" ~ "Native American",
+    TRUE ~ "Other/Unknown"
+  )) %>%
+  filter(race != "Other/Unknown")
+
+ggplot(opt_race, aes(x = Birthweight, y = race, fill = race)) +
+  geom_density_ridges(alpha = 0.7, scale = 1.2) +
+  geom_vline(xintercept = 2500, linetype = "dashed", color = "gray40") +
+  scale_fill_brewer(palette = "Set2") +
+  annotate("text", x = 2500, y = 0.5, label = "Low birthweight\nthreshold (2500g)", 
+           hjust = 1.1, size = 3.5, color = "gray40") +
+  labs(
+    title = "Birth Weight Distribution by Race",
+    subtitle = "OPT Trial participants, periodontal therapy RCT",
+    x = "Birth Weight (grams)",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "none")
+```
+
+The Native American distribution looked strange, so I checked the sample size before making any further inferences:
+
+```{r opt-table}
+
+table(opt_race$race)
+```
+
+There are 7 Asian and 3 Native American participants. Those distributions are unreliable, so they have to be dropped.
+
+```{r}
+opt_race <- opt_race %>%
+  filter(race %in% c("Black", "White", "Hispanic"))
+
+ggplot(opt_race, aes(x = Birthweight, y = race, fill = race)) +
+  geom_density_ridges(alpha = 0.7, scale = 1.2) +
+  geom_vline(xintercept = 2500, linetype = "dashed", color = "gray40") +
+  scale_fill_brewer(palette = "Set2") +
+  annotate("text", x = 2500, y = 0.5, label = "Low birthweight\nthreshold (2500g)", 
+           hjust = 1.1, size = 3.5, color = "gray40") +
+  labs(
+    title = "Birth Weight Distribution by Race",
+    subtitle = "OPT Trial participants, periodontal therapy RCT",
+    x = "Birth Weight (grams)",
+    y = NULL
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "none")
+```
+
+Did periodontal treatment affect birthweight differently across racial groups?
+
+```{r opt-ridges2}
+ggplot(opt_race, aes(x = Birthweight, y = race, fill = Group)) +
+  geom_density_ridges(alpha = 0.6, scale = 1.2) +
+  geom_vline(xintercept = 2500, linetype = "dashed", color = "gray40") +
+  scale_fill_manual(values = c("T" = "plum4", "C" = "plum"),
+                    labels = c("T" = "Treatment", "C" = "Control")) +
+  annotate("text", x = 2400, y = 0.5, label = "Low birthweight\nthreshold (2500g)", 
+           hjust = 1.1, size = 3.5, color = "gray40") +
+  labs(
+    title = "Birth Weight Distribution by Race and Treatment Arm",
+    subtitle = "Did periodontal treatment affect birthweight differently across racial groups?",
+    x = "Birth Weight (grams)",
+    y = NULL,
+    fill = "Treatment Arm"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+Periodontal treatment did not meaningfully shift birthweight distributions within any racial group. The treatment and control curves overlap substantially for Black, Hispanic, and White participants alike. This confirms the trial's published null finding that treating maternal periodontal disease did not reduce preterm birth or low birthweight risk regardless of race.
+
+However the racial disparity in birthweight is clearly visible regardless of treatment arm. Black participants show a left-shifted distribution with more mass below the 2500g low birthweight threshold compared to White and Hispanic participants. Periodontal treatment did nothing to close that gap.
+
+#### Visualizing Preterm Births
+
+```{r opt-preterm}
+opt_race <- opt_race %>%
+  mutate(Preg.ended...37.wk = trimws(as.character(Preg.ended...37.wk)))
+
+opt_race %>%
+  filter(Preg.ended...37.wk %in% c("Yes", "No")) %>%
+  group_by(race, Group, Preg.ended...37.wk) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(race, Group) %>%
+  mutate(pct = n / sum(n)) %>%
+  filter(Preg.ended...37.wk == "Yes") %>%
+  ggplot(aes(x = race, y = pct, fill = Group)) +
+  geom_col(position = "dodge", alpha = 0.85) +
+  scale_fill_manual(values = c("T" = "plum4", "C" = "plum"),
+                    labels = c("T" = "Treatment", "C" = "Control")) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Preterm Birth Rate by Race and Treatment Arm",
+    x = NULL,
+    y = "Preterm Birth Rate",
+    fill = "Treatment Arm"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+Black participants had the highest preterm birth rates overall, and treatment made virtually no difference. Hispanic participants showed the largest gap between arms, with the treatment group having lower preterm birth rates, though small sample sizes make this hard to interpret confidently. White participants showed the opposite pattern, with slightly higher rates in the treatment arm.
+
+The overall null finding might mask potential heterogeneity by race. The intervention may have had differential effects that were washed out in the aggregate analysis.
+
+##### Logistic Regression with interaction term between race and treatment group
+
+```{r logreg-preterm}
+preterm_model <- glm(
+  (Preg.ended...37.wk == "Yes") ~ race * Group,
+  data = opt_race,
+  family = binomial
+)
+
+summary(preterm_model)
+```
+
+The logistic regression with race by treatment interaction terms found no statistically significant differential treatment effects by race (all p \> .40), which suggests the visual differences observed are likely due to chance given limited statistical power. Adequately powered subgroup analyses would require a much larger trial with prespecified racial subgroup analyses which is a design consideration that remains underutilized in RCTs today.

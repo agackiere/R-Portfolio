@@ -2,46 +2,10 @@
 title: "Portfolio 8"
 ---
 
-
+survival package — has classic survival analysis datasets including lung (lung cancer) and veteran (veteran lung cancer trial)
 
 ```{r set-up}
 
-library(haven)
-library(dplyr)
 
-df <- read.csv("~/Desktop/R_Lab/R-Portfolio/p08/ESS11_France/ESS11_France.csv")
-
-class(df)
-dim(df)
-df[df < 0] <- NA
-df_clean <- df %>%
-  mutate(across(where(is.numeric), ~na_if(., -1))) %>%
-  mutate(across(where(is.numeric), ~na_if(., -2))) %>%
-  mutate(across(where(is.numeric), ~na_if(., -3))) %>%
-  mutate(across(where(is.numeric), ~na_if(., -4))) %>%
-  mutate(across(where(is.numeric), ~na_if(., -5)))
 ```
-
-Is perceived discrimination associated with lower trust in police? What about political party?
-
-```{r}
-names(df)
-
-analysis_df <- df_clean %>%
-  select(trstplc,
-         lrscale,
-         dscrgrp,
-         agea,
-         gndr,
-         eduyrs,
-         hinctnta)
-
-$$V_i(t+1) = V_i(t) + \alpha \cdot \delta(t)$$
-
-$$\delta(t) = v(t) - V_i(t)$$
-
-$$v(t) = \begin{cases} k_{Hi} & \text{if } +15s \text{ reward picture was presented} \\ 0 & \text{if } 0s \text{ reward picture was presented} \\ k_{Low} & \text{if } -15s \text{ reward picture was presented} \end{cases}$$
-```
-
-
 
