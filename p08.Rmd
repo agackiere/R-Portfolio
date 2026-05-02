@@ -1,11 +1,269 @@
 ---
 title: "Portfolio 8"
+author: "Anaelle Gackiere"
+date: "`r Sys.Date()`"
+output:
+  html_document: 
+    theme: yeti
+    highlight: zenburn
 ---
 
-survival package — has classic survival analysis datasets including lung (lung cancer) and veteran (veteran lung cancer trial)
+## Survival Analyses
+
+In this portfolio piece, I'll be experimenting with doing survival analyses using datasets in the survival and medical data packages.
 
 ```{r set-up}
-
+library("survival")
+library("survminer")
+library("dplyr")
 
 ```
 
+### Part 1: Survival Analysis of NCCTG Lung Cancer Data
+
+To start, I'll be using the lung dataset
+
+Reference: Loprinzi CL. Laurie JA. Wieand HS. Krook JE. Novotny PJ. Kugler JW. Bartel J. Law M. Bateman M. Klatt NE. et al. Prospective evaluation of prognostic variables from patient-completed questionnaires. North Central Cancer Treatment Group. Journal of Clinical Oncology. 12(3):601-7, 1994.
+
+```{r setup-lung}
+data(lung)
+glimpse(lung)
+```
+
+#### Kaplan-Meier curve comparing survival by sex
+
+Females survive significantly longer than males (p = 0.0013). The curves diverge early and stay separated throughout, and by day 500 there's a meaningful gap in survival probability.
+
+```{r kaplan-bysex}
+fit <- survfit(Surv(time, status) ~ sex, data = lung)
+
+ggsurvplot(
+  fit,
+  data = lung,
+  pval = TRUE,
+  conf.int = TRUE,
+  risk.table = TRUE,
+  risk.table.height = 0.3,
+  risk.table.y.text = FALSE,
+  fontsize = 3,
+  legend.labs = c("Male", "Female"),
+  legend.title = "",
+  palette = c("plum4", "plum"),
+  title = "Survival by Sex in NCCTG Lung Cancer Trial",
+  xlab = "Time (days)",
+  ylab = "Survival Probability",
+  ggtheme = theme_minimal()
+)
+```
+
+#### Cox proportional hazards model
+
+After controlling for age and performance status, is sex still a significant predictor of survival?
+
+```{r lung-cox}
+cox_model <- coxph(Surv(time, status) ~ sex + age + ph.ecog, data = lung)
+summary(cox_model)
+```
+
+The Kaplan-Meier analysis reveals significantly better survival among female lung cancer patients compared to males (log-rank p = .001). This sex difference persists after controlling for age and performance status in the Cox proportional hazards model, with females showing approximately 42% lower risk of death at any given time point (HR = 0.575, 95% CI [0.414, 0.799]). Performance status is the strongest predictor of survival. Each one unit increase in ECOG score increases the hazard of death by approximately 59% (HR = 1.590, 95% CI [1.273, 1.986]). Age is not a significant predictor in the sample after accounting for sex and performance status (p = .23).
+
+These findings are consistent with documented sex differences in lung cancer outcomes, where females tend to have better prognosis even after adjusting for clinical factors. However, the mechanisms behind this disparity are not completely understood, and may relate to hormonal differences, smoking patterns, and differential tumor biology.
+
+Note: ECOG performance status (ph.ecog) is a standardized measure of functional impairment ranging from 0 (fully active) to 4 (completely disabled).
+
+```{r cox-visual}
+ggforest(cox_model, data = lung)
+```
+
+### Part 2: Heart Transplant Survival
+
+Now, I want to look at the Stanford Heart Transplant data that contains information on the survival of patients on the waiting list for the Stanford heart transplant program.
+
+Source: J Crowley and M Hu (1977), Covariance analysis of heart transplant survival data. *Journal of the American Statistical Association*, **72**, 27–36.
+
+```{r heart-setup}
+data(heart)
+glimpse(heart)
+```
+
+#### Did receiving a heart transplant actually improve survival?
+
+```{r cox-heart}
+# now i'll fit a time-varying Cox model
+cox_heart <- coxph(Surv(start, stop, event) ~ transplant + age + surgery, 
+                   data = heart)
+summary(cox_heart)
+```
+
+Using the time-varying Cox proportional hazards model, receiving a heart transplant was not associated with improved survival after controlling for age and prior surgery (HR = 1.016, p = .958). Older age was associated with worse survival (HR = 1.031, p = .028), while prior bypass surgery was protective (HR = 0.461, p = .032). I was suprised by the null transplant finding. After reviewing the literature, this reflects a transplant paradox where patients who survived long enough to receive a heart were already a selected, healthier group, making it difficult to detect a true treatment effect.
+
+I did want to know that race and minority status is absent from this dataset entirely. This is a significant omission given what is known about racial disparities in organ transplantation. Black and Hispanic patients are less likely to be referred for transplant evaluation, less likely to be placed on waiting lists, and wait longer for organs when they are listed. A dataset that ignores race cannot speak to whether the transplant program served all patients equitably.
+
+#### Timeline Plot
+
+```{r heart-timeline}
+# get transplant times separately
+transplant_times <- heart %>%
+  mutate(transplant = as.numeric(as.character(transplant))) %>%
+  filter(transplant == 1) %>%
+  group_by(id) %>%
+  summarise(transplant_time = min(start))
+
+# built timeline
+heart_timeline <- heart %>%
+  mutate(transplant = as.numeric(as.character(transplant))) %>%
+  group_by(id) %>%
+  summarise(
+    start = min(start),
+    end = max(stop),
+    died = max(event),
+    age = mean(age)
+  ) %>%
+  left_join(transplant_times, by = "id") %>%
+  mutate(
+    outcome = ifelse(died == 1, "Died", "Survived"),
+    transplant_group = ifelse(is.na(transplant_time),
+                              "No Transplant",
+                              "Received Transplant")
+  )
+
+table(is.na(heart_timeline$transplant_time))
+
+# plotting
+ggplot(heart_timeline, aes(y = reorder(id, end))) +
+  geom_segment(aes(x = start, xend = end, yend = reorder(id, end),
+                   color = outcome), linewidth = 1.2) +
+  geom_point(data = filter(heart_timeline, !is.na(transplant_time)),
+             aes(x = transplant_time, y = reorder(id, end)),
+             shape = 21, fill = "white", color = "black", size = 2.5) +
+  scale_color_manual(values = c("Died" = "plum4", "Survived" = "plum")) +
+  facet_wrap(~transplant_group, scales = "free_y") +
+  labs(
+    title = "Stanford Heart Transplant Patient Timelines",
+    subtitle = "Each line = one patient. Yellow circle = transplant received. Color = outcome.",
+    x = "Days in Study",
+    y = NULL,
+    color = "Outcome"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+```
+
+The timeline plot shows each patient's follow-up period, colored by outcome. In the transplant group, white circles mark when the transplant was received (most occurred within the first 100 days). Despite receiving a transplant, many patients still died shortly after, which supports the Cox model's null finding. The no-transplant group shows a similar pattern of mostly short survival times, with a handful of long-term survivors in both groups.
+
+### Part 3: Survival Analysis of Retrospective Cohort Study of the Effects of Blood Storage on Prostate Cancer
+
+Source: Cata et al. 'Blood Storage Duration and Biochemical Recurrence of Cancer after Radical Prostatectomy'. Mayo Clin Proc 2011; 86(2): 120-127.
+
+```{r setup-nwtco}
+
+library("medicaldata")
+data(blood_storage)
+glimpse(blood_storage)
+```
+
+#### Kaplan-Meier curve comparing recurrence-free survival by race
+
+```{r km-bloodstorage}
+fit_aa <- survfit(Surv(TimeToRecurrence, Recurrence) ~ AA, 
+                  data = blood_storage)
+
+ggsurvplot(
+  fit_aa,
+  data = blood_storage,
+  pval = TRUE,
+  conf.int = TRUE,
+  risk.table = TRUE,
+  risk.table.height = 0.3,
+  risk.table.y.text = FALSE,
+  legend.labs = c("White", "African American"),
+  legend.title = "",
+  palette = c("plum", "plum4"),
+  title = "Recurrence-Free Survival by Race",
+  subtitle = "Prostate Cancer after Radical Prostatectomy",
+  xlab = "Time (months)",
+  ylab = "Recurrence-Free Survival Probability",
+  ggtheme = theme_minimal()
+)
+```
+
+##### Cox model to see if racial disparity persists after controlling for clinical factors
+
+```{r cox-bloodstorage}
+
+cox_aa <- coxph(Surv(TimeToRecurrence, Recurrence) ~ AA + Age + PreopPSA + 
+                bGS + T.Stage + OrganConfined, 
+                data = blood_storage)
+
+summary(cox_aa)
+```
+
+##### Forest Plot
+
+```{r forestplot-bloodstorage}
+
+ggforest(cox_aa, data = blood_storage)
+```
+
+The Kaplan-Meier analysis reveals significantly lower recurrence-free survival among African American patients compared to white patients (log-rank p = .035); the curves diverge early and the gap widens throughout follow-up. By month 50, the disparity in recurrence-free survival is visually substantial.
+
+To determine whether this disparity was explained by differences in tumor characteristics at diagnosis, I fit a Cox proportional hazards model controlling for age, preoperative PSA, Gleason score, tumor stage, and organ confinement. African American status remained a significant independent predictor of earlier recurrence (HR = 1.96, 95% CI [1.01, 3.77], p = .046), meaning Black patients had nearly twice the hazard of recurrence even after accounting for all available clinical factors. The gleason score was the strongest overall predictor (HR = 3.08, p \< .001), while organ-confined tumors were protective (HR = 0.48, p = .022).
+
+The persistence of the racial disparity after clinical adjustment is the most important finding here. It suggests that factors beyond tumor biology (potentially including differences in treatment quality, follow-up care, and the cumulative effects of structural racism on health) are driving worse outcomes for Black patients.
+
+The issue here is that this dataset cannot tell us why the disparity exists, only that it does, and that it survives statistical adjustment for every measured clinical variable. In many of the health datasets I have analyzed, I recurrently find health disparities, but no data that can help us address it. Ultimately, it is unlikely that biomedical treatment will help bridge that gap, and as researchers we must conduct research that pushes more system-level, institutional change.
+
+#### Gleason Score Distribution by Race
+
+Note that a higher Gleason score = more poorly differentiated = worse prognosis. It's a measure of how aggressive the cancer is at the cellular level. Based on the plot, both groups are dominated by poorly differentiated tumors. The racial disparity in recurrence isn't explained by tumor aggressiveness at diagnosis because both groups present with similar Gleason score distributions, so the disparity must lie elsewhere.
+
+```{r gleason-dist}
+
+blood_storage %>%
+  filter(!is.na(bGS)) %>%
+  mutate(
+    race = ifelse(AA == 1, "African American", "White"),
+    bGS_label = recode(bGS,
+      `1` = "Well\nDifferentiated",
+      `2` = "Moderately\nDifferentiated", 
+      `3` = "Poorly\nDifferentiated"
+    )
+  ) %>%
+  count(race, bGS_label) %>%
+  group_by(race) %>%
+  mutate(pct = n / sum(n)) %>%
+  ggplot(aes(x = bGS_label, y = pct, fill = race)) +
+  geom_col(position = "dodge", alpha = 0.85) +
+  scale_fill_manual(values = c("African American" = "plum4", "White" = "plum")) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(
+    title = "Gleason Score Distribution by Race",
+    subtitle = "Are Black patients diagnosed at more advanced tumor grades?",
+    x = NULL,
+    y = "Percentage",
+    fill = NULL
+  ) +
+  theme_minimal(base_size = 13)
+
+```
+
+#### What might be contributing to the racial health disparity?
+
+What does being Black predict in terms of clinical presentation and treatment received?
+
+```{r glm-bloodstorage}
+
+disparity_model <- glm(AA ~ PreopPSA + bGS + T.Stage + OrganConfined + 
+                        FamHx + PreopTherapy + Units + RBC.Age.Group + Age,
+                       data = blood_storage,
+                       family = binomial)
+
+summary(disparity_model)
+```
+
+The logistic regression predicting race from available clinical and treatment variables found that only preoperative PSA differed significantly between African American and white patients (p = .013), with Black patients presenting with higher PSA levels at diagnosis. Tumor grade, stage, organ confinement, treatment received, and blood storage age were all distributed similarly between groups. The fact that a single clinical variable distinguishes the two groups, yet Black patients face nearly double the recurrence hazard, highlights that the drivers of this disparity lie largely outside what biomedical data can capture. They are likely found in the social, structural, and systemic conditions that shape health long before a patient enters a clinic.
+
+#### Reflection
+
+These results are exactly why I am passionate about health psychology and medical anthropology. The data can show us that a disparity exists, and even rule out certain biological explanations, but it cannot tell us why Black men face worse outcomes after the same surgery at the same institution. That question requires a different kind of inquiry, one that goes beyond social determinants of health to structural determinants. Social determinants ask what conditions people live in. Structural determinants ask why those conditions are distributed unequally in the first place and the answer is always historical, political, and institutional. No biomedical intervention will close this gap: research that centers structural change will.

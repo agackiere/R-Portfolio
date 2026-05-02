@@ -9,14 +9,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Anaelle Gackiere" />
 
+<meta name="date" content="2026-05-01" />
 
 <title>Portfolio 8</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,8 +32,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,18 +42,110 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -291,17 +383,499 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Portfolio 8</h1>
+<h4 class="author">Anaelle Gackiere</h4>
+<h4 class="date">2026-05-01</h4>
 
 </div>
 
 
-<blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
-</blockquote>
+<div id="survival-analyses" class="section level2">
+<h2>Survival Analyses</h2>
+<p>In this portfolio piece, I’ll be experimenting with doing survival
+analyses using datasets in the survival and medical data packages.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;survival&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;survminer&quot;</span>)</span></code></pre></div>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Loading required package: ggpubr</code></pre>
+<pre><code>## 
+## Attaching package: &#39;survminer&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:survival&#39;:
+## 
+##     myeloma</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div id="part-1-survival-analysis-of-ncctg-lung-cancer-data"
+class="section level3">
+<h3>Part 1: Survival Analysis of NCCTG Lung Cancer Data</h3>
+<p>To start, I’ll be using the lung dataset</p>
+<p>Reference: Loprinzi CL. Laurie JA. Wieand HS. Krook JE. Novotny PJ.
+Kugler JW. Bartel J. Law M. Bateman M. Klatt NE. et al. Prospective
+evaluation of prognostic variables from patient-completed
+questionnaires. North Central Cancer Treatment Group. Journal of
+Clinical Oncology. 12(3):601-7, 1994.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">data</span>(lung)</span></code></pre></div>
+<pre><code>## Warning in data(lung): data set &#39;lung&#39; not found</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">glimpse</span>(lung)</span></code></pre></div>
+<pre><code>## Rows: 228
+## Columns: 10
+## $ inst      &lt;dbl&gt; 3, 3, 3, 5, 1, 12, 7, 11, 1, 7, 6, 16, 11, 21, 12, 1, 22, 16…
+## $ time      &lt;dbl&gt; 306, 455, 1010, 210, 883, 1022, 310, 361, 218, 166, 170, 654…
+## $ status    &lt;dbl&gt; 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ age       &lt;dbl&gt; 74, 68, 56, 57, 60, 74, 68, 71, 53, 61, 57, 68, 68, 60, 57, …
+## $ sex       &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 2, 1, …
+## $ ph.ecog   &lt;dbl&gt; 1, 0, 0, 1, 0, 1, 2, 2, 1, 2, 1, 2, 1, NA, 1, 1, 1, 2, 2, 1,…
+## $ ph.karno  &lt;dbl&gt; 90, 90, 90, 90, 100, 50, 70, 60, 70, 70, 80, 70, 90, 60, 80,…
+## $ pat.karno &lt;dbl&gt; 100, 90, 90, 60, 90, 80, 60, 80, 80, 70, 80, 70, 90, 70, 70,…
+## $ meal.cal  &lt;dbl&gt; 1175, 1225, NA, 1150, NA, 513, 384, 538, 825, 271, 1025, NA,…
+## $ wt.loss   &lt;dbl&gt; NA, 15, 15, 11, 0, 0, 10, 1, 16, 34, 27, 23, 5, 32, 60, 15, …</code></pre>
+<div id="kaplan-meier-curve-comparing-survival-by-sex"
+class="section level4">
+<h4>Kaplan-Meier curve comparing survival by sex</h4>
+<p>Females survive significantly longer than males (p = 0.0013). The
+curves diverge early and stay separated throughout, and by day 500
+there’s a meaningful gap in survival probability.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> sex, <span class="at">data =</span> lung)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="fu">ggsurvplot</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>  fit,</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>  <span class="at">data =</span> lung,</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>  <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>  <span class="at">risk.table.height =</span> <span class="fl">0.3</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>  <span class="at">risk.table.y.text =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>  <span class="at">fontsize =</span> <span class="dv">3</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>  <span class="at">legend.labs =</span> <span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>, <span class="st">&quot;Female&quot;</span>),</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;plum4&quot;</span>, <span class="st">&quot;plum&quot;</span>),</span>
+<span id="cb14-15"><a href="#cb14-15" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Survival by Sex in NCCTG Lung Cancer Trial&quot;</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Time (days)&quot;</span>,</span>
+<span id="cb14-17"><a href="#cb14-17" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Survival Probability&quot;</span>,</span>
+<span id="cb14-18"><a href="#cb14-18" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb14-19"><a href="#cb14-19" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Ignoring unknown labels:
+## • colour : &quot;&quot;</code></pre>
+<p><img src="p08_files/figure-html/kaplan-bysex-1.png" alt="" width="672" /></p>
+</div>
+<div id="cox-proportional-hazards-model" class="section level4">
+<h4>Cox proportional hazards model</h4>
+<p>After controlling for age and performance status, is sex still a
+significant predictor of survival?</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>cox_model <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> sex <span class="sc">+</span> age <span class="sc">+</span> ph.ecog, <span class="at">data =</span> lung)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="fu">summary</span>(cox_model)</span></code></pre></div>
+<pre><code>## Call:
+## coxph(formula = Surv(time, status) ~ sex + age + ph.ecog, data = lung)
+## 
+##   n= 227, number of events= 164 
+##    (1 observation deleted due to missingness)
+## 
+##              coef exp(coef)  se(coef)      z Pr(&gt;|z|)    
+## sex     -0.552612  0.575445  0.167739 -3.294 0.000986 ***
+## age      0.011067  1.011128  0.009267  1.194 0.232416    
+## ph.ecog  0.463728  1.589991  0.113577  4.083 4.45e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##         exp(coef) exp(-coef) lower .95 upper .95
+## sex        0.5754     1.7378    0.4142    0.7994
+## age        1.0111     0.9890    0.9929    1.0297
+## ph.ecog    1.5900     0.6289    1.2727    1.9864
+## 
+## Concordance= 0.637  (se = 0.025 )
+## Likelihood ratio test= 30.5  on 3 df,   p=1e-06
+## Wald test            = 29.93  on 3 df,   p=1e-06
+## Score (logrank) test = 30.5  on 3 df,   p=1e-06</code></pre>
+<p>The Kaplan-Meier analysis reveals significantly better survival among
+female lung cancer patients compared to males (log-rank p = .001). This
+sex difference persists after controlling for age and performance status
+in the Cox proportional hazards model, with females showing
+approximately 42% lower risk of death at any given time point (HR =
+0.575, 95% CI [0.414, 0.799]). Performance status is the strongest
+predictor of survival. Each one unit increase in ECOG score increases
+the hazard of death by approximately 59% (HR = 1.590, 95% CI [1.273,
+1.986]). Age is not a significant predictor in the sample after
+accounting for sex and performance status (p = .23).</p>
+<p>These findings are consistent with documented sex differences in lung
+cancer outcomes, where females tend to have better prognosis even after
+adjusting for clinical factors. However, the mechanisms behind this
+disparity are not completely understood, and may relate to hormonal
+differences, smoking patterns, and differential tumor biology.</p>
+<p>Note: ECOG performance status (ph.ecog) is a standardized measure of
+functional impairment ranging from 0 (fully active) to 4 (completely
+disabled).</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">ggforest</span>(cox_model, <span class="at">data =</span> lung)</span></code></pre></div>
+<p><img src="p08_files/figure-html/cox-visual-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="part-2-heart-transplant-survival" class="section level3">
+<h3>Part 2: Heart Transplant Survival</h3>
+<p>Now, I want to look at the Stanford Heart Transplant data that
+contains information on the survival of patients on the waiting list for
+the Stanford heart transplant program.</p>
+<p>Source: J Crowley and M Hu (1977), Covariance analysis of heart
+transplant survival data. <em>Journal of the American Statistical
+Association</em>, <strong>72</strong>, 27–36.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">data</span>(heart)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">glimpse</span>(heart)</span></code></pre></div>
+<pre><code>## Rows: 172
+## Columns: 8
+## $ start      &lt;dbl&gt; 0, 0, 0, 1, 0, 36, 0, 0, 0, 51, 0, 0, 0, 12, 0, 26, 0, 0, 1…
+## $ stop       &lt;dbl&gt; 50, 6, 1, 16, 36, 39, 18, 3, 51, 675, 40, 85, 12, 58, 26, 1…
+## $ event      &lt;dbl&gt; 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0,…
+## $ age        &lt;dbl&gt; -17.15537303, 3.83572895, 6.29705681, 6.29705681, -7.737166…
+## $ year       &lt;dbl&gt; 0.1232033, 0.2546201, 0.2655715, 0.2655715, 0.4900753, 0.49…
+## $ surgery    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ transplant &lt;fct&gt; 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0,…
+## $ id         &lt;dbl&gt; 1, 2, 3, 3, 4, 4, 5, 6, 7, 7, 8, 9, 10, 10, 11, 11, 12, 13,…</code></pre>
+<div id="did-receiving-a-heart-transplant-actually-improve-survival"
+class="section level4">
+<h4>Did receiving a heart transplant actually improve survival?</h4>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># now i&#39;ll fit a time-varying Cox model</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>cox_heart <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(start, stop, event) <span class="sc">~</span> transplant <span class="sc">+</span> age <span class="sc">+</span> surgery, </span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>                   <span class="at">data =</span> heart)</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="fu">summary</span>(cox_heart)</span></code></pre></div>
+<pre><code>## Call:
+## coxph(formula = Surv(start, stop, event) ~ transplant + age + 
+##     surgery, data = heart)
+## 
+##   n= 172, number of events= 75 
+## 
+##                 coef exp(coef) se(coef)      z Pr(&gt;|z|)  
+## transplant1  0.01610   1.01623  0.30859  0.052   0.9584  
+## age          0.03054   1.03101  0.01389  2.198   0.0279 *
+## surgery     -0.77333   0.46147  0.35967 -2.150   0.0315 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##             exp(coef) exp(-coef) lower .95 upper .95
+## transplant1    1.0162     0.9840     0.555    1.8606
+## age            1.0310     0.9699     1.003    1.0595
+## surgery        0.4615     2.1670     0.228    0.9339
+## 
+## Concordance= 0.6  (se = 0.036 )
+## Likelihood ratio test= 10.72  on 3 df,   p=0.01
+## Wald test            = 9.68  on 3 df,   p=0.02
+## Score (logrank) test = 10  on 3 df,   p=0.02</code></pre>
+<p>Using the time-varying Cox proportional hazards model, receiving a
+heart transplant was not associated with improved survival after
+controlling for age and prior surgery (HR = 1.016, p = .958). Older age
+was associated with worse survival (HR = 1.031, p = .028), while prior
+bypass surgery was protective (HR = 0.461, p = .032). I was suprised by
+the null transplant finding. After reviewing the literature, this
+reflects a transplant paradox where patients who survived long enough to
+receive a heart were already a selected, healthier group, making it
+difficult to detect a true treatment effect.</p>
+<p>I did want to know that race and minority status is absent from this
+dataset entirely. This is a significant omission given what is known
+about racial disparities in organ transplantation. Black and Hispanic
+patients are less likely to be referred for transplant evaluation, less
+likely to be placed on waiting lists, and wait longer for organs when
+they are listed. A dataset that ignores race cannot speak to whether the
+transplant program served all patients equitably.</p>
+</div>
+<div id="timeline-plot" class="section level4">
+<h4>Timeline Plot</h4>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># get transplant times separately</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>transplant_times <span class="ot">&lt;-</span> heart <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplant =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(transplant))) <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>  <span class="fu">filter</span>(transplant <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">transplant_time =</span> <span class="fu">min</span>(start))</span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="co"># built timeline</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a>heart_timeline <span class="ot">&lt;-</span> heart <span class="sc">%&gt;%</span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">transplant =</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(transplant))) <span class="sc">%&gt;%</span></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span></span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a>    <span class="at">start =</span> <span class="fu">min</span>(start),</span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a>    <span class="at">end =</span> <span class="fu">max</span>(stop),</span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a>    <span class="at">died =</span> <span class="fu">max</span>(event),</span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">mean</span>(age)</span>
+<span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb23-18"><a href="#cb23-18" tabindex="-1"></a>  <span class="fu">left_join</span>(transplant_times, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-19"><a href="#cb23-19" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb23-20"><a href="#cb23-20" tabindex="-1"></a>    <span class="at">outcome =</span> <span class="fu">ifelse</span>(died <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;Died&quot;</span>, <span class="st">&quot;Survived&quot;</span>),</span>
+<span id="cb23-21"><a href="#cb23-21" tabindex="-1"></a>    <span class="at">transplant_group =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(transplant_time),</span>
+<span id="cb23-22"><a href="#cb23-22" tabindex="-1"></a>                              <span class="st">&quot;No Transplant&quot;</span>,</span>
+<span id="cb23-23"><a href="#cb23-23" tabindex="-1"></a>                              <span class="st">&quot;Received Transplant&quot;</span>)</span>
+<span id="cb23-24"><a href="#cb23-24" tabindex="-1"></a>  )</span>
+<span id="cb23-25"><a href="#cb23-25" tabindex="-1"></a></span>
+<span id="cb23-26"><a href="#cb23-26" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">is.na</span>(heart_timeline<span class="sc">$</span>transplant_time))</span></code></pre></div>
+<pre><code>## 
+## FALSE  TRUE 
+##    69    34</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># plotting</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="fu">ggplot</span>(heart_timeline, <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">reorder</span>(id, end))) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> start, <span class="at">xend =</span> end, <span class="at">yend =</span> <span class="fu">reorder</span>(id, end),</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>                   <span class="at">color =</span> outcome), <span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(heart_timeline, <span class="sc">!</span><span class="fu">is.na</span>(transplant_time)),</span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> transplant_time, <span class="at">y =</span> <span class="fu">reorder</span>(id, end)),</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">21</span>, <span class="at">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Died&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum4&quot;</span>, <span class="st">&quot;Survived&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>transplant_group, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Stanford Heart Transplant Patient Timelines&quot;</span>,</span>
+<span id="cb25-12"><a href="#cb25-12" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Each line = one patient. Yellow circle = transplant received. Color = outcome.&quot;</span>,</span>
+<span id="cb25-13"><a href="#cb25-13" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Days in Study&quot;</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb25-15"><a href="#cb25-15" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Outcome&quot;</span></span>
+<span id="cb25-16"><a href="#cb25-16" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-17"><a href="#cb25-17" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb25-18"><a href="#cb25-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb25-19"><a href="#cb25-19" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="p08_files/figure-html/heart-timeline-1.png" alt="" width="672" /></p>
+<p>The timeline plot shows each patient’s follow-up period, colored by
+outcome. In the transplant group, white circles mark when the transplant
+was received (most occurred within the first 100 days). Despite
+receiving a transplant, many patients still died shortly after, which
+supports the Cox model’s null finding. The no-transplant group shows a
+similar pattern of mostly short survival times, with a handful of
+long-term survivors in both groups.</p>
+</div>
+</div>
+<div
+id="part-3-survival-analysis-of-retrospective-cohort-study-of-the-effects-of-blood-storage-on-prostate-cancer"
+class="section level3">
+<h3>Part 3: Survival Analysis of Retrospective Cohort Study of the
+Effects of Blood Storage on Prostate Cancer</h3>
+<p>Source: Cata et al. ‘Blood Storage Duration and Biochemical
+Recurrence of Cancer after Radical Prostatectomy’. Mayo Clin Proc 2011;
+86(2): 120-127.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;medicaldata&quot;</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="fu">data</span>(blood_storage)</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="fu">glimpse</span>(blood_storage)</span></code></pre></div>
+<pre><code>## Rows: 316
+## Columns: 20
+## $ RBC.Age.Group    &lt;dbl&gt; 3, 3, 3, 2, 2, 3, 3, 1, 1, 2, 2, 1, 1, 1, 3, 1, 1, 1,…
+## $ Median.RBC.Age   &lt;dbl&gt; 25, 25, 25, 15, 15, 25, 25, 10, 10, 15, 15, 10, 10, 1…
+## $ Age              &lt;dbl&gt; 72.1, 73.6, 67.5, 65.8, 63.2, 65.4, 65.5, 67.1, 63.9,…
+## $ AA               &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1,…
+## $ FamHx            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ PVol             &lt;dbl&gt; 54.0, 43.2, 102.7, 46.0, 60.0, 45.9, 42.6, 40.7, 45.0…
+## $ TVol             &lt;dbl&gt; 3, 3, 1, 1, 2, 2, 2, 3, 2, 2, 1, 3, 2, 2, 2, 2, 1, 2,…
+## $ T.Stage          &lt;dbl&gt; 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, NA, 1…
+## $ bGS              &lt;dbl&gt; 3, 2, 3, 1, 2, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2, 2, 1, 1,…
+## $ `BN+`            &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ OrganConfined    &lt;dbl&gt; 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1,…
+## $ PreopPSA         &lt;dbl&gt; 14.08, 10.50, 6.98, 4.40, 21.40, 5.10, 6.03, 8.70, 3.…
+## $ PreopTherapy     &lt;dbl&gt; 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0,…
+## $ Units            &lt;dbl&gt; 6, 2, 1, 2, 3, 1, 2, 4, 1, 2, 2, 2, 2, 4, 2, 4, 5, 4,…
+## $ sGS              &lt;dbl&gt; 1, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 1, 3, 1, 2, 2,…
+## $ AnyAdjTherapy    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ AdjRadTherapy    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Recurrence       &lt;dbl&gt; 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ Censor           &lt;dbl&gt; 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ TimeToRecurrence &lt;dbl&gt; 2.67, 47.63, 14.10, 59.47, 1.23, 74.70, 13.87, 8.37, …</code></pre>
+<div id="kaplan-meier-curve-comparing-recurrence-free-survival-by-race"
+class="section level4">
+<h4>Kaplan-Meier curve comparing recurrence-free survival by race</h4>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>fit_aa <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(TimeToRecurrence, Recurrence) <span class="sc">~</span> AA, </span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>                  <span class="at">data =</span> blood_storage)</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="fu">ggsurvplot</span>(</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>  fit_aa,</span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a>  <span class="at">data =</span> blood_storage,</span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a>  <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a>  <span class="at">risk.table =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a>  <span class="at">risk.table.height =</span> <span class="fl">0.3</span>,</span>
+<span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a>  <span class="at">risk.table.y.text =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb28-12"><a href="#cb28-12" tabindex="-1"></a>  <span class="at">legend.labs =</span> <span class="fu">c</span>(<span class="st">&quot;White&quot;</span>, <span class="st">&quot;African American&quot;</span>),</span>
+<span id="cb28-13"><a href="#cb28-13" tabindex="-1"></a>  <span class="at">legend.title =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb28-14"><a href="#cb28-14" tabindex="-1"></a>  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;plum&quot;</span>, <span class="st">&quot;plum4&quot;</span>),</span>
+<span id="cb28-15"><a href="#cb28-15" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Recurrence-Free Survival by Race&quot;</span>,</span>
+<span id="cb28-16"><a href="#cb28-16" tabindex="-1"></a>  <span class="at">subtitle =</span> <span class="st">&quot;Prostate Cancer after Radical Prostatectomy&quot;</span>,</span>
+<span id="cb28-17"><a href="#cb28-17" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">&quot;Time (months)&quot;</span>,</span>
+<span id="cb28-18"><a href="#cb28-18" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">&quot;Recurrence-Free Survival Probability&quot;</span>,</span>
+<span id="cb28-19"><a href="#cb28-19" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb28-20"><a href="#cb28-20" tabindex="-1"></a>)</span></code></pre></div>
+<pre><code>## Ignoring unknown labels:
+## • colour : &quot;&quot;</code></pre>
+<p><img src="p08_files/figure-html/km-bloodstorage-1.png" alt="" width="672" /></p>
+<div
+id="cox-model-to-see-if-racial-disparity-persists-after-controlling-for-clinical-factors"
+class="section level5">
+<h5>Cox model to see if racial disparity persists after controlling for
+clinical factors</h5>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>cox_aa <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(TimeToRecurrence, Recurrence) <span class="sc">~</span> AA <span class="sc">+</span> Age <span class="sc">+</span> PreopPSA <span class="sc">+</span> </span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>                bGS <span class="sc">+</span> T.Stage <span class="sc">+</span> OrganConfined, </span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>                <span class="at">data =</span> blood_storage)</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="fu">summary</span>(cox_aa)</span></code></pre></div>
+<pre><code>## Call:
+## coxph(formula = Surv(TimeToRecurrence, Recurrence) ~ AA + Age + 
+##     PreopPSA + bGS + T.Stage + OrganConfined, data = blood_storage)
+## 
+##   n= 300, number of events= 50 
+##    (16 observations deleted due to missingness)
+## 
+##                    coef exp(coef)  se(coef)      z Pr(&gt;|z|)    
+## AA             0.670518  1.955250  0.335434  1.999   0.0456 *  
+## Age           -0.002546  0.997457  0.019828 -0.128   0.8978    
+## PreopPSA       0.039248  1.040029  0.017665  2.222   0.0263 *  
+## bGS            1.124901  3.079913  0.214245  5.251 1.52e-07 ***
+## T.Stage        0.138131  1.148126  0.375294  0.368   0.7128    
+## OrganConfined -0.734728  0.479636  0.320837 -2.290   0.0220 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+##               exp(coef) exp(-coef) lower .95 upper .95
+## AA               1.9553     0.5114    1.0132    3.7733
+## Age              0.9975     1.0025    0.9594    1.0370
+## PreopPSA         1.0400     0.9615    1.0046    1.0767
+## bGS              3.0799     0.3247    2.0238    4.6871
+## T.Stage          1.1481     0.8710    0.5502    2.3957
+## OrganConfined    0.4796     2.0849    0.2557    0.8995
+## 
+## Concordance= 0.806  (se = 0.031 )
+## Likelihood ratio test= 62.36  on 6 df,   p=1e-11
+## Wald test            = 62.76  on 6 df,   p=1e-11
+## Score (logrank) test = 79.49  on 6 df,   p=5e-15</code></pre>
+</div>
+<div id="forest-plot" class="section level5">
+<h5>Forest Plot</h5>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">ggforest</span>(cox_aa, <span class="at">data =</span> blood_storage)</span></code></pre></div>
+<p><img src="p08_files/figure-html/forestplot-bloodstorage-1.png" alt="" width="672" /></p>
+<p>The Kaplan-Meier analysis reveals significantly lower recurrence-free
+survival among African American patients compared to white patients
+(log-rank p = .035); the curves diverge early and the gap widens
+throughout follow-up. By month 50, the disparity in recurrence-free
+survival is visually substantial.</p>
+<p>To determine whether this disparity was explained by differences in
+tumor characteristics at diagnosis, I fit a Cox proportional hazards
+model controlling for age, preoperative PSA, Gleason score, tumor stage,
+and organ confinement. African American status remained a significant
+independent predictor of earlier recurrence (HR = 1.96, 95% CI [1.01,
+3.77], p = .046), meaning Black patients had nearly twice the hazard of
+recurrence even after accounting for all available clinical factors. The
+gleason score was the strongest overall predictor (HR = 3.08, p &lt;
+.001), while organ-confined tumors were protective (HR = 0.48, p =
+.022).</p>
+<p>The persistence of the racial disparity after clinical adjustment is
+the most important finding here. It suggests that factors beyond tumor
+biology (potentially including differences in treatment quality,
+follow-up care, and the cumulative effects of structural racism on
+health) are driving worse outcomes for Black patients.</p>
+<p>The issue here is that this dataset cannot tell us why the disparity
+exists, only that it does, and that it survives statistical adjustment
+for every measured clinical variable. In many of the health datasets I
+have analyzed, I recurrently find health disparities, but no data that
+can help us address it. Ultimately, it is unlikely that biomedical
+treatment will help bridge that gap, and as researchers we must conduct
+research that pushes more system-level, institutional change.</p>
+</div>
+</div>
+<div id="gleason-score-distribution-by-race" class="section level4">
+<h4>Gleason Score Distribution by Race</h4>
+<p>Note that a higher Gleason score = more poorly differentiated = worse
+prognosis. It’s a measure of how aggressive the cancer is at the
+cellular level. Based on the plot, both groups are dominated by poorly
+differentiated tumors. The racial disparity in recurrence isn’t
+explained by tumor aggressiveness at diagnosis because both groups
+present with similar Gleason score distributions, so the disparity must
+lie elsewhere.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>blood_storage <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(bGS)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>    <span class="at">race =</span> <span class="fu">ifelse</span>(AA <span class="sc">==</span> <span class="dv">1</span>, <span class="st">&quot;African American&quot;</span>, <span class="st">&quot;White&quot;</span>),</span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>    <span class="at">bGS_label =</span> <span class="fu">recode</span>(bGS,</span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>      <span class="st">`</span><span class="at">1</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;Well</span><span class="sc">\n</span><span class="st">Differentiated&quot;</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>      <span class="st">`</span><span class="at">2</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;Moderately</span><span class="sc">\n</span><span class="st">Differentiated&quot;</span>, </span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a>      <span class="st">`</span><span class="at">3</span><span class="st">`</span> <span class="ot">=</span> <span class="st">&quot;Poorly</span><span class="sc">\n</span><span class="st">Differentiated&quot;</span></span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a>    )</span>
+<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a>  <span class="fu">count</span>(race, bGS_label) <span class="sc">%&gt;%</span></span>
+<span id="cb33-12"><a href="#cb33-12" tabindex="-1"></a>  <span class="fu">group_by</span>(race) <span class="sc">%&gt;%</span></span>
+<span id="cb33-13"><a href="#cb33-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-14"><a href="#cb33-14" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bGS_label, <span class="at">y =</span> pct, <span class="at">fill =</span> race)) <span class="sc">+</span></span>
+<span id="cb33-15"><a href="#cb33-15" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb33-16"><a href="#cb33-16" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;African American&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum4&quot;</span>, <span class="st">&quot;White&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb33-17"><a href="#cb33-17" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb33-18"><a href="#cb33-18" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb33-19"><a href="#cb33-19" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Gleason Score Distribution by Race&quot;</span>,</span>
+<span id="cb33-20"><a href="#cb33-20" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Are Black patients diagnosed at more advanced tumor grades?&quot;</span>,</span>
+<span id="cb33-21"><a href="#cb33-21" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb33-22"><a href="#cb33-22" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Percentage&quot;</span>,</span>
+<span id="cb33-23"><a href="#cb33-23" tabindex="-1"></a>    <span class="at">fill =</span> <span class="cn">NULL</span></span>
+<span id="cb33-24"><a href="#cb33-24" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb33-25"><a href="#cb33-25" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
+<p><img src="p08_files/figure-html/gleason-dist-1.png" alt="" width="672" /></p>
+</div>
+<div id="what-might-be-contributing-to-the-racial-health-disparity"
+class="section level4">
+<h4>What might be contributing to the racial health disparity?</h4>
+<p>What does being Black predict in terms of clinical presentation and
+treatment received?</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>disparity_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(AA <span class="sc">~</span> PreopPSA <span class="sc">+</span> bGS <span class="sc">+</span> T.Stage <span class="sc">+</span> OrganConfined <span class="sc">+</span> </span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>                        FamHx <span class="sc">+</span> PreopTherapy <span class="sc">+</span> Units <span class="sc">+</span> RBC.Age.Group <span class="sc">+</span> Age,</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>                       <span class="at">data =</span> blood_storage,</span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>                       <span class="at">family =</span> binomial)</span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a><span class="fu">summary</span>(disparity_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = AA ~ PreopPSA + bGS + T.Stage + OrganConfined + 
+##     FamHx + PreopTherapy + Units + RBC.Age.Group + Age, family = binomial, 
+##     data = blood_storage)
+## 
+## Coefficients:
+##                Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)    0.232336   1.716358   0.135   0.8923  
+## PreopPSA       0.064117   0.025776   2.488   0.0129 *
+## bGS           -0.129499   0.278795  -0.464   0.6423  
+## T.Stage       -1.223562   0.752858  -1.625   0.1041  
+## OrganConfined -0.001237   0.366711  -0.003   0.9973  
+## FamHx         -0.649005   0.443667  -1.463   0.1435  
+## PreopTherapy  -0.092582   0.539986  -0.171   0.8639  
+## Units         -0.020071   0.090669  -0.221   0.8248  
+## RBC.Age.Group  0.001568   0.194723   0.008   0.9936  
+## Age           -0.011321   0.022083  -0.513   0.6082  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 273.90  on 300  degrees of freedom
+## Residual deviance: 262.72  on 291  degrees of freedom
+##   (15 observations deleted due to missingness)
+## AIC: 282.72
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>The logistic regression predicting race from available clinical and
+treatment variables found that only preoperative PSA differed
+significantly between African American and white patients (p = .013),
+with Black patients presenting with higher PSA levels at diagnosis.
+Tumor grade, stage, organ confinement, treatment received, and blood
+storage age were all distributed similarly between groups. The fact that
+a single clinical variable distinguishes the two groups, yet Black
+patients face nearly double the recurrence hazard, highlights that the
+drivers of this disparity lie largely outside what biomedical data can
+capture. They are likely found in the social, structural, and systemic
+conditions that shape health long before a patient enters a clinic.</p>
+</div>
+<div id="reflection" class="section level4">
+<h4>Reflection</h4>
+<p>These results are exactly why I am passionate about health psychology
+and medical anthropology. The data can show us that a disparity exists,
+and even rule out certain biological explanations, but it cannot tell us
+why Black men face worse outcomes after the same surgery at the same
+institution. That question requires a different kind of inquiry, one
+that goes beyond social determinants of health to structural
+determinants. Social determinants ask what conditions people live in.
+Structural determinants ask why those conditions are distributed
+unequally in the first place and the answer is always historical,
+political, and institutional. No biomedical intervention will close this
+gap: research that centers structural change will.</p>
+</div>
+</div>
+</div>
 
 
 

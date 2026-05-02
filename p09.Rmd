@@ -2,12 +2,12 @@
 title: "Portfolio 9"
 author: "Anaelle Gackiere"
 date: "`r Sys.Date()`"
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
-
 ```{r setup, include=FALSE}
-knitr::opts_knit$set(root.dir = "/Users/anaellegackiere/Desktop/R_Lab/R-Portfolio/p09")
-
 library(hBayesDM)
 library(ggplot2)
 library(dplyr)
@@ -30,15 +30,38 @@ library(loo)
 library(rstan)
 ```
 
----
+------------------------------------------------------------------------
 
 # Overview
 
-This report presents the analyses for the **Time Task** of the Social Engagement Reinforcement Learning paradigm. Participants provided ratings of how different amounts of seconds spent with someone else would motivate them to participate in a Jenga activity (+15 secs, 0 secs, -15 secs). They also rated how much time, if given the choice, they would like to spend playing with another student. Afterwards, they completed a reinforcement learning task where outcomes varied in how much time they spent with other people (same as explicit ratings: positive = + 15 secs, neutral = 0 seconds, negative = - 15 seconds).
+This report presents the analyses for the **Time Task** of the Social
+Engagement Reinforcement Learning paradigm. Social engagement depends on
+sensitivity to social reward cues, yet the mechanisms underlying this
+sensitivity are poorly understood. Self-report measures capture
+conscious preferences but miss non-conscious reward values that drive
+behavior (Berridge, 2018). Kappa-based reinforcement learning (kRL)
+computationally infers reward values from choices without assuming them
+(Katahira et al., 2015); we call these computationally inferred reward
+values (cRVs).Here, I used a kRL paradigm to derive cRVs for social time
+outcomes and validate them as a measure of social reward sensitivity
 
-The measure of interest is the **computationally inferred Reward Value (cRV / k parameter)**, which captures the reward values each time outcome through their behavior.
+Participants provided ratings of how different amounts of seconds spent
+with someone else would motivate them to participate in a Jenga activity
+(+15 secs, 0 secs, -15 secs). They also rated how much time, if given
+the choice, they would like to spend playing with another student.
+Afterwards, they completed a reinforcement learning task where outcomes
+varied in how much time they spent with other people (same as explicit
+ratings: positive = + 15 secs, neutral = 0 seconds, negative = - 15
+seconds).
 
----
+The measure of interest is the **computationally inferred Reward Value
+(cRV / k parameter)**, which captures the reward values each time
+outcome through their behavior. Participants' choices were modeled using
+value learning. k parameters reflect computationally inferred reward
+values (cRVs) for each time outcome: kPos (+15s gained), kNeu (0s,
+referent), and kNeg (15s lost).
+
+------------------------------------------------------------------------
 
 # Setup
 
@@ -66,9 +89,12 @@ for (i in 1:N_T) {
 }
 ```
 
----
+------------------------------------------------------------------------
 
 # Explicit Ratings
+
+Below are the analyes for the Explicit ratings: +15s, 0s, -15s stimuli
+(1-7 scale)
 
 ## Descriptive Statistics
 
@@ -126,9 +152,11 @@ ggplot(eAllT, aes(x = param, y = value, fill = param)) +
   theme(legend.position = "none")
 ```
 
----
+------------------------------------------------------------------------
 
 # Implicit Motivation (cRV / k parameters)
+
+Below are the analyses for the cRVs.
 
 ## Descriptive Statistics
 
@@ -187,7 +215,7 @@ ggplot(HiLowT, aes(x = param, y = value, fill = param)) +
   theme(legend.position = "none")
 ```
 
----
+------------------------------------------------------------------------
 
 # Implicit-Explicit Correlations
 
@@ -225,11 +253,11 @@ kable(sub_cor_table, caption = "Sub-Difference Score Correlations: Implicit ~ Ex
   row_spec(which(sub_cor_table$p < .05), bold = TRUE, color = "white", background = "#2c7bb6")
 ```
 
----
+------------------------------------------------------------------------
 
 # Social Preference Rating Analyses
 
-## Social vs. Solo Ratings 
+## Social vs. Solo Ratings
 
 ```{r}
 # Social vs Solo ratings plot
@@ -277,8 +305,10 @@ kable(rating_cor_T, caption = "Correlations with Social-Solo Rating Difference (
   row_spec(which(rating_cor_T$p < .05), bold = TRUE, color = "white", background = "#2c7bb6")
 ```
 
+cRVs did not significantly predict social vs solo enjoyment ratings (r =
+.17, p = .054)
 
----
+------------------------------------------------------------------------
 
 # Trait Correlations
 
@@ -324,8 +354,11 @@ kable(subset(cor_results_T, DV == "PosvsNegTime_diff_explicit")[,-1],
            bold = TRUE, color = "white", background = "#2c7bb6")
 ```
 
----
+No significant correlations were found between cRV differentiation and
+personality traits (Extraversion: r = .17, p = .052; Neuroticism: r =
+-.12, p = .164; Social Anxiety: r = -.10, p = .236)
 
+------------------------------------------------------------------------
 
 # Moderation Analyses
 
@@ -336,13 +369,16 @@ mod_extra_impexp <- lm(PosvsNegTime_diff_explicit ~ imv_diff_c * extraversion_c,
                        data = analysis_df_time)
 summary(mod_extra_impexp)
 ```
-*IMV diff is a strong predictor (p < .001). People with higher implicit valuation 
-differentiation also show higher explicit valuation differentiation. Extraversion is 
-a significant main effect (p = .018). More extraverted people show larger explicit 
-valuation differences between positive and negative time conditions. The interaction 
-is significant (p = .033). Extraversion moderates the implicit-explicit relationship. 
-The negative coefficient suggests the link between implicit and explicit valuation is 
-stronger for less extraverted (more introverted) people.* 
+
+*IMV diff is a strong predictor (p \< .001). People with higher implicit
+valuation differentiation also show higher explicit valuation
+differentiation. Extraversion is a significant main effect (p = .018).
+More extraverted people show larger explicit valuation differences
+between positive and negative time conditions. The interaction is
+significant (p = .033). Extraversion moderates the implicit-explicit
+relationship. The negative coefficient suggests the link between
+implicit and explicit valuation is stronger for less extraverted (more
+introverted) people.*
 
 ```{r}
 # Explicit differentiation by extraversion
@@ -363,12 +399,14 @@ ggplot(analysis_df_time, aes(x = Extraversion, y = PosvsNegTime_diff_imv)) +
 
 ```
 
-
----
+------------------------------------------------------------------------
 
 # State Social Motivation: Time Choice → IMV
 
-**Time_Choice_1** is a state/motivational measure (how much do I want to be with people right now), whereas **Extraversion** is a trait measure (how much do I generally want to be with people). The RL measure appears sensitive to state-level motivation.
+**Time_Choice_1** is a state/motivational measure (how much do I want to
+be with people right now), whereas **Extraversion** is a trait measure
+(how much do I generally want to be with people). The RL measure appears
+sensitive to state-level motivation.
 
 ## Time Choice Predicts IMV Diff
 
@@ -377,7 +415,10 @@ mod_timechoice <- lm(PosvsNegTime_diff_imv ~ time_choice_c, data = analysis_df_t
 summary(mod_timechoice)
 ```
 
-*Prior explicit social motivation (Time Choice) strongly predicts implicit learning differentiation (R² = .24, p < .001) — people who want to spend more time with others show greater implicit valuation of positive time outcomes.*
+*Prior explicit social motivation (Time Choice) strongly predicts
+implicit learning differentiation (R² = .24, p \< .001) — people who
+want to spend more time with others show greater implicit valuation of
+positive time outcomes.*
 
 ## Does Extraversion Moderate the Time Choice → IMV Link?
 
@@ -387,8 +428,10 @@ mod_timechoice_extra <- lm(PosvsNegTime_diff_imv ~ time_choice_c * extraversion_
 summary(mod_timechoice_extra)
 ```
 
-*The Time Choice → IMV relationship is equally strong regardless of extraversion level (interaction p = .572), suggesting the RL measure captures state-level social motivation independently of stable personality traits.*
-
+*The Time Choice → IMV relationship is equally strong regardless of
+extraversion level (interaction p = .572), suggesting the RL measure
+captures state-level social motivation independently of stable
+personality traits.*
 
 ```{r}
 # Histogram of Time Choice
@@ -419,10 +462,8 @@ ggplot(analysis_df_time, aes(x = Time_Choice_1, y = PosvsNegTime_diff_explicit))
 cor.test(analysis_df_time$Time_Choice_1, analysis_df_time$PosvsNegTime_diff_explicit)
 ```
 
-Time Choice) predicts both implicit and explicit differentiation, but the relationship is stronger for the implicit measure.
-
-
-
+Time Choice) predicts both implicit and explicit differentiation, but
+the relationship is stronger for the implicit measure.
 
 ```{r}
 # Create comprehensive correlation table for all IMV and explicit measures
@@ -457,9 +498,8 @@ kable(cor_display,
                 font_size = 11)
 ```
 
-
-
 # Model Comparison
+
 ```{r model-comparison}
 # MODEL COMPARISON
 
@@ -518,6 +558,18 @@ kable(waic_comp_table,
   row_spec(1, bold = TRUE, color = "white", background = "#2c7bb6")
 ```
 
----
+------------------------------------------------------------------------
 
+The kRL model fit choices significantly better than the explicit ratings
+model (LOO ΔELPD = -595.84, SE = 67.38).
 
+## Conclusion
+
+These results validate cRVs as a tool to capture state social motivation
+beyond self-report. cRVs capture state motivation independent of stable
+personality traits. Extraversion may shape the alignment between cRVs
+and self-reported valuation of social engagement time. cRVs predicted
+social engagement behavior but not task enjoyment, which reflects
+motivational approach values (wanting) rather than hedonic liking.
+Future work should examine whether cRVs predict ecological measures of
+social engagement (e.g., experience sampling)

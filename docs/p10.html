@@ -11,14 +11,14 @@
 
 <meta name="author" content="Anaelle Gackiere" />
 
-<meta name="date" content="2026-04-29" />
+<meta name="date" content="2026-04-30" />
 
 <title>Portfolio 10</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -32,8 +32,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -44,18 +42,110 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
-
-
 
 
 
@@ -294,7 +384,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Portfolio 10</h1>
 <h4 class="author">Anaelle Gackiere</h4>
-<h4 class="date">2026-04-29</h4>
+<h4 class="date">2026-04-30</h4>
 
 </div>
 
@@ -313,8 +403,8 @@ piece I used the 1948 Streptomycin Trial, one of the first modern
 randomized controlled trials ever conducted, to explore both the overall
 treatment effect and who developed antibiotic resistance.</p>
 <p>Source: <code>medicaldata</code> package, strep_tb data</p>
-<pre class="r"><code>data(strep_tb)
-glimpse(strep_tb)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">data</span>(strep_tb)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">glimpse</span>(strep_tb)</span></code></pre></div>
 <pre><code>## Rows: 107
 ## Columns: 13
 ## $ patient_id          &lt;chr&gt; &quot;0001&quot;, &quot;0002&quot;, &quot;0003&quot;, &quot;0004&quot;, &quot;0005&quot;, &quot;0006&quot;, &quot;0…
@@ -330,44 +420,44 @@ glimpse(strep_tb)</code></pre>
 ## $ radiologic_6m       &lt;fct&gt; 6_Considerable_improvement, 5_Moderate_improvement…
 ## $ rad_num             &lt;dbl&gt; 6, 5, 5, 5, 5, 6, 5, 5, 5, 5, 6, 5, 5, 5, 5, 6, 5,…
 ## $ improved            &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TR…</code></pre>
-<pre class="r"><code># data cleaning
-strep_clean &lt;- strep_tb %&gt;%
-  mutate(
-    strep_resistance = recode(strep_resistance,
-      &quot;1_sens_0-8&quot; = &quot;Sensitive&quot;,
-      &quot;2_mod_8-99&quot; = &quot;Moderate&quot;,
-      &quot;3_resist_100+&quot; = &quot;Resistant&quot;
-    ),
-    radiologic_6m = recode(radiologic_6m,
-      &quot;1_Death&quot; = &quot;Death&quot;,
-      &quot;2_Considerable_deterioration&quot; = &quot;Considerable\nDeterioration&quot;,
-      &quot;3_Moderate_deterioration&quot; = &quot;Moderate\nDeterioration&quot;,
-      &quot;4_No_change&quot; = &quot;No Change&quot;,
-      &quot;5_Moderate_improvement&quot; = &quot;Moderate\nImprovement&quot;,
-      &quot;6_Considerable_improvement&quot; = &quot;Considerable\nImprovement&quot;
-    ),
-    baseline_condition = recode(baseline_condition,
-      &quot;1_Good&quot; = &quot;Good&quot;,
-      &quot;2_Fair&quot; = &quot;Fair&quot;,
-      &quot;3_Poor&quot; = &quot;Poor&quot;
-    ),
-    baseline_temp = recode(baseline_temp,
-      &quot;1_98-98.9F&quot; = &quot;98-98.9°F&quot;,
-      &quot;2_99-99.9F&quot; = &quot;99-99.9°F&quot;,
-      &quot;3_100-100.9F&quot; = &quot;100-100.9°F&quot;,
-      &quot;4_100F+&quot; = &quot;100°F+&quot;
-    ),
-    baseline_esr = recode(baseline_esr,
-      &quot;1_0-10&quot; = &quot;0-10&quot;,
-      &quot;2_11-20&quot; = &quot;11-20&quot;,
-      &quot;3_21-50&quot; = &quot;21-50&quot;,
-      &quot;4_51+&quot; = &quot;51+&quot;
-    ),
-    baseline_cavitation = recode(baseline_cavitation,
-      &quot;0_no&quot; = &quot;No&quot;,
-      &quot;1_yes&quot; = &quot;Yes&quot;
-    )
-  )</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># data cleaning</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>strep_clean <span class="ot">&lt;-</span> strep_tb <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    <span class="at">strep_resistance =</span> <span class="fu">recode</span>(strep_resistance,</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>      <span class="st">&quot;1_sens_0-8&quot;</span> <span class="ot">=</span> <span class="st">&quot;Sensitive&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>      <span class="st">&quot;2_mod_8-99&quot;</span> <span class="ot">=</span> <span class="st">&quot;Moderate&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>      <span class="st">&quot;3_resist_100+&quot;</span> <span class="ot">=</span> <span class="st">&quot;Resistant&quot;</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    ),</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>    <span class="at">radiologic_6m =</span> <span class="fu">recode</span>(radiologic_6m,</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>      <span class="st">&quot;1_Death&quot;</span> <span class="ot">=</span> <span class="st">&quot;Death&quot;</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>      <span class="st">&quot;2_Considerable_deterioration&quot;</span> <span class="ot">=</span> <span class="st">&quot;Considerable</span><span class="sc">\n</span><span class="st">Deterioration&quot;</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>      <span class="st">&quot;3_Moderate_deterioration&quot;</span> <span class="ot">=</span> <span class="st">&quot;Moderate</span><span class="sc">\n</span><span class="st">Deterioration&quot;</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>      <span class="st">&quot;4_No_change&quot;</span> <span class="ot">=</span> <span class="st">&quot;No Change&quot;</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>      <span class="st">&quot;5_Moderate_improvement&quot;</span> <span class="ot">=</span> <span class="st">&quot;Moderate</span><span class="sc">\n</span><span class="st">Improvement&quot;</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>      <span class="st">&quot;6_Considerable_improvement&quot;</span> <span class="ot">=</span> <span class="st">&quot;Considerable</span><span class="sc">\n</span><span class="st">Improvement&quot;</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>    ),</span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>    <span class="at">baseline_condition =</span> <span class="fu">recode</span>(baseline_condition,</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>      <span class="st">&quot;1_Good&quot;</span> <span class="ot">=</span> <span class="st">&quot;Good&quot;</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>      <span class="st">&quot;2_Fair&quot;</span> <span class="ot">=</span> <span class="st">&quot;Fair&quot;</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>      <span class="st">&quot;3_Poor&quot;</span> <span class="ot">=</span> <span class="st">&quot;Poor&quot;</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>    ),</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>    <span class="at">baseline_temp =</span> <span class="fu">recode</span>(baseline_temp,</span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>      <span class="st">&quot;1_98-98.9F&quot;</span> <span class="ot">=</span> <span class="st">&quot;98-98.9°F&quot;</span>,</span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>      <span class="st">&quot;2_99-99.9F&quot;</span> <span class="ot">=</span> <span class="st">&quot;99-99.9°F&quot;</span>,</span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>      <span class="st">&quot;3_100-100.9F&quot;</span> <span class="ot">=</span> <span class="st">&quot;100-100.9°F&quot;</span>,</span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>      <span class="st">&quot;4_100F+&quot;</span> <span class="ot">=</span> <span class="st">&quot;100°F+&quot;</span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>    ),</span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a>    <span class="at">baseline_esr =</span> <span class="fu">recode</span>(baseline_esr,</span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>      <span class="st">&quot;1_0-10&quot;</span> <span class="ot">=</span> <span class="st">&quot;0-10&quot;</span>,</span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a>      <span class="st">&quot;2_11-20&quot;</span> <span class="ot">=</span> <span class="st">&quot;11-20&quot;</span>,</span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>      <span class="st">&quot;3_21-50&quot;</span> <span class="ot">=</span> <span class="st">&quot;21-50&quot;</span>,</span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>      <span class="st">&quot;4_51+&quot;</span> <span class="ot">=</span> <span class="st">&quot;51+&quot;</span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>    ),</span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a>    <span class="at">baseline_cavitation =</span> <span class="fu">recode</span>(baseline_cavitation,</span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a>      <span class="st">&quot;0_no&quot;</span> <span class="ot">=</span> <span class="st">&quot;No&quot;</span>,</span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a>      <span class="st">&quot;1_yes&quot;</span> <span class="ot">=</span> <span class="st">&quot;Yes&quot;</span></span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a>    )</span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a>  )</span></code></pre></div>
 <div id="baseline-characteristics-of-tb-sample." class="section level3">
 <h3>Baseline Characteristics of TB sample.</h3>
 <p>The arms look well balanced across all characteristics given this was
@@ -375,56 +465,56 @@ strep_clean &lt;- strep_tb %&gt;%
 condition, cavitation, ESR all roughly equal between groups. One might
 notice a slight imbalance in that the streptomycin arm has slightly more
 patients in the highest fever category (100F+) than control.</p>
-<pre class="r"><code>strep_table1 &lt;- strep_clean %&gt;%
-  select(arm, gender, baseline_condition, baseline_temp, baseline_esr, baseline_cavitation) %&gt;%
-  rename(
-    &quot;Gender&quot; = gender,
-    &quot;Baseline Condition&quot; = baseline_condition,
-    &quot;Temperature&quot; = baseline_temp,
-    &quot;ESR&quot; = baseline_esr,
-    &quot;Cavitation on X-Ray&quot; = baseline_cavitation
-  ) %&gt;%
-  pivot_longer(cols = -arm, names_to = &quot;variable&quot;, values_to = &quot;value&quot;) %&gt;%
-  count(arm, variable, value) %&gt;%
-  group_by(arm, variable) %&gt;%
-  mutate(pct = n / sum(n))
-
-ggplot(strep_table1, aes(x = value, y = pct, fill = arm)) +
-  geom_col(position = &quot;dodge&quot;, alpha = 0.85) +
-  facet_wrap(~variable, scales = &quot;free_x&quot;) +
-  scale_y_continuous(labels = scales::percent) +
-  scale_fill_manual(values = c(&quot;Streptomycin&quot; = &quot;plum4&quot;, &quot;Control&quot; = &quot;pink&quot;)) +
-  labs(
-    title = &quot;Baseline Characteristics by Treatment Arm&quot;,
-    subtitle = &quot;The 1948 Streptomycin Trial&quot;,
-    x = NULL,
-    y = &quot;Percentage&quot;,
-    fill = &quot;Treatment Arm&quot;
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>strep_table1 <span class="ot">&lt;-</span> strep_clean <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">select</span>(arm, gender, baseline_condition, baseline_temp, baseline_esr, baseline_cavitation) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    <span class="st">&quot;Gender&quot;</span> <span class="ot">=</span> gender,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    <span class="st">&quot;Baseline Condition&quot;</span> <span class="ot">=</span> baseline_condition,</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="st">&quot;Temperature&quot;</span> <span class="ot">=</span> baseline_temp,</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    <span class="st">&quot;ESR&quot;</span> <span class="ot">=</span> baseline_esr,</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    <span class="st">&quot;Cavitation on X-Ray&quot;</span> <span class="ot">=</span> baseline_cavitation</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>arm, <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  <span class="fu">count</span>(arm, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  <span class="fu">group_by</span>(arm, variable) <span class="sc">%&gt;%</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="fu">ggplot</span>(strep_table1, <span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> pct, <span class="at">fill =</span> arm)) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Streptomycin&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum4&quot;</span>, <span class="st">&quot;Control&quot;</span> <span class="ot">=</span> <span class="st">&quot;pink&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Baseline Characteristics by Treatment Arm&quot;</span>,</span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;The 1948 Streptomycin Trial&quot;</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Percentage&quot;</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Treatment Arm&quot;</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="p10_files/figure-html/baseline-tb-1.png" alt="" width="672" /></p>
 </div>
 <div id="alluvial-plot" class="section level3">
 <h3>Alluvial Plot</h3>
-<pre class="r"><code>strep_clean %&gt;%
-  group_by(arm, strep_resistance, radiologic_6m) %&gt;%
-  summarise(freq = n(), .groups = &quot;drop&quot;) %&gt;%
-  ggplot(aes(axis1 = arm, 
-             axis2 = strep_resistance, 
-             axis3 = radiologic_6m,
-             y = freq)) +
-  geom_alluvium(aes(fill = arm), alpha = 0.7) +
-  geom_stratum() +
-  geom_text(stat = &quot;stratum&quot;, aes(label = after_stat(stratum)), size = 3) +
-  scale_fill_manual(values = c(&quot;Streptomycin&quot; = &quot;plum4&quot;, &quot;Control&quot; = &quot;plum&quot;)) +
-  labs(
-    title = &quot;Treatment Arm → Resistance → Outcome in the 1948 Streptomycin Trial&quot;,
-    y = &quot;Number of Patients&quot;,
-    fill = &quot;Treatment Arm&quot;
-  ) +
-  theme_minimal(base_size = 13) +
-  theme(legend.position = &quot;bottom&quot;)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>strep_clean <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">group_by</span>(arm, strep_resistance, radiologic_6m) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">freq =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">axis1 =</span> arm, </span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>             <span class="at">axis2 =</span> strep_resistance, </span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>             <span class="at">axis3 =</span> radiologic_6m,</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>             <span class="at">y =</span> freq)) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="fu">geom_alluvium</span>(<span class="fu">aes</span>(<span class="at">fill =</span> arm), <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  <span class="fu">geom_stratum</span>() <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">stat =</span> <span class="st">&quot;stratum&quot;</span>, <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">after_stat</span>(stratum)), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Streptomycin&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum4&quot;</span>, <span class="st">&quot;Control&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Treatment Arm → Resistance → Outcome in the 1948 Streptomycin Trial&quot;</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Number of Patients&quot;</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Treatment Arm&quot;</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 <p><img src="p10_files/figure-html/alluvial-plot-1.png" alt="" width="672" /></p>
 <p>Streptomycin dominates the top outcomes (considerable improvement)
 while the control flows heavily toward death and deterioration. The
@@ -444,53 +534,53 @@ developed resistance were more likely to present with cavitation (χ²(1)
 given the bacterium more opportunity to mutate. This pattern remains
 relevant today, where the most vulnerable patients are often the most
 likely to develop antibiotic resistance</p>
-<pre class="r"><code>strep_resist &lt;- strep_clean %&gt;%
-  filter(arm == &quot;Streptomycin&quot;) %&gt;%
-  filter(strep_resistance != &quot;Moderate&quot;) # only 8 moderate cases, too few to compare
-table(strep_resist$strep_resistance)</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>strep_resist <span class="ot">&lt;-</span> strep_clean <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">filter</span>(arm <span class="sc">==</span> <span class="st">&quot;Streptomycin&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">filter</span>(strep_resistance <span class="sc">!=</span> <span class="st">&quot;Moderate&quot;</span>) <span class="co"># only 8 moderate cases, too few to compare</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">table</span>(strep_resist<span class="sc">$</span>strep_resistance)</span></code></pre></div>
 <pre><code>## 
 ## Sensitive  Moderate Resistant 
 ##        13         0        34</code></pre>
-<pre class="r"><code>strep_resist %&gt;%
-  select(strep_resistance, baseline_condition, baseline_temp, 
-         baseline_esr, baseline_cavitation) %&gt;%
-  pivot_longer(cols = -strep_resistance, 
-               names_to = &quot;variable&quot;, 
-               values_to = &quot;value&quot;) %&gt;%
-  count(strep_resistance, variable, value) %&gt;%
-  group_by(strep_resistance, variable) %&gt;%
-  mutate(pct = n / sum(n)) %&gt;%
-  ggplot(aes(x = value, y = pct, fill = strep_resistance)) +
-  geom_col(position = &quot;dodge&quot;, alpha = 0.85) +
-  facet_wrap(~variable, scales = &quot;free_x&quot;, nrow = 2) +
-  scale_y_continuous(labels = scales::percent) +
-  scale_fill_manual(values = c(&quot;Sensitive&quot; = &quot;plum4&quot;, &quot;Resistant&quot; = &quot;pink&quot;)) +
-  labs(
-    title = &quot;Baseline Characteristics by Streptomycin Resistance&quot;,
-    subtitle = &quot;Who developed resistance in the Streptomycin arm?&quot;,
-    x = NULL,
-    y = &quot;Percentage&quot;,
-    fill = &quot;Resistance Status&quot;
-  ) +
-  theme_minimal(base_size = 12) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>strep_resist <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">select</span>(strep_resistance, baseline_condition, baseline_temp, </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>         baseline_esr, baseline_cavitation) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>strep_resistance, </span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">&quot;variable&quot;</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="fu">count</span>(strep_resistance, variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="fu">group_by</span>(strep_resistance, variable) <span class="sc">%&gt;%</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value, <span class="at">y =</span> pct, <span class="at">fill =</span> strep_resistance)) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scales =</span> <span class="st">&quot;free_x&quot;</span>, <span class="at">nrow =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Sensitive&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum4&quot;</span>, <span class="st">&quot;Resistant&quot;</span> <span class="ot">=</span> <span class="st">&quot;pink&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Baseline Characteristics by Streptomycin Resistance&quot;</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Who developed resistance in the Streptomycin arm?&quot;</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Percentage&quot;</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Resistance Status&quot;</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
 <p><img src="p10_files/figure-html/step-resist-1.png" alt="" width="672" /></p>
-<pre class="r"><code># follow up chi square test for cavitation
-strep_resist_binary &lt;- strep_clean %&gt;%
-  filter(arm == &quot;Streptomycin&quot;) %&gt;%
-  filter(strep_resistance %in% c(&quot;Sensitive&quot;, &quot;Resistant&quot;)) %&gt;%
-  mutate(strep_resistance = droplevels(strep_resistance))
-
-chisq.test(table(strep_resist_binary$baseline_cavitation, 
-                 strep_resist_binary$strep_resistance))</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># follow up chi square test for cavitation</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>strep_resist_binary <span class="ot">&lt;-</span> strep_clean <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">filter</span>(arm <span class="sc">==</span> <span class="st">&quot;Streptomycin&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="fu">filter</span>(strep_resistance <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Sensitive&quot;</span>, <span class="st">&quot;Resistant&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">strep_resistance =</span> <span class="fu">droplevels</span>(strep_resistance))</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(strep_resist_binary<span class="sc">$</span>baseline_cavitation, </span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>                 strep_resist_binary<span class="sc">$</span>strep_resistance))</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
 ## 
 ## data:  table(strep_resist_binary$baseline_cavitation, strep_resist_binary$strep_resistance)
 ## X-squared = 4.6484, df = 1, p-value = 0.03108</code></pre>
-<pre class="r"><code># fisher for baseline condition
-fisher.test(table(strep_resist_binary$baseline_condition, 
-                  strep_resist_binary$strep_resistance))</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># fisher for baseline condition</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">fisher.test</span>(<span class="fu">table</span>(strep_resist_binary<span class="sc">$</span>baseline_condition, </span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>                  strep_resist_binary<span class="sc">$</span>strep_resistance))</span></code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
@@ -511,8 +601,8 @@ treatments for scurvy in 12 sailors. . I was drawn to it as a natural
 companion to the streptomycin piece since both are landmark historical
 trials that changed medicine, and both reward careful visualization
 despite their small sample sizes.</p>
-<pre class="r"><code>data(scurvy)
-glimpse(scurvy)</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">data</span>(scurvy)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">glimpse</span>(scurvy)</span></code></pre></div>
 <pre><code>## Rows: 12
 ## Columns: 8
 ## $ study_id                  &lt;chr&gt; &quot;001&quot;, &quot;002&quot;, &quot;003&quot;, &quot;004&quot;, &quot;005&quot;, &quot;006&quot;, &quot;0…
@@ -523,82 +613,82 @@ glimpse(scurvy)</code></pre>
 ## $ weakness_of_the_knees_d6  &lt;fct&gt; 2_moderate, 2_moderate, 3_severe, 3_severe, …
 ## $ lassitude_d6              &lt;fct&gt; 2_moderate, 3_severe, 3_severe, 3_severe, 3_…
 ## $ fit_for_duty_d6           &lt;fct&gt; 0_no, 0_no, 0_no, 0_no, 0_no, 0_no, 0_no, 0_…</code></pre>
-<pre class="r"><code>radar_data &lt;- scurvy %&gt;%
-  mutate(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6),
-                ~ as.numeric(str_extract(as.character(.), &quot;\\d&quot;)))) %&gt;%
-  group_by(treatment) %&gt;%
-  summarise(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6), mean)) %&gt;%
-  column_to_rownames(&quot;treatment&quot;)
-
-# fmsb set up
-radar_data &lt;- rbind(
-  max = rep(3, 4),
-  min = rep(1, 4),
-  radar_data
-)
-
-colnames(radar_data) &lt;- c(&quot;Gum Rot&quot;, &quot;Skin Sores&quot;, &quot;Weak Knees&quot;, &quot;Lassitude&quot;)</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>radar_data <span class="ot">&lt;-</span> scurvy <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6),</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>                <span class="sc">~</span> <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(<span class="fu">as.character</span>(.), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d&quot;</span>)))) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6), mean)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;treatment&quot;</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co"># fmsb set up</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a>radar_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>  <span class="at">max =</span> <span class="fu">rep</span>(<span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>  <span class="at">min =</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">4</span>),</span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>  radar_data</span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>)</span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="fu">colnames</span>(radar_data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Gum Rot&quot;</span>, <span class="st">&quot;Skin Sores&quot;</span>, <span class="st">&quot;Weak Knees&quot;</span>, <span class="st">&quot;Lassitude&quot;</span>)</span></code></pre></div>
 <div id="scurvy-radar-chart" class="section level4">
 <h4>Scurvy Radar Chart</h4>
 <p>Since there are quite a few groups, it is difficult to read at first.
 Upon closer inspection though, one can see that citrus, in red, is at
 the center of the plot compared to all other treatments (and
 colors).</p>
-<pre class="r"><code>colors &lt;- c(&quot;yellow&quot;, &quot;red&quot;, &quot;green&quot;, &quot;purple&quot;, &quot;blue&quot;, &quot;orange&quot;)
-
-radarchart(radar_data,
-  pcol = colors,
-  pfcol = scales::alpha(colors, 0.2),
-  plwd = 2,
-  title = &quot;Scurvy Symptoms by Treatment at Day 6&quot;
-)
-
-legend(&quot;topright&quot;, legend = rownames(radar_data)[3:8],
-       col = colors, lty = 1, lwd = 2, cex = 0.8)</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="fu">radarchart</span>(radar_data,</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>  <span class="at">pcol =</span> colors,</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>  <span class="at">pfcol =</span> scales<span class="sc">::</span><span class="fu">alpha</span>(colors, <span class="fl">0.2</span>),</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>  <span class="at">plwd =</span> <span class="dv">2</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Scurvy Symptoms by Treatment at Day 6&quot;</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>)</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">rownames</span>(radar_data)[<span class="dv">3</span><span class="sc">:</span><span class="dv">8</span>],</span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a>       <span class="at">col =</span> colors, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <p><img src="p10_files/figure-html/unnamed-chunk-1-1.png" alt="" width="672" /></p>
 </div>
 <div id="scurvy-heatmap" class="section level4">
 <h4>Scurvy Heatmap</h4>
 <p>The heatmap better displays the stark difference in symptoms for
 citrus compared to the other treatments.</p>
-<pre class="r"><code>scurvy_heat &lt;- scurvy %&gt;%
-  mutate(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6),
-                ~ as.numeric(str_extract(as.character(.), &quot;\\d&quot;)))) %&gt;%
-  group_by(treatment) %&gt;%
-  summarise(across(c(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6), mean)) %&gt;%
-  pivot_longer(cols = -treatment, names_to = &quot;symptom&quot;, values_to = &quot;severity&quot;) %&gt;%
-  mutate(
-    symptom = recode(symptom,
-      &quot;gum_rot_d6&quot; = &quot;Gum Rot&quot;,
-      &quot;skin_sores_d6&quot; = &quot;Skin Sores&quot;,
-      &quot;weakness_of_the_knees_d6&quot; = &quot;Weak Knees&quot;,
-      &quot;lassitude_d6&quot; = &quot;Lassitude&quot;
-    ),
-    treatment = recode(treatment,
-      &quot;citrus&quot; = &quot;Citrus&quot;,
-      &quot;cider&quot; = &quot;Cider&quot;,
-      &quot;dilute_sulfuric_acid&quot; = &quot;Dilute Sulfuric Acid&quot;,
-      &quot;vinegar&quot; = &quot;Vinegar&quot;,
-      &quot;purgative_mixture&quot; = &quot;Purgative Mixture&quot;,
-      &quot;sea_water&quot; = &quot;Sea Water&quot;
-    )
-  )
-
-ggplot(scurvy_heat, aes(x = symptom, y = treatment, fill = severity)) +
-  geom_tile(color = &quot;white&quot;, linewidth = 0.8) +
-  geom_text(aes(label = round(severity, 1)), color = &quot;white&quot;, size = 4) +
-  scale_fill_gradient(low = &quot;plum&quot;, high = &quot;plum4&quot;,
-                      name = &quot;Severity&quot;,
-                      breaks = c(1, 2, 3),
-                      labels = c(&quot;Mild&quot;, &quot;Moderate&quot;, &quot;Severe&quot;)) +
-  labs(
-    title = &quot;Scurvy Symptom Severity by Treatment at Day 6&quot;,
-    subtitle = &quot;James Lind&#39;s 1757 trial [lower is better]&quot;,
-    x = NULL,
-    y = NULL
-  ) +
-  theme_minimal(base_size = 13) +
-  theme(panel.grid = element_blank())</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>scurvy_heat <span class="ot">&lt;-</span> scurvy <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6),</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>                <span class="sc">~</span> <span class="fu">as.numeric</span>(<span class="fu">str_extract</span>(<span class="fu">as.character</span>(.), <span class="st">&quot;</span><span class="sc">\\</span><span class="st">d&quot;</span>)))) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="fu">group_by</span>(treatment) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">c</span>(gum_rot_d6, skin_sores_d6, weakness_of_the_knees_d6, lassitude_d6), mean)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>treatment, <span class="at">names_to =</span> <span class="st">&quot;symptom&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;severity&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>    <span class="at">symptom =</span> <span class="fu">recode</span>(symptom,</span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a>      <span class="st">&quot;gum_rot_d6&quot;</span> <span class="ot">=</span> <span class="st">&quot;Gum Rot&quot;</span>,</span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a>      <span class="st">&quot;skin_sores_d6&quot;</span> <span class="ot">=</span> <span class="st">&quot;Skin Sores&quot;</span>,</span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a>      <span class="st">&quot;weakness_of_the_knees_d6&quot;</span> <span class="ot">=</span> <span class="st">&quot;Weak Knees&quot;</span>,</span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a>      <span class="st">&quot;lassitude_d6&quot;</span> <span class="ot">=</span> <span class="st">&quot;Lassitude&quot;</span></span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a>    ),</span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a>    <span class="at">treatment =</span> <span class="fu">recode</span>(treatment,</span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a>      <span class="st">&quot;citrus&quot;</span> <span class="ot">=</span> <span class="st">&quot;Citrus&quot;</span>,</span>
+<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a>      <span class="st">&quot;cider&quot;</span> <span class="ot">=</span> <span class="st">&quot;Cider&quot;</span>,</span>
+<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a>      <span class="st">&quot;dilute_sulfuric_acid&quot;</span> <span class="ot">=</span> <span class="st">&quot;Dilute Sulfuric Acid&quot;</span>,</span>
+<span id="cb17-18"><a href="#cb17-18" tabindex="-1"></a>      <span class="st">&quot;vinegar&quot;</span> <span class="ot">=</span> <span class="st">&quot;Vinegar&quot;</span>,</span>
+<span id="cb17-19"><a href="#cb17-19" tabindex="-1"></a>      <span class="st">&quot;purgative_mixture&quot;</span> <span class="ot">=</span> <span class="st">&quot;Purgative Mixture&quot;</span>,</span>
+<span id="cb17-20"><a href="#cb17-20" tabindex="-1"></a>      <span class="st">&quot;sea_water&quot;</span> <span class="ot">=</span> <span class="st">&quot;Sea Water&quot;</span></span>
+<span id="cb17-21"><a href="#cb17-21" tabindex="-1"></a>    )</span>
+<span id="cb17-22"><a href="#cb17-22" tabindex="-1"></a>  )</span>
+<span id="cb17-23"><a href="#cb17-23" tabindex="-1"></a></span>
+<span id="cb17-24"><a href="#cb17-24" tabindex="-1"></a><span class="fu">ggplot</span>(scurvy_heat, <span class="fu">aes</span>(<span class="at">x =</span> symptom, <span class="at">y =</span> treatment, <span class="at">fill =</span> severity)) <span class="sc">+</span></span>
+<span id="cb17-25"><a href="#cb17-25" tabindex="-1"></a>  <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb17-26"><a href="#cb17-26" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(severity, <span class="dv">1</span>)), <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb17-27"><a href="#cb17-27" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;plum&quot;</span>, <span class="at">high =</span> <span class="st">&quot;plum4&quot;</span>,</span>
+<span id="cb17-28"><a href="#cb17-28" tabindex="-1"></a>                      <span class="at">name =</span> <span class="st">&quot;Severity&quot;</span>,</span>
+<span id="cb17-29"><a href="#cb17-29" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb17-30"><a href="#cb17-30" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Mild&quot;</span>, <span class="st">&quot;Moderate&quot;</span>, <span class="st">&quot;Severe&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb17-31"><a href="#cb17-31" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-32"><a href="#cb17-32" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Scurvy Symptom Severity by Treatment at Day 6&quot;</span>,</span>
+<span id="cb17-33"><a href="#cb17-33" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;James Lind&#39;s 1757 trial [lower is better]&quot;</span>,</span>
+<span id="cb17-34"><a href="#cb17-34" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb17-35"><a href="#cb17-35" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
+<span id="cb17-36"><a href="#cb17-36" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-37"><a href="#cb17-37" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb17-38"><a href="#cb17-38" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
 <p><img src="p10_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
 <p>James Lind’s 1757 trial tested six treatments for scurvy aboard a
 Royal Navy vessel. The results are clearly unambiguous; citrus alone
@@ -620,8 +710,8 @@ differed by racial group.</p>
 <p>Michalowicz et al., ‘Treatment of periodontal disease and the risk of
 preterm birth’, N Engl J Med 2006; 355:1885-1894. DOI:
 10.1056/NEJMoa062249</p>
-<pre class="r"><code>data(opt)
-head(opt)</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">data</span>(opt)</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">head</span>(opt)</span></code></pre></div>
 <pre><code>##      PID Clinic Group Age Black White Nat.Am Asian Hisp Education Public.Asstce
 ## 1 100034     NY     C  25   Yes   No     No    No       8-12 yrs            No 
 ## 2 100042     NY     C  21   Yes   No     No    No       8-12 yrs            Yes
@@ -769,82 +859,82 @@ head(opt)</code></pre>
 ## 4     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
 ## 5     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
 ## 6     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA</code></pre>
-<pre class="r"><code>dim(opt)</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">dim</span>(opt)</span></code></pre></div>
 <pre><code>## [1] 823 171</code></pre>
 <div id="visualizing-birth-weight-outcomes" class="section level4">
 <h4>Visualizing Birth Weight Outcomes</h4>
-<pre class="r"><code>opt_race &lt;- opt %&gt;%
-  filter(!is.na(Birthweight)) %&gt;%
-  mutate(race = case_when(
-    Black == &quot;Yes&quot; ~ &quot;Black&quot;,
-    White == &quot;Yes&quot; ~ &quot;White&quot;,
-    Hisp  == &quot;Yes&quot; ~ &quot;Hispanic&quot;,
-    Asian == &quot;Yes&quot; ~ &quot;Asian&quot;,
-    Nat.Am == &quot;Yes&quot; ~ &quot;Native American&quot;,
-    TRUE ~ &quot;Other/Unknown&quot;
-  )) %&gt;%
-  filter(race != &quot;Other/Unknown&quot;)
-
-ggplot(opt_race, aes(x = Birthweight, y = race, fill = race)) +
-  geom_density_ridges(alpha = 0.7, scale = 1.2) +
-  geom_vline(xintercept = 2500, linetype = &quot;dashed&quot;, color = &quot;gray40&quot;) +
-  scale_fill_brewer(palette = &quot;Set2&quot;) +
-  annotate(&quot;text&quot;, x = 2500, y = 0.5, label = &quot;Low birthweight\nthreshold (2500g)&quot;, 
-           hjust = 1.1, size = 3.5, color = &quot;gray40&quot;) +
-  labs(
-    title = &quot;Birth Weight Distribution by Race&quot;,
-    subtitle = &quot;OPT Trial participants, periodontal therapy RCT&quot;,
-    x = &quot;Birth Weight (grams)&quot;,
-    y = NULL
-  ) +
-  theme_minimal(base_size = 13) +
-  theme(legend.position = &quot;none&quot;)</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>opt_race <span class="ot">&lt;-</span> opt <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Birthweight)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">race =</span> <span class="fu">case_when</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>    Black <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span> <span class="sc">~</span> <span class="st">&quot;Black&quot;</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>    White <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span> <span class="sc">~</span> <span class="st">&quot;White&quot;</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>    Hisp  <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span> <span class="sc">~</span> <span class="st">&quot;Hispanic&quot;</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>    Asian <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span> <span class="sc">~</span> <span class="st">&quot;Asian&quot;</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a>    Nat.Am <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span> <span class="sc">~</span> <span class="st">&quot;Native American&quot;</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;Other/Unknown&quot;</span></span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a>  <span class="fu">filter</span>(race <span class="sc">!=</span> <span class="st">&quot;Other/Unknown&quot;</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a><span class="fu">ggplot</span>(opt_race, <span class="fu">aes</span>(<span class="at">x =</span> Birthweight, <span class="at">y =</span> race, <span class="at">fill =</span> race)) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">scale =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2500</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">2500</span>, <span class="at">y =</span> <span class="fl">0.5</span>, <span class="at">label =</span> <span class="st">&quot;Low birthweight</span><span class="sc">\n</span><span class="st">threshold (2500g)&quot;</span>, </span>
+<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="fl">1.1</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Birth Weight Distribution by Race&quot;</span>,</span>
+<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;OPT Trial participants, periodontal therapy RCT&quot;</span>,</span>
+<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Birth Weight (grams)&quot;</span>,</span>
+<span id="cb22-23"><a href="#cb22-23" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
+<span id="cb22-24"><a href="#cb22-24" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-25"><a href="#cb22-25" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb22-26"><a href="#cb22-26" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <pre><code>## Picking joint bandwidth of 196</code></pre>
 <p><img src="p10_files/figure-html/opt-ridges-1.png" alt="" width="672" /></p>
 <p>The Native American distribution looked strange, so I checked the
 sample size before making any further inferences:</p>
-<pre class="r"><code>table(opt_race$race)</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">table</span>(opt_race<span class="sc">$</span>race)</span></code></pre></div>
 <pre><code>## 
 ##           Asian           Black        Hispanic Native American           White 
 ##               7             364             210               3             225</code></pre>
 <p>There are 7 Asian and 3 Native American participants. Those
 distributions are unreliable, so they have to be dropped.</p>
-<pre class="r"><code>opt_race &lt;- opt_race %&gt;%
-  filter(race %in% c(&quot;Black&quot;, &quot;White&quot;, &quot;Hispanic&quot;))
-
-ggplot(opt_race, aes(x = Birthweight, y = race, fill = race)) +
-  geom_density_ridges(alpha = 0.7, scale = 1.2) +
-  geom_vline(xintercept = 2500, linetype = &quot;dashed&quot;, color = &quot;gray40&quot;) +
-  scale_fill_brewer(palette = &quot;Set2&quot;) +
-  annotate(&quot;text&quot;, x = 2500, y = 0.5, label = &quot;Low birthweight\nthreshold (2500g)&quot;, 
-           hjust = 1.1, size = 3.5, color = &quot;gray40&quot;) +
-  labs(
-    title = &quot;Birth Weight Distribution by Race&quot;,
-    subtitle = &quot;OPT Trial participants, periodontal therapy RCT&quot;,
-    x = &quot;Birth Weight (grams)&quot;,
-    y = NULL
-  ) +
-  theme_minimal(base_size = 13) +
-  theme(legend.position = &quot;none&quot;)</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>opt_race <span class="ot">&lt;-</span> opt_race <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  <span class="fu">filter</span>(race <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Black&quot;</span>, <span class="st">&quot;White&quot;</span>, <span class="st">&quot;Hispanic&quot;</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="fu">ggplot</span>(opt_race, <span class="fu">aes</span>(<span class="at">x =</span> Birthweight, <span class="at">y =</span> race, <span class="at">fill =</span> race)) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>, <span class="at">scale =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2500</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">2500</span>, <span class="at">y =</span> <span class="fl">0.5</span>, <span class="at">label =</span> <span class="st">&quot;Low birthweight</span><span class="sc">\n</span><span class="st">threshold (2500g)&quot;</span>, </span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="fl">1.1</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Birth Weight Distribution by Race&quot;</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;OPT Trial participants, periodontal therapy RCT&quot;</span>,</span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Birth Weight (grams)&quot;</span>,</span>
+<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span></span>
+<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <pre><code>## Picking joint bandwidth of 133</code></pre>
 <p><img src="p10_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" /></p>
 <p>Did periodontal treatment affect birthweight differently across
 racial groups?</p>
-<pre class="r"><code>ggplot(opt_race, aes(x = Birthweight, y = race, fill = Group)) +
-  geom_density_ridges(alpha = 0.6, scale = 1.2) +
-  geom_vline(xintercept = 2500, linetype = &quot;dashed&quot;, color = &quot;gray40&quot;) +
-  scale_fill_manual(values = c(&quot;T&quot; = &quot;plum4&quot;, &quot;C&quot; = &quot;plum&quot;),
-                    labels = c(&quot;T&quot; = &quot;Treatment&quot;, &quot;C&quot; = &quot;Control&quot;)) +
-  annotate(&quot;text&quot;, x = 2400, y = 0.5, label = &quot;Low birthweight\nthreshold (2500g)&quot;, 
-           hjust = 1.1, size = 3.5, color = &quot;gray40&quot;) +
-  labs(
-    title = &quot;Birth Weight Distribution by Race and Treatment Arm&quot;,
-    subtitle = &quot;Did periodontal treatment affect birthweight differently across racial groups?&quot;,
-    x = &quot;Birth Weight (grams)&quot;,
-    y = NULL,
-    fill = &quot;Treatment Arm&quot;
-  ) +
-  theme_minimal(base_size = 13)</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">ggplot</span>(opt_race, <span class="fu">aes</span>(<span class="at">x =</span> Birthweight, <span class="at">y =</span> race, <span class="at">fill =</span> Group)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>, <span class="at">scale =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2500</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;T&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum4&quot;</span>, <span class="st">&quot;C&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum&quot;</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;T&quot;</span> <span class="ot">=</span> <span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;C&quot;</span> <span class="ot">=</span> <span class="st">&quot;Control&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="dv">2400</span>, <span class="at">y =</span> <span class="fl">0.5</span>, <span class="at">label =</span> <span class="st">&quot;Low birthweight</span><span class="sc">\n</span><span class="st">threshold (2500g)&quot;</span>, </span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="fl">1.1</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">&quot;gray40&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Birth Weight Distribution by Race and Treatment Arm&quot;</span>,</span>
+<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Did periodontal treatment affect birthweight differently across racial groups?&quot;</span>,</span>
+<span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Birth Weight (grams)&quot;</span>,</span>
+<span id="cb28-12"><a href="#cb28-12" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb28-13"><a href="#cb28-13" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Treatment Arm&quot;</span></span>
+<span id="cb28-14"><a href="#cb28-14" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb28-15"><a href="#cb28-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
 <pre><code>## Picking joint bandwidth of 154</code></pre>
 <p><img src="p10_files/figure-html/opt-ridges2-1.png" alt="" width="672" /></p>
 <p>Periodontal treatment did not meaningfully shift birthweight
@@ -861,28 +951,28 @@ nothing to close that gap.</p>
 </div>
 <div id="visualizing-preterm-births" class="section level4">
 <h4>Visualizing Preterm Births</h4>
-<pre class="r"><code>opt_race &lt;- opt_race %&gt;%
-  mutate(Preg.ended...37.wk = trimws(as.character(Preg.ended...37.wk)))
-
-opt_race %&gt;%
-  filter(Preg.ended...37.wk %in% c(&quot;Yes&quot;, &quot;No&quot;)) %&gt;%
-  group_by(race, Group, Preg.ended...37.wk) %&gt;%
-  summarise(n = n(), .groups = &quot;drop&quot;) %&gt;%
-  group_by(race, Group) %&gt;%
-  mutate(pct = n / sum(n)) %&gt;%
-  filter(Preg.ended...37.wk == &quot;Yes&quot;) %&gt;%
-  ggplot(aes(x = race, y = pct, fill = Group)) +
-  geom_col(position = &quot;dodge&quot;, alpha = 0.85) +
-  scale_fill_manual(values = c(&quot;T&quot; = &quot;plum4&quot;, &quot;C&quot; = &quot;plum&quot;),
-                    labels = c(&quot;T&quot; = &quot;Treatment&quot;, &quot;C&quot; = &quot;Control&quot;)) +
-  scale_y_continuous(labels = scales::percent) +
-  labs(
-    title = &quot;Preterm Birth Rate by Race and Treatment Arm&quot;,
-    x = NULL,
-    y = &quot;Preterm Birth Rate&quot;,
-    fill = &quot;Treatment Arm&quot;
-  ) +
-  theme_minimal(base_size = 13)</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>opt_race <span class="ot">&lt;-</span> opt_race <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Preg.ended...37.wk =</span> <span class="fu">trimws</span>(<span class="fu">as.character</span>(Preg.ended...<span class="fl">37.</span>wk)))</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>opt_race <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>  <span class="fu">filter</span>(Preg.ended...<span class="fl">37.</span>wk <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Yes&quot;</span>, <span class="st">&quot;No&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>  <span class="fu">group_by</span>(race, Group, Preg.ended...<span class="fl">37.</span>wk) <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a>  <span class="fu">group_by</span>(race, Group) <span class="sc">%&gt;%</span></span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pct =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a>  <span class="fu">filter</span>(Preg.ended...<span class="fl">37.</span>wk <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-11"><a href="#cb30-11" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> race, <span class="at">y =</span> pct, <span class="at">fill =</span> Group)) <span class="sc">+</span></span>
+<span id="cb30-12"><a href="#cb30-12" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.85</span>) <span class="sc">+</span></span>
+<span id="cb30-13"><a href="#cb30-13" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;T&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum4&quot;</span>, <span class="st">&quot;C&quot;</span> <span class="ot">=</span> <span class="st">&quot;plum&quot;</span>),</span>
+<span id="cb30-14"><a href="#cb30-14" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;T&quot;</span> <span class="ot">=</span> <span class="st">&quot;Treatment&quot;</span>, <span class="st">&quot;C&quot;</span> <span class="ot">=</span> <span class="st">&quot;Control&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb30-15"><a href="#cb30-15" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span></span>
+<span id="cb30-16"><a href="#cb30-16" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb30-17"><a href="#cb30-17" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Preterm Birth Rate by Race and Treatment Arm&quot;</span>,</span>
+<span id="cb30-18"><a href="#cb30-18" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb30-19"><a href="#cb30-19" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Preterm Birth Rate&quot;</span>,</span>
+<span id="cb30-20"><a href="#cb30-20" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;Treatment Arm&quot;</span></span>
+<span id="cb30-21"><a href="#cb30-21" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-22"><a href="#cb30-22" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
 <p><img src="p10_files/figure-html/opt-preterm-1.png" alt="" width="672" /></p>
 <p>Black participants had the highest preterm birth rates overall, and
 treatment made virtually no difference. Hispanic participants showed the
@@ -898,13 +988,13 @@ id="logistic-regression-with-interaction-term-between-race-and-treatment-group"
 class="section level5">
 <h5>Logistic Regression with interaction term between race and treatment
 group</h5>
-<pre class="r"><code>preterm_model &lt;- glm(
-  (Preg.ended...37.wk == &quot;Yes&quot;) ~ race * Group,
-  data = opt_race,
-  family = binomial
-)
-
-summary(preterm_model)</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>preterm_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>  (Preg.ended...<span class="fl">37.</span>wk <span class="sc">==</span> <span class="st">&quot;Yes&quot;</span>) <span class="sc">~</span> race <span class="sc">*</span> Group,</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>  <span class="at">data =</span> opt_race,</span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>  <span class="at">family =</span> binomial</span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>)</span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="fu">summary</span>(preterm_model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = (Preg.ended...37.wk == &quot;Yes&quot;) ~ race * Group, family = binomial, 
