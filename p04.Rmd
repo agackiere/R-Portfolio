@@ -203,4 +203,4 @@ Data covers the past year of streaming history from Spotify's data export. Plays
 saveRDS(df, "p04/spotify_data.rds")
 ```
 
-**To view the Shiny App, go to p04 folder, and you'll find it in the Spotify folder!**
+**To view the Shiny App, visit https://agackiere.shinyapps.io/My_Spotify/**
